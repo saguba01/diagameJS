@@ -1,0 +1,41 @@
+/* Cursor for General */
+html, body {
+    cursor: url('/assets/cursor-auto.png'), default;
+}
+
+a:hover, button:hover, .canClick:hover {
+    cursor: url('/assets/cursor-pointer.png'), pointer;
+}
+
+a:active, button:active, .canClick:active {
+    cursor: url('/assets/cursor-pointer-clicked.png'), pointer;
+}
+
+a:disabled, button:disabled{
+    color: #000000;
+    background-color: #707070;
+    cursor: url('/assets/cursor-pointer-disabled.png'), pointer;
+}
+
+p:hover, label:hover, span:hover, .heading:hover, .subHeading:hover, .inputCursor:hover {
+    cursor: url('/assets/cursor-text.png'), text;
+}
+/* End for General*/
+
+/* Cursor for Sortable */
+.ui-sortable-handle:hover{
+    cursor: url('/assets/cursor-drag.png'),auto !important;
+}
+.ui-sortable-handle:active{
+    cursor: url('/assets/cursor-drag-clicked.png'),auto !important;
+}
+/* End for Sortable*/
+
+/* Cursor for Draggable */
+.ui-draggable-handle:hover{
+    cursor: url('/assets/cursor-drag.png'),auto !important;
+}
+.ui-draggable-handle:active{
+    cursor: url('/assets/cursor-drag-clicked.png'),auto !important;
+}
+/* End for Draggable*/

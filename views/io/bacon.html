@@ -1,0 +1,290 @@
+<div style="width:100%;height: auto;">
+    <div class="center-align panelTool">
+        <!-- ฺBasic -->
+        <div class="noselect source sourceHeader activeSource" type="basic" style="background-color:#FF9D00;">
+            {{elementDefault.basicType}}</div>
+        <div id="source" class="connectedSource source sourcePanel activeSource noselect" type="basic">
+            <div type="element" event="start" source="basic">
+                <svg width="210" height="90">
+                    <rect x="5" y="5" width="200" height="80" rx="40"
+                        style="fill: #FC5972;stroke: #000000;stroke-width: 5px;"></rect>
+                    <text text-anchor="middle" x="105" y="45" alignment-baseline="central"
+                        style="font-size:25px;">{{elementDefault.start}}</text>
+                </svg>
+            </div>
+            <div type="element" event="end" source="basic">
+                <svg width="210" height="90">
+                    <rect x="5" y="5" width="200" height="80" rx="40"
+                        style="fill: #FC5972;stroke: #000000;stroke-width: 5px;"></rect>
+                    <text text-anchor="middle" x="105" y="45" alignment-baseline="central"
+                        style="font-size:25px;">{{elementDefault.end}}</text>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Type Process -->
+        <div class="noselect source sourceHeader" type="process" style="display: none;background-color:#FF9D00;">
+            {{elementDefault.processType}}</div>
+        <div id="source" class="connectedSource source noselect sourcePanel" type="process" style="display: none;">
+            {{svgProcess element.process}}
+        </div>
+
+        <!-- Type io -->
+        <div class="noselect source sourceHeader" type="io" style="display: none;background-color:#FF9D00;">
+            {{elementDefault.ioType}}</div>
+        <div id="source" class="connectedSource source noselect sourcePanel" type="io" style="display: none;">
+            {{svgInput element.input}}
+            {{svgOutput element.output}}
+        </div>
+
+        <!-- Target -->
+        <div id="target" class="center-align connectedSource noselect targetPanel ui-widget-content">
+        </div>
+    </div>
+
+    <!-- Recipe -->
+    <div class="recipe bg-nude">
+        <div class="recipe-header">{{general.recipe}}</div>
+        {{displayRecipe general.step recipe }}
+    </div>
+
+    <!-- Display -->
+    <div id="display" class="display"></div>
+
+    <ul class="tabs">
+        <li style="height: 80px;" class="tab">
+            <div id="playButton" class="canClick jellyButton button-tool">
+                <svg style="width: 20px;height: 30px;margin-top: 14px;margin-left: 3px;">
+                    <path
+                        d="M26.522,10.162,9.16.144a1.071,1.071,0,0,0-1.6.927V21.124a1.071,1.071,0,0,0,1.6.927L26.522,12.033A1.086,1.086,0,0,0,26.522,10.162Z"
+                        transform="translate(-7.556 0)"></path>
+                </svg>
+            </div>
+        </li>
+        <li style="border-bottom: 5px solid black;height: 90px;margin-bottom:12px;" class="tab">
+            <div id="resetButton" class="canClick jellyButton button-tool">
+                <div class="reset-icon"></div>
+            </div>
+        </li>
+        <li class="tab valign-wrapper" style="height: 80px">
+            <div class="canClick jellyButton typeButton selected" type="basic">
+                <div class="basic-icon"></div>
+            </div>
+        </li>
+        <li class="tab valign-wrapper" style="height: 80px">
+            <div class="canClick jellyButton typeButton" type="process">
+                <div class="process-icon"></div>
+            </div>
+        </li>
+        <li class="tab valign-wrapper" style="height: 80px">
+            <div class="canClick jellyButton typeButton" type="io">
+                <div class="io-icon"></div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div id="modal-input" input-data="fire" class="modal">
+    <div class="modal-content">
+        {{general.form.input.fire}}
+    </div>
+    <div class="modal-footer">
+        <button class="modal-button button-element bg-fire-low" input-data="fire" data="low"></button>
+        <button class="modal-button button-element bg-fire-mid" input-data="fire" data="mid"></button>
+        <button class="modal-button button-element bg-fire-high" input-data="fire" data="high"></button>
+    </div>
+</div>
+
+<div id="modal-input" input-data="time" class="modal">
+    <div class="modal-content">
+        {{general.form.input.time}}
+    </div>
+    <div class="modal-footer">
+        <button class="modal-button button-element " input-data="time" data="three">Three</button>
+        <button class="modal-button button-element " input-data="time" data="five">Five</button>
+        <button class="modal-button button-element " input-data="time" data="ten">Ten</button>
+    </div>
+</div>
+
+<script>
+    let refDatabase = firestore.collection("lessons").doc("{{user.uid}}").collection("{{lesson.url}}").doc(
+        "{{subLesson.url}}");
+    var currentFlowchart = tempFlowchart = getFlowchart(refDatabase);
+    var timer;
+
+    $(function () {
+        $('.button-element').click(function () {
+            $(this).addClass('active');
+            $('#modal-input[input-data="' + $(this).attr('input-data')+'"]').modal('close');
+        });
+        $("#source,#target").sortable({
+            connectWith: ".connectedSource",
+            cancel: ".ui-state-disabled",
+            activate: function (event, ui) {
+                $(ui.item[0]).addClass("play_jelly");
+                playSoundEx('pop');
+            },
+            deactivate: function (event, ui) {
+                playSoundEx('drop');
+            },
+            update: function (event, ui) {
+                let targetId = $(event.target).attr('id');
+                let targetSource = $(event.target).attr('type');
+                let uiSource = $(ui.item[0]).attr('source');
+                if (targetId == 'source' && (targetSource != uiSource)) {
+                    $(ui.item[0]).detach().appendTo('#source[type="' + uiSource + '"]');
+                }
+            }
+        });
+
+        //
+        // update arrow between element
+        //
+        $("#target").sortable({
+            cancel: ".ui-state-disabled .arrow",
+            items: "div:not(.arrow)",
+            update: function (event, ui) {
+                updateFlowchart();
+            }
+        });
+        //
+        // end of update arrow function
+        //
+    });
+
+    /*
+    *Description: Game Engine running with start element and end with end element or end of flowchart
+                    and compares temp flowchart and current if isEqual then save flowchart to cloudfirestore.
+    *@version 1.0
+    *@author Prince Pongsakorn
+    *@since 11 Mar 2019
+    *@required jQuery,Firebase Cloud Firestore.
+    */
+    function gameEngine(callback) {
+
+        let start = $('#target').find('[type="element"][event="start"]');
+        var element = start;
+        var timestamp = Date.now();
+        var flowchartBeenEqual = false;
+        // console.log("tempFlowchart: ",tempFlowchart);
+        // console.log("currentFlowchart: ",currentFlowchart);
+        var result = [];
+        var data;
+
+        if (JSON.stringify(tempFlowchart) != JSON.stringify(currentFlowchart)) {
+            currentFlowchart = tempFlowchart;
+            flowchartBeenEqual = false;
+        } else {
+            flowchartBeenEqual = true;
+        }
+        console.log(flowchartBeenEqual);
+
+        !flowchartBeenEqual ? saveFlowchartToFirestore(refDatabase, timestamp) : '';
+        !flowchartBeenEqual ? updateCurrentFlowchart(refDatabase, timestamp) : '';
+
+        $('#display').empty();
+        if(element.length != 0){
+            if(start.next().next().attr('event') != 'end'){
+                play();
+            }else{
+                notice(2000, 'warning', errorMsg.game.nobetween);
+                callback();
+            }
+        }else{
+            notice(2000, 'warning', errorMsg.game.nostart);
+            callback();
+        }
+
+        // Start Function Area
+
+        /*
+        *Description: [Core of gameEngine] recursive function for delay get each elements 
+                        in loop will call runEvent() for play event.
+        *@version 1.0
+        *@author Prince Pongsakorn
+        *@since 11 Mar 2019
+        *@required jQuery,Firebase Cloud Firestore.
+        */
+        function play() {
+            if (element.attr('type') == 'element') {
+                element.removeClass("play_jelly");
+                timer = new Timer(function () {
+                    element.addClass("play_jelly");
+                    console.log('fire lv -> ', data);
+                    runEvent(element, function () {
+                        if (element.attr('event') != 'end') {
+                            element = element.next();
+                            if (element.length != 0) {
+                                play();
+                            } else {
+                                notice(2000, 'warning', errorMsg.game.noend);
+                                callback();
+                            }
+                        } else {
+                            if(element.next().length > 0){
+                                notice(2000, 'warning', errorMsg.game.noplay);
+                            }
+                            callback();
+                        }
+                    });
+                    //next element process
+                    //Don't Edit any line of code !!
+
+                }, 1000);
+            } else {
+                element = element.next();
+                if (element.length != 0) {
+                    play();
+                }
+            }
+        }
+
+        function runEvent(element, callback) {
+            var obj = element.children().children()[1];
+            console.log('runEvent', $(element).attr('event'), $(obj).text());
+            if ($(element).attr('event') != 'start' && $(element).attr('event') != 'end') {
+                result.push($(element).attr('event'));
+            }
+            if($(element).attr('event') == 'end'){
+                resultFlowchart(result);
+            }
+            playSoundEx('drop');
+            if ($(element).attr('sub') == 'input') {
+                $('.button-element').removeClass('active');
+                $('#modal-input[input-data="' + $(element).attr('data')+'"]').modal({
+                    'opacity': 0.5,
+                    'dismissible': false,
+                    'onOpenStart': function () {
+                        $('.button-element[input-data="' + $(element).attr('data')+'"]').removeClass('active');
+                    },
+                    'onCloseEnd': function () {
+                        data = $('.button-element.active[input-data="' + $(element).attr('data')+'"].active').attr('data');
+                        result.push(data);
+                        callback();
+                    }
+                });
+                $('#modal-input[input-data="' + $(element).attr('data')+'"]').modal('open');
+            } else {
+                callback();
+            }
+        }
+
+        function resultFlowchart(result) {
+            var ahievement, keyName, nextFlag = false;
+            if (achievementList.bacon.unlock.indexOf(result.join('-')) > -1) {
+                ahievement = achievementList.bacon;
+                keyName = 'bacon';
+            }else if (achievementList.crispyBacon.unlock.indexOf(result.join('-')) > -1) {
+                ahievement = achievementList.crispyBacon;
+                keyName = 'crispyBacon';
+                nextFlag = true;
+                unlockLesson('{{lesson.url}}', '{{subLesson.url}}', timestamp);
+            }else if (achievementList.burntBacon.unlock.indexOf(result.join('-')) > -1) {
+                ahievement = achievementList.burntBacon;
+                keyName = 'burntBacon';
+            }
+            ahievement ? showAchievement(ahievement.photo, ahievement.name, ahievement.description, nextFlag) : '';
+            keyName ? unlockAchievement(keyName, timestamp) : '';
+        }
+    }
+</script>

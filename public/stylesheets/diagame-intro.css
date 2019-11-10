@@ -1,0 +1,130 @@
+.introjs-tooltip {
+    min-width: 360px;
+    max-width: 360px;
+    width: 360px;
+    border-radius: 9px;
+    box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.16);
+    border: solid 5px #000000;
+    background-color: #ffffff;
+    padding: 0px;
+}
+
+.introjs-bullets {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.introjs-tooltiptext {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 340px;
+    height: auto;
+    font-size: 24px;
+    word-wrap: break-word;
+    padding: 10px 10px 10px 10px;
+}
+
+.introjs-tooltipbuttons {
+    height: 46px;
+    border-top: solid 5px #000000;
+    background-color: #e0cafa;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    padding: 10px;
+}
+
+.introjs-button {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin: 0px;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: 'Mali', cursive;
+    color: #000000;
+    text-shadow: none;
+    cursor: url('/assets/cursor-pointer.png') pointer;
+}
+
+.introjs-button:hover {
+    border-color: #000000;
+    text-decoration: none;
+    box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.16);
+}
+
+.introjs-button:active,
+.introjs-button:focus {
+    cursor: url('/assets/cursor-pointer-clicked.png'), pointer;
+}
+
+.introjs-disabled {
+    cursor: url('/assets/cursor-pointer-disabled.png'), default;
+    color: #9a9a9a;
+}
+
+.introjs-disabled:hover {
+    cursor: url('/assets/cursor-pointer-disabled.png'), default;
+}
+
+.introjs-skipbutton {
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.16);
+    border: solid 5px #000000;
+    background: #7e8cff;
+    float: left;
+}
+
+.introjs-skipbutton:active {
+    background: #2f3da0;
+}
+
+.introjs-skipbutton:focus {
+    background: #7e8cff;
+}
+
+.introjs-prevbutton,
+.introjs-prevbutton:focus {
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.16);
+    border: solid 5px #000000;
+    background: #fecf36;
+    margin-right: 10px;
+}
+
+.introjs-prevbutton:active {
+    background: #e2b319;
+}
+
+.introjs-prevbutton.introjs-disabled {
+    background: #FFF1C6;
+}
+
+.introjs-nextbutton,
+.introjs-nextbutton:focus {
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.16);
+    border: solid 5px #000000;
+    background: #56e3c4;
+}
+
+.introjs-nextbutton:active {
+    background: #33cfad;
+}
+
+.introjs-nextbutton.introjs-disabled {
+    background: #B5FCEC;
+}

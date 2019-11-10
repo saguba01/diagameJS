@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72.185 74.547">
+  <defs>
+    <style>
+      .noodle-1, .noodle-2, .noodle-3, .noodle-4, .noodle-5 {
+        fill: none;
+        stroke-width: 5px;
+      }
+
+      .noodle-1 {
+        stroke: #39657c;
+      }
+
+      .noodle-2 {
+        stroke: #f0cc6a;
+      }
+
+      .noodle-3 {
+        stroke: #ebebeb;
+      }
+
+      .noodle-4 {
+        stroke: #4c9b22;
+      }
+
+      .noodle-5 {
+        stroke: #9f9f9f;
+      }
+    </style>
+  </defs>
+  <g id="noodle" transform="translate(-675.424 -384.531)">
+    <path id="Path_74" data-name="Path 74" class="noodle-1" d="M7306.588,5671.239h-68.652s.07,14.67,13.869,19.56c-.084.159,41.485,0,41.485,0s9.1-7.335,12-14.484" transform="translate(-6560 -5247)"/>
+    <path id="Path_75" data-name="Path 75" class="noodle-2" d="M7303.209,5667.047s-.317-17.282-21.778-11.8" transform="translate(-6560 -5247)"/>
+    <path id="Path_76" data-name="Path 76" class="noodle-2" d="M7284.462,5665.149s4.021-16.3-16.7-14.17" transform="translate(-6560 -5247)"/>
+    <path id="Path_77" data-name="Path 77" class="noodle-3" d="M7282.98,5646.981s-6.864-7.209,1.747-13.4" transform="translate(-6560 -5247)"/>
+    <path id="Path_78" data-name="Path 78" class="noodle-3" d="M7272.262,5644.4s-6.033-3.617,1.379-10.329" transform="translate(-6560 -5247)"/>
+    <path id="Path_79" data-name="Path 79" class="noodle-3" d="M7259.682,5639.239s1.49-4.962,3.791-5.224" transform="translate(-6560 -5247)"/>
+    <path id="Path_80" data-name="Path 80" class="noodle-4" d="M7263.473,5652.54s-13.717-21.953-15.59-6.726c-2.14-.156-13,2.622-4.825,10.7-6.589,14.328,7.159,3.75,16.719,7.7" transform="translate(-6560 -5247)"/>
+    <path id="Path_81" data-name="Path 81" class="noodle-4" d="M7248.419,5653.083s13.146.647,19.57,11.6" transform="translate(-6560 -5247)"/>
+    <path id="Path_82" data-name="Path 82" class="noodle-5" d="M7298.253,5697.354h-53.07" transform="translate(-6560 -5247)"/>
+    <path id="Path_83" data-name="Path 83" class="noodle-5" d="M7289.578,5703.578h-34.946l-4.283-6.366" transform="translate(-6560 -5247)"/>
+  </g>
+</svg>

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70.451 73.33">
+  <defs>
+    <style>
+      .curryrice-1, .curryrice-2, .curryrice-3, .curryrice-5, .curryrice-6 {
+        fill: none;
+        stroke-width: 5px;
+      }
+
+      .curryrice-1 {
+        stroke: #39657c;
+      }
+
+      .curryrice-2 {
+        stroke: #e5e5e5;
+      }
+
+      .curryrice-3 {
+        stroke: #c6973f;
+      }
+
+      .curryrice-4 {
+        fill: #ffbe43;
+      }
+
+      .curryrice-5 {
+        stroke: #f4f4f4;
+      }
+
+      .curryrice-6 {
+        stroke: #47ac2f;
+      }
+    </style>
+  </defs>
+  <g id="curryrice" transform="translate(-958.256 -384.005)">
+    <g id="Group_31" data-name="Group 31">
+      <path id="Path_119" data-name="Path 119" class="curryrice-1" d="M7588.707,5694.625h-70.451" transform="translate(-6560 -5247)"/>
+      <path id="Path_120" data-name="Path 120" class="curryrice-1" d="M7577.483,5701.835H7530.81l-6.274-6.93" transform="translate(-6560 -5247)"/>
+    </g>
+    <g id="Group_30" data-name="Group 30">
+      <path id="Path_121" data-name="Path 121" class="curryrice-2" d="M7526.386,5687.9l2.36-13.363" transform="translate(-6560 -5247)"/>
+      <path id="Path_122" data-name="Path 122" class="curryrice-2" d="M7580.317,5687.9l-2.54-15.132" transform="translate(-6560 -5247)"/>
+    </g>
+    <path id="Path_123" data-name="Path 123" class="curryrice-3" d="M7566.866,5648.1c-5.886-.015-26.152,0-26.152,0a10.9,10.9,0,0,0-8.933,8.971c-1.576,8.086-3.068,16.7-3.068,16.7s9.545,6.257,21.382,0,20.582-5.134,28.322.855c-.715-7.064-2.471-17.555-2.471-17.555S7572.752,5648.11,7566.866,5648.1Z" transform="translate(-6560 -5247)"/>
+    <circle id="Ellipse_14" data-name="Ellipse 14" class="curryrice-4" cx="2.5" cy="2.5" r="2.5" transform="translate(983 408)"/>
+    <circle id="Ellipse_15" data-name="Ellipse 15" class="curryrice-4" cx="2.5" cy="2.5" r="2.5" transform="translate(993 412)"/>
+    <circle id="Ellipse_16" data-name="Ellipse 16" class="curryrice-4" cx="2.5" cy="2.5" r="2.5" transform="translate(1003 408)"/>
+    <circle id="Ellipse_17" data-name="Ellipse 17" class="curryrice-4" cx="2.5" cy="2.5" r="2.5" transform="translate(976 417)"/>
+    <path id="Path_124" data-name="Path 124" class="curryrice-5" d="M7545.5,5642.18s-4.912-4.5,0-9.406" transform="translate(-6560 -5247)"/>
+    <path id="Path_125" data-name="Path 125" class="curryrice-5" d="M7545.5,5642.18s-4.912-4.5,0-9.406" transform="translate(-6550 -5247)"/>
+    <path id="Path_126" data-name="Path 126" class="curryrice-5" d="M7545.5,5642.18s-4.912-4.5,0-9.406" transform="translate(-6541 -5247)"/>
+    <path id="Path_127" data-name="Path 127" class="curryrice-6" d="M7682.754,5684.476s-8.056-13.05-22.729-2.071c6.75,13.819,15.94,3.574,15.94,3.574a15.406,15.406,0,0,0-7.523-1.5" transform="translate(-6667 -5248.248)"/>
+  </g>
+</svg>

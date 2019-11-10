@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 74.668 73.116">
+  <defs>
+    <style>
+      .salmon-1, .salmon-2, .salmon-3 {
+        fill: none;
+        stroke-width: 5px;
+      }
+
+      .salmon-1 {
+        stroke: #9f9f9f;
+      }
+
+      .salmon-2 {
+        stroke: #fc894c;
+      }
+
+      .salmon-3 {
+        stroke: #e0e0e0;
+      }
+    </style>
+  </defs>
+  <g id="salmon" transform="translate(-534.277 -385.962)">
+    <path id="Path_97" data-name="Path 97" class="salmon-1" d="M7298.253,5697.354h-53.07" transform="translate(-6699 -5247)"/>
+    <path id="Path_98" data-name="Path 98" class="salmon-1" d="M7289.578,5703.578h-34.946l-4.283-6.366" transform="translate(-6699 -5247)"/>
+    <path id="Path_99" data-name="Path 99" class="salmon-2" d="M7096.949,5668.581c-.525-3.387.967-22.414,21.925-21.478,15.822.986,14.119,19.754,31.114,20.259,9.327.106,14.5-1.527,16.229,4.53s-9.376,18.608-18.646,18.951-29.876,0-29.876,0S7097.673,5688.806,7096.949,5668.581Z" transform="translate(-6560 -5247)"/>
+    <g id="Group_28" data-name="Group 28">
+      <path id="Path_100" data-name="Path 100" class="salmon-3" d="M7125.577,5641.619s-2.413-3.632,0-6.651" transform="translate(-6560 -5247)"/>
+      <path id="Path_101" data-name="Path 101" class="salmon-3" d="M7136.664,5650.275s2.05-1.9-1.52-7.142,2.519-7.876,2.519-7.876" transform="translate(-6560 -5247)"/>
+      <path id="Path_102" data-name="Path 102" class="salmon-3" d="M7146.268,5655.8s4.565-4.018-.856-11.579,3.159-8.221,3.159-8.221" transform="translate(-6560 -5247)"/>
+    </g>
+    <path id="Path_103" data-name="Path 103" class="salmon-2" d="M7112.813,5677.346s-4.093,5.655-6.738,0,.549-8.407,7.5-7.225c4.81,2.916,5.818,3.965,8.144,3.7" transform="translate(-6560 -5247)"/>
+    <path id="Path_104" data-name="Path 104" class="salmon-2" d="M7159.253,5673.647s-8.605,7.729-16.374,5.26-13.808-4.863-19.441-11.442-7.292,0-7.292,0-13.371-6.118-1.239-12.84c5.4-1.953,4.144,3.781,4.144,3.781" transform="translate(-6560 -5247)"/>
+    <path id="Path_105" data-name="Path 105" class="salmon-2" d="M7128.417,5658.965s1.416,3.3-5.511,7.227" transform="translate(-6560 -5247)"/>
+    <path id="Path_106" data-name="Path 106" class="salmon-2" d="M7137.687,5669.851s-4.253,4.222-6.951,2.938" transform="translate(-6560 -5247)"/>
+    <path id="Path_107" data-name="Path 107" class="salmon-2" d="M7146.862,5671.4s-2.048,5.057-1.881,6.273" transform="translate(-6560 -5247)"/>
+    <path id="Path_108" data-name="Path 108" class="salmon-2" d="M7131.633,5685.876s.479-9.418-1.649-11.613" transform="translate(-6560 -5247)"/>
+    <path id="Path_109" data-name="Path 109" class="salmon-2" d="M7147.935,5685.167s-1.173-5.591-4.4-5.563" transform="translate(-6560 -5247)"/>
+    <path id="Path_110" data-name="Path 110" class="salmon-2" d="M7118.235,5686.622s3.61-2.963,1.5-6.9" transform="translate(-6560 -5247)"/>
+  </g>
+</svg>

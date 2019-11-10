@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 71.233 74.565">
+  <defs>
+    <style>
+      .vegetable-2-svg-1, .vegetable-2-svg-2 {
+        fill: none;
+        stroke-width: 5px;
+      }
+
+      .vegetable-2-svg-1 {
+        stroke: #9728a5;
+      }
+
+      .vegetable-2-svg-2 {
+        stroke: #589142;
+      }
+    </style>
+  </defs>
+  <g id="vegetable_2" transform="translate(-1098.923 -104.061)">
+    <path id="Path_66" data-name="Path 66" class="vegetable-2-svg-1" d="M7698.635,5367.448s-6.436,9.865-27.408,18.856-6.2,46.108,25.836,34.6c26.208-14.32,24.675-29.222,24.357-39.4" transform="translate(-6560 -5247)"/>
+    <path id="Path_67" data-name="Path 67" class="vegetable-2-svg-2" d="M7724.259,5354.931c9.868-3.557-4.785.61-6.369,4.169s-17.929,0-17.929,0l8.926,6.888v10.13l6.567-4.451,10.432,3.084-4.4-11.088" transform="translate(-6560 -5247)"/>
+  </g>
+</svg>

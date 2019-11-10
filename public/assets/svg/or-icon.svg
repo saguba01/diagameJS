@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 30">
+  <defs>
+    <style>
+      .cls-1 {
+        font-size: 26px;
+        font-family: ArialRoundedMTBold, Arial Rounded MT Bold;
+      }
+    </style>
+  </defs>
+  <text id="OR" class="cls-1" transform="translate(0 25)"><tspan x="0" y="0">OR</tspan></text>
+</svg>

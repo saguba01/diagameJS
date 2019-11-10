@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 73.942 69.43">
+  <defs>
+    <style>
+      .vegetable-1-svg-1 {
+        fill: none;
+        stroke: #2baf30;
+        stroke-width: 5px;
+      }
+    </style>
+  </defs>
+  <g id="vegetable_1" transform="translate(-1238.218 -108.116)">
+    <path id="Path_65" data-name="Path 65" class="vegetable-1-svg-1" d="M7813.682,5420.655c-7.911,4.8,5.675-4.455,12.958-4.383s18.547.625,18.547.625,14.75-2.58,12.522-16.25c7.017-3.854,17.443-9.612,8.422-22.316-.012-.02-3.143-4.006,1.1,1.738" transform="translate(-6560 -5247)"/>
+    <path id="Path_63" data-name="Path 63" class="vegetable-1-svg-1" d="M7828.51,5389.239s-8.559-12.557-2.965-4.161" transform="translate(-6560 -5247)"/>
+    <path id="Path_64" data-name="Path 64" class="vegetable-1-svg-1" d="M7833.771,5383.347s18.053,4.1,6.649,1.493" transform="translate(-6560 -5247)"/>
+    <path id="Path_62" data-name="Path 62" class="vegetable-1-svg-1" d="M7821.986,5396.6c-11.753,12.309,33.645-35.457,22.188-22.913" transform="translate(-6560 -5247)"/>
+    <path id="Path_61" data-name="Path 61" class="vegetable-1-svg-1" d="M7806.477,5417.7c-6.159,7.416,2.5-5.432,15.3-10.09,16.538-.167,31.09,1.574,26.012-10.932,17.248-4.467,14.523-16,4.923-17.165,16.4-18.442-3.108-26.168-12.663-14.809-9.121-16.6-17.691.249-18.271,7.873-8.691-10.144-12.158,4.5-12.158,4.5a70.211,70.211,0,0,0,.559,12.76c.954,8.666-14.343,27.368-7.8,18.712" transform="translate(-6560 -5247)"/>
+  </g>
+</svg>

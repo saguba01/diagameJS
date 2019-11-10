@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 449 449">
+  <defs>
+    <style>
+      .glass-1, .glass-2 {
+        stroke: #000;
+        stroke-width: 5px;
+      }
+
+      .glass-1 {
+        fill: url(#glass-radial-gradient);
+      }
+
+      .glass-2 {
+        fill: rgba(204,255,245,0.2);
+      }
+
+      .glass-3 {
+        stroke: none;
+      }
+
+      .glass-4 {
+        fill: none;
+      }
+    </style>
+    <radialGradient id="glass-radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.455"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0.502"/>
+    </radialGradient>
+  </defs>
+  <g id="grass" transform="translate(-852 -386)">
+    <g id="Ellipse_31" data-name="Ellipse 31" class="glass-1" transform="translate(852 386)">
+      <circle class="glass-3" cx="224.5" cy="224.5" r="224.5"/>
+      <circle class="glass-4" cx="224.5" cy="224.5" r="222"/>
+    </g>
+    <g id="Ellipse_32" data-name="Ellipse 32" class="glass-2" transform="translate(867 401)">
+      <circle class="glass-3" cx="209.5" cy="209.5" r="209.5"/>
+      <circle class="glass-4" cx="209.5" cy="209.5" r="207"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 73.695 74.915">
+  <defs>
+    <style>
+      .steak-1, .steak-2, .steak-3, .steak-4, .steak-5, .steak-7 {
+        fill: none;
+      }
+
+      .steak-1 {
+        stroke: #9f9f9f;
+      }
+
+      .steak-1, .steak-2, .steak-3, .steak-4, .steak-5 {
+        stroke-width: 5px;
+      }
+
+      .steak-2 {
+        stroke: #c6973f;
+      }
+
+      .steak-3 {
+        stroke: #47ac2f;
+      }
+
+      .steak-4 {
+        stroke: #aa7f2f;
+      }
+
+      .steak-5 {
+        stroke: #e0e0e0;
+      }
+
+      .steak-6 {
+        stroke: none;
+      }
+    </style>
+  </defs>
+  <g id="steak" transform="translate(-1096.87 -386.164)">
+    <path id="Path_111" data-name="Path 111" class="steak-1" d="M7298.253,5697.354h-53.07" transform="translate(-6136 -5245)"/>
+    <path id="Path_112" data-name="Path 112" class="steak-1" d="M7289.578,5703.578h-34.946l-4.283-6.366" transform="translate(-6136 -5245)"/>
+    <path id="Path_114" data-name="Path 114" class="steak-2" d="M7663.857,5679.536c-1.335-4.711-.32-18.7-.32-18.7s7.941-16.064,18.342-16.249,21.065,22.49,32.107,22.553,13.76,1.669,13.974,3.432a62.933,62.933,0,0,1,0,6.488s-5.494,14.794-16.3,14.766-26.714,0-26.714,0" transform="translate(-6560 -5247)"/>
+    <path id="Path_113" data-name="Path 113" class="steak-3" d="M7686.179,5685.45s-9.27-15.017-26.154-2.384c7.768,15.9,18.343,4.112,18.343,4.112a17.723,17.723,0,0,0-8.657-1.729" transform="translate(-6560 -5247)"/>
+    <path id="Path_115" data-name="Path 115" class="steak-4" d="M7691.031,5671.682s13.028,13.255,27.95,4.505" transform="translate(-6560 -5247)"/>
+    <g id="Ellipse_13" data-name="Ellipse 13" class="steak-4" transform="translate(1118 413)">
+      <circle class="steak-6" cx="8" cy="8" r="8"/>
+      <circle class="steak-7" cx="8" cy="8" r="5.5"/>
+    </g>
+    <g id="Group_29" data-name="Group 29">
+      <path id="Path_116" data-name="Path 116" class="steak-5" d="M7689.931,5640.865s-4.466-2.279,0-5.722" transform="translate(-6560 -5247)"/>
+      <path id="Path_117" data-name="Path 117" class="steak-5" d="M7698.2,5649.938s5.205-2.154.67-6.461,1.717-7.677,1.717-7.677" transform="translate(-6560 -5247)"/>
+      <path id="Path_118" data-name="Path 118" class="steak-5" d="M7708.474,5656.047s7.057-3.374,1.327-10.489,1.659-10.06,1.659-10.06" transform="translate(-6560 -5247)"/>
+    </g>
+  </g>
+</svg>

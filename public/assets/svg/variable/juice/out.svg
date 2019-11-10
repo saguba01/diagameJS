@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 848.936 895.246">
+  <defs>
+    <style>
+      .out-glass-1 {
+        opacity: 0.923;
+        fill: url(#out-radial-gradient);
+      }
+    </style>
+    <radialGradient id="out-radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ffd433"/>
+      <stop offset="1" stop-color="#fcba41"/>
+    </radialGradient>
+  </defs>
+  <g id="out" transform="translate(-623.797 -185.095)">
+    <path id="out-2" data-name="out" class="out-glass-1" d="M9625.855,5540.94c104.859-11.451,166.356-136.042,229.736-69.281s7.5,115.1,65.785,207.184,162.681,97.967,185.386,198.452-91.018,100.936-129.129,201.581,52.768,234.606-56.257,262.4-206.017-46.046-333.341-96.718-84.823-146.468-169.464-202.687-147.044,3.11-156.979-74.737,75.694-124.73,117.236-236.654S9366,5566.82,9427.76,5519.436,9521,5552.391,9625.855,5540.94Z" transform="translate(-8637 -5267)"/>
+  </g>
+</svg>

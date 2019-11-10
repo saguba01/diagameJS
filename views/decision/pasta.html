@@ -1,0 +1,511 @@
+<div style="width:100%;height: auto;">
+    <div class="center-align panelTool">
+        <!-- ฺBasic -->
+        <div class="noselect source sourceHeader activeSource" type="basic" style="background-color:#FF9D00;">
+            {{elementDefault.basicType}}</div>
+        <div id="source" class="connectedSource source sourcePanel activeSource noselect" type="basic">
+            <div type="element" event="start" source="basic">
+                <svg width="210" height="90">
+                    <rect x="5" y="5" width="200" height="80" rx="40"
+                        style="fill: #FC5972;stroke: #000000;stroke-width: 5px;"></rect>
+                    <text text-anchor="middle" x="105" y="45" alignment-baseline="central"
+                        style="font-size:25px;">{{elementDefault.start}}</text>
+                </svg>
+            </div>
+            <div type="element" event="end" source="basic">
+                <svg width="210" height="90">
+                    <rect x="5" y="5" width="200" height="80" rx="40"
+                        style="fill: #FC5972;stroke: #000000;stroke-width: 5px;"></rect>
+                    <text text-anchor="middle" x="105" y="45" alignment-baseline="central"
+                        style="font-size:25px;">{{elementDefault.end}}</text>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Type Process -->
+        <div class="noselect source sourceHeader" type="process" style="display: none;background-color:#FF9D00;">
+            {{elementDefault.processType}}</div>
+        <div id="source" class="connectedSource source noselect sourcePanel" type="process" style="display: none;">
+            {{svgProcess element.process}}
+        </div>
+
+        <!-- Type io -->
+        <div class="noselect source sourceHeader" type="io" style="display: none;background-color:#FF9D00;">
+            {{elementDefault.ioType}}</div>
+        <div id="source" class="connectedSource source noselect sourcePanel" type="io" style="display: none;">
+            {{svgInput element.input}}
+            {{svgOutput element.output}}
+        </div>
+
+        <!-- Type Decision -->
+        <div class="noselect source sourceHeader" type="decision" style="display: none;background-color:#FF9D00;">
+            {{elementDefault.decisionType}}</div>
+        <div id="source" class="connectedSource source noselect sourcePanel" type="decision" style="display: none;">
+            {{svgDecision element.decision}}
+        </div>
+
+        <!-- Target -->
+        <div id="target" class="center-align connectedSource noselect targetPanel ui-widget-content">
+        </div>
+    </div>
+
+    <!-- Recipe -->
+    <div class="recipe bg-nude">
+        <div class="recipe-header">{{general.recipe}}</div>
+        {{displayRecipe general.step recipe }}
+    </div>
+
+    <!-- Display -->
+    <div id="display" class="display"></div>
+
+    <ul class="tabs">
+        <li style="height: 80px;" class="tab">
+            <div id="playButton" class="canClick jellyButton button-tool">
+                <svg style="width: 20px;height: 30px;margin-top: 14px;margin-left: 3px;">
+                    <path
+                        d="M26.522,10.162,9.16.144a1.071,1.071,0,0,0-1.6.927V21.124a1.071,1.071,0,0,0,1.6.927L26.522,12.033A1.086,1.086,0,0,0,26.522,10.162Z"
+                        transform="translate(-7.556 0)"></path>
+                </svg>
+            </div>
+        </li>
+        <li style="border-bottom: 5px solid black;height: 90px;margin-bottom:12px;" class="tab">
+            <div id="resetButton" class="canClick jellyButton button-tool">
+                <div class="reset-icon"></div>
+            </div>
+        </li>
+        <li class="tab valign-wrapper" style="height: 80px">
+            <div class="canClick jellyButton typeButton selected" type="basic">
+                <div class="basic-icon"></div>
+            </div>
+        </li>
+        <li class="tab valign-wrapper" style="height: 80px">
+            <div class="canClick jellyButton typeButton" type="process">
+                <div class="process-icon"></div>
+            </div>
+        </li>
+        <li class="tab valign-wrapper" style="height: 80px">
+            <div class="canClick jellyButton typeButton" type="io">
+                <div class="io-icon"></div>
+            </div>
+        </li>
+        <li class="tab valign-wrapper" style="height: 80px">
+            <div class="canClick jellyButton typeButton" type="decision">
+                <div class="decision-icon"></div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div id="modal-input" input-data="pasta" class="modal">
+    <div class="modal-content">
+        {{general.form.input.pasta}}
+    </div>
+    <div class="modal-footer">
+        <button class="modal-button button-element" input-data="pasta" data="true"
+            style="float:left;margin-left: 45px;">T</button>
+        <button class="modal-button button-element" input-data="pasta" data="false" style="float:right">F</button>
+    </div>
+</div>
+<div id="modal-input" input-data="sauce" class="modal">
+    <div class="modal-content">
+        {{general.form.input.sauce}}
+    </div>
+    <div class="modal-footer">
+        <button class="modal-button button-element" input-data="sauce" data="true"
+            style="float:left;margin-left: 45px;">T</button>
+        <button class="modal-button button-element" input-data="sauce" data="false" style="float:right">F</button>
+    </div>
+</div>
+
+<script>
+    let refDatabase = firestore.collection("lessons").doc("{{user.uid}}").collection("{{lesson.url}}").doc(
+        "{{subLesson.url}}");
+    var currentFlowchart = tempFlowchart = getFlowchart();
+
+    $(function () {
+        $('.button-element').click(function () {
+            $(this).addClass('active');
+            $('#modal-input[input-data="' + $(this).attr('input-data') + '"]').modal('close');
+        });
+        $("#source,#target").sortable({
+            connectWith: ".connectedSource",
+            cancel: ".ui-state-disabled",
+            items: "[type='element']:not([type='element']>*)",
+            // items: "div:not(.ui-state-disabled),[type='element']:not([type='element']>*)",
+            activate: function (event, ui) {
+                $(ui.item[0]).addClass("play_jelly");
+                playSoundEx('pop');
+            },
+            deactivate: function (event, ui) {
+                playSoundEx('drop');
+            },
+            update: function (event, ui) {
+                updateFlowchart();
+
+                let targetId = $(event.target).attr('id');
+                let targetSource = $(event.target).attr('type');
+                let targetCurrent = $(ui.item[0]).parent().attr('id');
+                let uiSource = $(ui.item[0]).attr('source');
+                if (targetId == 'source' && (targetSource != uiSource)) {
+                    $(ui.item[0]).detach().appendTo('#source[type="' + uiSource + '"]');
+                    detachDecision(ui.item[0]);
+                }
+                if (targetSource == 'decision' && targetCurrent == 'target') {
+                    makeDecision($(ui.item[0]));
+                } else if (targetSource == 'decision' && targetCurrent != 'target') {
+                    detachDecision(ui.item[0]);
+                }
+
+                if ($('#target').find('[source="decision"]').length == 0) {
+                    $("#target").width(320);
+                }
+            }
+        });
+
+        $("#target").disableSelection();
+
+    });
+
+    /*
+    *Description: Game Engine running with start element and end with end element or end of flowchart
+                  and compares temp flowchart and current if isEqual then save flowchart to cloudfirestore.
+    *@version 1.0
+    *@author Prince Pongsakorn
+    *@since 11 Mar 2019
+    *@required jQuery,Firebase Cloud Firestore.
+    */
+    function gameEngine(callback) {
+
+        let start = $('#target').find('[type="element"][event="start"]');
+        var element = start;
+        var timestamp = Date.now();
+        var flowchartBeenEqual = false;
+        // console.log("tempFlowchart: ",tempFlowchart);
+        // console.log("currentFlowchart: ",currentFlowchart);
+        var result = [];
+        var data;
+
+        if (JSON.stringify(tempFlowchart) != JSON.stringify(currentFlowchart)) {
+            currentFlowchart = tempFlowchart;
+            flowchartBeenEqual = false;
+        } else {
+            flowchartBeenEqual = true;
+        }
+        console.log(flowchartBeenEqual);
+
+        !flowchartBeenEqual ? saveFlowchartToFirestore(refDatabase, timestamp) : '';
+        !flowchartBeenEqual ? updateCurrentFlowchart(refDatabase, timestamp) : '';
+
+        $('#display').empty();
+        if (element.length != 0) {
+            if(start.next().next().attr('event') != 'end'){
+                play();
+            }else{
+                notice(2000, 'warning', errorMsg.game.nobetween);
+                callback();
+            }
+        } else {
+            notice(2000, 'warning', errorMsg.game.nostart);
+            callback();
+        }
+
+        // Start Function Area
+
+        /*
+        *Description: [Core of gameEngine] recursive function for delay get each elements 
+                      in loop will call runEvent() for play event.
+        *@version 1.2 
+        *@Update call Play func again when runEvent Callback.
+        *@author Prince Pongsakorn
+        *@since 11 Mar 2019
+        *@required jQuery,Firebase Cloud Firestore.
+        */
+        function play() {
+            if (element.attr('type') == 'element') {
+                element.removeClass("play_jelly");
+                timer = new Timer(function () {
+                    if (element.attr('source') != "decision") {
+                        element.addClass("play_jelly");
+                    }
+                    runEvent(element, function () {
+                        if (element.attr('event') != 'end') {
+                            element = element.next();
+                            if (element.length != 0) {
+                                play();
+                            } else {
+                                notice(2000, 'warning', errorMsg.game.noend);
+                                callback();
+                            }
+                        } else {
+                            if(element.next().length > 0){
+                                notice(2000, 'warning', errorMsg.game.noplay);
+                            }
+                            callback();
+                        }
+                    });
+                    //next element process
+                    //Don't Edit any line of code !!
+                }, 1000);
+            } else {
+                element = element.next();
+                if (element.length != 0) {
+                    play();
+                }
+            }
+        }
+        /*
+        *Description: [game engine for Decision] recursive function for delay get each elements 
+                      in loop will call runEvent() for play event.
+        *@version 1.0
+        *@author Prince Pongsakorn
+        *@since 8 Apr 2019
+        *@required jQuery.
+        */
+        function playDecision(element, callback) {
+            // console.log(element);
+            if (element.attr('type') == 'element') {
+                element.removeClass("play_jelly");
+                timer = new Timer(function () {
+                    element.addClass("play_jelly");
+                    // console.log(element);
+                    runEvent(element, function () {
+                        if (element.attr('event') != 'endDecision') {
+                            element = element.next();
+                            if (element.length != 0) {
+                                playDecision(element, function () {
+                                    callback();
+                                });
+                            } else {
+                                callback();
+                            }
+                        }
+                    });
+                }, 1000);
+            } else {
+                element = element.next();
+                if (element.length != 0) {
+                    playDecision(element);
+                }
+            }
+        }
+
+        function runEvent(element, callback) {
+            var obj = element.children().children()[1];
+            // console.log('runEvent', $(element).attr('event'), $(obj).text());
+            if ($(element).attr('event') != 'start' && $(element).attr('event') != 'end') {
+                result.push($(element).attr('event'));
+            }
+            if ($(element).attr('event') == 'end') {
+                resultFlowchart(result);
+            }
+            playSoundEx('drop');
+            if ($(element).attr('sub') == 'input') {
+                $('.button-element').removeClass('active');
+                $('#modal-input[input-data="' + $(element).attr('data') + '"]').modal({
+                    'opacity': 0.5,
+                    'dismissible': false,
+                    'onOpenStart': function () {
+                        $('.button-element[input-data="' + $(element).attr('data') + '"]').removeClass('active');
+                    },
+                    'onCloseEnd': function () {
+                        data = $('.button-element[input-data="' + $(element).attr('data') + '"].active').attr('data');
+                        result.push(data);
+                        callback();
+                    }
+                });
+                $('#modal-input[input-data="' + $(element).attr('data') + '"]').modal('open');
+
+            } else if ($(element).attr('source') == 'decision') {
+                let status = 'true';
+                $(element).find('svg#startDecision').addClass("play_jelly");
+                let elementDecision = $(element).find('[type="' + status + '"]').find('[type="element"]:first-child');
+                if (elementDecision.length > 0) {
+                    console.log(elementDecision);
+                    $(element).find('[event="endDecision"]').removeClass("play_jelly");
+                    playDecision(elementDecision, function () {
+                        timer = new Timer(function () {
+                            playSoundEx('drop');
+                            $(element).find('[event="endDecision"]').addClass("play_jelly");
+                            $(element).find('svg#startDecision').removeClass("play_jelly");
+                            callback();
+                        }, 1000);
+                    });
+                } else {
+                    $(element).find('[event="endDecision"]').removeClass("play_jelly");
+                    timer = new Timer(function () {
+                        playSoundEx('drop');
+                        $(element).find('[event="endDecision"]').addClass("play_jelly");
+                        $(element).find('svg#startDecision').removeClass("play_jelly");
+                        callback();
+                    }, 1000);
+                }
+            } else {
+                callback();
+            }
+        }
+
+        function resultFlowchart(result) {
+            console.log(result);
+            var ahievement, keyName, nextFlag = false;
+            if (achievementList.mediumRareSteak.unlock.indexOf(result.join('-')) > -1) {
+                ahievement = achievementList.mediumRareSteak;
+                keyName = 'mediumRareSteak';
+                nextFlag = true;
+                unlockLesson('{{lesson.url}}', '{{subLesson.url}}', timestamp);
+            } else if (achievementList.mediumWellSteak.unlock.indexOf(result.join('-')) > -1) {
+                ahievement = achievementList.mediumWellSteak;
+                keyName = 'mediumWellSteak';
+                nextFlag = true;
+                unlockLesson('{{lesson.url}}', '{{subLesson.url}}', timestamp);
+            }
+            ahievement ? showAchievement(ahievement.photo, ahievement.name, ahievement.description, nextFlag) : '';
+            keyName ? unlockAchievement(keyName, timestamp) : '';
+        }
+    }
+
+    function makeDecision(element) {
+        let endDecision =
+            "<div type='element' class = 'ui-state-disabled' event = 'endDecision'><svg width='44' height='44'><g style='fill: #FF9D00; stroke: #000000;stroke-width: 5px;'><circle cx='20' cy='20' r='15'/></g></svg></div>";
+        let arrowStart =
+            "<div type='arrowDecisionStart' class = 'ui-state-disabled'><div class = 'decisionText'><div class = 'true'>True</div><div class = 'false'>False</div></div><svg width='317.5' height='60'><g id='L' transform='translate(-521 -251.409)' style='stroke: #000; stroke-width: 5px;'><line id='Line_15' data-name='Line 15' class='cls-1' y2='57' transform='translate(523.5 256.5)'/><path id='Path_155' data-name='Path 155' class='cls-1' d='M662.213,253.909H496.1c-1.567,0-2.663.125-2.616,3.591' transform='translate(30.016)'/><path id='Path_156' data-name='Path 156' class='cls-1' d='M493.484,253.909H634.533c1.331,0,2.261.112,2.222,3.23' transform='translate(199.744 3.591)'/><line id='Line_37' data-name='Line 37' class='cls-1' y2='53' transform='translate(836 258.5)'/></g></svg></div>";
+        let arrowEnd =
+            "<div type='arrowDecisionEnd' class = 'ui-state-disabled'><svg width='319' height='60'><g id='arrow_decision_close' data-name='arrow decision close' transform='translate(-155 -381.895)' style='stroke: #000; stroke-width: 5px;'><g id='L' transform='translate(116.893 369.5)'><line id='Line_15' data-name='Line 15' class='cls-1' y1='37' transform='translate(40.607 12.395)'/><path id='Path_18' data-name='Path 18' class='cls-1' d='M5049.152,4268.1c-7.526,10.174,6-8.754,8.058-8.754s15.149,18.38,8.037,8.754' transform='translate(4432.447 -5006.239) rotate(90)'/><path id='Path_158' data-name='Path 158' class='cls-1' d='M623.421,256.068H495.5c-1.207,0-2.051-.075-2.015-2.158' transform='translate(-452.878 -205.188)'/></g><g id='R' transform='translate(401.5 369.5)'><line id='Line_15-2' data-name='Line 15' class='cls-1' y1='37' transform='translate(69 13.482)'/><path id='Path_18-2' data-name='Path 18' class='cls-1' d='M5049.152,4268.1c-7.526,10.174,6-8.754,8.058-8.754s15.149,18.38,8.037,8.754' transform='translate(-4056.089 5325.292) rotate(-93)'/><path id='Path_159' data-name='Path 159' class='cls-1' d='M493.484,256.974H625.551c1.246,0,2.117-.106,2.08-3.065' transform='translate(-558.632 -204.68)'/></g></g></svg></div>";
+        let sortableArea =
+            "<div type='decisionElements' style='width: 100%;display: inline-flex;' class = 'ui-state-disabled'> <div style='display: inline-block;width: 50%;min-height: 50px;' type = 'true' class = 'connectedSource play_jelly'></div> <div style='display: inline-block;width: 50%;min-height: 50px;' type = 'false' class = 'connectedSource play_jelly'></div> </div>";
+
+        // let element = $(ui.item[0]);
+        element.append(arrowStart);
+        element.append(sortableArea);
+        element.append(arrowEnd);
+        element.append(endDecision);
+
+
+        element.find("[type = 'true']").sortable({
+            // placeholder: "sortable-placeholder",
+            connectWith: ".connectedSource",
+            update: function (event, ui) {
+                updateDecisionArrow(element.parent().parent());
+            },
+            start: function (event, ui) {
+                $(ui.item[0]).find('.arrowDecisionTrue').detach();
+            }
+        });
+        element.find("[type = 'false']").sortable({
+            // placeholder: "sortable-placeholder",
+            connectWith: ".connectedSource",
+            update: function (event, ui) {
+                updateDecisionArrow(element.parent().parent());
+            },
+            start: function (event, ui) {
+                $(ui.item[0]).find('.arrowDecisionFalse').detach();
+            }
+        });
+
+        $("#target").width(($('#target').find('[source="decision"]').length + 1) * 320);
+    }
+
+    function updateDecisionArrow(decisionElements) {
+        decisionElements.find('[type="true"]').find('[type="element"]').each(function (index, element) {
+            if ($(this).find('.arrowDecisionTrue').length == 0) {
+                $(this).prepend('<div class = "arrowDecisionTrue"></div>');
+            }
+        });
+        decisionElements.find('[type="false"]').find('[type="element"]').each(function (index, element) {
+            if ($(this).find('.arrowDecisionFalse').length == 0) {
+                $(this).prepend('<div class = "arrowDecisionFalse"></div>');
+            }
+        });
+    }
+
+    function detachDecision(item) {
+        $(item).find('[event="endDecision"]').detach();
+        $(item).find('[type="arrowDecisionStart"]').detach();
+        $(item).find('[type="arrowDecisionEnd"]').detach();
+        $(item).find('[type="decisionElements"]').find('[type="element"]').each(function (index, element) {
+            let uiSource = $(element).attr('source');
+            $(element).find('.arrowDecisionFalse').detach();
+            $(element).find('.arrowDecisionTrue').detach();
+            $(element).detach().appendTo('#source[type="' + uiSource + '"]');
+        });
+        $(item).find('[type="decisionElements"]').detach();
+
+    }
+
+    function getFlowchart() {
+        blockUI();
+        var flowchart = [];
+        refDatabase.get().then(function (doc) {
+            if (doc.exists) {
+                //if doc exists
+                let currentFlowchartId = doc.data().currentFlowchart;
+                console.log("flowchart:" + currentFlowchartId);
+                refDatabase.collection("flowchart:" + currentFlowchartId).orderBy("seq").get().then(function (
+                    querySnapshot) {
+                    querySnapshot.forEach(function (doc) {
+                        console.log(doc.id, " => ", doc.data());
+                        if (doc.data().event.substr(0, 2) == 'dc') {
+                            // refDatabase.collection("flowchart:" + currentFlowchartId).
+                            // console.log(doc.id);
+                            $("div[type='element'][event='" + doc.data().event +
+                                    "'][condition='" + doc.data().condition + "']").detach()
+                                .appendTo("#target");
+                            makeDecision($('[event="' + doc.data().event + '"]'));
+                            refDatabase.collection("flowchart:" + currentFlowchartId).doc(doc
+                                .id).collection("true").orderBy("seq").get().then(function (
+                                querySnapshot) {
+                                querySnapshot.forEach(function (decisonDoc) {
+                                    $("div[type='element'][event='" + decisonDoc
+                                            .data().event + "']").detach()
+                                        .appendTo($('[event="' + doc.data()
+                                            .event + '"]').find(
+                                            '[type="true"]'));
+                                    updateDecisionArrow($('[event="' + doc
+                                        .data().event + '"]'));
+                                    // $('[event="' + doc.data().event + '"]').find('[type="true"]').append();
+                                });
+                            }).catch(function (error) {
+                                console.log(error);
+                            });
+                            refDatabase.collection("flowchart:" + currentFlowchartId).doc(doc
+                                .id).collection("false").orderBy("seq").get().then(
+                                function (querySnapshot) {
+                                    querySnapshot.forEach(function (decisonDoc) {
+                                        $("div[type='element'][event='" + decisonDoc
+                                                .data().event + "']").detach()
+                                            .appendTo($('[event="' + doc.data()
+                                                .event + '"]').find(
+                                                '[type="false"]'));
+                                        updateDecisionArrow($('[event="' + doc
+                                            .data().event + '"]'));
+                                    });
+                                }).catch(function (error) {
+                                console.log(error);
+                            });
+
+                        } else {
+                            $("div[type='element'][event='" + doc.data().event + "']").detach()
+                                .appendTo("#target");
+                            flowchart.push(doc.data().event);
+                            // doc.data().event
+                        }
+                    });
+
+                    unblockUI();
+                    updateFlowchart();
+                    return flowchart;
+                    // console.log(currentFlowchart);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            } else {
+                // if doc is not exists
+                unblockUI();
+                return flowchart;
+            }
+        }).catch(function (error) {
+            console.log(error);
+            unblockUI();
+            return flowchart;
+        });
+    }
+</script>

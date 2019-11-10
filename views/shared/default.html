@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="/images/diagame.ico">
+  <title>{{ general.site.title }}</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+    crossorigin="anonymous">
+  <!-- {{linklang lang}} -->
+  <link href="https://fonts.googleapis.com/css?family=Mali" rel="stylesheet">
+  <link rel="stylesheet" href="/stylesheets/fonts/font.css"/>
+  <link rel="stylesheet" href="/materialize-css/dist/css/materialize.min.css" />
+
+  <!-- jquery -->
+  <script src="/jquery/dist/jquery.min.js"></script>
+  <script src="/materialize-css/dist/js/materialize.min.js"></script>
+  <script src="/popper.js/dist/umd/popper.min.js"></script>
+  <script src="/javascripts/jquery/jquery-ui.min.js"></script>
+  <script src="/javascripts/jquery/jquery.ui.touch-punch.min.js"></script>
+  <script src="/javascripts/jquery/jquery.validate.min.js"></script>
+  <script src="/javascripts/jquery/additional-methods.min.js"></script>
+  <script src="/javascripts/jquery/jquery.blockUI.js"></script>
+
+
+  <!-- TURN.JS -->
+  <script src="/javascripts/turn.js/hash.js"></script>
+  <script src="/javascripts/turn.js/scissor.min.js"></script>
+  <script src="/javascripts/turn.js/turn.html4.min.js"></script>
+  <script src="/javascripts/turn.js/turn.min.js"></script>
+  <script src="/javascripts/turn.js/zoom.min.js"></script>
+
+  <!-- firebase -->
+  <script src="/firebase/firebase-app.js"></script>
+  <script src="/firebase/firebase-auth.js"></script>
+  <script src="/firebase/firebase-firestore.js"></script>
+  <!-- import 'firebase/firestore'; -->
+
+  <script src="/javascripts/firebase/init.js"></script>
+
+  <!-- cuesor -->
+  <link rel="stylesheet" href="/stylesheets/cursor.css">
+
+  <!-- animation -->
+  <link rel="stylesheet" href="/stylesheets/jelly-animation.css">
+  <link rel="stylesheet" href="/stylesheets/splat-animation.css">
+  <link rel="stylesheet" href="/stylesheets/rotate-animation.css">
+  <link rel="stylesheet" href="/stylesheets/scale-out-animation.css">
+  <link rel="stylesheet" href="/stylesheets/slide-out-animation.css">
+  <link rel="stylesheet" href="/stylesheets/shake-vertical-animation.css">
+  <link rel="stylesheet" href="/stylesheets/color-change-animation.css">
+  <link rel="stylesheet" href="/stylesheets/scale-in-animation.css">
+  <script src="/javascripts/jelly-button.js"></script>
+
+  <!-- Sortable -->
+  <link rel="stylesheet" href="/stylesheets/ui-sortable.css">
+
+  <!-- vivus -->
+  <script src="/vivus/dist/vivus.min.js"></script>
+
+  <!-- toastr -->
+  <link rel="stylesheet" href="/toastr/build/toastr.min.css">
+  <script src="/toastr/build/toastr.min.js"></script>
+
+  <!-- fittext -->
+  <script src="/javascripts/fittext/jquery.fittext.js"></script>
+
+  <!-- typed.js -->
+  <script src="/typed.js/lib/typed.min.js"></script>
+
+  <!-- intro.js -->
+  <link rel="stylesheet" href="/intro.js/introjs.css">
+  <script src="/intro.js/intro.js"></script>
+
+  <!-- animejs -->
+  <script src="/animejs/lib/anime.min.js"></script>
+
+  <!-- diagame -->
+  <link rel="stylesheet" href="/stylesheets/diagame.css">
+  <link rel="stylesheet" href="/stylesheets/diagame-game.css">
+  <link rel="stylesheet" href="/stylesheets/diagame-toast.css">
+  <link rel="stylesheet" href="/stylesheets/diagame-modal.css">
+  <link rel="stylesheet" href="/stylesheets/diagame-intro.css">
+
+  <!-- utils -->
+  <script src="/javascripts/utlis.js"></script>
+  {{#if loginPage}}
+  {{else}}
+  <script>let refAchieve = firestore.collection("lessons").doc("{{user.uid}}").collection('achievements');</script>
+  <script>let refPassed = firestore.collection("lessons").doc("{{user.uid}}").collection('passed');</script>
+  <script src="/javascripts/game-engine.js"></script>
+  {{/if}}
+
+  {{#if errorMsg }}
+  <script>
+    errorMsg = JSON.parse('{{json errorMsg}}'.replace(/&quot;/g, '\"'));
+  </script>
+  {{/if }}
+  {{#if achievementList }}
+  <script>
+    achievementList = JSON.parse('{{json achievementList}}'.replace(/&quot;/g, '\"'));
+  </script>
+  {{/if }}
+  {{#if general }}
+  <script>
+    introLabel = JSON.parse('{{json general.intro}}'.replace(/&quot;/g, '\"'));
+  </script>
+  {{/if }}
+</head>
+
+<body>
+  {{> navbar }}
+  {{{body}}}
+  {{> modal }}
+</body>
+
+</html>

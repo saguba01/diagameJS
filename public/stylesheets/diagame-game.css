@@ -1,0 +1,441 @@
+body {
+    overflow: hidden;
+}
+
+.tabs {
+    position: fixed;
+    height: 100%;
+    white-space: normal;
+    background-color: #7e8cff;
+    width: 90px;
+    border-right: 5px solid black;
+}
+
+.tab-horizontal {
+    margin: 0px;
+    /* padding: 15px; */
+    /* position: fixed; */
+    height: 100%;
+    white-space: normal;
+    display: flex;
+    /* background-color: #7e8cff; */
+    width: 100%;
+    /* border-right: 5px solid black; */
+}
+
+.tab {
+    display: block;
+    width: 100%;
+}
+
+.tab-horizontal > .tab {
+    display: inline-block;
+    width: 80px;
+    height: 60px;
+}
+
+.panelTool {
+    position: fixed;
+    /* margin-top: -1px; */
+    left: 90px;
+    width: 270px;
+    height: 100vh;
+    border-right: 5px solid black;
+    transition: left 0.5s ease 0s;
+}
+
+.targetPanel {
+    position: fixed;
+    top: 66px;
+    left: 360px;
+    margin: 10px;
+    width: 320px;
+    height: 90%;
+    background-color: rgb(139, 248, 187);
+    border: 5px solid black;
+    border-radius: 15px;
+    box-shadow: 7px 7px 0 0px #00000059;
+    padding-top: 20px;
+    transition: left 0.5s ease 0s;
+    /* overflow-y: auto; */
+}
+
+.sourceHeader {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 25px;
+    border-bottom: 5px solid black;
+}
+
+.sourcePanel {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: #b2bbff;
+}
+
+.svgStroke {
+    stroke: #000000;
+    stroke-width: 5px;
+}
+
+.button-tool {
+    box-shadow: 7px 7px 0 0px #00000059;
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+    border: 5px solid;
+    margin-left: 12px;
+    margin-top: 12px;
+}
+
+.button-tool#playButton,.button-tool#playMinigame{
+    background: #4EEB96;
+}
+
+.button-tool#resetButton{
+    background: #FECF36;
+}
+
+.reset-icon{
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/svg/reset-icon.svg');
+    background-size: 60% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.basic-icon {
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/svg/flag-icon.svg');
+    background-size: 50% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.process-icon {
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/svg/setting-icon.svg');
+    background-size: 60% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.io-icon {
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/svg/io-icon.svg');
+    background-size: 60% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.decision-icon {
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/svg/decision-icon.svg');
+    background-size: 60% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.lessthan-icon {
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/svg/lessthan-icon.svg');
+    background-size: 60% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.lessthanorequal-icon {
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/svg/lessthanorequal-icon.svg');
+    background-size: 60% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.greaterthan-icon {
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/svg/greaterthan-icon.svg');
+    background-size: 60% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.greaterthanorequal-icon {
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/svg/greaterthanorequal-icon.svg');
+    background-size: 60% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.equal-icon {
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/svg/equal-icon.svg');
+    background-size: 60% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.notequal-icon {
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/svg/notequal-icon.svg');
+    background-size: 60% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.or-icon {
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/svg/or-icon.svg');
+    background-size: 60% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.and-icon {
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/svg/and-icon.svg');
+    background-size: 60% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.plus-icon {
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/svg/plus-icon.svg');
+    background-size: 60% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.minus-icon {
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/svg/minus-icon.svg');
+    background-size: 60% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.multiple-icon {
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/svg/multiple-icon.svg');
+    background-size: 60% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.divide-icon {
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/svg/divide-icon.svg');
+    background-size: 60% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.modular-icon {
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/svg/modulo-icon.svg');
+    background-size: 60% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.display {
+    width: 900px;
+    height: 100%;
+    position: fixed;
+    margin-left: 45%;
+}
+
+.recipe {
+    float: right;
+    margin-top: 20px;
+    margin-right: 10px;
+    padding: 10px;
+    width: 350px;
+    height: auto;
+    font-size: 20px;
+    word-wrap: break-word;
+    box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.2);
+    border: solid 5px #000000;
+}
+
+.recipe-header {
+    font-size: 24px;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+hr {
+    display: block;
+    border: 0;
+    border-top: 3px solid #000000;
+    padding: 0;
+}
+
+.button-element {
+    width: 60px;
+    height: 60px;
+    border: 5px solid #000000;
+    border-radius: 10px;
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.5);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 45px;
+}
+
+.button-element:active,
+.button-element:focus {
+    background-color: #ffeba8;
+}
+
+.typeButton{
+    box-shadow: 7px 7px 0 0px #00000059;
+    background: #5CB9FC;
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+    border: 5px solid;
+    margin-left: 12px;
+}
+.typeButton.selected{
+    background: #1B5A98;
+}
+
+.operatorButton{
+    box-shadow: 7px 7px 0 0px #00000059;
+    background: #FC5972;
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+    border: 5px solid;
+    display: inline-block;
+    margin-left: 12px;
+}
+.operatorButton.selected{
+    background: #FC5972;
+}
+.boxAnswer > .operatorButton{
+    /* margin: 0px; */
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0);
+    /* margin-top: -5px; */
+    margin-left: -5px;
+}
+.operatorButtoninBox{
+    /* margin: 0px; */
+    border: 0px solid;
+    margin-top: -5px;
+    margin-left: -5px;
+    border: 5px solid;
+
+    /* width: 50px;
+    height: 50px; */
+    /* box-shadow: 5px 5px 0px rgba(0, 0, 0, 0); */
+
+}
+
+.decisionText {
+    font-size: 20px;
+    width: 317.5px;
+    position: absolute;
+    margin: -25px auto;
+    left: 0;
+    right: 0;
+}
+
+.decisionText>.true {
+    float: left;
+    margin-top: -3px;
+    width: 50px;
+    display: inline-block;
+}
+
+.decisionText>.false {
+    float: right;
+    width: 50px;
+    display: inline-block;
+}
+
+.questionBox {
+    overflow: hidden;
+    width: 60%;
+    height: 300px;   
+    background: #56E3C4;
+    border: 5px solid black;
+    border-radius: 10px;
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.5);
+    margin: 10% auto;
+}
+
+.questionCount {
+    font-size: 20px;
+    text-align: right;
+    padding-right: 10px;
+    padding-top: 10px;
+}
+
+.questionArea {
+    margin-top: -20px;
+    display: table;
+    width: 100%;
+    height: 250px;
+}
+
+.question {
+    text-align: center;
+    font-size: 70px;
+    display: none;
+    vertical-align: middle;
+    transition: left 0.5s ease 0s;
+}
+.question.active {
+    display: table-cell;
+}
+
+.questionText {
+    display: inline-block;
+}
+
+.boxAnswer {
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.23);
+    position: absolute;
+    display: inline-grid;
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    background: #fff;
+    border: 5px solid;
+    /* display: inline-block; */
+    margin-left: 10px;
+    margin-right: 10px; 
+}
+
+.sourceBottom {
+    width: 580px;
+    /* padding: 10px; */
+    height: 100px;
+    
+    background: #7E8CFF;
+    border: 5px solid black;
+    border-radius: 10px;
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.5);
+    /* margin: 10% auto; */
+    position: fixed;
+    bottom: 60px;
+    left: 50%;
+    margin-left: -250px;
+
+}

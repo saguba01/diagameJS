@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 73.209 67.963">
+  <defs>
+    <style>
+      .salad-1, .salad-2, .salad-3, .salad-4 {
+        fill: none;
+        stroke-width: 5px;
+      }
+
+      .salad-1 {
+        stroke: #707070;
+      }
+
+      .salad-2 {
+        stroke: #75b24f;
+      }
+
+      .salad-3 {
+        stroke: #599633;
+      }
+
+      .salad-4 {
+        stroke: #c14848;
+      }
+
+      .salad-5 {
+        fill: #c14848;
+      }
+
+      .salad-6 {
+        fill: #599633;
+      }
+    </style>
+  </defs>
+  <g id="Group_27" data-name="Group 27" transform="translate(-675.296 -670.54)">
+    <path id="Path_67" data-name="Path 67" class="salad-1" d="M7305.633,5961.857h-64.2s1.006,12.789,11.344,21.126c-.024.053,38.723,0,38.723,0s8.876-8.223,10.355-15.748" transform="translate(-6560 -5247)"/>
+    <path id="Path_68" data-name="Path 68" class="salad-2" d="M7254.879,5955.348s-4.168-3.476-11.354,0c.191.28-9.009-1.468-1.521-7.452-4.633-3.041-8.337-14.137,5.379-11.278.531-4.371,5.767-13.063,16.051,9.859" transform="translate(-6560 -5247)"/>
+    <path id="Path_69" data-name="Path 69" class="salad-2" d="M7247.348,5943.342a22.723,22.723,0,0,1,14.184,11.67" transform="translate(-6560 -5247)"/>
+    <path id="Path_70" data-name="Path 70" class="salad-3" d="M7287.818,5947.34s2.828-15.858,16.071-13.088c6.372,8.734-3.758,12.521-11.113,14.823,26.773-7.008,6.036,11.537-6.991,4.157" transform="translate(-6560 -5247)"/>
+    <path id="Path_72" data-name="Path 72" class="salad-3" d="M7259.239,5928.825s2.551-8.7,5.4-8.784,9.332,6.83,10.308,8.784" transform="translate(-6560 -5247)"/>
+    <path id="Path_73" data-name="Path 73" class="salad-3" d="M7266.033,5927.278s.064,8.323,3.333,10.171" transform="translate(-6560 -5247)"/>
+    <path id="Path_71" data-name="Path 71" class="salad-4" d="M7287.691,5933.927l-1.974-10.744s-15.821,3.051-15.357,17.133,10.11,14.439,10.11,14.439" transform="translate(-6560 -5247)"/>
+    <circle id="Ellipse_8" data-name="Ellipse 8" class="salad-5" cx="3" cy="3" r="3" transform="translate(718 683)"/>
+    <circle id="Ellipse_9" data-name="Ellipse 9" class="salad-5" cx="3" cy="3" r="3" transform="translate(714 691)"/>
+    <circle id="Ellipse_10" data-name="Ellipse 10" class="salad-5" cx="3" cy="3" r="3" transform="translate(718 698)"/>
+    <circle id="Ellipse_11" data-name="Ellipse 11" class="salad-6" cx="3" cy="3" r="3" transform="translate(704 704)"/>
+  </g>
+</svg>

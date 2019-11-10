@@ -1,0 +1,46 @@
+body {
+    -webkit-backdrop-filter: blur(31.5px);
+    backdrop-filter: blur(31.5px);
+    background-color: #ebca95;
+}
+.panelleft {
+    background-color: #ffeedd;
+    padding: 2% 2% 2% 2% !important;
+    max-height: auto;
+    height: 735px;
+}
+.panelmid {
+
+}
+.panelright {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+.symbol {
+    background: white;
+}
+.action {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    background: #fff2e5;
+    height: 730px;
+    border: 1px solid;
+    border-radius: 20px;
+}
+.animetion {
+    height: 500px;
+}
+.panelpostit {
+    height: 800px;
+}
+.postit {
+    width: 200px;
+    height: 200px;
+    background-image: linear-gradient(to bottom, #faa68d, #f4a38b 72%, #eba28c);
+    box-shadow: 3px 6px 8px 0 rgba(0, 0, 0, 0.1);
+    vertical-align: bottom;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    margin-left: 75% !important;
+}
+

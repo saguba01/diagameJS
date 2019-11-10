@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 73.652 72.831">
+  <defs>
+    <style>
+      .lemon-svg-1, .lemon-svg-4 {
+        fill: none;
+      }
+
+      .lemon-svg-1, .lemon-svg-2 {
+        stroke: #e8db3c;
+        stroke-width: 5px;
+      }
+
+      .lemon-svg-2 {
+        fill: #e8db3c;
+      }
+
+      .lemon-svg-3 {
+        stroke: none;
+      }
+    </style>
+  </defs>
+  <g id="lemon" transform="translate(-956.771 -105.268)">
+    <path id="Path_68" data-name="Path 68" class="lemon-svg-1" d="M7531.219,5419.111c10.053-2.16-3.11,1.636-5.478-.724s-4.8-3.776-3.036-9.741c-1.162-6.631-7.774-16.441,1.213-35.153s39.072-22.672,47.276-15.08c5.5-1.287,15.33-.347,12.428,10.888-.068.275-2.294,4.625.458-2.32" transform="translate(-6560 -5247)"/>
+    <path id="Path_69" data-name="Path 69" class="lemon-svg-1" d="M7587,5379.1c-2.007-7.185.7.543.53.6.278,1.4,2.6,18.616-10.862,31.648-6.723,6.511-13.345,12.609-32.117,11.009-3.9.214-7-2.5-1.684,0" transform="translate(-6560 -5247)"/>
+    <path id="Path_70" data-name="Path 70" class="lemon-svg-1" d="M7531.5,5411.962" transform="translate(-6560 -5247)"/>
+    <g id="Rectangle_70" data-name="Rectangle 70" class="lemon-svg-2" transform="matrix(0.719, 0.695, -0.695, 0.719, 969.719, 160.27)">
+      <rect class="lemon-svg-3" width="7" height="5" rx="2.5"/>
+      <rect class="lemon-svg-4" x="2.5" y="2.5" width="2"/>
+    </g>
+  </g>
+</svg>

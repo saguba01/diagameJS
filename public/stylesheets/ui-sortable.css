@@ -1,0 +1,69 @@
+.ui-sortable-handle{
+    margin-bottom: 10px; 
+}
+.ui-sortable-handle > svg{
+    filter: drop-shadow( 5px 5px 0px rgba(0, 0, 0, .4));
+}
+.ui-sortable-handle:active > svg{
+    filter: drop-shadow( 5px 5px 0px rgba(0, 0, 0, 0));
+}
+.ui-sortable-handle > [type="element"] > svg{
+    filter: drop-shadow( 5px 5px 0px rgba(0, 0, 0, .4));
+}
+.ui-sortable-handle:active > svg{
+    filter: drop-shadow( 5px 5px 0px rgba(0, 0, 0, 0));
+}
+.sortable-placeholder{
+    background: #ffffff
+}
+[type = "arrow"] {
+    z-index: -999;
+    position: relative;
+    margin-top: -22px;
+    margin-bottom: -8px;
+}
+[type = "arrowDecisionStart"] {
+    z-index: -999;
+    position: relative;
+    margin-top: -84px;
+    margin-bottom: -10px;
+}
+[type = "arrowDecisionEnd"] {
+    z-index: -999;
+    position: relative;
+    margin-top: -20px;
+    margin-bottom: -45px;
+}
+.arrowDecisionTrue{
+    height: 15px;
+    width: 24px;
+    margin-left: 151px;
+    margin-bottom: -4px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url('/assets/svg/arrowInDecision.svg');
+
+}
+.arrowDecisionFalse{
+    height: 15px;
+    width: 24px;
+    margin-left: 144px;
+    margin-bottom: -4px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url('/assets/svg/arrowInDecision.svg');
+
+}
+[type = 'true'] {
+    background-position-x: 161px;
+    background-repeat-x: no-repeat;
+    background-size: 5px 105px;
+    background-image: url('/assets/svg/line.svg');
+}
+
+[type = 'false'] {
+    background-position-x: 154px;
+    background-repeat-x: no-repeat;
+    background-size: 5px 105px;
+    background-image: url('/assets/svg/line.svg');
+}

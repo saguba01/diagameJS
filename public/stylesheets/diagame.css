@@ -1,0 +1,106 @@
+.noselect {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently supported by Chrome and Opera */
+}
+
+body {
+
+    background-position-x: 10%;
+    background-position-y: 10%;
+    background-size: 110% auto;
+    background-image: url('../assets/svg/wood-background.svg');
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 13px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    margin-top: -5px;
+    border-left: 5px solid;
+    background: #7d88ff;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    height: 100px;
+    background: #FECF36;
+    border: 5px solid;
+    border-right: 0px solid;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.bg-red {
+    background-color: #fc5972;
+}
+
+.bg-purple {
+    background-color: #b668fc;
+}
+
+.bg-blue {
+    background-color: #7e8cff;
+}
+
+.bg-sky-blue {
+    background-color: #b2bbff;
+}
+
+.bg-light-green {
+    background-color: #56e3c4;
+}
+
+.bg-yellow {
+    background-color: #FECF36;
+}
+
+.bg-orange {
+    background-color: #FF9D00;
+}
+
+.bg-nude {
+    background-color: #FFF1C6;
+}
+
+.bg-fire-low{
+    background-color: #ffeba8;
+    background-image: url('/assets/svg/heat-low.svg');
+    background-size: 45% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.bg-fire-mid{
+    background-color: #ffcc6c;
+    background-image: url('/assets/svg/heat-mid.svg');
+    background-size: 90% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.bg-fire-high{
+    background-color: #ffa280;
+    background-image: url('/assets/svg/heat-high.svg');
+    background-size: 90% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.display > svg{
+    position: absolute;
+}

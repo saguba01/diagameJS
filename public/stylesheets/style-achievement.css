@@ -1,0 +1,107 @@
+#panelbackgroud {
+    max-width: 100%;
+    width: 1080px;
+    height: 550px;
+    margin: 0 auto;
+}
+
+.panelleft {
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to right, #fff8eb, #f0e4d4 79%, #ccb9a1);
+    box-shadow: 3px 6px 8px 0 rgba(0, 0, 0, 0.1);
+}
+
+.panelright {
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to left, #fff8eb, #f0e3d4 74%, #c7b297);
+    box-shadow: 3px 6px 8px 0 rgba(0, 0, 0, 0.1);
+}
+.panelleftinside{
+    height: 100%;
+}
+
+body {
+    /* opacity: 0.64;
+    -webkit-backdrop-filter: blur(31.5px);
+    backdrop-filter: blur(31.5px); */
+    background-color: #ebca95;
+    padding: 5%;
+}
+.achieve-pic{
+    height: 40%;
+    margin-top: 5%;
+    border: 1px solid;
+}
+.pictureleft {
+    width: 100%;
+    height: 100%;
+}
+.achieve-head-text{
+    /* margin-top: 5%;
+    font-size: 30px;
+    width: 100%;
+    height: 10%;
+    background-color: #fdfbf2; */
+    margin-top: 5%;
+    font-size: 30px;
+    /* max-width: 100%;
+    max-height: auto; */
+    width: 200px;
+    height: 50px;
+    background-color: #fdfbf2;
+}
+.achieve-detail{
+    height: 35%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    background-color: #ffffff;
+    opacity: 0.45;
+}
+.achieve-detail-text{
+    width: 100%;
+    height: 100%;
+    font-family: ChalkboardSE;
+    font-size: 18px;
+    line-height: 1.5;
+    text-align: left;
+    color: #6f6454;
+    padding: 2% 2% 2% 2%;
+}
+p{
+    margin: 0px 0px 0px 0px;
+}
+.block-achieve{
+    /* max-width: 100%;
+    max-height: auto; */
+    width: 70px;
+    height: 70px;
+    border-radius: 15px;
+    /* background-color: #f0ebe1; */
+    background-color: gray;
+    margin: 30% 0% 0% 10%;
+}
+.block-achieve:hover {
+    cursor: pointer;
+}
+.panelindex {
+    padding-left: 0px !important;
+}
+.index{
+    width: 50px;
+    height: 30px;
+    background-color: #88b95e;
+    margin-top: 20%;
+    padding-top: 5%;
+}
+.index:hover{
+    background-color: #555;
+    color: white;
+    cursor: pointer;
+    padding-top: 5%;
+}
+
+.hard {
+    background: lightblue;
+}

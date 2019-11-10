@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 7 7">
+  <defs>
+    <style>
+      .list-1 {
+        fill: #ffba00;
+      }
+    </style>
+  </defs>
+  <circle id="Ellipse_23" data-name="Ellipse 23" class="list-1" cx="3.5" cy="3.5" r="3.5"/>
+</svg
