@@ -1,5 +1,6 @@
 // Initialize Firebase
 // TODO: Replace with your project's customized code snippet
+
 var config = {
     apiKey: "AIzaSyAyMmQVNDsfvYafZETrM68Po55qWHZ8ZH8",
     authDomain: "diagame.firebaseapp.com",
@@ -8,6 +9,7 @@ var config = {
     storageBucket: "diagame.appspot.com",
     messagingSenderId: "872023570847"
 };
+
 
 firebase.initializeApp(config);
 
