@@ -1,15 +1,16 @@
 // Initialize Firebase
 // TODO: Replace with your project's customized code snippet
 
-var config = {
-    apiKey: "AIzaSyAyMmQVNDsfvYafZETrM68Po55qWHZ8ZH8",
-    authDomain: "diagame.firebaseapp.com",
-    databaseURL: "https://diagame.firebaseio.com",
-    projectId: "diagame",
-    storageBucket: "diagame.appspot.com",
-    messagingSenderId: "872023570847"
-};
-
+const config = {
+    apiKey: "AIzaSyDNdwwlyMxUjXijWdKh_lXQCYqp053gP0E",
+    authDomain: "diagamejs.firebaseapp.com",
+    databaseURL: "https://diagamejs.firebaseio.com",
+    projectId: "diagamejs",
+    storageBucket: "diagamejs.appspot.com",
+    messagingSenderId: "613912864191",
+    appId: "1:613912864191:web:3a88ce33f2a5ae71b92d0a",
+    measurementId: "G-1GPB97V823"
+  };
 
 firebase.initializeApp(config);
 
