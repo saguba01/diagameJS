@@ -8,6 +8,7 @@ var config = {
     storageBucket: "diagame.appspot.com",
     messagingSenderId: "872023570847"
 };
+
 firebase.initializeApp(config);
 
 let firestore = firebase.firestore();
