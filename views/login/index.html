@@ -292,7 +292,12 @@
             }
         }
     });
-
+    
+    $('#email,#password').keyup((event)=>{
+        if(event.originalEvent.code == "Enter" || event.originalEvent.code == "NumpadEnter"){
+            $('.button-signin').click()
+        }
+    })
     $('.button-signin').click(function () {
         if (validatorSignin.form()) {
             signInWithEmailAndPassword($('#email').val(), $('#password').val());
