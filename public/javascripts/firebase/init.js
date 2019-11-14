@@ -12,6 +12,7 @@ const config = {
     measurementId: "G-1GPB97V823"
   };
 
+
 firebase.initializeApp(config);
 
 let firestore = firebase.firestore();
