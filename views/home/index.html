@@ -136,7 +136,7 @@
     <!-- Variable -->
     <div class="panelleft" style="width:500px;height: 650px;position: absolute;">
         <div class="innerpage">
-            <p class="lesson-title noselect" guide="lesson">{{ lesson.variable.text }}</p>
+            <p class="lesson-title noselect" guide="lesson">{{ lesson.variable.text }} </p>
             <div guide="lesson" target="/lesson/{{ lesson.variable.url }}/{{ lesson.variable.subLesson.juice.url }}"
                 class="postit postit-top-right bg-orange canClick">
                 {{ lesson.variable.subLesson.juice.text }}</div>
@@ -350,7 +350,7 @@
         </div>
     </div>
 </div>
-
+<input type="hidden" id='ListMenu' value="{{ListMenu}}">
 <div class="panelindex">
     <ul>
         <li class="indexone" onclick="changePage(4)"></li>
@@ -363,7 +363,11 @@
 </div>
 
 <script type="text/javascript">
+
     $(document).ready(function () {
+        
+       console.log(JSON.parse($('#ListMenu').val()))
+        
         $(".panelindex").hide();
         // $(".indexone").css("opacity","1");
         var page = '{{page}}';
