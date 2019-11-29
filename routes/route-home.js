@@ -24,7 +24,8 @@ router.get('/', authen, async (req, res, next) => {
     lesson: configString[lang].lesson,
     general: configString[lang].general,
     achievementList: configString[lang].achievement,
-    errorMsg: configString[lang].error
+    errorMsg: configString[lang].error,
+    ListMenu : JSON.stringify(await getMenu())
   };
   res.render('home/index', data);
 });
@@ -76,6 +77,24 @@ async function getPassed(uid) {
     passed = [];
   });
   return passed;
+}
+
+async function getMenu() {
+  var Menu = [];
+  let refMenu = firestore.collection('Menu').doc('LVDQgvkSIhBEq2loFUI6')
+
+  await refMenu.get().then(function (doc) {
+    if (!doc.exists) {
+      Menu.push('No such document!');
+    } else {
+      Menu.push(doc.data());
+    }
+     
+  }).catch(function (error) {
+    console.log(error);
+    Menu.push(error);
+  });
+  return Menu;
 }
 
 module.exports = router;
