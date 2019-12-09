@@ -30,6 +30,7 @@
     "serve-favicon": "^2.5.0",
     "toastr": "^2.1.4",
     "typed.js": "^2.0.10",
-    "vivus": "^0.4.4"
+    "vivus": "^0.4.4",
+    "zingchart": "^2.8.8"
   }
 }
