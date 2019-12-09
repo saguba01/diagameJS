@@ -98,7 +98,9 @@ app.use('/lesson/loop', require('./routes/route-loop'));
 app.use('/lesson/operator', require('./routes/route-operator'));
 app.use('/lesson/variable', require('./routes/route-variable'));
 
-app.use('/report', require('./routes/route-report'));
+
+app.use('/MDQ', require('./routes/route-diagram-question'));
+//app.use('/report', require('./routes/route-report'));
 
 app.use('/lang', function (req, res, next) {
   var lang = req.query.lang;
