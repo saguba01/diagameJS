@@ -1,1 +1,63 @@
-<h1>test</h1>
+<body>
+    <!--Panel Tool-->
+    <div class="center-align panelTool">  
+        <!-- ฺBasic -->
+        <div class="noselect source sourceHeader activeSource" type="basic" style="background-color:#FF9D00;">
+            A</div>
+        <div id="source" class="connectedSource source sourcePanel activeSource noselect" type="basic">
+            <div type="element" event="start" source="basic">
+                <svg width="210" height="90">
+                    <rect x="5" y="5" width="200" height="80" rx="40"
+                        style="fill: #FC5972;stroke: #000000;stroke-width: 5px;"></rect>
+                    <text text-anchor="middle" x="105" y="45" alignment-baseline="central"
+                        style="font-size:25px;">B</text>
+                </svg>
+            </div>
+            <div type="element" event="end" source="basic">
+                <svg width="210" height="90">
+                    <rect x="5" y="5" width="200" height="80" rx="40"
+                        style="fill: #FC5972;stroke: #000000;stroke-width: 5px;"></rect>
+                    <text text-anchor="middle" x="105" y="45" alignment-baseline="central"
+                        style="font-size:25px;">C</text>
+                </svg>
+            </div>
+        </div>
+        <!-- Type Process -->
+        <div class="noselect source sourceHeader" type="process" style="display: none;background-color:#FF9D00;">
+            D</div>
+        <div id="source" class="connectedSource source noselect sourcePanel" type="process" style="display: none;">
+            E
+        </div>
+
+        <!-- Target -->
+        <div id="target" class="center-align connectedSource noselect targetPanel ui-widget-content">
+        </div>
+    </div>
+    <!--Menu Icon-->
+    <ul class="tabs">
+        <li style="height: 80px;" class="tab">
+            <div id="playButton" class="canClick jellyButton button-tool">
+                <svg style="width: 20px;height: 30px;margin-top: 14px;margin-left: 3px;">
+                    <path
+                        d="M26.522,10.162,9.16.144a1.071,1.071,0,0,0-1.6.927V21.124a1.071,1.071,0,0,0,1.6.927L26.522,12.033A1.086,1.086,0,0,0,26.522,10.162Z"
+                        transform="translate(-7.556 0)"></path>
+                </svg>
+            </div>
+        </li>
+        <li style="border-bottom: 5px solid black;height: 90px;margin-bottom:12px;" class="tab">
+            <div id="resetButton" class="canClick jellyButton button-tool">
+                <div class="reset-icon"></div>
+            </div>
+        </li>
+        <li class="tab valign-wrapper" style="height: 80px">
+            <div class="canClick jellyButton typeButton selected" type="basic">
+                <div class="basic-icon"></div>
+            </div>
+        </li>
+        <li class="tab valign-wrapper" style="height: 80px">
+            <div class="canClick jellyButton typeButton" type="process">
+                <div class="process-icon"></div>
+            </div>
+        </li>
+    </ul>
+</body>

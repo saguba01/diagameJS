@@ -15,7 +15,8 @@ router.get('/', authen, function (req, res, next) {
     let lang = req.cookies.lang;
     let lesson = configString[lang].lesson.logic;
     var data = {
-      
+      layout: 'default',
+      navBar: true
     };
     res.render('addlogic/addlogic', data);
   });
