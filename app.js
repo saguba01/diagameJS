@@ -100,6 +100,9 @@ app.use('/lesson/operator', require('./routes/route-operator'));
 app.use('/lesson/variable', require('./routes/route-variable'));
 app.use('/report', require('./routes/route-report'));
 app.use('/add/logic', require('./routes/route-logicQuestion'));
+app.use('/MDQ', require('./routes/route-diagram-question'));
+//app.use('/report', require('./routes/route-report'));
+
 app.use('/lang', function (req, res, next) {
   var lang = req.query.lang;
   if (lang) {
