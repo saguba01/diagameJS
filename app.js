@@ -9,6 +9,7 @@ var logger = require('morgan');
 var favicon = require('serve-favicon');
 var expresshbs = require('express-handlebars');
 var hbsHelper = require('./utils/hbs-hepler');
+var firestore = require('./configs/firebase-config').firestore; //test firebase
 
 var app = express();
 
@@ -98,6 +99,7 @@ app.use('/lesson/loop', require('./routes/route-loop'));
 app.use('/lesson/operator', require('./routes/route-operator'));
 app.use('/lesson/variable', require('./routes/route-variable'));
 app.use('/report', require('./routes/route-report'));
+app.use('/add/logic', require('./routes/route-logicQuestion'));
 app.use('/lang', function (req, res, next) {
   var lang = req.query.lang;
   if (lang) {
@@ -107,7 +109,24 @@ app.use('/lang', function (req, res, next) {
   }
   res.redirect('/home');
 });
-
+app.get('/api-service', function (req, res, next) {
+  let data = firestore.collection('Logic')
+  // let subdata = data.doc(data.listDocuments(0)).collection('Answers')
+  data.get().then((doc)=>{
+    let arr = []
+      doc.forEach(element => {
+          arr.push(element.data())
+      });
+      res.send(arr);
+  })
+  // subdata.get().then((doc)=>{
+  //   let arr = []
+  //     doc.forEach(element => {
+  //         arr.push(element.data())
+  //     });
+  //     res.send(arr);
+  // })
+});
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
@@ -123,6 +142,8 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('shared/error');
 });
+
+
 
 module.exports = app;
 app.listen(5000);
