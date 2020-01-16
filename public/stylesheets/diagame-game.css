@@ -95,6 +95,14 @@ body {
     background: #4EEB96;
 }
 
+.button-tool#saveButton{
+    background: rgb(75, 255, 75);
+}
+
+.button-tool#cancelButton{
+    background: rgb(255, 66, 19);
+}
+
 .button-tool#resetButton{
     background: #FECF36;
 }
@@ -103,6 +111,24 @@ body {
     width: 100%;
     height: 100%;
     background-image: url('/assets/svg/reset-icon.svg');
+    background-size: 60% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.save-icon{
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/svg/save.svg');
+    background-size: 60% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.cancel-icon{
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/svg/rubbish-bin.svg');
     background-size: 60% auto;
     background-repeat: no-repeat;
     background-position: center;

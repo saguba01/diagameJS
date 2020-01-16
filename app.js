@@ -9,6 +9,7 @@ var logger = require('morgan');
 var favicon = require('serve-favicon');
 var expresshbs = require('express-handlebars');
 var hbsHelper = require('./utils/hbs-hepler');
+var firestore = require('./configs/firebase-config').firestore; //test firebase
 
 var app = express();
 
@@ -99,8 +100,8 @@ app.use('/lesson/logic', require('./routes/route-logic'));
 app.use('/lesson/loop', require('./routes/route-loop'));
 app.use('/lesson/operator', require('./routes/route-operator'));
 app.use('/lesson/variable', require('./routes/route-variable'));
-
-
+app.use('/report', require('./routes/route-report'));
+app.use('/add/logic', require('./routes/route-logicQuestion'));
 app.use('/MDQ', require('./routes/route-diagram-question'));
 //app.use('/report', require('./routes/route-report'));
 
@@ -144,6 +145,8 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('shared/error');
 });
+
+
 
 module.exports = app;
 app.listen(5000);
