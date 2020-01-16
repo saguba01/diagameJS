@@ -12,6 +12,8 @@ var hbsHelper = require('./utils/hbs-hepler');
 
 var app = express();
 
+const firestore = require('./configs/firebase-config').firestore;
+
 // set application global config
 var configString = {
   'en': {
@@ -111,6 +113,21 @@ app.use('/lang', function (req, res, next) {
   }
   res.redirect('/home');
 });
+
+//Service
+app.get('/get-diagram', function(req, res){
+  let citiesRef = firestore.collection('Diagram');
+  let allCities = citiesRef.get()
+  .then(snapshot => {
+    snapshot.forEach(doc => {
+      console.log(doc.id, '=>', doc.data());
+    });
+  })
+  .catch(err => {
+    console.log('Error getting documents', err);
+  });
+})
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
