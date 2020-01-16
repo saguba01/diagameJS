@@ -32,7 +32,6 @@
     }
 </style>
 
-
 <body>
     <!--Panel Tool-->
     <div class="center-align panelTool">  
@@ -40,72 +39,24 @@
         <div class="noselect source sourceHeader activeSource" type="basic" style="background-color:#FF9D00;">
             Operator</div>
         <div id="source" class="connectedSource source sourcePanel activeSource noselect" type="basic">
-            <!-- <div type="element" event="start" source="basic">
-                <svg width="210" height="90">
-                    <rect x="5" y="5" width="200" height="80" rx="40"
-                        style="fill: #FC5972;stroke: #000000;stroke-width: 5px;"></rect>
-                    <text text-anchor="middle" x="105" y="45" alignment-baseline="central"
-                        style="font-size:25px;">B</text>
-                </svg>
-            </div>
-            <div type="element" event="end" source="basic">
-                <svg width="210" height="90">
-                    <rect x="5" y="5" width="200" height="80" rx="40"
-                        style="fill: #FC5972;stroke: #000000;stroke-width: 5px;"></rect>
-                    <text text-anchor="middle" x="105" y="45" alignment-baseline="central"
-                        style="font-size:25px;">C</text>
-                </svg>
-            </div> -->
             <div class="tab valign-wrapper" style="width:100%;padding-top: 15px">
-                <div class="canClick jellyButton operatorButton selected" event="<">
-                    <div class="lessthan-icon"></div>
-                </div>
-                <div class="canClick jellyButton operatorButton" event="<=">
-                    <div class="lessthanorequal-icon"></div>
-                </div>
-                <div class="canClick jellyButton operatorButton" event=">">
-                    <div class="greaterthan-icon"></div>
-                </div>
-                <div class="canClick jellyButton operatorButton" event=">=">
-                    <div class="greaterthanorequal-icon"></div>
-                </div>
-                <div class="canClick jellyButton operatorButton" event="==">
-                    <div class="equal-icon"></div>
-                </div>
-                <div class="canClick jellyButton operatorButton" event="!=">
-                    <div class="notequal-icon"></div>
-                </div>
-                <div class="canClick jellyButton operatorButton selected" event="+">
-                    <div class="plus-icon"></div>
-                </div>
-                <div class="canClick jellyButton operatorButton" event="-">
-                    <div class="minus-icon"></div>
-                </div>
-                <div class="canClick jellyButton operatorButton" event="*">
-                    <div class="multiple-icon"></div>
-                </div>
-                <div class="canClick jellyButton operatorButton" event="/">
-                    <div class="divide-icon"></div>
-                </div>
-                <div class="canClick jellyButton operatorButton" event="%">
-                    <div class="modular-icon"></div>
-                </div>
+            // 
             </div>
         </div>
         <!-- Type Process -->
         <div class="noselect source sourceHeader" type="process" style="display: none;background-color:#FF9D00;">
             Test Topic</div>
         <div id="source" class="connectedSource source noselect sourcePanel" type="process" style="display: none;">
-            E
+            //
         </div>
 
         <!-- Question Area -->
         <div id="target" class="center-align connectedSource noselect targetPanel ui-widget-content" style="width: 70%;">
             <div style="padding: 0px 20px 20px 20px;">
                 <p style="text-align: left;font-size: 18px;font-weight: bold;" >Question Name</p>
-                <input type="text" style="background-color: white;"/>
+                <input id="questionInput" type="text" style="background-color: white;"/>
                 <p style="text-align: left;font-size: 18px;font-weight: bold;" >Hint</p>
-                <textarea style="background-color: white;"></textarea>
+                <textarea id="hintInput" style="background-color: white;"></textarea>
                 <p style="text-align: left;font-size: 18px;font-weight: bold;" >Question
                 <button id="q_increase">+</button>
                 <button id="q_decrease">-</button>
@@ -149,39 +100,23 @@
                       <div class='text-message'></div>
                       <div class='clearfix'></div>
                     </div>
-                    
-                    
-                    
-                </section>
+                </section>    
             </div>
         </div>
     </div>
     <!--Menu Icon-->
     <ul class="tabs">
         <li style="height: 80px;" class="tab">
-            <div id="playButton" class="canClick jellyButton button-tool">
-                <svg style="width: 20px;height: 30px;margin-top: 14px;margin-left: 3px;">
-                    <path
-                        d="M26.522,10.162,9.16.144a1.071,1.071,0,0,0-1.6.927V21.124a1.071,1.071,0,0,0,1.6.927L26.522,12.033A1.086,1.086,0,0,0,26.522,10.162Z"
-                        transform="translate(-7.556 0)"></path>
-                </svg>
+            <div id="saveButton" class="canClick jellyButton button-tool">
+                <div class="save-icon"></div>
             </div>
         </li>
-        <li style="border-bottom: 5px solid black;height: 90px;margin-bottom:12px;" class="tab">
-            <div id="resetButton" class="canClick jellyButton button-tool">
-                <div class="reset-icon"></div>
+        <li style="height: 90px;" class="tab">
+            <div id="cancelButton" class="canClick jellyButton button-tool">
+                <div class="cancel-icon"></div>
             </div>
         </li>
-        <li class="tab valign-wrapper" style="height: 80px">
-            <div class="canClick jellyButton typeButton selected" type="basic">
-                <div class="basic-icon"></div>
-            </div>
-        </li>
-        <li class="tab valign-wrapper" style="height: 80px">
-            <div class="canClick jellyButton typeButton" type="process">
-                <div class="process-icon"></div>
-            </div>
-        </li>
+
     </ul>
 </body>
 
@@ -190,7 +125,7 @@ function createAnswer(ans,ans_pattern){
     var ans_part = "";
     for(let j=1;j<=ans;j++){
         ans_part += "ANS"+j+" = "+
-                    "<input id='answer"+j+"' type='text' style='background-color: white;width: 100px;'/> ";
+                    "<input id='answer"+ans_pattern+"_"+j+"' type='text' style='background-color: white;width: 100px;'/> ";
     }
     if(document.getElementById("ansPattern"+ans_pattern+"") != null){
         document.getElementById("ansPattern"+ans_pattern+"").remove();
@@ -204,9 +139,9 @@ function createAnswer(ans,ans_pattern){
 };
 $(document).ready(function(){
     
-    let question_partcount = 2;
+    let question_partcount = 2; //question amount
     let ans_count = 1;
-    let answerPattern_count = 1;
+    let answerPattern_count = 1; //answer pattern amount
     //add answer in question
     createAnswer(ans_count,1);
     $('#q_increase').click(function(){
@@ -247,6 +182,21 @@ $(document).ready(function(){
         };
     });
 
+    //save button click
+    $('#saveButton').click(function(){
+        console.log("save data:");
+        console.log(document.getElementById("questionInput").value);
+        console.log(document.getElementById("hintInput").value);
+        for(let x=1;x<=question_partcount;x++){
+            console.log(document.getElementById("question_part"+x).value);
+        }
+        for(let y=1;y<=answerPattern_count;y++){
+            for(let z=1;z<=ans_count;z++){
+                console.log(document.getElementById("answer"+y+"_"+z).value);
+            }
+        }
+    });
+
     /* 1. Visualizing things on Hover - See next part for action on click */
     $('#stars li').on('mouseover', function(){
         var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
@@ -283,26 +233,8 @@ $(document).ready(function(){
         
         // JUST RESPONSE (Not needed)
         var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
-        var msg = "";
-        if (ratingValue > 1) {
-            msg = "Thanks! You rated this " + ratingValue + " stars.";
-        }
-        else {
-            msg = "We will improve ourselves. You rated this " + ratingValue + " stars.";
-        }
-        responseMessage(msg);
         
+        console.log(ratingValue);
     });
-    
-    
-    });
-
-
-    function responseMessage(msg) {
-    $('.success-box').fadeIn(200);  
-    $('.success-box div.text-message').html("<span>" + msg + "</span>");
-    }
-
-
-
+});
 </script>
