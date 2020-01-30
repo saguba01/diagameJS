@@ -16,7 +16,14 @@ router.get('/', authen, function (req, res, next) {
     let lesson = configString[lang].lesson.logic;
     var data = {
       layout: 'default',
-      navBar: true
+      user: req.session.user,
+      //navbar
+      navBar: true,
+      elementDefault: configString[lang].element.general,
+      general: configString[lang].general,
+      lesson: lesson,
+      subLesson: lesson.subLesson.addlogic
+      //
     };
     res.render('addlogic/addlogic', data);
   });
