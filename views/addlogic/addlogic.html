@@ -95,10 +95,8 @@
                       </ul>
                     </div>
                     
-                    <div class='success-box'>
-                      <div class='clearfix'></div>
-                      <div class='text-message'></div>
-                      <div class='clearfix'></div>
+                    <div>
+                      <input type="text" id="ratingStar" value="0" hidden>
                     </div>
                 </section>    
             </div>
@@ -121,6 +119,30 @@
 </body>
 
 <script>
+let refQuestion = firestore.collection("Logic");
+let keyId = 0;
+//save data to firebase 
+function saveQuestion(logicQuestion, logicLevel, logicName, logicAnswer) {
+    console.log("save...");
+    refQuestion.get().then(function(doc){
+        keyId = doc.size + 1;
+        //console.log("set("+keyId+")");
+    }).then(function(){
+        refQuestion.doc(keyId.toString()).set({
+            Question: logicQuestion,
+            Name: logicName,
+            Level : logicLevel
+        }).then(function(){
+            for(let round=0;round<logicAnswer.length;round++){
+                refQuestion.doc(keyId.toString()).collection("Answer").doc((round+1).toString()).set({
+                    Answer: logicAnswer[round]
+                });
+            }
+            console.log("save success");
+        });
+    });
+}
+//create dynamic answer
 function createAnswer(ans,ans_pattern){
     var ans_part = "";
     for(let j=1;j<=ans;j++){
@@ -137,13 +159,15 @@ function createAnswer(ans,ans_pattern){
                         "</div>"+
                     "</div>";
 };
+
 $(document).ready(function(){
     
     let question_partcount = 2; //question amount
     let ans_count = 1;
     let answerPattern_count = 1; //answer pattern amount
-    //add answer in question
     createAnswer(ans_count,1);
+
+    //add answer in question
     $('#q_increase').click(function(){
         question_partcount++;
         ans_count++;
@@ -181,60 +205,67 @@ $(document).ready(function(){
             answerPattern_count--;
         };
     });
-
     //save button click
     $('#saveButton').click(function(){
-        console.log("save data:");
-        console.log(document.getElementById("questionInput").value);
-        console.log(document.getElementById("hintInput").value);
-        for(let x=1;x<=question_partcount;x++){
-            console.log(document.getElementById("question_part"+x).value);
+        //console.log("save data:");
+        let logicName = document.getElementById("questionInput").value;
+        let logicQuestion = document.getElementById("question_part1").value;
+        let logicAnswer = new Array(answerPattern_count);
+        let logicLevel = document.getElementById("ratingStar").value;
+        //console.log(logicName);
+        for(let x=2;x<=question_partcount;x++){
+            logicQuestion = logicQuestion + "_" + document.getElementById("question_part"+x).value;
         }
+        //console.log(logicQuestion);
         for(let y=1;y<=answerPattern_count;y++){
             for(let z=1;z<=ans_count;z++){
-                console.log(document.getElementById("answer"+y+"_"+z).value);
+                if(z==1){
+                    logicAnswer[y-1] = document.getElementById("answer"+y+"_"+z).value;
+                }else{
+                    logicAnswer[y-1] = logicAnswer[y-1] + "," + document.getElementById("answer"+y+"_"+z).value;
+                }
             }
         }
+        //console.log(logicAnswer);
+        saveQuestion(logicQuestion,logicLevel,logicName,logicAnswer);
     });
 
-    /* 1. Visualizing things on Hover - See next part for action on click */
+    //Visualizing things on Hover
     $('#stars li').on('mouseover', function(){
         var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
-    
-        // Now highlight all the stars that's not after the current hovered star
+        // highlight all the stars that's not after the current hovered star
         $(this).parent().children('li.star').each(function(e){
-        if (e < onStar) {
-            $(this).addClass('hover');
-        }
-        else {
-            $(this).removeClass('hover');
-        }
+            if (e < onStar) {
+                $(this).addClass('hover');
+            }
+            else {
+                $(this).removeClass('hover');
+            }
         });
-        
     }).on('mouseout', function(){
         $(this).parent().children('li.star').each(function(e){
         $(this).removeClass('hover');
         });
     });
-    
-    
-    /* 2. Action to perform on click */
+    //Action to perform on click
     $('#stars li').on('click', function(){
         var onStar = parseInt($(this).data('value'), 10); // The star currently selected
         var stars = $(this).parent().children('li.star');
         
         for (i = 0; i < stars.length; i++) {
-        $(stars[i]).removeClass('selected');
+        $(stars[i]).removeClass('selected'); 
         }
         
         for (i = 0; i < onStar; i++) {
         $(stars[i]).addClass('selected');
         }
-        
+         
         // JUST RESPONSE (Not needed)
         var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
-        
-        console.log(ratingValue);
+        //set input level
+        document.getElementById("ratingStar").value = ratingValue;
+        // console.log(ratingValue);
+        // console.log(document.getElementById("ratingStar").value);
     });
 });
 </script>
