@@ -36,7 +36,9 @@
                     &nbsp;[TARGET]&nbsp;
                     <input id="question_part2" type="text" style="background-color: white;width: 100px;"/>
                 </div>
-                <p style="text-align: left;font-size: 18px;font-weight: bold;" >Answer</p>
+                <p style="text-align: left;font-size: 18px;font-weight: bold;" >
+                    Answer (Only number or True False)
+                </p>
                 <input id="answer" type="text" style="background-color: white;width: 100px;"/>
                 <p style="text-align: left;font-size: 18px;font-weight: bold;" >Level</p>
                 <!-- Rating Stars Box -->
@@ -90,6 +92,11 @@ let keyId = 0;
 //save data to firebase 
 function saveQuestion(logicQuestion, logicLevel, logicName, logicAnswer) {
     console.log("save...");
+    let type = "operator";
+    let arr = ["True","true","False","false"]
+    if(logicAnswer.toLowerCase()=="true"||logicAnswer.toLowerCase()=="false"){
+        type = "logic";
+    }
     refQuestion.get().then(function(doc){
         keyId = doc.size + 1;
         //console.log("set("+keyId+")");
@@ -98,7 +105,8 @@ function saveQuestion(logicQuestion, logicLevel, logicName, logicAnswer) {
             Question: logicQuestion,
             Name: logicName,
             Answer: logicAnswer,
-            Level : logicLevel
+            Level : logicLevel,
+            Type : type
         }).then(function(){
             console.log("save success");
         });
