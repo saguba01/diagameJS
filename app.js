@@ -13,7 +13,7 @@ var firestore = require('./configs/firebase-config').firestore; //test firebase
 
 var app = express();
 
-const firestore = require('./configs/firebase-config').firestore;
+//const firestore = require('./configs/firebase-config').firestore;
 
 // set application global config
 var configString = {
