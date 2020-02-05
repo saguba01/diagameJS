@@ -546,3 +546,20 @@ function showNavigator(content) {
     });
     $('#modal-navigator').modal('open');
 }
+/*
+ *Description: Show alert modal.
+ *@version 1.0
+ *@author Thanawin Poopangeon
+ *@since 5 Feb 2020
+ *@required javascript, materialize-css.
+ */
+function showSaveStatus(content) {
+    $('#modal-addQuestion').modal({
+        'dismissible': false,
+        'onOpenStart': function () {},
+        'onOpenEnd': function () {
+            $('.addQuestion-content').text(content);
+        }
+    });
+    $('#modal-addQuestion').modal('open');
+}

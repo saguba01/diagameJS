@@ -108,15 +108,9 @@ function saveQuestion(logicQuestion, logicLevel, logicName, logicAnswer) {
             Level : logicLevel,
             Type : type
         }).then(function(){
-            $('#modal-addQuestion').modal({
-                'dismissible': false,
-                'onOpenStart': function () {},
-                'onOpenEnd': function () {
-                    $('.addQuestion-content').text("Save Success!!");
-                }
-            });
-            $('#modal-addQuestion').modal('open');
-            console.log("save success");
+            showSaveStatus("Save Success!!");
+        }).catch(err => {
+            showSaveStatus("Error : "+err);
         });
     });
 }
