@@ -1,0 +1,578 @@
+#panelbackgroud {
+  max-width: 100%;
+  width: 540px;
+  height: 275px;
+  margin: 0 auto;
+}
+
+.panelcover {
+  background-position-x: -2.5px;
+  background-position-y: -2px;
+  background-size: 502.5px 660px;
+  background-repeat: no-repeat;
+  background-image: url("../assets/svg/pagesRight.svg");
+}
+
+.panelcover > .innerpage {
+}
+
+.panelleft {
+  background-position-y: -2px;
+  background-size: 502.5px 660px;
+  background-repeat: no-repeat;
+  background-image: url("../assets/svg/pagesLeft.svg");
+}
+
+.panelleft > .innerpage {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.innerpage {
+  width: 100%;
+  height: 100%;
+}
+
+.panelright > .innerpage {
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0px;
+  border-left: 0px solid;
+}
+
+.panelright {
+  background-position-x: -2.5px;
+  background-position-y: -2px;
+  background-size: 502.5px 660px;
+  background-repeat: no-repeat;
+  background-image: url("../assets/svg/pagesRight.svg");
+}
+
+.book {
+}
+
+.book > .cover {
+  position: absolute;
+  margin-top: -5.5px;
+  margin-left: -39.5px;
+  width: 1085px;
+  height: 650px;
+}
+
+.book > .page {
+  border: 5px solid;
+  border-radius: 5px;
+  width: 1000px;
+  height: 650px;
+  background: #fff;
+  position: absolute;
+}
+
+.book > .pages {
+  box-shadow: 5px 5px 0 #00000047;
+  width: 1000px;
+  height: 670px;
+  border: 5px solid;
+  border-radius: 6px;
+  background: #fff;
+  position: absolute;
+}
+
+body {
+  position: relative;
+  background-position-x: 10%;
+  background-position-y: 10%;
+  background-size: 110% auto;
+  background-image: url("../assets/svg/wood-background.svg");
+  overflow: hidden;
+}
+
+.site-name {
+  width: 100%;
+  height: 119px;
+  /* font-family: arial_rounded_mt_boldbold; */
+  font-size: 50px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 80px;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+  text-shadow: 5px 5px #ecb981;
+}
+
+.lesson-title {
+  max-width: 100%;
+  max-height: auto;
+  width: 100%;
+  height: 50px;
+  font-size: 40px;
+  font-weight: bold;
+  margin-top: 5%;
+  padding-left: 54.5px;
+}
+
+.panelindex {
+  padding-left: 0px !important;
+}
+
+.panelleftinside {
+  height: 100%;
+}
+
+.index {
+  width: 50px;
+  height: 30px;
+  background-color: #88b95e;
+  margin-top: 20%;
+  padding-top: 5%;
+}
+
+.index:hover {
+  background-color: #555;
+  color: white;
+  cursor: pointer;
+  padding-top: 5%;
+}
+
+.paragraph {
+  margin-left: 54.5px;
+}
+
+.paragraph > .line {
+  width: 100%;
+  height: 5px;
+  margin-bottom: 15px;
+  background-color: #e6e6e6;
+}
+
+.postit {
+  padding: 10px;
+  word-break: break-word;
+  font-size: 20px;
+}
+
+.postit.postit-disable {
+  background-color: #cecece;
+  cursor: url("/assets/cursor-pointer-disabled.png"), pointer;
+}
+
+.postit-top-right {
+  width: 200px;
+  height: 210px;
+  box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.2);
+  border: solid 5px #000000;
+  float: right;
+  margin-right: 40px;
+}
+
+.postit-top-left {
+  width: 200px;
+  height: 210px;
+  box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.2);
+  border: solid 5px #000000;
+  float: left;
+  margin-left: 54.5px;
+  margin-top: 20px;
+}
+
+.postit-bottom-left {
+  width: 200px;
+  height: 210px;
+  box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.2);
+  border: solid 5px #000000;
+  float: left;
+  margin-left: 54.5px;
+}
+
+.postit-bottom-right {
+  width: 200px;
+  height: 210px;
+  box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.2);
+  border: solid 5px #000000;
+  float: right;
+  margin-top: 15px;
+  margin-right: 54.5px;
+}
+
+.profile-icon {
+  float: left;
+  width: 70px;
+  height: 70px;
+  margin-top: 10px;
+  font-size: 40px;
+  font-weight: bold;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #ffce00;
+  box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.16);
+  border: solid 5px #000000;
+  border-radius: 50%;
+}
+
+.profile-content {
+  margin-left: 100px;
+}
+
+.profile-content > .display-name {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.profile-content > div {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.config-content {
+  width: 300px;
+}
+
+.menu {
+  width: 100%;
+  height: 214px;
+  overflow-y: overlay;
+}
+
+.menu-photo {
+  width: 320px;
+  height: 210px;
+  box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.2);
+  border: solid 5px #000000;
+  background-color: #ffffff;
+  float: left;
+  margin-left: 54.5px;
+  /* padding: 10px; */
+}
+
+.menu-name {
+  width: 100%;
+  height: 40px;
+  padding: 0px 54.5px 5px 54.5px;
+  font-size: 30px;
+  font-weight: bold;
+  word-wrap: break-word;
+}
+
+.menu-name::first-letter {
+  text-transform: uppercase;
+}
+
+.menu-content {
+  width: 100%;
+  height: 100px;
+  padding: 5px 54.5px 5px 54.5px;
+  font-size: 20px;
+  font-weight: bold;
+  word-wrap: break-word;
+}
+
+.menu-list {
+  width: 500px;
+  padding-left: 54.5px;
+  padding-right: 54.5px;
+  display: inline-flex;
+}
+
+.menu-block {
+  width: 72px;
+  height: 72px;
+  font-size: 40px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 12px;
+  box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.2);
+  border: solid 5px #000000;
+  background-color: #f5ffd5;
+  margin: 15px;
+  display: block;
+}
+
+.button-language {
+  float: right;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  width: 60px;
+  height: 60px;
+  font-family: "Mali", cursive;
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  border-radius: 12px;
+  box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.16);
+  border: solid 5px #000000;
+  background-color: #ffac58;
+}
+
+.button-signout {
+  float: right;
+  width: 250px;
+  height: 60px;
+  font-family: "Mali", cursive;
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 12px;
+  box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.16);
+  border: solid 5px #000000;
+  background-color: #ffac58;
+}
+
+.button-language:active,
+.button-language:focus,
+.button-signout:active,
+.button-signout:focus {
+  background-color: #ff9e3c;
+}
+
+.question {
+  background-image: url("/assets/svg/question.svg");
+  background-size: 60% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.salad {
+  background-image: url("/assets/svg/salad.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.glass {
+  background-image: url("/assets/svg/variable/juice/achievement-glass.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.orangeGlass {
+  background-image: url("/assets/svg/variable/juice/achievement-orangeGlass.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.orangeOutsideGlass {
+  background-image: url("/assets/svg/variable/juice/achievement-orangeOutsideGlass.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.orangeJuice {
+  background-image: url("/assets/svg/variable/juice/achievement-orangeJuice.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.toast {
+  top: 0px;
+}
+.cereal {
+  background-image: url("/assets/svg/variable/cereal/cereals.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.milk {
+  background-image: url("/assets/svg/variable/cereal/milk.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.completeCereal {
+  background-image: url("/assets/svg/variable/cereal/cereals-cereals.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.appleJuice {
+  background-image: url("/assets/svg/input_output/apple-juice/applejuice.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.appleIsTooBig {
+  background-image: url("/assets/svg/input_output/apple-juice/apple.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.bread {
+  background-image: url("/assets/svg/input_output/bread/bread1.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.toast {
+  background-image: url("/assets/svg/input_output/bread/bread2.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.burnedBread {
+  background-image: url("/assets/svg/input_output/bread/bread3.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.bacon {
+  background-image: url("/assets/svg/input_output/bacon/bacon1.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.crispyBacon {
+  background-image: url("/assets/svg/input_output/bacon/bacon2.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.burntBacon {
+  background-image: url("/assets/svg/input_output/bacon/bacon3.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.latte {
+  background-image: url("/assets/svg/condition/coffee/latte.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.espresso {
+  background-image: url("/assets/svg/condition/coffee/espresso.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.mediumRareSteak {
+  background-image: url("/assets/svg/condition/steak/steak1.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.mediumWellSteak {
+  background-image: url("/assets/svg/condition/steak/steak2.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.spaghettiCarbonara {
+  background-image: url("/assets/svg/condition/spaghetti/spaghettiCarbonara.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.spaghettiBolognese {
+  background-image: url("/assets/svg/condition/spaghetti/spaghettiBolognese.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.fettucineCarbonara {
+  background-image: url("/assets/svg/condition/spaghetti/fettucineCarbonara.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.fettucineBolognese {
+  background-image: url("/assets/svg/condition/spaghetti/fettucineBolognese.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.salad {
+  background-image: url("/assets/svg/variable/salad/salad.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.saladOutsideBowl {
+  background-image: url("/assets/svg/variable/salad/saladOutsideBowl.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.organicVegetables {
+  background-image: url("/assets/svg/variable/salad/organicVegetables.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.saladDressing {
+  background-image: url("/assets/svg/variable/salad/saladDressing.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.paragraph-left {
+  text-align: right;
+  width: 220px;
+  height: 250px;
+  margin-top: 20px;
+  margin-left: 240px;
+  padding: 20px;
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 48px;
+}
+.paragraph-right {
+  width: 220px;
+  height: 250px;
+  margin-top: 20px;
+  margin-left: 240px;
+  padding: 20px;
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 48px;
+}
+
+.menu-dushboard{
+    background-image: url("/assets/svg/menu/dashboard.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.menu-feedback{
+    background-image: url("/assets/svg/menu/feedback.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.menu-logic{
+    background-image: url("/assets/svg/menu/logic.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.menu-flowchart{
+    background-image: url("/assets/svg/menu/flowchart.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
