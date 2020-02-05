@@ -2,34 +2,6 @@
     #target{
         overflow: auto;
     }
-    /* Rating Star Widgets Style */
-    .rating-stars ul {
-        list-style-type:none;
-        padding:0;
-        
-        -moz-user-select:none;
-        -webkit-user-select:none;
-    }
-    .rating-stars ul > li.star {
-        display:inline-block;
-    
-    }
-
-    /* Idle State of the stars */
-    .rating-stars ul > li.star > i.fa {
-        font-size:2.5em; /* Change the size of the stars */
-        color:#ffffff; /* Color on idle state */
-    }
-
-    /* Hover state of the stars */
-    .rating-stars ul > li.star.hover > i.fa {
-        color:#FFCC36;
-    }
-
-    /* Selected state of the stars */
-    .rating-stars ul > li.star.selected > i.fa {
-        color:#FF912C;
-    }
 </style>
 
 <body>
@@ -55,24 +27,20 @@
             <div style="padding: 0px 20px 20px 20px;">
                 <p style="text-align: left;font-size: 18px;font-weight: bold;" >Question Name</p>
                 <input id="questionInput" type="text" style="background-color: white;"/>
-                <p style="text-align: left;font-size: 18px;font-weight: bold;" >Hint</p>
-                <textarea id="hintInput" style="background-color: white;"></textarea>
-                <p style="text-align: left;font-size: 18px;font-weight: bold;" >Question
+                <p style="text-align: left;font-size: 18px;font-weight: bold;" >Equation
                 <button id="q_increase">+</button>
                 <button id="q_decrease">-</button>
                 </p>
                 <div id="question_text" style="overflow: hidden;">
                     <input id="question_part1" type="text" style="background-color: white;width: 100px;"/>
-                    ANS1
+                    &nbsp;[TARGET]&nbsp;
                     <input id="question_part2" type="text" style="background-color: white;width: 100px;"/>
                 </div>
-                <p style="text-align: left;font-size: 18px;font-weight: bold;" >Answers
-                    <button id="a_increase">+</button>
-                    <button id="a_decrease">-</button>
+                <p style="text-align: left;font-size: 18px;font-weight: bold;" >
+                    Answer (Only number or True False)
                 </p>
-                <div id="answer_text">
-                </div>
-                <p style="text-align: left;font-size: 18px;font-weight: bold;" >Difficult</p>
+                <input id="answer" type="text" style="background-color: white;width: 100px;"/>
+                <p style="text-align: left;font-size: 18px;font-weight: bold;" >Level</p>
                 <!-- Rating Stars Box -->
                 <section class='rating-widget'>
                     <div class='rating-stars' style="text-align: left;">
@@ -95,10 +63,8 @@
                       </ul>
                     </div>
                     
-                    <div class='success-box'>
-                      <div class='clearfix'></div>
-                      <div class='text-message'></div>
-                      <div class='clearfix'></div>
+                    <div>
+                      <input type="text" id="ratingStar" value="0" hidden>
                     </div>
                 </section>    
             </div>
@@ -121,120 +87,113 @@
 </body>
 
 <script>
-function createAnswer(ans,ans_pattern){
-    var ans_part = "";
-    for(let j=1;j<=ans;j++){
-        ans_part += "ANS"+j+" = "+
-                    "<input id='answer"+ans_pattern+"_"+j+"' type='text' style='background-color: white;width: 100px;'/> ";
+let refQuestion = firestore.collection("Logic");
+let keyId = 0;
+//save data to firebase 
+function saveQuestion(logicQuestion, logicLevel, logicName, logicAnswer) {
+    console.log("save...");
+    let type = "operator";
+    let arr = ["True","true","False","false"]
+    if(logicAnswer.toLowerCase()=="true"||logicAnswer.toLowerCase()=="false"){
+        type = "logic";
     }
-    if(document.getElementById("ansPattern"+ans_pattern+"") != null){
-        document.getElementById("ansPattern"+ans_pattern+"").remove();
-    };
-    document.getElementById("answer_text").innerHTML += "<div id='ansPattern"+ans_pattern+"'>"+
-                        "<div style='text-align: left;'>"+
-                            "Answer "+ans_pattern+" : "+
-                            ans_part+
-                        "</div>"+
-                    "</div>";
-};
+    refQuestion.get().then(function(doc){
+        keyId = doc.size + 1;
+        //console.log("set("+keyId+")");
+    }).then(function(){
+        refQuestion.doc(keyId.toString()).set({
+            Question: logicQuestion,
+            Name: logicName,
+            Answer: logicAnswer,
+            Level : logicLevel,
+            Type : type
+        }).then(function(){
+            showSaveStatus("Save Success!!");
+        }).catch(err => {
+            showSaveStatus("Error : "+err);
+        });
+    });
+}
+
+
 $(document).ready(function(){
     
     let question_partcount = 2; //question amount
-    let ans_count = 1;
-    let answerPattern_count = 1; //answer pattern amount
+    let target_count = 1;
+
+
     //add answer in question
-    createAnswer(ans_count,1);
     $('#q_increase').click(function(){
         question_partcount++;
-        ans_count++;
-        var q_text = "ANS"+(ans_count)+" <input id='question_part"+(question_partcount)+"' type='text' style='background-color: white;width: 100px;'/> ";        
-        document.getElementById("question_text").innerHTML += q_text;
-        document.getElementById("answer_text").innerHTML = "";
-        answerPattern_count = 1;
-        createAnswer(ans_count,1);       
+        target_count++;
+        var q_text = "&nbsp;[TARGET]&nbsp;<input id='question_part"+(question_partcount)+"' type='text' style='background-color: white;width: 100px;'/> ";        
+        document.getElementById("question_text").innerHTML += q_text;   
     });
     //delete answer in question
     $('#q_decrease').click(function(){
-        if(ans_count > 1){
+        if(target_count > 1){
             question_partcount--;
-            ans_count--;
+            target_count--;
             var q_text_part = "<input id='question_part1' type='text' style='background-color: white;width: 100px;'/> "
-            for(let i=1;i<=ans_count;i++){
-                var q_text = "ANS"+(i)+" <input id='question_part"+(i+1)+"' type='text' style='background-color: white;width: 100px;'/> ";        
+            for(let i=1;i<=target_count;i++){
+                var q_text = "&nbsp;[TARGET]&nbsp;<input id='question_part"+(i+1)+"' type='text' style='background-color: white;width: 100px;'/> ";        
                 q_text_part += q_text;
             };
             document.getElementById("question_text").innerHTML = q_text_part;
-            document.getElementById("answer_text").innerHTML = "";
-            answerPattern_count = 1;
-            createAnswer(ans_count,1);  
         }
     });
-    //add answer pattern
-    $('#a_increase').click(function(){
-        answerPattern_count++;
-        createAnswer(ans_count,answerPattern_count);       
-    });
-    //delete answer pattern
-    $('#a_decrease').click(function(){
-        if(document.getElementById("ansPattern"+answerPattern_count+"") != null && answerPattern_count > 1){
-            document.getElementById("ansPattern"+answerPattern_count+"").remove();
-            answerPattern_count--;
-        };
-    });
-
+    
     //save button click
     $('#saveButton').click(function(){
-        console.log("save data:");
-        console.log(document.getElementById("questionInput").value);
-        console.log(document.getElementById("hintInput").value);
-        for(let x=1;x<=question_partcount;x++){
-            console.log(document.getElementById("question_part"+x).value);
+        //console.log("save data:");
+        let logicName = document.getElementById("questionInput").value;
+        let logicQuestion = document.getElementById("question_part1").value;
+        let logicAnswer = document.getElementById("answer").value;
+        let logicLevel = document.getElementById("ratingStar").value;
+        //console.log(logicName);
+        for(let x=2;x<=question_partcount;x++){
+            logicQuestion = logicQuestion + " {target} " + document.getElementById("question_part"+x).value;
         }
-        for(let y=1;y<=answerPattern_count;y++){
-            for(let z=1;z<=ans_count;z++){
-                console.log(document.getElementById("answer"+y+"_"+z).value);
-            }
-        }
+
+        saveQuestion(logicQuestion,logicLevel,logicName,logicAnswer);
     });
 
-    /* 1. Visualizing things on Hover - See next part for action on click */
+    //Visualizing things on Hover
     $('#stars li').on('mouseover', function(){
         var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
-    
-        // Now highlight all the stars that's not after the current hovered star
+        // highlight all the stars that's not after the current hovered star
         $(this).parent().children('li.star').each(function(e){
-        if (e < onStar) {
-            $(this).addClass('hover');
-        }
-        else {
-            $(this).removeClass('hover');
-        }
+            if (e < onStar) {
+                $(this).addClass('hover');
+            }
+            else {
+                $(this).removeClass('hover');
+            }
         });
-        
     }).on('mouseout', function(){
         $(this).parent().children('li.star').each(function(e){
         $(this).removeClass('hover');
         });
     });
-    
-    
-    /* 2. Action to perform on click */
+    //Action to perform on click
     $('#stars li').on('click', function(){
         var onStar = parseInt($(this).data('value'), 10); // The star currently selected
         var stars = $(this).parent().children('li.star');
         
         for (i = 0; i < stars.length; i++) {
-        $(stars[i]).removeClass('selected');
+        $(stars[i]).removeClass('selected'); 
         }
         
         for (i = 0; i < onStar; i++) {
         $(stars[i]).addClass('selected');
         }
-        
+         
         // JUST RESPONSE (Not needed)
         var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
-        
-        console.log(ratingValue);
+        //set input level
+        document.getElementById("ratingStar").value = ratingValue;
+        // console.log(ratingValue);
+        // console.log(document.getElementById("ratingStar").value);
     });
 });
 </script>

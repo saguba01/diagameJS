@@ -94,6 +94,7 @@ app.use(express.static(path.join(__dirname, 'configs')));
 app.use('/', require('./routes/route-login'));
 app.use('/api', require('./routes/route-api'));
 app.use('/home', require('./routes/route-home'));
+app.use('/admin', require('./routes/route-admin'));
 app.use('/lesson/decision', require('./routes/route-decision'));
 app.use('/lesson/io', require('./routes/route-io'));
 app.use('/lesson/logic', require('./routes/route-logic'));

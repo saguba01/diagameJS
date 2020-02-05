@@ -80,6 +80,10 @@ module.exports = {
             advance: {
                 text: 'ระดับแอดวานซ์',
                 url: 'advance'
+            },
+            addlogic:{
+                text: 'เพิ่มคำถาม',
+                url: 'add/logic'
             }
         }
     },
