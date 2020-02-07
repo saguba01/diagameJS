@@ -27,6 +27,7 @@
             <div style="padding: 0px 20px 20px 20px;">
                 <p style="text-align: left;font-size: 18px;font-weight: bold;" >Question Name</p>
                 <input id="questionInput" type="text" style="background-color: white;"/>
+                <p id="validate_name" style="text-align: left;font-size: 18px;font-weight: bold;color: red;"></p>
                 <p style="text-align: left;font-size: 18px;font-weight: bold;" >Equation
                 <button id="q_increase">+</button>
                 <button id="q_decrease">-</button>
@@ -40,6 +41,7 @@
                     Answer (Only number or True False)
                 </p>
                 <input id="answer" type="text" style="background-color: white;width: 100px;"/>
+                <p id="validate_ans" style="font-size: 18px;font-weight: bold;color: red;"></p>
                 <p style="text-align: left;font-size: 18px;font-weight: bold;" >Level</p>
                 <!-- Rating Stars Box -->
                 <section class='rating-widget'>
@@ -101,6 +103,7 @@ function saveQuestion(logicQuestion, logicLevel, logicName, logicAnswer) {
         keyId = doc.size + 1;
         //console.log("set("+keyId+")");
     }).then(function(){
+        showLoading();
         refQuestion.doc(keyId.toString()).set({
             Question: logicQuestion,
             Name: logicName,
@@ -108,8 +111,10 @@ function saveQuestion(logicQuestion, logicLevel, logicName, logicAnswer) {
             Level : logicLevel,
             Type : type
         }).then(function(){
+            closeLoading();
             showSaveStatus("Save Success!!");
         }).catch(err => {
+            closeLoading();
             showSaveStatus("Error : "+err);
         });
     });
@@ -149,12 +154,31 @@ $(document).ready(function(){
         let logicQuestion = document.getElementById("question_part1").value;
         let logicAnswer = document.getElementById("answer").value;
         let logicLevel = document.getElementById("ratingStar").value;
+        //condition
+        let checkNameNull = logicName == "";
+        let checkAnsNull = logicAnswer == "";
         //console.log(logicName);
         for(let x=2;x<=question_partcount;x++){
             logicQuestion = logicQuestion + " {target} " + document.getElementById("question_part"+x).value;
         }
-
-        saveQuestion(logicQuestion,logicLevel,logicName,logicAnswer);
+        if(checkNameNull||checkAnsNull){
+            if(checkNameNull){
+                $("#questionInput").addClass("redBorder");
+                $("#validate_name").text("Please fill in Question Name.");
+            }else{
+                $("#questionInput").removeClass("redBorder");
+                $("#validate_name").text("");
+            }
+            if(checkAnsNull){
+                $("#answer").addClass("redBorder");
+                $("#validate_ans").text("Please fill in Answer.");
+            }else{
+                $("#answer").removeClass("redBorder");
+                $("#validate_ans").text("");
+            }
+        }else{
+            saveQuestion(logicQuestion,logicLevel,logicName,logicAnswer);
+        }
     });
 
     //Visualizing things on Hover

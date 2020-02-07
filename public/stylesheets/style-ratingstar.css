@@ -26,3 +26,8 @@
 .rating-stars ul > li.star.selected > i.fa {
     color:#FF912C;
 }
+
+.redBorder{
+    border-color: red !important;
+    border-width: 3px !important ;
+}
