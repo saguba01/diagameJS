@@ -1,11 +1,11 @@
 <div class="questionBox noselect">
     <div class="questionCount">{{ questionName }}</div>
     <div class="questionArea">
-        {{logicQuestion question}}
+        {{operatorQuestion question}}
     </div>
 </div>
 
-<div class="sourceBottom noselect" style="width: 735px;margin-left:-367.5px;">
+<div class="sourceBottom noselect">
     <div class="tab-horizontal" style="padding-left: 15px;">
         <div class="tab valign-wrapper"
             style="height: 90px;border-right: 5px solid;padding-top: 15px;padding-right: 15px;">
@@ -18,29 +18,20 @@
             </div>
         </div>
         <div class="tab valign-wrapper" style="width:100%;padding-top: 15px">
-            <div class="canClick jellyButton operatorButton selected" event="<">
-                <div class="lessthan-icon"></div>
+            <div class="canClick jellyButton operatorButton selected" event="+">
+                <div class="plus-icon"></div>
             </div>
-            <div class="canClick jellyButton operatorButton" event="<=">
-                <div class="lessthanorequal-icon"></div>
+            <div class="canClick jellyButton operatorButton" event="-">
+                <div class="minus-icon"></div>
             </div>
-            <div class="canClick jellyButton operatorButton" event=">">
-                <div class="greaterthan-icon"></div>
+            <div class="canClick jellyButton operatorButton" event="*">
+                <div class="multiple-icon"></div>
             </div>
-            <div class="canClick jellyButton operatorButton" event=">=">
-                <div class="greaterthanorequal-icon"></div>
+            <div class="canClick jellyButton operatorButton" event="/">
+                <div class="divide-icon"></div>
             </div>
-            <div class="canClick jellyButton operatorButton" event="==">
-                <div class="equal-icon"></div>
-            </div>
-            <div class="canClick jellyButton operatorButton" event="!=">
-                <div class="notequal-icon"></div>
-            </div>
-            <div class="canClick jellyButton operatorButton" event="||">
-                <div class="or-icon"></div>
-            </div>
-            <div class="canClick jellyButton operatorButton" event="&&">
-                <div class="and-icon"></div>
+            <div class="canClick jellyButton operatorButton" event="%">
+                <div class="modular-icon"></div>
             </div>
         </div>
     </div>
@@ -101,12 +92,12 @@
     *@required jQuery,Firebase Cloud Firestore.
     */
     function gameEngine(callback) {
-        let active = $('.question.active').find('div');
-        var element = active;
+        let start = $('.question.active').find('div');
+        var element = start;
         var timestamp = Date.now();
-        var operand = [];
+        var equation = [];
         var answer = '';
-        if ($('.active').find('.boxAnswer').find('div').length > 0) {
+        if ($('.boxAnswer').find('div').length > 0) {
             play();
         } else {
             callback();
@@ -114,11 +105,12 @@
 
         function play() {
             if (element.attr('type') == 'operand') {
-                operand.push(element.attr('event'));
+                console.log(element);
+                equation.push(element.attr('event'));
                 element = element.next();
                 play();
             } else if (element.attr('type') == 'operator') {
-                operand.push(element.find('[event]').attr('event'));
+                equation.push(element.find('[event]').attr('event'));
                 element = element.next();
                 play();
             } else if (element.attr('type') == 'result') {
@@ -145,7 +137,7 @@
         }
 
         function getResult() {
-            var result = (eval(operand.join('')) == (answer == 'true'));
+            var result = (eval(equation.join('')) == parseInt(answer));
             return result;
         }
     }

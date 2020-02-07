@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var authen = require('../utils/authen');
 var configString = require('../app').configString;
+var firestore = require('../configs/firebase-config').firestore;
+
 
 /*
  *Description: open operator's introduction.
@@ -109,6 +111,43 @@ router.get('/advance', authen, function (req, res, next) {
     nextPage: '/lesson/logic/easy'
   };
   res.render('operator/advance', data);
+});
+
+/*
+ *Description: open Operator's sub lesson 3.
+ *@version 1.0
+ *@author Thanawin Poopangeon
+ *@since 7 Feb 2020
+ *@required node.js,ExpressJS.
+ */
+router.get('/:id', authen, function (req, res, next) {
+  let lang = req.cookies.lang;
+  let lesson = configString[lang].lesson.logic;
+  let refQuestion = firestore.collection("Logic");
+  let questionData;
+  refQuestion.doc(req.params.id).get().then(function(doc){
+    questionData = [{
+      equation: doc.data().Question,
+      answerText: doc.data().Answer,
+      answer: doc.data().Answer.toLowerCase()
+    }];
+    var data = {
+      layout: 'default',
+      navBar: true,
+      user: req.session.user,
+      lesson: lesson,
+      subLesson: lesson.subLesson.advance,
+      question: questionData,
+      questionName: doc.data().Name,
+      //required
+      elementsString: configString[lang].element.general,
+      general: configString[lang].general,
+      achievementList: configString[lang].achievement,
+      errorMsg: configString[lang].error,
+      //nextPage: '/lesson/decision/coffee'
+    };
+    res.render('operator/operatorById', data);
+  });
 });
 
 module.exports = router;

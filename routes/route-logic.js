@@ -115,8 +115,8 @@ router.get('/advance', authen, function (req, res, next) {
 /*
  *Description: open logic's sub lesson 3.
  *@version 1.0
- *@author Bulakorn Maneesang
- *@since 25 March 2019
+ *@author Thanawin Poopangeon
+ *@since 7 Feb 2020
  *@required node.js,ExpressJS.
  */
 router.get('/:id', authen, function (req, res, next) {
@@ -137,6 +137,7 @@ router.get('/:id', authen, function (req, res, next) {
       lesson: lesson,
       subLesson: lesson.subLesson.advance,
       question: questionData,
+      questionName: doc.data().Name,
       //required
       elementsString: configString[lang].element.general,
       general: configString[lang].general,
