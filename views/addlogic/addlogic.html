@@ -37,6 +37,7 @@
                     &nbsp;[TARGET]&nbsp;
                     <input id="question_part2" type="text" style="background-color: white;width: 100px;"/>
                 </div>
+                <p id="validate_question" style="font-size: 18px;font-weight: bold;color: red;"></p>
                 <p style="text-align: left;font-size: 18px;font-weight: bold;" >
                     Answer (Only number or True False)
                 </p>
@@ -95,7 +96,6 @@ let keyId = 0;
 function saveQuestion(logicQuestion, logicLevel, logicName, logicAnswer) {
     console.log("save...");
     let type = "operator";
-    let arr = ["True","true","False","false"]
     if(logicAnswer.toLowerCase()=="true"||logicAnswer.toLowerCase()=="false"){
         type = "logic";
     }
@@ -157,11 +157,24 @@ $(document).ready(function(){
         //condition
         let checkNameNull = logicName == "";
         let checkAnsNull = logicAnswer == "";
+        let checkQuestionNull = logicQuestion == "";
+        let numQuestionFail = 0;
         //console.log(logicName);
         for(let x=2;x<=question_partcount;x++){
-            logicQuestion = logicQuestion + " {target} " + document.getElementById("question_part"+x).value;
+            let q_part = document.getElementById("question_part"+x).value;
+            if(q_part == ""){
+                numQuestionFail++;
+                $("#question_part"+x).addClass("redBorder");
+                $("#validate_question").text("Please fill in Question Part "+x+".");
+            }else{
+                if(numQuestionFail == 0){
+                    $("#question_part"+x).removeClass("redBorder");
+                    $("#validate_question").text("");
+                }
+                logicQuestion = logicQuestion + " {target} " + q_part;
+            }
         }
-        if(checkNameNull||checkAnsNull){
+        if(checkNameNull||checkAnsNull||checkQuestionNull){
             if(checkNameNull){
                 $("#questionInput").addClass("redBorder");
                 $("#validate_name").text("Please fill in Question Name.");
@@ -175,6 +188,16 @@ $(document).ready(function(){
             }else{
                 $("#answer").removeClass("redBorder");
                 $("#validate_ans").text("");
+            }
+            if(checkQuestionNull){
+                numQuestionFail++;
+                $("#question_part1").addClass("redBorder");
+                $("#validate_question").text("Please fill in Question Part 1.");
+            }else{
+                if(numQuestionFail == 0){
+                    $("#question_part1").removeClass("redBorder");
+                    $("#validate_question").text("");
+                }
             }
         }else{
             saveQuestion(logicQuestion,logicLevel,logicName,logicAnswer);
