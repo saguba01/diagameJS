@@ -563,3 +563,30 @@ function showSaveStatus(content) {
     });
     $('#modal-addQuestion').modal('open');
 }
+/*
+ *Description: Show alert modal.
+ *@version 1.0
+ *@author Thanawin Poopangeon
+ *@since 5 Feb 2020
+ *@required javascript, materialize-css.
+ */
+function showLoading() {
+    $('#modal-saving').modal({
+        'dismissible': false,
+        'onOpenStart': function () {},
+        'onOpenEnd': function () {
+            $('.addQuestion-content').text();
+        }
+    });
+    $('#modal-saving').modal('open');
+}
+/*
+ *Description: Show alert modal.
+ *@version 1.0
+ *@author Thanawin Poopangeon
+ *@since 7 Feb 2020
+ *@required javascript, materialize-css.
+ */
+function closeLoading() {
+    $('#modal-saving').modal('close');
+}

@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="/stylesheets/style-loading.css"/>
+
 <div id="modal-alert" class="modal">
   <div class="modal-content">
     <div class="button-close-custom canClick right" onclick="closeModal('#modal-alert')"></div>
@@ -39,5 +41,15 @@
   </div>
   <div class="modal-footer">
     <button onclick="window.location.replace('/admin')" class="canClick button-navigator">{{general.button.home}}</button>
+  </div>
+</div>
+
+<div id="modal-saving" class="modal">
+  <div class="navigator-content"></div>
+    <br>
+    <div style="height: 150px;padding-bottom: 0px;">
+      <div class="loader"></div>
+    </div>
+    <br>
   </div>
 </div>
