@@ -4,15 +4,7 @@ var authen = require('../utils/authen');
 var configString = require('../app').configString;
 var firestore = require('../configs/firebase-config').firestore;
 
-/* 
- * name: homePage
- * description: open home page
- * author: Bulakorn M.
- * create date: 25/01/2019
- * 
- * author: Jirapat L.
- * modify date: 12/02/2020
- */
+
 router.get('/', authen, async (req, res, next) => {
   let lang = req.cookies.lang;
   var data = {
@@ -20,8 +12,7 @@ router.get('/', authen, async (req, res, next) => {
     user: req.session.user,
     element: configString[lang].element.general,
     intro: configString[lang].intro,
-    questionLogic: await getLogic(),
-    questionOperator: await getOperator(),
+    feedback : await getFeedback(),
     //required
     unlock: await getAchievement(req.session.user.uid),
     passed: await getPassed(req.session.user.uid),
@@ -31,31 +22,19 @@ router.get('/', authen, async (req, res, next) => {
     errorMsg: configString[lang].error,
     ListMenu : JSON.stringify(await getMenu())
   };
-  res.render('home/index', data);
+  res.render('feedback/show_feedback', data);
 });
 
-router.post('/', authen,async (req, res, next) => {
-  let lang = req.cookies.lang;
-  await getPassed(req.session.user.uid);
-  var data = {
-    layout: 'default',
-    user: req.session.user,
-    page: req.body.page, //req.session.homePost != req.body.page ? req.body.page : undefined,
-    element: configString[lang].element.general,
-    intro: configString[lang].intro,
-    questionLogic: await getLogic(),
-    questionOperator: await getOperator(),
-    //required
-    unlock: await getAchievement(req.session.user.uid),
-    passed: await getPassed(req.session.user.uid),
-    lesson: configString[lang].lesson,
-    general: configString[lang].general,
-    achievementList: configString[lang].achievement,
-    errorMsg: configString[lang].error
-  };
-  req.session.homePost = req.body.page;
-  res.render('home/index', data);
-});
+async function getFeedback(){
+    var feedback = [];
+    let reffb = firestore.collection('Feedback')
+    reffb.get().then((doc)=>{
+          doc.forEach(element => {
+            feedback.push(element.data())
+          })
+    });
+    return feedback;
+}
 
 async function getAchievement(uid) {
   var unlock = [];
@@ -103,31 +82,4 @@ async function getMenu() {
   return Menu;
 }
 
-async function getLogic(){
-    var question = [];
-    let refquestion = firestore.collection('Logic')
-    refquestion.get().then((doc)=>{
-          doc.forEach(element => {
-            if(element.data().Type == "logic"){
-            question.push(element.data())
-            }
-          })
-    });
-    return question;
-}
-
-async function getOperator(){
-  var question = [];
-  let refquestion = firestore.collection('Logic')
-  refquestion.get().then((doc)=>{
-        doc.forEach(element => {
-          if(element.data().Type == "operator"){
-          question.push(element.data())
-          }
-        })
-  });
-  return question;
-}
-
-
-module.exports = router;
+  module.exports = router;

@@ -1,5 +1,5 @@
 <header>
-    <link rel="stylesheet" href="/stylesheets/style-home.css">
+    <link rel="stylesheet" href="/stylesheets/style-admin.css">
 </header>
 <div id="book" style="display: table;margin: auto;margin-top: 80px;">
     <div class="book">
@@ -136,213 +136,32 @@
     <!-- Variable -->
     <div class="panelleft" style="width:500px;height: 650px;position: absolute;">
         <div class="innerpage">
-            <p class="lesson-title noselect" guide="lesson">Variable</p>
-            <div guide="lesson" target="/lesson/{{ lesson.variable.url }}/{{ lesson.variable.subLesson.juice.url }}"
-                class="postit postit-top-right bg-orange canClick">
-                {{ lesson.variable.subLesson.juice.text }}</div>
-            <div class="paragraph" style="width:250px;height: 250px;margin-top: 50px;">
-                {{lines 11}}
-            </div>
-            <div target="/lesson/{{ lesson.variable.url }}/{{ lesson.variable.subLesson.cereal.url }}"
-                class="postit postit-bottom-left bg-sky-blue canClick {{locked passed lesson.variable.url lesson.variable.subLesson.juice.url }}">{{ lesson.variable.subLesson.cereal.text }}</div>
-            <div target="/lesson/{{ lesson.variable.url }}/{{ lesson.variable.subLesson.salad.url }}"
-                class="postit postit-bottom-right bg-light-green canClick {{locked passed lesson.variable.url lesson.variable.subLesson.cereal.url }}" style="margin-right: 40px;">{{ lesson.variable.subLesson.salad.text }}</div>
-            <div class="paragraph" style="width:220px;height: 250px;margin-left: 240px;">
-                {{lines 12}}
-            </div>
+            <p class="lesson-title noselect" guide="lesson">Feedback</p>
+            
         </div>
-
     </div>
 
     <div id="flipbook">
         <!-- IO -->
         <div class="panelright">
             <div class="innerpage">
-                <p class="lesson-title noselect">{{ lesson.io.text }}</p>
-                <div target="/lesson/{{ lesson.io.url }}/{{ lesson.io.subLesson.juice.url }}"
-                    class="postit postit-top-left bg-nude canClick">{{ lesson.io.subLesson.juice.text }}</div>
-                <div target="/lesson/{{ lesson.io.url }}/{{ lesson.io.subLesson.toast.url }}"
-                class="postit postit-top-right bg-yellow canClick {{locked passed lesson.io.url lesson.io.subLesson.juice.url }}">{{ lesson.io.subLesson.toast.text }}</div>
-                <div class="paragraph" style="width:200px;height: 250px;margin-top: 50px;margin-left: 240px;">
-                    {{lines 12}}
-                </div>
-                <div target="/lesson/{{ lesson.io.url }}/{{ lesson.io.subLesson.bacon.url }}"
-                    class="postit postit-bottom-right bg-red canClick {{locked passed lesson.io.url lesson.io.subLesson.toast.url }}">{{ lesson.io.subLesson.bacon.text }}</div>
-                <div class="paragraph" style="width:180px;height: 250px;margin-left: 54.5px;">
-                    {{lines 11}}
-                </div>
-            </div>
-        </div>
-
-        <!-- Operators -->
-        <div class="panelleft">
-            <div class="innerpage">
-                <p class="lesson-title noselect">{{ lesson.operator.text }}</p>
-                <div class="list-question" id="listoperator">
-                    {{ listquestion questionOperator }}
-                </div>
-                <!--<div target="/lesson/{{ lesson.operator.url }}/{{ lesson.operator.subLesson.easy.url }}"
-                    class="postit postit-top-left bg-light-green canClick">{{ lesson.operator.subLesson.easy.text }}</div>
-                <div class="paragraph" style="width:220px;height: 250px;margin-top: 50px;margin-left: 240px;">
-                    {{lines 11}}
-                </div>
-                <div target="/lesson/{{ lesson.operator.url }}/{{ lesson.operator.subLesson.nomal.url }}"
-                    class="postit postit-bottom-left bg-blue canClick {{locked passed lesson.operator.url lesson.operator.subLesson.easy.url }}" style="margin-left: 85px;">
-                    {{ lesson.operator.subLesson.nomal.text }}</div>
-                <div class="paragraph" style="width:220px;height: 250px;margin-left: 240px;">
-                    {{lines 9}}
-                </div>-->
-            </div>
-        </div>
-        <div class="panelright">
-            <div class="innerpage">
-                <p class="lesson-title noselect">{{ lesson.logic.text }}</p>
+                <p class="lesson-title noselect" guide="lesson">Comments</p>
                 <div class="list-question" id="listlogic">
-                {{ listquestion questionLogic}}
-                </div>
-                <!--<div target="/lesson/{{ lesson.logic.url }}/{{ lesson.logic.subLesson.easy.url }}"
-                    class="postit postit-top-right bg-red canClick">{{ lesson.logic.subLesson.easy.text }}</div>
-                <div class="paragraph" style="width:250px;height: 250px;margin-top: 50px;">
-                    {{lines 11}}
-                </div>
-                <div target="/lesson/{{ lesson.logic.url }}/{{ lesson.logic.subLesson.nomal.url }}"
-                    class="postit postit-bottom-left bg-nude canClick  {{locked passed lesson.logic.url lesson.logic.subLesson.easy.url }}">{{ lesson.logic.subLesson.nomal.text }}</div>
-                <div class="paragraph" style="width:220px;height: 250px;margin-left: 240px;">
-                    {{lines 12}}
-                </div>-->
-            </div>
-        </div>
-        
-        <!-- Dicision -->
-        <div class="panelleft">
-            <div class="innerpage">
-                <p class="lesson-title noselect">{{ lesson.decision.text }}</p>
-                <div target="/lesson/{{ lesson.decision.url }}/{{ lesson.decision.subLesson.coffee.url }}"
-                    class="postit postit-top-left bg-light-green canClick {{locked passed lesson.logic.url lesson.logic.subLesson.hard.url }}">{{ lesson.decision.subLesson.coffee.text }}</div>
-                <div class="paragraph" style="width:200px;height: 250px;margin-top: 50px;margin-left: 240px;">
-                    {{lines 10}}
-                </div>
-                <div target="/lesson/{{ lesson.decision.url }}/{{ lesson.decision.subLesson.steak.url }}"
-                    class="postit postit-bottom-right bg-blue canClick {{locked passed lesson.decision.url lesson.decision.subLesson.coffee.url }}">{{ lesson.decision.subLesson.steak.text }}</div>
-                <div class="paragraph" style="width:180px;height: 250px;margin-left: 54.5px;">
-                    {{lines 12}}
-                </div>
-            </div>
-        </div>
-        <div class="panelright">
-            <div class="innerpage">
-                <p class="lesson-title"></p>
-                <div target="/lesson/{{ lesson.decision.url }}/{{ lesson.decision.subLesson.pasta.url }}"
-                    class="postit postit postit-top-right bg-purple canClick {{locked passed lesson.decision.url lesson.decision.subLesson.steak.url }}">{{ lesson.decision.subLesson.pasta.text }}
-                </div>
-                <div class="paragraph" style="width:250px;height: 250px;margin-top: 50px;">
-                    {{lines 11}}
-                </div>
-                <div target="/lesson/{{ lesson.decision.url }}/{{ lesson.decision.subLesson.decision_3.url }}"
-                    class="postit postit-bottom-left bg-red canClick {{locked passed lesson.decision.url lesson.decision.subLesson.pasta.url }}">{{ lesson.decision.subLesson.decision_3.text }}</div>
-                <div class="paragraph" style="width:220px;height: 250px;margin-left: 240px;">
-                    {{lines 12}}
-                </div>
-            </div>
-        </div>
-        <!-- Loop -->
-        
-        <div class="panelleft">
-            <div class="innerpage">
-                <p class="lesson-title noselect">{{ lesson.loop.text }}</p>
-                <div target="/lesson/{{ lesson.loop.url }}/{{ lesson.loop.subLesson.smoothie.url }}"
-                    class="postit postit-top-right bg-orange canClick postit-disable">{{ lesson.loop.subLesson.smoothie.text }}</div>
-                <div class="paragraph" style="width:250px;height: 250px;margin-top: 50px;">
-                    {{lines 11}}
-                </div>
-                <div target="/lesson/{{ lesson.loop.url }}/{{ lesson.loop.subLesson.dough.url }}"
-                    class="postit postit-bottom-left bg-sky-blue canClick postit-disable">{{ lesson.loop.subLesson.dough.text }}</div>
-                <div class="paragraph" style="width:220px;height: 250px;margin-left: 240px;">
-                    {{lines 12}}
-                </div>
-            </div>
-        </div>
-        <div class="panelright">
-            <div class="innerpage">
-                <p class="lesson-title"></p>
-                <div target="/lesson/{{ lesson.loop.url }}/{{ lesson.loop.subLesson.whipedCream.url }}"
-                    class="postit postit-top-left bg-light-green canClick postit-disable">{{ lesson.loop.subLesson.whipedCream.text }}</div>
-                <div class="paragraph" style="width:200px;height: 250px;margin-top: 50px;margin-left: 240px;">
-                    {{lines 11}}
-                </div>
-                <div target="/lesson/{{ lesson.loop.url }}/{{ lesson.loop.subLesson.eclair.url }}"
-                    class="postit postit-bottom-right bg-yellow canClick postit-disable">{{ lesson.loop.subLesson.eclair.text }}</div>
-                <div class="paragraph" style="width:180px;height: 250px;margin-left: 54.5px;">
-                    {{lines 11}}
+                    {{ listcomment feedback }}
                 </div>
             </div>
         </div>
         
-        <!-- Profile -->
-        <div class="panelleft">
-            <div class="innerpage">
-                <p class="lesson-title noselect">{{ general.profile.text }}</p>
-                <div class="postit postit-top-right bg-red" style="margin-top: -20px;"></div>
-                <div class="paragraph" style="width:250px;height: 220px;margin-top: 50px;">
-                    {{lines 11}}
-                </div>
-                <div class="paragraph row" guide="profile">
-                    <div class="profile-icon noselect">{{substr user.displayName 0 1}}</div>
-                    <div class="profile-content noselect">
-                        <div class="display-name">{{ user.displayName }}</div>
-                        <div>{{lessonUnlock lesson passed}} {{ general.profile.unlock.lesson }}</div>
-                        <div>{{achievementUnlock achievementList unlock}} {{ general.profile.unlock.menu }}</div>
-                    </div>
-                </div>
-                <div class="config-content noselect">
-                    <div style="height: 80px;" guide="profile">
-                        <button class="button-language" onclick="javascript:setLanguage('th')">th</button>
-                        <button class="button-language" onclick="javascript:setLanguage('en')">en</button>
-                    </div>
-                    <button class="button-signout noselect" onclick="javascript:signOut()"
-                        guide="profile">{{ general.button.signout }}</button>
-                </div>
-                <div class="paragraph" style="width:180px;height: 250px;margin-left: 280px;margin-top: -70px;">
-                    {{lines 6}}
-                </div>
-            </div>
-        </div>
-        <!-- ACHIEVEMENT -->
-        <div class="panelright">
-            <div class="innerpage">
-                <div class="menu-photo" guide="achievement">
-                    <div id="menu-photo" style="width: 100%;height: 100%;"></div>
-                </div>
-                <div class="paragraph" style="width:160px;height: 230px;margin-top: 60px;margin-left: 280px;">
-                    {{lines 11}}
-                </div>
-                <div guide="achievement">
-                    <div class="menu-name noselect"></div>
-                    <div class="menu-content noselect"></div>
-                </div>
-                <div class="menu" guide="achievement">
-                    {{menublock achievementList unlock}}
-                </div>
-            </div>
-        </div>
     </div>
 </div>
-<input type="hidden" id='ListMenu' value="{{ListMenu}}">
-<div class="panelindex">
-    <ul>
-        <li class="indexone" onclick="changePage(4)"></li>
-        <li class="indextwo" onclick="changePage(6)"></li>
-        <li class="indexthree" onclick="changePage(8)"></li>
-        <li class="indexfour" onclick="changePage(10)"></li>
-        <li class="indexfive" onclick="changePage(12)"></li>
-        <li class="indexachievement" onclick="changePage(14)"></li>
-    </ul>
-</div>
+
 
 <script type="text/javascript">
-    $(document).ready(function () {
 
-       console.log(JSON.parse($('#ListMenu').val()))
+    $(document).ready(function () {
+        
+      // console.log(JSON.parse($('#ListMenu').val()))
+        
         $(".panelindex").hide();
         // $(".indexone").css("opacity","1");
         var page = '{{page}}';

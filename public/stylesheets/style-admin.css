@@ -576,3 +576,11 @@ body {
   background-position: center;
 }
 
+.comment-box{
+  margin-left:40px;
+  margin-right:40px;
+  border:3px solid black;
+}
+
+
+

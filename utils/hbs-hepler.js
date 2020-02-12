@@ -404,6 +404,8 @@ handlebars.registerHelper('listquestion', function(question){
     html += '<div class="'+color[index]+'" style="margin-left:40px; padding-right:1px; border:2px solid black">';
     html += '<div class="list-lesson-title" id="lesson-logic">';
     html += qs.Name;
+    html += '<br>';
+    html += qs.Type;
     html += '</div>';
     html += '<div class="list-lesson-score" id="score">';
     html += 'Score : ';
@@ -415,4 +417,15 @@ handlebars.registerHelper('listquestion', function(question){
     }
   });
   return new handlebars.SafeString(html);
+});
+
+handlebars.registerHelper('listcomment',function(feedback){
+    var html = '';
+    var index = 0;
+    feedback.forEach(function (fb){
+        html += '<div class="bg-light-green comment-box">';
+        html += fb.Comment;
+        html += '</div>';
+    });
+    return new handlebars.SafeString(html);
 });
