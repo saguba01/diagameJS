@@ -18,6 +18,7 @@ router.get('/', authen, async (req, res, next) => {
     user: req.session.user,
     element: configString[lang].element.general,
     intro: configString[lang].intro,
+    questionData: await getData(),
     //required
     unlock: await getAchievement(req.session.user.uid),
     passed: await getPassed(req.session.user.uid),
@@ -39,6 +40,7 @@ router.post('/', authen,async (req, res, next) => {
     page: req.body.page, //req.session.homePost != req.body.page ? req.body.page : undefined,
     element: configString[lang].element.general,
     intro: configString[lang].intro,
+    questionData: await getData(),
     //required
     unlock: await getAchievement(req.session.user.uid),
     passed: await getPassed(req.session.user.uid),
@@ -96,5 +98,17 @@ async function getMenu() {
   });
   return Menu;
 }
+
+async function getData(){
+    var question = [];
+    let refquestion = firestore.collection('Logic')
+    refquestion.get().then((doc)=>{
+          doc.forEach(element => {
+            question.push(element.data())
+          })
+    });
+    return question;
+}
+
 
 module.exports = router;

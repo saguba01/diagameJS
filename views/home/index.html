@@ -136,7 +136,7 @@
     <!-- Variable -->
     <div class="panelleft" style="width:500px;height: 650px;position: absolute;">
         <div class="innerpage">
-            <p class="lesson-title noselect" guide="lesson">{{ lesson.variable.text }} </p>
+            <p class="lesson-title noselect" guide="lesson">Variable</p>
             <div guide="lesson" target="/lesson/{{ lesson.variable.url }}/{{ lesson.variable.subLesson.juice.url }}"
                 class="postit postit-top-right bg-orange canClick">
                 {{ lesson.variable.subLesson.juice.text }}</div>
@@ -151,6 +151,7 @@
                 {{lines 12}}
             </div>
         </div>
+
     </div>
 
     <div id="flipbook">
@@ -172,6 +173,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Operators -->
         <div class="panelleft">
             <div class="innerpage">
@@ -209,7 +211,10 @@
         <div class="panelleft">
             <div class="innerpage">
                 <p class="lesson-title noselect">{{ lesson.logic.text }}</p>
-                <div target="/lesson/{{ lesson.logic.url }}/{{ lesson.logic.subLesson.easy.url }}"
+                <div class="list-question" id="listlogic">
+                {{ listquestion questionData }}
+                </div>
+                <!--<div target="/lesson/{{ lesson.logic.url }}/{{ lesson.logic.subLesson.easy.url }}"
                     class="postit postit-top-right bg-red canClick">{{ lesson.logic.subLesson.easy.text }}</div>
                 <div class="paragraph" style="width:250px;height: 250px;margin-top: 50px;">
                     {{lines 11}}
@@ -218,7 +223,7 @@
                     class="postit postit-bottom-left bg-nude canClick  {{locked passed lesson.logic.url lesson.logic.subLesson.easy.url }}">{{ lesson.logic.subLesson.nomal.text }}</div>
                 <div class="paragraph" style="width:220px;height: 250px;margin-left: 240px;">
                     {{lines 12}}
-                </div>
+                </div>-->
             </div>
         </div>
         <div class="panelright">
@@ -363,11 +368,9 @@
 </div>
 
 <script type="text/javascript">
-
     $(document).ready(function () {
-        
+
        console.log(JSON.parse($('#ListMenu').val()))
-        
         $(".panelindex").hide();
         // $(".indexone").css("opacity","1");
         var page = '{{page}}';

@@ -388,3 +388,31 @@ handlebars.registerHelper('logicQuestion', function (question) {
   return new handlebars.SafeString(html);
 });
 //end section
+
+/*
+ *Description: List Question For HomePage
+ *@version 1.0
+ *@author Jirapat Lapudomsakda
+ *@since 19 April 2019
+ *@required javascript, handlebars.
+ */
+handlebars.registerHelper('listquestion', function(question){
+  var html = '';
+  var index = 0;
+  var color = ["bg-red","bg-purple","bg-blue","bg-sky-blue","bg-light-green","bg-yellow","bg-orange","bg-nude"];
+  question.forEach(function (qs){
+    html += '<div class="'+color[index]+'" style="margin-left:40px; padding-right:1px; border:2px solid black">';
+    html += '<div class="list-lesson-title" id="lesson-logic">';
+    html += qs.Name;
+    html += '</div>';
+    html += '<div class="list-lesson-score" id="score">';
+    html += 'Score : ';
+    html += '</div>';
+    html += '</div>';
+    index++;
+    if(index > 7){
+      index = 0;
+    }
+  });
+  return new handlebars.SafeString(html);
+});

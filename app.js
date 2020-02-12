@@ -113,6 +113,7 @@ app.use('/lang', function (req, res, next) {
   }
   res.redirect('/home');
 });
+
 app.get('/api-service', function (req, res, next) {
   let data = firestore.collection('Logic')
   // let subdata = data.doc(data.listDocuments(0)).collection('Answers')
@@ -123,6 +124,7 @@ app.get('/api-service', function (req, res, next) {
       });
       res.send(arr);
   })
+
   // subdata.get().then((doc)=>{
   //   let arr = []
   //     doc.forEach(element => {

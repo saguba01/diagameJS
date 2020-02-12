@@ -526,3 +526,22 @@ body {
     background-repeat: no-repeat;
     background-position: center;
 }
+
+.list-lesson-title {
+    font-size: 20px;
+}
+
+.list-lesson-score{
+    margin-top:40px;
+    font-size:20px;
+}
+
+.list-color{
+    background-color: #555;
+}
+
+.list-question{
+    width: 95%;
+    height: 500px;
+    overflow-y: overlay;
+}
