@@ -102,6 +102,7 @@ app.use('/lesson/variable', require('./routes/route-variable'));
 app.use('/report', require('./routes/route-report'));
 app.use('/add/logic', require('./routes/route-logicQuestion'));
 app.use('/MDQ', require('./routes/route-diagram-question'));
+app.use('/tutorial', require('./routes/route-tutorial'));
 //app.use('/report', require('./routes/route-report'));
 
 app.use('/lang', function (req, res, next) {

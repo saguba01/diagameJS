@@ -12,7 +12,9 @@
             <ul class="center">
                 <li style="font-size:20px">
                     <a href="javascript:goHomePage({{lesson.page}})" style="color: black;padding: 0;font-size:20px">{{ lesson.text }}</a>
-                    <span class="noselect canClick"> / {{ subLesson.text }}</span>
+                    {{#if subLesson.text }}
+                        <span class="noselect canClick"> / {{ subLesson.text }}</span>
+                    {{/if}}
                 </li>
             </ul>
         </div>
