@@ -103,6 +103,10 @@ body {
     background: rgb(255, 66, 19);
 }
 
+.button-tool#backButton{
+    background: rgb(255, 134, 65);
+}
+
 .button-tool#resetButton{
     background: #FECF36;
 }
@@ -129,6 +133,15 @@ body {
     width: 100%;
     height: 100%;
     background-image: url('/assets/svg/rubbish-bin.svg');
+    background-size: 60% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.back-icon{
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/svg/back.svg');
     background-size: 60% auto;
     background-repeat: no-repeat;
     background-position: center;
