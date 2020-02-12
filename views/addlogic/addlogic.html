@@ -92,7 +92,13 @@
 <script>
 let refQuestion = firestore.collection("Logic");
 let keyId = 0;
-//save data to firebase 
+/*
+ *Description: Save data to firebasse
+ *@version 1.0
+ *@author Thanawin Poopangeon
+ *@since 5 Feb 2020
+ *@required javascript
+ */
 function saveQuestion(logicQuestion, logicLevel, logicName, logicAnswer) {
     console.log("save...");
     let type = "operator";
@@ -120,9 +126,8 @@ function saveQuestion(logicQuestion, logicLevel, logicName, logicAnswer) {
     });
 }
 
-
 $(document).ready(function(){
-    
+
     let question_partcount = 2; //question amount
     let target_count = 1;
 
