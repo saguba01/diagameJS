@@ -581,7 +581,7 @@ function showLoading() {
     $('#modal-saving').modal('open');
 }
 /*
- *Description: Show alert modal.
+ *Description: Close alert modal.
  *@version 1.0
  *@author Thanawin Poopangeon
  *@since 7 Feb 2020
@@ -590,3 +590,4 @@ function showLoading() {
 function closeLoading() {
     $('#modal-saving').modal('close');
 }
+

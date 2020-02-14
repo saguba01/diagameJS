@@ -5,8 +5,14 @@
     </div>
 </div>
 
-<div class="sourceBottom noselect" style="width: 735px;margin-left:-367.5px;">
+<div class="sourceBottom noselect" style="width: 800px;margin-left:-367.5px;">
     <div class="tab-horizontal" style="padding-left: 15px;">
+        <div class="tab valign-wrapper"
+            style="padding-top: 15px;padding-right: 15px;">
+            <div id="backButton" class="canClick jellyButton button-tool" style="margin:0px;">
+                <div class="back-icon"></div>
+            </div>
+        </div>
         <div class="tab valign-wrapper"
             style="height: 90px;border-right: 5px solid;padding-top: 15px;padding-right: 15px;">
             <div id="playMinigame" class="canClick jellyButton button-tool" style="margin:0px;">
@@ -45,6 +51,11 @@
         </div>
     </div>
 </div>
+
+<div class="timerBottom noselect">
+    <span style="font-size: 55px;"><span id="minutes">00</span>:<span id="seconds">00</span></span>
+</div>
+
 
 <script>
     $(function () {
@@ -149,4 +160,28 @@
             return result;
         }
     }
+
+    $(document).ready(function(){
+        var minutesLabel = document.getElementById("minutes");
+        var secondsLabel = document.getElementById("seconds");
+        var totalSeconds = 0;
+        setInterval(setTime, 1000);
+
+        function setTime() {
+            ++totalSeconds;
+            secondsLabel.innerHTML = twoDigit(totalSeconds % 60);
+            minutesLabel.innerHTML = twoDigit(parseInt(totalSeconds / 60));
+        }
+
+        function twoDigit(val) {
+            var valString = val + "";
+            if (valString.length < 2) {
+                return "0" + valString;
+            } else {
+                return valString;
+            }
+        }
+    });
+
+    
 </script>
