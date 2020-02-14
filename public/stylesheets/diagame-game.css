@@ -104,7 +104,7 @@ body {
 }
 
 .button-tool#backButton{
-    background: rgb(255, 134, 65);
+    background: rgb(255, 252, 102);
 }
 
 .button-tool#resetButton{
@@ -476,5 +476,25 @@ hr {
     bottom: 60px;
     left: 50%;
     margin-left: -250px;
+
+}
+
+.timerBottom {
+    width: 200px;
+    /* padding: 10px; */
+    height: 100px;
+    
+    background: rgb(126, 255, 184);
+    border: 5px solid black;
+    border-radius: 10px;
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.5);
+    /* margin: 10% auto; */
+    position: fixed;
+    bottom: 60px;
+    right: 60px;
+    margin-left: -250px;
+
+    text-align: center;
+    /* margin-left:-367.5px */
 
 }

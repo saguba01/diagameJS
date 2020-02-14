@@ -590,3 +590,4 @@ function showLoading() {
 function closeLoading() {
     $('#modal-saving').modal('close');
 }
+
