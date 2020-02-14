@@ -587,6 +587,41 @@ function showLoading() {
  *@since 7 Feb 2020
  *@required javascript, materialize-css.
  */
+
+function showWellcome() {
+    $('#modal-wellcome').modal({
+        'dismissible': true,
+        'onOpenStart': function () {
+            // $('#modal-wellcome>.modal-content>.wellcome-title').html(title);
+            // $('#modal-wellcome>.modal-content>.wellcome-content').html(message);
+        },
+        'onOpenEnd': function () {},
+        'onCloseStart': function () {},
+        'onCloseEnd': function () {
+            // $('#modal-wellcome>.modal-content>.wellcome-title').empty();
+            // $('#modal-wellcome>.modal-content>.wellcome-content').empty();
+        },
+    });
+    $('#modal-wellcome').modal('open');
+}
+
+function showLanguage() {
+    $('#modal-language').modal({
+        'dismissible': true,
+        'onOpenStart': function () {
+            // $('#modal-language>.modal-content>.language-title').html(title);
+            // $('#modal-language>.modal-content>.language-content').html(message);
+        },
+        'onOpenEnd': function () {},
+        'onCloseStart': function () {},
+        'onCloseEnd': function () {
+            // $('#modal-language>.modal-content>.language-title').empty();
+            // $('#modal-language>.modal-content>.language-content').empty();
+        },
+    });
+    $('#modal-language').modal('open');
+}
+
 function closeLoading() {
     $('#modal-saving').modal('close');
 }

@@ -53,3 +53,38 @@
     <br>
   </div>
 </div>
+
+<div id="modal-language" class="modal">
+  <div class="modal-content">
+    <div class="language-header noselect">
+        {{ language.header }}
+    </div>
+    
+    <div class="language-title">
+        <div id="changeLangThai" 
+                class="flag-right bg-sky-blue flag-thai canClick">
+                </div>
+        <div id="changeLangEng" 
+              class="flag-left bg-nude flag-eng canClick"></div>
+    </div>
+    <div class="language-content"></div>
+  </div>
+</div>
+
+
+<div id="modal-wellcome" class="modal">
+  <div class="modal-content">
+    <div class="button-close-custom canClick right" onclick="startTutorial()"></div>
+    <div class="wellcome-header">{{ walcomeModal.header }}</div>
+    <div class="wellcome-logo ">
+      <div class="postit postit-middle-center2 bg-sky-blue {{walcomeModal.logo}}"}>
+      </div>
+    </div>
+    <div class="wellcome-title">&emsp;{{ walcomeModal.title }}</div>
+    
+  </div>
+  <div class="modal-footer">
+    <button onclick="startTutorial()" class="canClick button-close-modal">{{walcomeModal.button.learning}}</button>
+  </div>
+</div>
+

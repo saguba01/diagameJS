@@ -104,3 +104,18 @@ body {
 .display > svg{
     position: absolute;
 }
+
+
+.flag-thai{
+    background-image: url("/assets/svg/flag/thailand.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+  }
+  
+.flag-eng{
+background-image: url("/assets/svg/flag/united-kingdom.svg");
+background-size: 90% auto;
+background-repeat: no-repeat;
+background-position: center;
+}

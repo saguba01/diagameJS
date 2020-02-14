@@ -91,7 +91,7 @@ body {
     margin-top: 12px;
 }
 
-.button-tool#playButton,.button-tool#playMinigame{
+.button-tool#playButton,.button-tool#playMinigame,.button-tool.playMinigame{
     background: #4EEB96;
 }
 
@@ -477,6 +477,49 @@ hr {
     left: 50%;
     margin-left: -250px;
 
+}
+
+
+.language-header {
+    text-align: center;
+    max-width: 100%;
+    max-height: auto;
+    font-size: 40px;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.wellcome-header{
+    text-align: center;
+    max-width: 100%;
+    max-height: auto;
+    font-size: 40px;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.wellcome-title{
+    max-width: 100%;
+    max-height: auto;
+    font-size: 24px;
+    padding: 10px;
+}
+.flag-right {
+    width: 200px;
+    height: 210px;
+    box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.2);
+    border: solid 5px #000000;
+    float: right;
+    margin-right: 40px;
+}
+
+.flag-left {
+    width: 200px;
+    height: 210px;
+    box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.2);
+    border: solid 5px #000000;
+    margin-left: 40px;
+    /* margin-top: 20px; */
 }
 
 .timerBottom {

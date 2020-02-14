@@ -20,11 +20,12 @@
   <script src="/materialize-css/dist/js/materialize.min.js"></script>
   <script src="/popper.js/dist/umd/popper.min.js"></script>
   <script src="/javascripts/jquery/jquery-ui.min.js"></script>
+  <script src="/javascripts/jquery/jquery-ui.min.js"></script>
   <script src="/javascripts/jquery/jquery.ui.touch-punch.min.js"></script>
   <script src="/javascripts/jquery/jquery.validate.min.js"></script>
   <script src="/javascripts/jquery/additional-methods.min.js"></script>
   <script src="/javascripts/jquery/jquery.blockUI.js"></script>
-
+  <script src="/js-cookie/src/js.cookie.js"></script>
 
   <!-- TURN.JS -->
   <script src="/javascripts/turn.js/hash.js"></script>
@@ -93,15 +94,20 @@
   <link rel="stylesheet" href="/stylesheets/diagame-game.css">
   <link rel="stylesheet" href="/stylesheets/diagame-toast.css">
   <link rel="stylesheet" href="/stylesheets/diagame-modal.css">
-  <link rel="stylesheet" href="/stylesheets/diagame-intro.css">
 
+  {{#if diagameIntro}}
+  
+  {{else}}
+  <link rel="stylesheet" href="/stylesheets/diagame-intro.css">
+  {{/if}}
   <!-- utils -->
   <script src="/javascripts/utlis.js"></script>
   {{#if loginPage}}
-  {{else}}
+  
   <script>let refAchieve = firestore.collection("lessons").doc("{{user.uid}}").collection('achievements');</script>
   <script>let refPassed = firestore.collection("lessons").doc("{{user.uid}}").collection('passed');</script>
   <script src="/javascripts/game-engine.js"></script>
+  {{else}}
   {{/if}}
 
   {{#if errorMsg }}
