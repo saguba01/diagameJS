@@ -86,8 +86,8 @@
   <script src="/chart.js/dist/Chart.js"></script>
   <link rel="stylesheet" href="/chart.js/dist/Chart.css">
 
-  <script src="/zingchart/zingchart.min.js"></script>
   <!-- ZingChart.js-->
+  <script src="/zingchart/zingchart.min.js"></script>
 
   <!-- diagame -->
   <link rel="stylesheet" href="/stylesheets/diagame.css">
@@ -95,6 +95,7 @@
   <link rel="stylesheet" href="/stylesheets/diagame-toast.css">
   <link rel="stylesheet" href="/stylesheets/diagame-modal.css">
 
+  
   {{#if diagameIntro}}
   
   {{else}}
@@ -102,13 +103,10 @@
   {{/if}}
   <!-- utils -->
   <script src="/javascripts/utlis.js"></script>
-  {{#if loginPage}}
-  
-  <script>let refAchieve = firestore.collection("lessons").doc("{{user.uid}}").collection('achievements');</script>
-  <script>let refPassed = firestore.collection("lessons").doc("{{user.uid}}").collection('passed');</script>
+
+  <script>const refAchieve = firestore.collection("lessons").doc("{{user.uid}}").collection('achievements');</script>
+  <script>const refPassed = firestore.collection("lessons").doc("{{user.uid}}").collection('passed');</script>
   <script src="/javascripts/game-engine.js"></script>
-  {{else}}
-  {{/if}}
 
   {{#if errorMsg }}
   <script>

@@ -2,7 +2,6 @@ $(document).ready(function () {
     playButtonEvent();
     jellyButtonEvent();
     resetButtonEvent();
-
     playMinigameButtonEvent();
 });
 
@@ -25,6 +24,7 @@ function jellyButtonEvent() {
 
 function playButtonEvent() {
     $("#playButton").click(function () {
+        playSoundEx('click');
         let btn = $(this);
         btn.addClass("play_jelly");
         setTimeout(function () {
@@ -58,6 +58,8 @@ function playButtonEvent() {
 
 function resetButtonEvent() {
     $("#resetButton").click(function () {
+        playSoundEx('click');
+        $("#display").empty()
         let btn = $(this);
         btn.addClass("play_jelly");
         setTimeout(function () {
@@ -73,6 +75,7 @@ function resetButtonEvent() {
     });
 }
 
+
 function playMinigameButtonEvent(){
     $('#playMinigame').click(function () {
         let btn = $(this);
@@ -80,8 +83,8 @@ function playMinigameButtonEvent(){
         setTimeout(function () {
             btn.removeClass("play_jelly");
         }, 800);
-        gameEngine(function () {
-
+        gameEngine(function (item) {
+            
         });
     });
 }

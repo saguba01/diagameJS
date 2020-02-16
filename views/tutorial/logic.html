@@ -1,5 +1,17 @@
+<div class="timer timer-top-rigth noselect bg-nude" >
+    <div id="timeBar" style="background-color: #4CAF50; height:100%;width: 100%; position:absolute;border-radius:5px;" ></div>
+    <span style="font-size: 55px; position: relative;z-index: 15;">
+        <div class="icon-clock" ></div> <span id="minutes">00</span>:<span id="seconds">00</span></span>
+</div>
+
+<div class="scoreBar scoreBar-top-left noselect bg-purple" >
+    <div class="icon-award" ></div>
+    <div style="font-size: 48px;">
+        <span id="score">{{maxScore}}</span>
+    </div>
+</div>
 <div class="questionBox noselect">
-    <div class="questionCount">1/5 {{general.question}}</div>
+    <div class="questionCount">1/{{ totalQuestion}} {{general.question}}</div>
     <div class="questionArea">
         {{logicQuestion question}}
     </div>
@@ -42,8 +54,18 @@
 </div>
 
 <script>
+    var statusQuestion = false
+    // $(document).click(()=>{
+    //     playSoundEx('click');
+    // })
     $(function () {
+        // $('.introjs-button').click(()=>{
+        //     playSoundEx('click');
+        //     console.log('click')
+        // })
+        playSoundEx('fun',true);
         startIntro()
+        
         $(".boxAnswer").sortable({
             // revert: true,
             activate: function (event, ui) {
@@ -110,7 +132,7 @@
         if ($('.active').find('.boxAnswer').find('div').length > 0) {
             play();
         } else {
-            callback();
+            callback(getResult());
         }
 
         function play() {
@@ -125,14 +147,11 @@
             } else if (element.attr('type') == 'result') {
                 answer = element.attr('event');
                 if (getResult()) {
-                    playSoundEx('correct');
-                    var question = $('.active').attr('question');
-                    if(question != 5){
-                        changeQuestion(question);
-                    }else{
-                        showNavigator('{{general.congrat}}');
-                        unlockLesson('{{lesson.url}}', '{{subLesson.url}}', timestamp);
-                    }
+                    playSoundEx('complete');
+                    // playSoundEx('correct');
+                    showNavigator('{{general.congrat}}');
+                    
+                    statusQuestion = true
                 } else {
                     $('.questionBox').addClass("shake-vertical");
                     playSoundEx('error');
@@ -141,7 +160,7 @@
                         $('.questionBox').removeClass("shake-vertical");
                     }, 600);
                 }
-                callback();
+                callback(getResult());
             }
         }
 
@@ -162,77 +181,107 @@
         }
     }
     function startIntro(){
-
+     
         introJs().setOptions({
+            nextLabel: introLabel.nextLabel,
+            prevLabel: introLabel.prevLabel,
+            skipLabel: introLabel.skipLabel,
+            doneLabel: introLabel.doneLabel,
             steps: [
-              { 
-                intro: "{{ logicalStep.step1 }}"
-              },
-              {
-                element:document.querySelectorAll('.questionBox')[0] ,
-                intro: "{{ logicalStep.step2 }}"
-              },
-              {
-                element : '.boxAnswer',
-                intro : "test"
-              },
-              {
-                element : '.questionCount',
-                intro : "test"
-              },
-              {
-                element : '.question',
-                intro : "test"
-              },
-              {
-                element: '.sourceBottom',
-                // intro: `{{ logicalStep.step3 }}`
-                intro: `
-                    <div style="margin-bottom:20px;">
+                { 
+                    intro: "{{ logicalStep.step1 }}"
+                },
+                {
+                    element: ".scoreBar",
+                    intro: "{{logicalStep.step2}}"
+                },
+                                {
+                    element: ".timer",
+                    intro: "{{logicalStep.step3}}"
+                },
+                {
+                    element : '.questionCount',
+                    intro : "{{logicalStep.step4}}"
+                },
+                {
+                    element : '.question',
+                    intro : "{{logicalStep.step5}}"
+                },
+                {
+                    element : '.boxAnswer',
+                    intro : "{{logicalStep.step6}}"
+                },
+                {
+                    element: '.sourceBottom',
+                    intro: `
+                        <div style="margin-bottom:20px;">
+                            <p style="padding:10px text-align: center;margin-block-start:  0.5em;margin-block-end: 0.5em;">
+                                <B >{{logicalStep.step7_header}}</B>
+                            </p>
+                            &emsp;{{logicalStep.step7_detail}}
+                        </div>
+                        <div style="margin-bottom:20px;">
+                            <p style="padding:10px text-align: center;margin-block-start:  0.5em;margin-block-end: 0.5em;">
+                                <B >{{logicalStep.step7_1}}</B>
+                            </p>
+                            <div>
+                                <div id="playMinigame" class=" jellyButton button-tool" style="margin:0px;">
+                                    <svg style="width: 40px;height: 50px;margin-top: 18px;margin-left: 22px;">
+                                        <path
+                                            d="M26.522,10.162,9.16.144a1.071,1.071,0,0,0-1.6.927V21.124a1.071,1.071,0,0,0,1.6.927L26.522,12.033A1.086,1.086,0,0,0,26.522,10.162Z"
+                                            transform="translate(-7.556 0)"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <hr stple="solid 5px #000000;">
                         <p style="padding:10px text-align: center;margin-block-start:  0.5em;margin-block-end: 0.5em;">
-                            <B >{{logicalStep.step3_header}}</B>
+                            <B >{{logicalStep.step7_2}}</B>
                         </p>
-                        &emsp;{{logicalStep.step3_detail}}
-                    </div>
-                    <div style="margin-bottom:20px;">
-                        <p style="padding:10px text-align: center;margin-block-start:  0.5em;margin-block-end: 0.5em;">
-                            <B >{{logicalStep.step3_1}}</B>
-                        </p>
-                        <div id="playMinigame" class="canClick jellyButton button-tool" style="margin:0px;">
-                            <svg style="width: 40px;height: 50px;margin-top: 18px;margin-left: 22px;">
-                                <path
-                                    d="M26.522,10.162,9.16.144a1.071,1.071,0,0,0-1.6.927V21.124a1.071,1.071,0,0,0,1.6.927L26.522,12.033A1.086,1.086,0,0,0,26.522,10.162Z"
-                                    transform="translate(-7.556 0)"></path>
-                            </svg>
+                        <div>
+                            <div class="jellyButton operatorButton selected" event="<" style="  z-index: 10;">
+                                <div class="lessthan-icon"></div>
+                            </div>
+                            <div class="jellyButton operatorButton" event="<=">
+                                <div class="lessthanorequal-icon"></div>
+                            </div>
+                            <div class="jellyButton operatorButton" event=">">
+                                <div class="greaterthan-icon"></div>
+                            </div>
+                            <div class="jellyButton operatorButton" event=">=">
+                                <div class="greaterthanorequal-icon"></div>
+                            </div>
+                            <div class="jellyButton operatorButton" event="==">
+                                <div class="equal-icon"></div>
+                            </div>
+                            <div class="jellyButton operatorButton" event="!=">
+                                <div class="notequal-icon"></div>
+                            </div>
                         </div>
-                    </div>
-                    <hr stple="solid 5px #000000;">
-                    <p style="padding:10px text-align: center;margin-block-start:  0.5em;margin-block-end: 0.5em;">
-                        <B >{{logicalStep.step3_2}}</B>
-                    </p>
-                    <div>
-                        <div class="canClick jellyButton operatorButton selected" event="<" style="  z-index: 10;">
-                            <div class="lessthan-icon"></div>
-                        </div>
-                        <div class="canClick jellyButton operatorButton" event="<=">
-                            <div class="lessthanorequal-icon"></div>
-                        </div>
-                        <div class="canClick jellyButton operatorButton" event=">">
-                            <div class="greaterthan-icon"></div>
-                        </div>
-                        <div class="canClick jellyButton operatorButton" event=">=">
-                            <div class="greaterthanorequal-icon"></div>
-                        </div>
-                        <div class="canClick jellyButton operatorButton" event="==">
-                            <div class="equal-icon"></div>
-                        </div>
-                        <div class="canClick jellyButton operatorButton" event="!=">
-                            <div class="notequal-icon"></div>
-                        </div>
-                    </div>
-                `
-              }
-            ]
+                    `
+                }
+            ],
+            
         }).start()
+        .onchange((targetElement)=>{
+            playSoundEx('click');
+        })
+        // clicking 'Done'
+        .oncomplete(function(){
+            playSoundEx('click');
+            timer('{{maxScore}}','{{minScore}}', (obj)=>{
+                console.log(obj)
+            })
+        })
+
+        // clicking 'Skip'
+        .onexit(function(){
+            playSoundEx('click');
+            timer('{{maxScore}}','{{minScore}}',(obj)=>{
+                console.log(obj)
+            })
+        });
     }
+
+    
 </script>

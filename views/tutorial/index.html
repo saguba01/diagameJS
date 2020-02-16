@@ -8,8 +8,8 @@
     <div class="navbar-fixed">
         <div class="nav-wrapper" style="color: black;">
             <a href="javascript:window.location.replace('/home')" class="brand-logo"
-                style="color: black;padding-left: 10px" data-step="1" data-intro="{{introStep.step1}}">{{ general.site.title }}</a>
-            <a href="javascript:goHomePage(10)" class="right canClick" data-step="2" data-intro="{{introStep.step2}}">
+                style="color: black;padding-left: 10px">{{ general.site.title }}</a>
+            <a href="javascript:goHomePage(10)" class="right canClick profile-user">
                 <div style="font-size:22px;display: flex;align-items: center;justify-content: center;box-shadow: 3px 3px 0px #00000069;margin-top: 7px;width: 45px;height: 45px;border-radius: 50%;border: 3px solid #000000;background: #458aff;margin-right: 8px;">
                     P</div>
             </a>
@@ -162,7 +162,7 @@
     <div class="panelleft" style="width:500px;height: 650px;position: absolute;">
         <div class="innerpage">
             <p class="lesson-title noselect" guide="lesson">{{lesson.listMenu.logical.text}} </p>
-            <div target="{{lesson.listMenu.logical.path}}" data-step="3" data-intro="{{introStep.step3}}"
+            <div target="{{lesson.listMenu.logical.path}}" onclick="blockUI();playSoundEx('click');"
                 class="postit postit-middle-center bg-light-green  menu-logic canClick" style="margin-right: 40px;"></div>
         </div>
     </div>
@@ -171,7 +171,7 @@
         <div class="panelright">
             <div class="innerpage">
                 <p class="lesson-title noselect" guide="lesson">{{lesson.listMenu.flowchart.text}} </p>
-                <div guide="lesson" target="{{lesson.listMenu.flowchart.path}}" data-step="4" data-intro="{{introStep.step4}}"
+                <div guide="lesson" target="{{lesson.listMenu.flowchart.path}}" onclick="blockUI();playSoundEx('click');"
                     class="postit postit-middle-center bg-sky-blue canClick menu-flowchart">
                 </div>
             </div>
@@ -187,7 +187,7 @@ const lang = '{{langInUsing}}'
     $(document).ready(function () {
         // start intro of tutorial
         // 
-
+        playSoundEx('fun',true);
         if(!localStorage.getItem("langSelected")){
             showLanguage()
         }else{
@@ -196,9 +196,11 @@ const lang = '{{langInUsing}}'
         
         $('#changeLangThai').click(()=>{
             setLang('th')
+            playSoundEx('click');
         })
         $('#changeLangEng').click(()=>{
             setLang('en')
+            playSoundEx('click');
         })
 
         // introJs().start()
@@ -350,7 +352,7 @@ const lang = '{{langInUsing}}'
                 element: $('[guide="achievement"]')[2],
                 intro: '{{intro.achievement}}'
             }
-        ]);
+        ])
         setTimeout(function () {
             $("#flipbook").turn("disable", true);
             intro.start()
@@ -362,6 +364,7 @@ const lang = '{{langInUsing}}'
     function setLang(setlang){
         localStorage.setItem("langSelected", true);
         if(lang != setlang ){
+            blockUI();
             Cookies.set('lang', setlang);
             location.reload();
         }else{
@@ -373,8 +376,48 @@ const lang = '{{langInUsing}}'
     function startTutorial(){
         closeModal('#modal-wellcome')
         setTimeout(function(){ 
-            introJs().start()
+            startIntro()
         }, 500);
         
+    }
+
+    function startIntro(){
+        introJs().setOptions({
+            nextLabel: introLabel.nextLabel,
+            prevLabel: introLabel.prevLabel,
+            skipLabel: introLabel.skipLabel,
+            doneLabel: introLabel.doneLabel,
+            steps: [
+                {
+                    intro : '{{introStep.step1}}',
+                    element : '.brand-logo'
+                },
+                {
+                    intro : '{{introStep.step2}}',
+                    element : '.profile-user'
+                },
+                {
+                    intro : '  {{introStep.step3}}',
+                    element : '.menu-logic'
+                },
+                {
+                    intro : '  {{introStep.step3}}',
+                    element : '.menu-flowchart'
+                }
+              
+            ]
+        }).start()
+        .onchange((targetElement)=>{
+            playSoundEx('click');
+        })
+        // clicking 'Done'
+        .oncomplete(function(){
+            playSoundEx('click');
+        })
+
+        // clicking 'Skip'
+        .onexit(function(){
+            playSoundEx('click');
+        });
     }
 </script>

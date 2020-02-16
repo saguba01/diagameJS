@@ -139,6 +139,7 @@
         }
 
         function getResult() {
+            console.log(eval(operand.join('')) == (answer == 'true'))
             var result = (eval(operand.join('')) == (answer == 'true'));
             return result;
         }

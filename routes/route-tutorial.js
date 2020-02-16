@@ -41,25 +41,9 @@ router.get('/', authen, async (req, res, next) => {
   });
   
   router.get('/logic', authen, async (req, res, next) => {
-    let lang = req.cookies.lang;
-
-    // let lesson = configString[lang].lesson.logic;
-    // var data = {
-    //   layout: 'default',
-    //   navBar: true,
-    //   user: req.session.user,
-    //   lesson: lesson,
-    //   subLesson: lesson.subLesson.easy,
-    //   question: configString[lang].question.logic.easy,
-    //   //required
-    //   elementsString: configString[lang].element.general,
-    //   general: configString[lang].general,
-    //   achievementList: configString[lang].achievement,
-    //   errorMsg: configString[lang].error,
-    //   nextPage: '/lesson/logic/nomal'
-    // };
-
-    var data = {
+    const lang = req.cookies.lang;
+    const score = await getScore()
+    const data = {
       diagameIntro : false,
       introStep :await getintroStep(lang),
       navBar : true,
@@ -73,6 +57,9 @@ router.get('/', authen, async (req, res, next) => {
       subLesson: {
         text : 'logic'
       },
+      totalQuestion: 1,
+      maxScore : score.maxScore,
+      minScore :score.minScore,
       //required
       logicalStep : await getLogicStep(lang),
       question : [ await getQuestionLogic() ],
@@ -84,33 +71,42 @@ router.get('/', authen, async (req, res, next) => {
       langInUsing: lang,
       achievementList: configString[lang].achievement,
       errorMsg: configString[lang].error,
+      nextPage: '/tutorial/flowchart'
     };
     
     res.render('tutorial/logic', data);
   });
 
   router.get('/flowchart', authen, async (req, res, next) => {
-    let lang = req.cookies.lang;
-
-    var data = {
-      diagameIntro : false,
-      introStep :await getintroStep(lang),
-      navBar : false,
+    const lang = req.cookies.lang;
+    const score = await getScore()
+    const data = {
       layout: 'default',
+      navBar: true,
       user: req.session.user,
-      element: configString[lang].element.general,
+      lesson: {
+        text : 'Tutorial',
+        url : 'variable'
+      },
+      subLesson: {
+        text : 'flowchart',
+        url : 'tutorial'
+      },
+      maxScore : score.maxScore,
+      minScore :score.minScore,
+      element: configString[lang].element.variable.juice,
       intro: configString[lang].intro,
+      recipe: configString[lang].recipe.variable.juice,
       //required
-      unlock: await getAchievement(req.session.user.uid),
-      passed: await getPassed(req.session.user.uid),
-      // loginPage: true,
+      flowchartStep : await getFlowchartStep(lang),
+      elementDefault: configString[lang].element.general,
       general: configString[lang].general,
-      language: await getLang(lang),
       langInUsing: lang,
       achievementList: configString[lang].achievement,
       errorMsg: configString[lang].error,
+      nextPage: ''
     };
-    
+
     res.render('tutorial/flowchart', data);
   });
 
@@ -238,10 +234,28 @@ router.get('/', authen, async (req, res, next) => {
   
   async function getLogicStep(lang) {
     // /System/Config/Menu/tutorial/logicalStep
+    var step = [];
+    let refstep = firestore.collection('System').doc('Config')
+        .collection('Menu').doc('tutorial')
+        .collection('logicalStep').doc(lang)
+    await refstep.get().then(doc => {
+      if (!doc.exists) {
+        step.push('No such document!') 
+      } else {
+        step.push(doc.data()) 
+      }
+    })
+    .catch(err => {
+      step.push(err) 
+    });
+    return step[0]
+}
+
+async function getFlowchartStep(lang){
   var step = [];
   let refstep = firestore.collection('System').doc('Config')
       .collection('Menu').doc('tutorial')
-      .collection('logicalStep').doc(lang)
+      .collection('flowchartStep').doc(lang)
   await refstep.get().then(doc => {
     if (!doc.exists) {
       step.push('No such document!') 
@@ -253,5 +267,22 @@ router.get('/', authen, async (req, res, next) => {
     step.push(err) 
   });
   return step[0]
+}
+
+async function getScore(){
+  let score = null;
+  const refscore = firestore.collection('System').doc('Score')
+  // /System/Score
+  await refscore.get().then(doc => {
+    if (!doc.exists) {
+      score = false
+    } else {
+      score = doc.data()
+    }
+  })
+  .catch(err => {
+    score = false
+  });
+  return score
 }
   module.exports = router;

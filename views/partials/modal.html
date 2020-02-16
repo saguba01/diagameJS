@@ -74,7 +74,7 @@
 
 <div id="modal-wellcome" class="modal">
   <div class="modal-content">
-    <div class="button-close-custom canClick right" onclick="startTutorial()"></div>
+    <div class="button-close-custom canClick right" onclick="startTutorial();playSoundEx('click');"></div>
     <div class="wellcome-header">{{ walcomeModal.header }}</div>
     <div class="wellcome-logo ">
       <div class="postit postit-middle-center2 bg-sky-blue {{walcomeModal.logo}}"}>
@@ -84,7 +84,7 @@
     
   </div>
   <div class="modal-footer">
-    <button onclick="startTutorial()" class="canClick button-close-modal">{{walcomeModal.button.learning}}</button>
+    <button onclick="startTutorial();playSoundEx('click');" class="canClick button-close-modal">{{walcomeModal.button.learning}}</button>
   </div>
 </div>
 

@@ -45,21 +45,47 @@ body {
 }
 
 .targetPanel {
+    z-index: 10;
     position: fixed;
     top: 66px;
     left: 360px;
-    margin: 10px;
-    width: 320px;
-    height: 90%;
+    /* margin: 10px; */
+    margin-top: -7px;
+    width: 55%;;
+    height: 100%;
+    margin-left: -5px;
+    margin-bottom: 5px;
     background-color: rgb(139, 248, 187);
-    border: 5px solid black;
-    border-radius: 15px;
-    box-shadow: 7px 7px 0 0px #00000059;
+    border-left:5px solid black;
+    border-top:5px solid black ;
+    /* border: 5px solid black; */
+    /* border-radius: 15px; */
+    /* box-shadow: 7px 7px 0 0px #00000059; */
     padding-top: 20px;
     transition: left 0.5s ease 0s;
     /* overflow-y: auto; */
 }
 
+.targetPanel-bg{
+    z-index: 5;
+    position: fixed;
+    top: 66px;
+    left: 360px;
+    /* margin: 10px; */
+    margin-top: -7px;
+    width: 90%;;
+    height: 100%;
+    margin-left: -5px;
+    margin-bottom: 5px;
+    background-color: rgb(139, 248, 187);
+    border: 5px solid black;
+    /* border-radius: 15px; */
+    box-shadow: 7px 7px 0 0px #00000059;
+    /* padding-top: 20px; */
+    transition: left 0.5s ease 0s;
+    /* overflow-y: auto; */
+
+}
 .sourceHeader {
     padding-top: 10px;
     padding-bottom: 10px;
@@ -300,9 +326,11 @@ body {
 }
 
 .recipe {
+    position: fixed;
+    right: 10px;
     float: right;
     margin-top: 20px;
-    margin-right: 10px;
+    /* margin-right: 10px; */
     padding: 10px;
     width: 350px;
     height: auto;
@@ -310,6 +338,7 @@ body {
     word-wrap: break-word;
     box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.2);
     border: solid 5px #000000;
+    z-index: 10;
 }
 
 .recipe-header {
@@ -475,7 +504,7 @@ hr {
     position: fixed;
     bottom: 60px;
     left: 50%;
-    margin-left: -250px;
+    margin-left: -300px;
 
 }
 
@@ -521,27 +550,57 @@ hr {
     margin-left: 40px;
     /* margin-top: 20px; */
 }
+.timer{
+    width: 400px;
+    height: 90px;
+    border: 5px solid black;
+    border-radius: 10px;
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.5);
+    position: fixed;
+}
+.timer-top-rigth{
+    top: 76.4px;
+    right: 60px;
+    margin-left: -250px;
+    text-align: center;
+}
 
-.timerBottom {
-    width: 200px;
+.timer-botton-rigth{
+    bottom: 10px;
+    right: 10px;
+    margin-left: -250px;
+    text-align: center;
+}
+.scoreBar{
+    width: 400px;
+    height: 90px;
+    border: 5px solid black;
+    border-radius: 10px;
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.5);
+    position: fixed;
+    text-align: center;
+}
+.scoreBar-top-left {
+    top: 76.4px;
+    left: 60px;
+}
+
+.scoreBar-bottom-rigth {
+    width: 400px;
     /* padding: 10px; */
-    height: 100px;
-    
-    background: rgb(126, 255, 184);
+    height: 90px;
+    /* background: rgb(126, 255, 184); */
     border: 5px solid black;
     border-radius: 10px;
     box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.5);
     /* margin: 10% auto; */
     position: fixed;
-    bottom: 60px;
-    right: 60px;
-    margin-left: -250px;
-
+    bottom: 10px;
+    right: 10px;
     text-align: center;
     /* margin-left:-367.5px */
 
 }
-
 .language-header {
     text-align: center;
     max-width: 100%;
@@ -573,4 +632,88 @@ hr {
     border: solid 5px #000000;
     float: right;
     margin-right: 40px;
+}
+
+.icon-clock{
+    background-image: url("/assets/svg/clock.svg");
+    background-size: 90% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 70px;
+    height: 70px;
+    /* box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.2); */
+    /* border: solid 5px #000000; */
+    float: left;
+    padding: 40px;
+    margin-left: 60px;
+}
+
+
+
+.icon-award{
+    background-image: url("/assets/svg/award.svg");
+    background-size: 90% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 70px;
+    height: 70px;
+    /* box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.2); */
+    /* border: solid 5px #000000; */
+    float: left;
+    padding: 40px;
+    margin-left: 50px;
+}
+
+.flowchart-basic{
+    background-image: url("/assets/svg/flowchart/racing-flag.svg");
+    background-size: 90% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+}
+
+.flowchart-process{
+    background-image: url("/assets/svg/flowchart/idea.svg");
+    background-size: 90% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+}
+
+.flowchart-io{
+    background-image: url("/assets/svg/flowchart/io.svg");
+    background-size: 90% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+}
+
+.flowchart-decision{
+    background-image: url("/assets/svg/flowchart/decision.svg");
+    background-size: 90% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+}
+
+.flowchart-loop{
+    background-image: url("/assets/svg/flowchart/loop.svg");
+    background-size: 90% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+}
+
+.play-screen{
+    background-image: url("/assets/svg/board.svg");
+    background-size: 80% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: 100%;
 }
