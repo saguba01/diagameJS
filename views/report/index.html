@@ -197,12 +197,13 @@ var config = {
     }]
   },
   options: {
+    
     angleLines: {
             display: false
         },
     legend: {
     //   position: 'top',
-      display : false
+      display : false,
     },
     title: {
       display: false
@@ -280,7 +281,9 @@ var config = {
     }
   }
 };
-        Chart.defaults.global.defaultFontSize = 18;
+        Chart.defaults.global.defaultFontSize = 24;
+        Chart.defaults.global.defaultFontFamily = 'Mali'
+        Chart.defaults.global.defaultFontColor = 'black';
         const ctx = $('#radar')
         new Chart(ctx,config);
 
