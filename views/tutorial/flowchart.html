@@ -419,6 +419,7 @@
      })
      // clicking 'Done'
      .oncomplete(function(){
+        playSoundEx('click');
          timer('{{maxScore}}','{{minScore}}',(obj)=>{
              console.log(obj)
          })

@@ -7,6 +7,7 @@ $(document).ready(function () {
 
 function jellyButtonEvent() {
     $(".jellyButton.typeButton").click(function () {
+        playSoundEx('click');
         let btn = $(this);
         btn.addClass("play_jelly");
         setTimeout(function () {
