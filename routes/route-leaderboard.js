@@ -9,13 +9,16 @@ router.get('/', authen, async (req, res, next) => {
   let lang = req.cookies.lang;
   var data = {
     layout: 'default',
+    navBar: true,
     user: req.session.user,
     element: configString[lang].element.general,
     intro: configString[lang].intro,
     //required
     unlock: await getAchievement(req.session.user.uid),
     passed: await getPassed(req.session.user.uid),
-    lesson: configString[lang].lesson,
+    lesson: {
+      text: "Leaderboard"
+    },
     general: configString[lang].general,
     achievementList: configString[lang].achievement,
     errorMsg: configString[lang].error,

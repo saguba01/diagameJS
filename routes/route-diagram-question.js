@@ -29,7 +29,7 @@ router.get('/', authen, function (req, res, next) {
         errorMsg: configString[lang].error,
         nextPage: '/lesson/variable/cereal'
     };
-    res.render('MDQ/diagram-question', data);
+    res.render('addDiagram/addDiagram', data);
  
   });
 

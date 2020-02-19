@@ -1,7 +1,32 @@
 <header>
     <link rel="stylesheet" href="/stylesheets/style-admin.css">
+    <link rel="stylesheet" href="/stylesheets/style-navbar.css">
 </header>
-<div id="book" style="display: table;margin: auto;margin-top: 80px;">
+
+<!-- <input type='text' value="{{test}}"> -->
+<nav class="nav-center z-depth-0" style="background-color: #fecf36;border-bottom: 5px solid black;">
+    <div class="navbar-fixed">
+        <div class="nav-wrapper" style="color: black;">
+            <a href="javascript:window.location.replace('/home')" class="brand-logo"
+                style="color: black;padding-left: 10px">{{ general.site.title }}</a>
+            <a href="javascript:goHomePage(10)" class="right canClick profile-user">
+                <div style="font-size:22px;display: flex;align-items: center;justify-content: center;box-shadow: 3px 3px 0px #00000069;margin-top: 7px;width: 45px;height: 45px;border-radius: 50%;border: 3px solid #000000;background: #458aff;margin-right: 8px;">
+                    P</div>
+            </a>
+            <ul class="center">
+                <li style="font-size:20px">
+                    <a href="javascript:goHomePage({{lesson.page}})" style="color: black;padding: 0;font-size:20px"
+                        >{{ lesson.text }}</a>
+                    {{#if subLesson.text }}
+                        <span class="noselect canClick"> / {{ subLesson.text }}</span>
+                    {{/if}}
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div id="book" style="display: table;margin: auto;margin-top: 20px;">
     <div class="book">
         <div class=" cover">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -136,36 +161,18 @@
     <!-- Variable -->
     <div class="panelleft" style="width:500px;height: 650px;position: absolute;">
         <div class="innerpage">
-            <p class="lesson-title noselect" guide="lesson">Management </p>
-            <div guide="lesson" target="/add/diagram"
-                class="postit postit-top-left bg-sky-blue canClick menu-flowchart">
-               </div>
-            <div class="paragraph paragraph-right" >
-                Diagame
-            </div>
-            <div target="/add/logic"
-                class="postit postit-bottom-right bg-light-green  menu-logic canClick" style="margin-right: 40px;"></div>
-            <div class="paragraph paragraph-left" >
-                Logic
-            </div>
+            <p class="lesson-title noselect" guide="lesson">{{lesson.listMenu.logical.text}} </p>
+            <div target="{{lesson.listMenu.logical.path}}" onclick="blockUI();playSoundEx('click');"
+                class="postit postit-middle-center bg-light-green  menu-logic canClick" style="margin-right: 40px;"></div>
         </div>
     </div>
 
     <div id="flipbook">
-        <!-- IO -->
         <div class="panelright">
             <div class="innerpage">
-                <p class="lesson-title noselect" guide="lesson">Management </p>
-                <div guide="lesson" target=""
-                    class="postit postit-top-left bg-orange canClick menu-dushboard">
-                    </div>
-                <div class="paragraph paragraph-right" style="font-size: 36px">
-                    Dashboard
-                </div>
-                <div target=""
-                    class="postit postit-bottom-right bg-nude canClick menu-feedback" style="margin-right: 40px;"></div>
-                <div class="paragraph paragraph-left" style="font-size: 36px">
-                    Feedback
+                <p class="lesson-title noselect" guide="lesson">{{lesson.listMenu.flowchart.text}} </p>
+                <div guide="lesson" target="{{lesson.listMenu.flowchart.path}}" onclick="blockUI();playSoundEx('click');"
+                    class="postit postit-middle-center bg-sky-blue canClick menu-flowchart">
                 </div>
             </div>
         </div>
@@ -174,10 +181,29 @@
 </div>
 
 
-<script type="text/javascript">
 
+<script type="text/javascript">
+const lang = '{{langInUsing}}'
     $(document).ready(function () {
+        // start intro of tutorial
+        // 
+        playSoundEx('fun',true);
+        if(!localStorage.getItem("langSelected")){
+            showLanguage()
+        }else{
+            showWellcome()
+        }
         
+        $('#changeLangThai').click(()=>{
+            setLang('th')
+            playSoundEx('click');
+        })
+        $('#changeLangEng').click(()=>{
+            setLang('en')
+            playSoundEx('click');
+        })
+
+        // introJs().start()
       // console.log(JSON.parse($('#ListMenu').val()))
         
         $(".panelindex").hide();
@@ -192,6 +218,7 @@
         // introLesson();
     });
 
+    
     $("#flipbook").turn({
         width: 1000,
         height: 650,
@@ -325,7 +352,7 @@
                 element: $('[guide="achievement"]')[2],
                 intro: '{{intro.achievement}}'
             }
-        ]);
+        ])
         setTimeout(function () {
             $("#flipbook").turn("disable", true);
             intro.start()
@@ -333,5 +360,64 @@
                     $("#flipbook").turn("disable", false);
                 });
         }, 2000);
+    }
+    function setLang(setlang){
+        localStorage.setItem("langSelected", true);
+        if(lang != setlang ){
+            blockUI();
+            Cookies.set('lang', setlang);
+            location.reload();
+        }else{
+            closeModal('#modal-language')
+            showWellcome()
+        }
+    }
+
+    function startTutorial(){
+        closeModal('#modal-wellcome')
+        setTimeout(function(){ 
+            startIntro()
+        }, 500);
+        
+    }
+
+    function startIntro(){
+        introJs().setOptions({
+            nextLabel: introLabel.nextLabel,
+            prevLabel: introLabel.prevLabel,
+            skipLabel: introLabel.skipLabel,
+            doneLabel: introLabel.doneLabel,
+            steps: [
+                {
+                    intro : '{{introStep.step1}}',
+                    element : '.brand-logo'
+                },
+                {
+                    intro : '{{introStep.step2}}',
+                    element : '.profile-user'
+                },
+                {
+                    intro : '  {{introStep.step3}}',
+                    element : '.menu-logic'
+                },
+                {
+                    intro : '  {{introStep.step3}}',
+                    element : '.menu-flowchart'
+                }
+              
+            ]
+        }).start()
+        .onchange((targetElement)=>{
+            playSoundEx('click');
+        })
+        // clicking 'Done'
+        .oncomplete(function(){
+            playSoundEx('click');
+        })
+
+        // clicking 'Skip'
+        .onexit(function(){
+            playSoundEx('click');
+        });
     }
 </script>

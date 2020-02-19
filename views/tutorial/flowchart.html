@@ -1,0 +1,444 @@
+<div style="width:100%;height: auto;">
+    <div class="center-align panelTool">
+        <!-- ฺBasic -->
+        <div class="noselect source sourceHeader activeSource" type="basic" style="background-color:#FF9D00;">
+            {{elementDefault.basicType}}</div>
+        <div id="source" class="connectedSource source sourcePanel activeSource noselect" type="basic">
+            <div type="element" event="start" source="basic">
+                <svg width="210" height="90">
+                    <rect x="5" y="5" width="200" height="80" rx="40"
+                        style="fill: #FC5972;stroke: #000000;stroke-width: 5px;"></rect>
+                    <text text-anchor="middle" x="105" y="45" alignment-baseline="central"
+                        style="font-size:25px;">{{elementDefault.start}}</text>
+                </svg>
+            </div>
+            <div type="element" event="end" source="basic">
+                <svg width="210" height="90">
+                    <rect x="5" y="5" width="200" height="80" rx="40"
+                        style="fill: #FC5972;stroke: #000000;stroke-width: 5px;"></rect>
+                    <text text-anchor="middle" x="105" y="45" alignment-baseline="central"
+                        style="font-size:25px;">{{elementDefault.end}}</text>
+                </svg>
+            </div>
+        </div>
+        <!-- Type Process -->
+        <div class="noselect source sourceHeader" type="process" style="display: none;background-color:#FF9D00;">
+            {{elementDefault.processType}}</div>
+        <div id="source" class="connectedSource source noselect sourcePanel" type="process" style="display: none;">
+            {{svgProcess element.process}}
+        </div>
+
+        <!-- Target -->
+       
+        <div class="targetPanel-bg" style="display: none;">
+        </div>
+        <div id="target" class="connectedSource noselect targetPanel ui-widget-content" style="text-align: center;display: none;">
+        </div>
+        
+    </div>
+
+    <div class="targetAreaTemp">
+        <div class="targetPanel-bg ">
+        </div>
+        <div class="connectedSource noselect targetPanel ui-widget-content intro-targetPanel" style="text-align: center;">
+        </div>
+    </div>
+
+    <!-- Recipe -->
+    <div class="recipe bg-nude">
+        <div class="recipe-header">{{general.recipe}}</div>
+        {{displayRecipe general.step recipe }}
+    </div>
+
+    <!-- Display -->
+    <div id="display" class="display" style="z-index: 15;"></div>
+
+    <div class="scoreBar scoreBar-bottom-rigth noselect bg-purple" style="bottom: 120px; z-index: 10;">
+        <div class="icon-award" ></div>
+        <div style="font-size: 48px;">
+            <span id="score">{{maxScore}}</span>
+        </div>
+    </div>
+    <div class="timer timer-botton-rigth noselect bg-nude" style=" z-index: 10;">
+        <div id="timeBar" style="background-color: #4CAF50; height:100%;width: 100%; position:absolute;border-radius:5px;" ></div>
+        <span style="font-size: 55px; position: relative;z-index: 15;">
+            <div class="icon-clock" ></div> <span id="minutes">00</span>:<span id="seconds">00</span></span>
+    </div>
+    <ul class="tabs">
+        <li style="height: 80px;" class="tab">
+            <div id="playButton" class="canClick jellyButton button-tool">
+                <svg style="width: 20px;height: 30px;margin-top: 14px;margin-left: 3px;">
+                    <path
+                        d="M26.522,10.162,9.16.144a1.071,1.071,0,0,0-1.6.927V21.124a1.071,1.071,0,0,0,1.6.927L26.522,12.033A1.086,1.086,0,0,0,26.522,10.162Z"
+                        transform="translate(-7.556 0)"></path>
+                </svg>
+            </div>
+        </li>
+        <li style="border-bottom: 5px solid black;height: 90px;margin-bottom:12px;" class="tab">
+            <div id="resetButton" class="canClick jellyButton button-tool">
+                <div class="reset-icon"></div>
+            </div>
+        </li>
+        <div id="guideTool">
+            <li class="tab valign-wrapper" style="height: 80px">
+                <div class="canClick jellyButton typeButton selected" type="basic">
+                    <div class="flowchart-basic"></div>
+                </div>
+            </li>
+            <li class="tab valign-wrapper" style="height: 80px">
+                <div class="canClick jellyButton typeButton" type="process">
+                    <div class="flowchart-process"></div>
+                </div>
+            </li>
+        </div>
+    </ul>
+</div>
+
+<script>
+    var statusQuestion = false
+    var checkQuestion = false
+    try{
+        let refDatabase = firestore.collection("lessons").doc("{{user.uid}}").collection("{{lesson.url}}").doc(
+        "{{subLesson.url}}");
+        var currentFlowchart = tempFlowchart 
+    }catch(e){
+        console.log(e)
+    }
+    
+
+    $(function () {
+        
+        startIntro()
+        playSoundEx('fun',true);
+        $("#source,#target").sortable({
+            connectWith: ".connectedSource",
+            cancel: ".ui-state-disabled",
+            activate: function (event, ui) {
+                $(ui.item[0]).addClass("play_jelly");
+                playSoundEx('pop');
+            },
+            deactivate: function (event, ui) {
+                playSoundEx('drop');
+            },
+            update: function (event, ui) {
+                let targetId = $(event.target).attr('id');
+                let targetSource = $(event.target).attr('type');
+                let uiSource = $(ui.item[0]).attr('source');
+                if (targetId == 'source' && (targetSource != uiSource)) {
+                    $(ui.item[0]).detach().appendTo('#source[type="' + uiSource + '"]');
+                }
+            }
+        });
+
+        //
+        // update arrow between element
+        //
+        $("#target").sortable({
+            cancel: ".ui-state-disabled .arrow",
+            items: "div:not(.arrow)",
+            update: function (event, ui) {
+                updateFlowchart();
+            }
+        });
+        //
+        // end of update arrow function
+        //
+    });
+
+    /*
+    *Description: Game Engine running with start element and end with end element or end of flowchart
+                  and compares temp flowchart and current if isEqual then save flowchart to cloudfirestore.
+    *@version 1.0
+    *@author Prince Pongsakorn
+    *@since 11 Mar 2019
+    *@required jQuery,Firebase Cloud Firestore.
+    */
+    function gameEngine(callback) {
+        let start = $('#target').find('[type="element"][event="start"]');
+        var element = start;
+        var timestamp = Date.now();
+        var flowchartBeenEqual = false;
+        // console.log("tempFlowchart: ",tempFlowchart);
+        // console.log("currentFlowchart: ",currentFlowchart);
+        var result = [];
+
+        if (JSON.stringify(tempFlowchart) != JSON.stringify(currentFlowchart)) {
+            currentFlowchart = tempFlowchart;
+            flowchartBeenEqual = false;
+        } else {
+            flowchartBeenEqual = true;
+        }
+        console.log(flowchartBeenEqual);
+        const refDatabase = firestore.collection("lessons").doc("{{user.uid}}").collection("{{lesson.url}}").doc("{{subLesson.url}}");
+        !flowchartBeenEqual ? saveFlowchartToFirestore(refDatabase, timestamp) : '';
+        !flowchartBeenEqual ? updateCurrentFlowchart(refDatabase, timestamp) : '';
+
+        $('#display').empty();
+        if(element.length != 0){
+            if(start.next().next().attr('event') != 'end'){
+                play();
+            }else{
+                notice(2000, 'warning', errorMsg.game.nobetween);
+                callback();
+            }
+        }else{
+            notice(2000, 'warning', errorMsg.game.nostart);
+            callback();
+        }
+
+        // Start Function Area
+
+        /*
+        *Description: [Core of gameEngine] recursive function for delay get each elements 
+                      in loop will call runEvent() for play event.
+        *@version 1.0
+        *@author Prince Pongsakorn
+        *@since 11 Mar 2019
+        *@required jQuery,Firebase Cloud Firestore.
+        */
+        function play() {
+            if (element.attr('type') == 'element') {
+                element.removeClass("play_jelly");
+                setTimeout(function () {
+                    element.addClass("play_jelly");
+                    runEvent();
+                    //next element process
+                    //Don't Edit any line of code !!
+                    if (element.attr('event') != 'end') {
+                        playSoundEx('step')
+                        element = element.next();
+                        // checkQuestion = true
+                        if (element.length != 0) {
+                            play();
+                        } else {
+                            notice(2000, 'warning', errorMsg.game.noend);
+                            callback();
+                        }
+                    } else {
+                        playSoundEx('step-end')
+                        if(element.next().length > 0){
+                            notice(2000, 'warning', errorMsg.game.noplay);
+                        }
+                        callback();
+                        // checkQuestion = false
+                    }
+                }, 1000)
+            } else {
+                element = element.next();
+                if (element.length != 0) {
+                    play();
+                }
+            }
+        }
+
+        function runEvent() {
+            
+            var obj = element.children().children()[1];
+            
+            console.log('runEvent', $(element).attr('event'), $(obj).text());
+            if ($(element).attr('event') == "pc1") {
+                var url = "/assets/svg/variable/juice/" + $(element).attr('photo');
+                // console.log(url);
+                var orangeGlass = "<div id = 'glass' class = 'play_jelly ' style = 'position: absolute;;width: 600px;height: 100%;background-size: 60% auto;background-repeat: no-repeat;background-position: center;'></div>";
+                $('#display').append(orangeGlass);
+                $('#glass').css('background-image','url("'+url+'")');
+            }
+            if ($(element).attr('event') == "pc2") {
+                var orangeGlass = "";
+                var svgName = baseUrl + '/assets/svg/variable/juice/';
+                // console.log($('div#display').find('g#grass').length);
+                if($('div#display').find('#glass').length == 0){
+                    orangeGlass = "<div id = 'orange' class = 'scale-in-center' style = 'position: absolute;margin-left: -160px;width: 900px;height: 100%;background-size: 60% auto;background-repeat: no-repeat;background-position: center;'></div>";
+                    svgName += 'out.svg';
+                }else if($('div#display').find('#glass').length == 1){
+                    orangeGlass = "<div id = 'orange' class = 'scale-in-center' style = 'position: absolute;width: 560px;height: 100%;background-size: 60% auto;background-repeat: no-repeat;background-position: center;margin-left: 20px;'></div>";
+                    svgName += 'in.svg';
+                }
+                // var url = "/assets/svg/variable/juice/" + $(element).attr('photo');
+                // console.log(url);
+                $('#display').append(orangeGlass);
+                $('#orange').css('background-image','url("'+svgName+'")');
+            }
+            if ($(element).attr('event') != 'start' && $(element).attr('event') != 'end') {
+                result.push($(element).attr('event'));
+            }
+            if($(element).attr('event') == 'end'){
+                resultFlowchart(result);
+            }
+        }
+
+        function resultFlowchart(result) {
+            console.log('result')
+            console.log(result)
+            var ahievement, keyName, nextFlag = false;
+            if (achievementList.orangeGlass.unlock.indexOf(result.join('-')) > -1) {
+                ahievement = achievementList.orangeGlass;
+                keyName = 'orangeGlass';
+                nextFlag = true;
+                statusQuestion=true
+                unlockLesson('{{lesson.url}}', '{{subLesson.url}}', timestamp);
+                playSoundEx('complete');
+                
+            } else if (achievementList.glass.unlock.indexOf(result.join('-')) > -1) {
+                ahievement = achievementList.glass;
+                keyName = 'glass';
+            } else if (achievementList.orangeJuice.unlock.indexOf(result.join('-')) > -1) {
+                ahievement = achievementList.orangeJuice;
+                keyName = 'orangeJuice';
+            } else if (achievementList.orangeOutsideGlass.unlock.indexOf(result.join('-')) > -1) {
+                ahievement = achievementList.orangeOutsideGlass;
+                keyName = 'orangeOutsideGlass';
+            }
+            
+            ahievement ? showAchievement(ahievement.photo, ahievement.name, ahievement.description, nextFlag) : '';
+            keyName ? unlockAchievement(keyName, timestamp) : '';
+        }
+    }
+
+    function introLesson() {
+        var intro = introInstant([{
+            element: $('div[type="element"][event="start"]')[0],
+            intro: '{{intro.element.start}}'
+        }, {
+            element: $('div[type="element"][event="end"]')[0],
+            intro: '{{intro.element.end}}'
+        }, {
+            element: '#guideTool',
+            intro: '{{intro.element.tool}}'
+        }, {
+            element: '#playButton',
+            intro: '{{intro.element.play}}'
+        }]);
+        $('.panelTool').css('position', 'absolute');
+        $('.tabs').css('position', 'absolute');
+        intro.start()
+            .onexit(function () {
+                $('.panelTool').css('position', 'fixed');
+                $('.tabs').css('position', 'fixed');
+            }).onbeforechange(function (targetElement) {
+                console.log($(targetElement).hasClass('targetPanel'));
+
+            });
+    }
+
+    function startIntro(){
+     
+     introJs().setOptions({
+         nextLabel: introLabel.nextLabel,
+         prevLabel: introLabel.prevLabel,
+         skipLabel: introLabel.skipLabel,
+         doneLabel: introLabel.doneLabel,
+         steps: [
+             { 
+                 intro: "{{ flowchartStep.step1 }}"
+             },
+             {
+                 element: ".tabs",
+                 intro: `
+                 <div style="margin-bottom:5px;">
+                    {{ flowchartStep.step2.title }}
+                </div>
+                <div style="display:table;width: 100%;">
+                    <hr stple="solid 5px #000000;">
+                    <div id="playButton" class="jellyButton operatorButton" style="width:40px;height:40px;background: #4EEB96;">
+                        <svg style="width: 20px;height: 30px;margin-top: 10px;margin-left: 11px;">
+                            <path
+                                d="M26.522,10.162,9.16.144a1.071,1.071,0,0,0-1.6.927V21.124a1.071,1.071,0,0,0,1.6.927L26.522,12.033A1.086,1.086,0,0,0,26.522,10.162Z"
+                                transform="translate(-7.556 0)"></path>
+                        </svg>
+                    </div>
+                    <B style="margin-left:10px">{{flowchartStep.step2.play}}</B>
+
+                    <div class="jellyButton operatorButton" style="width:40px;height:40px; background: #FECF36;">
+                        <div class="reset-icon"></div>
+                    </div>
+                    <B style="margin-left:10px">{{flowchartStep.step2.reset}}</B>
+                       
+                    <hr stple="solid 5px #000000;">
+                    <div>
+                        <div class="jellyButton operatorButton" style="width:40px;height:40px; margin-bottom:5px;background: #5CB9FC;">
+                            <div class="flowchart-basic"></div>
+                        </div>
+                        <B style="margin-left:10px;margin-bottom:5px;">{{flowchartStep.step2.basic}}</B>  
+                    </div>
+                    
+                    <div>
+                        <div class="jellyButton operatorButton" style="width:40px;height:40px; margin-bottom:5px;background: #5CB9FC;">
+                            <div class="flowchart-process"></div>
+                        </div>
+                        <B style="margin-left:10px;margin-bottom:5px;">{{flowchartStep.step2.process}}</B>  
+                    </div>
+
+                    <div>
+                        <div class="jellyButton operatorButton"  style="width:40px;height:40px; margin-bottom:5px;background: #5CB9FC;">
+                            <div class="flowchart-io"></div>
+                        </div>
+                        <B style="margin-left:10px;margin-bottom:5px;">{{flowchartStep.step2.io}}</B>  
+                    </div>
+
+                    <div>
+                        <div class="jellyButton operatorButton" style="width:40px;height:40px; margin-bottom:5px;background: #5CB9FC;">
+                            <div class="flowchart-decision"></div>
+                        </div>
+                        <B style="margin-left:10px;margin-bottom:5px;">{{flowchartStep.step2.decision}}</B>  
+                    </div>
+
+                    <div>
+                        <div class="jellyButton operatorButton"  style="width:40px;height:40px; margin-bottom:5px;background: #5CB9FC;">
+                            <div class="flowchart-loop"></div>
+                        </div>
+                        <B style="margin-left:10px;margin-bottom:5px;">{{flowchartStep.step2.loop}}</B>  
+                    </div>
+                </div>
+                 `
+             },
+             {
+                 element : '.panelTool',
+                 intro: '{{flowchartStep.step3}}'
+             },
+             {
+                element : '.intro-targetPanel',
+                intro: '{{flowchartStep.step4}}'
+             },
+             {
+                 element : '.recipe ',
+                 intro : '{{flowchartStep.step5}}'
+             },{
+                 element: '.scoreBar',
+                 intro  : '{{flowchartStep.step6}}'
+             },
+             {
+                 element : '.timer',
+                 intro : '{{flowchartStep.step7}}'
+             }
+         ],
+         
+     }).start()
+     .onchange((targetElement)=>{
+         playSoundEx('click');
+     })
+     // clicking 'Done'
+     .oncomplete(function(){
+        playSoundEx('click');
+         timer('{{maxScore}}','{{minScore}}',(obj)=>{
+             console.log(obj)
+         })
+         targetAreaShow()
+     })
+
+     // clicking 'Skip'
+     .onexit(function(){
+         playSoundEx('click');
+         timer('{{maxScore}}','{{minScore}}',(obj)=>{
+             console.log(obj)
+         })
+         targetAreaShow()
+     });
+ }
+
+
+function targetAreaShow(){
+    $('.targetAreaTemp').empty()
+    $('.targetPanel-bg,.targetPanel').css({'display':''})
+}
+</script>
