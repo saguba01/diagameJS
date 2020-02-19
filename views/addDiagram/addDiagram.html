@@ -42,26 +42,6 @@
     .rating-stars ul>li.star.selected>i.fa {
         color: #FF912C;
     }
-
-    #sortable {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        width: 60%;
-    }
-
-    #sortable li {
-        margin: 0 3px 3px 3px;
-        padding: 0.4em;
-        padding-left: 1.5em;
-        font-size: 1.4em;
-        height: 18px;
-    }
-
-    #sortable li span {
-        position: absolute;
-        margin-left: -1.3em;
-    }
 </style>
 
 <body>
@@ -70,43 +50,46 @@
         <!-- ฺBasic -->
         <div class="noselect source sourceHeader activeSource" type="basic" style="background-color:#FF9D00;">
             Operator</div>
-        <div id="source" class="connectedSource source sourcePanel activeSource noselect" type="basic"
-            ondrop="drop(event)" ondragover="allowDrop(event)">
-            <div type="element" event="start" source="basic" draggable="true" ondragstart="drag(event)" id="start"
-            onclick="modal_input(this)">
-                <svg width="210" height="90">
-                    <rect x="5" y="5" width="200" height="80" rx="40"
-                        style="fill: #FC5972;stroke: #000000;stroke-width: 5px;"></rect>
-                    <text text-anchor="middle" x="105" y="45" alignment-baseline="central"
-                        style="font-size:25px;" class="test">Click to insert</text>
-
-                </svg>
-            </div>
-            <div type="element" event="process" source="basic" draggable="true" ondragstart="drag(event)" id="process">
-                <svg width="210" height="90">
-                    <rect x="5" y="5" width="200" height="80" rx="10"
-                        style="fill: #FC5972;stroke: #000000;stroke-width: 5px;"></rect>
-                    <text text-anchor="middle" x="105" y="45" alignment-baseline="central"
-                        style="font-size:25px;">Process</text>
-                </svg>
-            </div>
-
+        <div id="source" class="connectedSource source sourcePanel activeSource noselect" type="basic">
+            Statate
         </div>
-        <!-- Type Process -->
-        <div class="noselect source sourceHeader" type="process" style="display: none;background-color:#FF9D00;">
-            Test Topic
-        </div>
-        <!-- <div id="source" class="connectedSource source noselect sourcePanel" type="process" style="display: none;">
-            //
-        </div> -->
 
         <!-- Question Area -->
         <div id="target" class="center-align connectedSource noselect targetPanel ui-widget-content"
-            style="width: 43%;">
+            style="width: 50%;">
+            <div style="padding: 0px 20px 20px 20px;text-align: left;">
+                <p style="text-align: center;font-size: 20px;font-weight: bold;">Pesudo</p>
+                <button style="text-align: left;font-size: 18px;font-weight: bold;" onclick="addProcess()">+
+                    Process</button>
+                <button style="text-align: left;font-size: 18px;font-weight: bold;" onclick="removeProcess()">-
+                    Process</button>
+            </div>
+            <div style="padding: 0px 20px 20px 20px;text-align: left;" id="statement">
+                <table id="myTable">
+                    <thead>
+                        <tr>
+                            <td style="width: 10%;">Step</td>
+                            <td style="text-align: center;width: 70%;">Process</td>
+                            <td style="text-align: center;width: 20%;">Type</td>
+                        </tr>
+                    </thead>
+                    <tbody id="st1">
+                        <tr id="st2">
+                            <td>1</td>
+                            <td><input type="text" style="background-color: white;" value="Start" id="process_1"
+                                    disabled></td>
+                            <td><input type="text" style="background-color: white;" value="Start" id="type_1" disabled>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="padding: 0px 20px 20px 20px;text-align: left;" id="statement_add">
 
+            </div>
         </div>
         <div id="question" class="center-align connectedSource noselect targetPanel ui-widget-content"
-            style="width: 30%;margin-left: 45%;" id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+            style="width: 25%;margin-left: 51%;" id="div1">
             <div style="padding: 0px 20px 20px 20px;">
                 <p style="text-align: left;font-size: 18px;font-weight: bold;">Question Name</p>
                 <input id="questionInput" type="text" style="background-color: white;" />
@@ -134,7 +117,9 @@
                             </li>
                         </ul>
                     </div>
-
+                    <div>
+                        <input type="text" id="ratingStar" value="0" hidden>
+                    </div>
                     <div class='success-box'>
                         <div class='clearfix'></div>
                         <div class='text-message'></div>
@@ -213,66 +198,77 @@
 
             // JUST RESPONSE (Not needed)
             var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
-
+            document.getElementById("ratingStar").value = ratingValue;
             console.log(ratingValue);
         });
 
     });
 
-    $(function () {
-        
-        $("#source,#target").sortable({
-            connectWith: ".connectedSource",
-            cancel: ".ui-state-disabled",
-            activate: function (event, ui) {
-                $(ui.item[0]).addClass("play_jelly");
-                playSoundEx('pop');
-
-            },
-            deactivate: function (event, ui) {
-                playSoundEx('drop');
-            },
-            update: function (event, ui) {
-                let targetId = $(event.target).attr('id');
-                let targetSource = $(event.target).attr('type');
-                let uiSource = $(ui.item[0]).attr('source');
-                let uiId = $('#start_input').attr('id');
-                if (targetId == 'source' && (targetSource != uiSource)) {
-                    $(ui.item[0]).detach().appendTo('#source[type="' + uiSource + '"]');
-                }
-            }
-        });
-
-        //
-        // update arrow between element
-        //
-        $("#target").sortable({
-            cancel: ".ui-state-disabled .arrow",
-            items: "div:not(.arrow)",
-            update: function (event, ui) {
-                updateFlowchart();
-            }
-        });
-        //
-        // end of update arrow function
-        //
-
-    });
-    function modal_input(obj) {
-        console.log("Obj", obj)
-        document.getElementById('modal-input').style.display='block';
-        console.log("click", $(this).parent().attr("id"));
-        var ids = obj.id
-        console.log("Par", $(ids).parent().parent().attr("id"))
-        if ($(ids).parent() == $(ids).parent()) {
-            console.log("Par", $(ids).parent())
+    var index = 1;
+    // Add Process in flowchart
+    function addProcess() {
+        index++;
+        var table = document.getElementById("myTable");
+        var row = table.insertRow(index);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        cell1.innerHTML = index;
+        cell2.innerHTML = "<input type='text' style='background-color: white;' id='process_" + index + "'>";
+        cell3.innerHTML = "<input type='text' style='background-color: white;' id='type_" + index + "'>";
+    }
+    // Remove Process in flowchart
+    function removeProcess() {
+        console.log("Delete", index);
+        var table = document.getElementById("myTable");
+        //var row;
+        if (index > 1) {
+            table.deleteRow(index);
+            index--;
         }
     }
 
-    function save_text(){
-        document.getElementById('modal-input').style.display='none';
-        $(".test").empty()
-        console.log("clicksss", $("#input-test").val());
-        $(".test").append($("#input-test").val())
+    $('#saveButton').click(function () {
+        let dataDiagram = [];
+        let data;
+        let logicName = $("#questionInput").val();
+        let logicHint = $("#hintInput").val();
+        let logicLevel = document.getElementById("ratingStar").value;
+        for (let i = 1; i <= index; i++) {
+            data = { process: document.getElementById("process_" + i).value, type: document.getElementById("type_" + i).value, sequence: i };
+            dataDiagram.push(data);
+        }
+        /*console.log("Diagram", dataDiagram);
+        console.log("Name", logicName);
+        console.log("Hint", logicHint);
+        console.log("Star", logicLevel);*/
+        saveQuestion(dataDiagram, logicName, logicHint, logicLevel)
+    });
+
+    let refQuestion = firestore.collection("Diagram");
+    let keyId = 0;
+    //save data to firebase 
+    function saveQuestion(dataDiagram, logicName, logicHint, logicLevel) {
+        /*console.log("save...");
+        console.log("Diagram", dataDiagram);
+        console.log("Name", logicName);
+        console.log("Hint", logicHint);
+        console.log("Star", logicLevel);*/
+        
+        refQuestion.get().then(function (doc) {
+            keyId = doc.size + 1;
+            console.log("set("+keyId+")");
+        }).then(function () {
+            refQuestion.doc(keyId.toString()).set({
+                Name: logicName,
+                Hint: logicHint,
+                Level: logicLevel,
+                answer: dataDiagram
+            }).then(function () {
+                showSaveStatus("Save Success!!");
+            }).catch(err => {
+                showSaveStatus("Error : " + err);
+            });
+        });
     }
 </script>
