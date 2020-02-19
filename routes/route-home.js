@@ -25,11 +25,12 @@ router.get('/', authen, async (req, res, next) => {
     //required
     unlock: await getAchievement(req.session.user.uid),
     passed: await getPassed(req.session.user.uid),
+    score: await JSON.stringify(getScore(req.session.user.uid)),
     lesson: configString[lang].lesson,
     general: configString[lang].general,
     achievementList: configString[lang].achievement,
     errorMsg: configString[lang].error,
-    ListMenu : JSON.stringify(await getMenu())
+    ListMenu : JSON.stringify(await getMenu()),
   };
   res.render('home/index', data);
 });
@@ -48,10 +49,11 @@ router.post('/', authen,async (req, res, next) => {
     //required
     unlock: await getAchievement(req.session.user.uid),
     passed: await getPassed(req.session.user.uid),
+    score: await JSON.stringify(getScore(req.session.user.uid)),
     lesson: configString[lang].lesson,
     general: configString[lang].general,
     achievementList: configString[lang].achievement,
-    errorMsg: configString[lang].error
+    errorMsg: configString[lang].error,
   };
   req.session.homePost = req.body.page;
   res.render('home/index', data);
@@ -106,7 +108,7 @@ async function getMenu() {
 async function getLogic(){
     var question = [];
     let refquestion = firestore.collection('Logic')
-    refquestion.get().then((doc)=>{
+    await refquestion.get().then((doc)=>{
           doc.forEach(element => {
             if(element.data().Type == "logic"){
             question.push(element.data())
@@ -127,6 +129,17 @@ async function getOperator(){
         })
   });
   return question;
+}
+
+async function getScore(uid){
+  var score = [];
+  let refscore = firestore.collection('ScoreHistory').doc(uid).collection('Logic');
+  refscore.get().then(doc=>{
+    doc.forEach(element => {
+      score.push(element.data())
+    })
+  })
+  return score;
 }
 
 

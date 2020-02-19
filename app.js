@@ -103,6 +103,7 @@ app.use('/report', require('./routes/route-report'));
 app.use('/add/logic', require('./routes/route-logicQuestion'));
 app.use('/MDQ', require('./routes/route-diagram-question'));
 app.use('/show_feedback', require('./routes/route-feedback'));
+app.use('/leaderboard',require('./routes/route-leaderboard'));
 //app.use('/report', require('./routes/route-report'));
 
 app.use('/lang', function (req, res, next) {
@@ -116,17 +117,16 @@ app.use('/lang', function (req, res, next) {
 });
 
 app.get('/api-service', function (req, res, next) {
-  let data = firestore.collection('Logic')
+  let data = firestore.collection('ScoreHistory')
   // let subdata = data.doc(data.listDocuments(0)).collection('Answers')
-  data.get().then((doc)=>{
-    let arr = []
-      doc.forEach(element => {
+  data.get().then((doc)=>{  
+  let arr = []
+       doc.forEach(element => {
           arr.push(element.data())
-      });
-      res.send(arr);
+       });
+       res.send(arr);
   })
-
-  // subdata.get().then((doc)=>{
+  // subdata.get(). then((doc)=>{
   //   let arr = []
   //     doc.forEach(element => {
   //         arr.push(element.data())
