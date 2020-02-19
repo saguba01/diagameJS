@@ -17,12 +17,8 @@
     "express-session": "^1.15.6",
     "firebase": "^4.8.0",
     "firebase-admin": "^7.0.0",
-<<<<<<< HEAD
     "firebase-config": "0.0.2",
-    "handlebars": "^4.1.2",
-=======
     "handlebars": "^4.7.3",
->>>>>>> e23616b99f417009e11e98a358c7a83ab4aa6c3e
     "html": "^1.0.0",
     "http-errors": "~1.6.2",
     "intro.js": "^2.9.3",
