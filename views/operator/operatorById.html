@@ -1,7 +1,7 @@
 <div class="questionBox noselect">
-    <div class="questionCount">1/5 {{general.question}}</div>
+    <div class="questionCount">{{ questionName }}</div>
     <div class="questionArea">
-        {{logicQuestion question}}
+        {{operatorQuestion question}}
     </div>
 </div>
 
@@ -18,23 +18,20 @@
             </div>
         </div>
         <div class="tab valign-wrapper" style="width:100%;padding-top: 15px">
-            <div class="canClick jellyButton operatorButton selected" event="<">
-                <div class="lessthan-icon"></div>
+            <div class="canClick jellyButton operatorButton selected" event="+">
+                <div class="plus-icon"></div>
             </div>
-            <div class="canClick jellyButton operatorButton" event="<=">
-                <div class="lessthanorequal-icon"></div>
+            <div class="canClick jellyButton operatorButton" event="-">
+                <div class="minus-icon"></div>
             </div>
-            <div class="canClick jellyButton operatorButton" event=">">
-                <div class="greaterthan-icon"></div>
+            <div class="canClick jellyButton operatorButton" event="*">
+                <div class="multiple-icon"></div>
             </div>
-            <div class="canClick jellyButton operatorButton" event=">=">
-                <div class="greaterthanorequal-icon"></div>
+            <div class="canClick jellyButton operatorButton" event="/">
+                <div class="divide-icon"></div>
             </div>
-            <div class="canClick jellyButton operatorButton" event="==">
-                <div class="equal-icon"></div>
-            </div>
-            <div class="canClick jellyButton operatorButton" event="!=">
-                <div class="notequal-icon"></div>
+            <div class="canClick jellyButton operatorButton" event="%">
+                <div class="modular-icon"></div>
             </div>
         </div>
     </div>
@@ -95,12 +92,12 @@
     *@required jQuery,Firebase Cloud Firestore.
     */
     function gameEngine(callback) {
-        let active = $('.question.active').find('div');
-        var element = active;
+        let start = $('.question.active').find('div');
+        var element = start;
         var timestamp = Date.now();
-        var operand = [];
+        var equation = [];
         var answer = '';
-        if ($('.active').find('.boxAnswer').find('div').length > 0) {
+        if ($('.boxAnswer').find('div').length > 0) {
             play();
         } else {
             callback();
@@ -108,24 +105,25 @@
 
         function play() {
             if (element.attr('type') == 'operand') {
-                operand.push(element.attr('event'));
+                console.log(element);
+                equation.push(element.attr('event'));
                 element = element.next();
                 play();
             } else if (element.attr('type') == 'operator') {
-                operand.push(element.find('[event]').attr('event'));
+                equation.push(element.find('[event]').attr('event'));
                 element = element.next();
                 play();
             } else if (element.attr('type') == 'result') {
                 answer = element.attr('event');
                 if (getResult()) {
                     playSoundEx('correct');
-                    var question = $('.active').attr('question');
-                    if(question != 5){
-                        changeQuestion(question);
-                    }else{
+                    // var question = $('.active').attr('question');
+                    // if(question != 5){
+                    //     changeQuestion(question);
+                    // }else{
                         showNavigator('{{general.congrat}}');
                         unlockLesson('{{lesson.url}}', '{{subLesson.url}}', timestamp);
-                    }
+                    // }
                 } else {
                     $('.questionBox').addClass("shake-vertical");
                     playSoundEx('error');
@@ -139,20 +137,8 @@
         }
 
         function getResult() {
-            console.log(eval(operand.join('')) == (answer == 'true'))
-            var result = (eval(operand.join('')) == (answer == 'true'));
+            var result = (eval(equation.join('')) == parseInt(answer));
             return result;
-        }
-
-        function changeQuestion(question) {
-            $('.active').addClass('slide-out-left');
-            setTimeout(function () {
-                $('.active').removeClass('active');
-                $('[question="' + (++question) + '"]').addClass('active');
-                var countText = $('.questionCount').text().split('/');
-                countText[0] = question;
-                $('.questionCount').text(countText.join('/'));
-            }, 500);
         }
     }
 </script>

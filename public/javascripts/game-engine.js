@@ -298,10 +298,10 @@ function getFlowchart(refDatabase) {
 var achieveArray = [];
 $(function () {
     refAchieve.onSnapshot(function (snapshot) {
-        snapshot.docChanges().forEach(function (change) {
+        snapshot.docChanges.forEach(function (change) {
             if (change.type === "added") {
                 achieveArray.push(change.doc.data().keyName);
-                // console.log("added: ", change.doc.data());
+                console.log("added: ", change.doc.data());
             }
             /* if (change.type === "modified") {
                 console.log("modified: ", change.doc.data());
@@ -338,4 +338,73 @@ function unlockLesson(lesson, subLesson, timestamp) {
     refPassed.doc(lesson + '-' + subLesson).set(docData).then(function (docRef) {
         // let decisionRef = refDatabase.collection("flowchart:" + timestamp).doc(docRef.id);
     });
+}
+
+function timer(max=0,min=0,callback){
+    let stopTime = false 
+    let width = 100;
+    let maxScore = parseInt(max) 
+    const minScore = parseInt(min) 
+    let minutesLabel = $("#minutes");
+    let secondsLabel = $("#seconds");
+    let totalSeconds = 0;
+    let elem = $('#timeBar')
+
+    let timer = setInterval(setTime, 1000);
+    let countDown = setInterval(frame, 1000);
+    let scroeBar = setInterval(score, 100);
+    let check = setInterval(checkStatus, 100);
+
+    function setTime() {
+        if(statusQuestion){
+            clearInterval(timer);
+            callback(totalSeconds);
+        }else{
+            ++totalSeconds;
+            secondsLabel.html(twoDigit(totalSeconds % 60))
+            minutesLabel.html(twoDigit(parseInt(totalSeconds / 60)))
+        }
+    }
+
+    function twoDigit(val) {
+        var valString = val + "";
+        if (valString.length < 2) {
+            return "0" + valString;
+        } else {
+            return valString;
+        }
+    }
+
+    function frame() {
+        if (width == 0 || statusQuestion) {
+            clearInterval(countDown);
+        } else {
+            width--;
+            elem.css({'width': `${width}%`})
+            elem.css({'border-top-right-radius': '0px','border-bottom-right-radius':'0px'})
+            if(width <= 70 && width >= 41){
+                elem.css({'background-color': '#F4D03F'})
+            }else if(width <= 40 ){
+                elem.css({'background-color': '#E74C3C'})
+            }
+        }
+    }
+
+    function score(){
+        if (maxScore == 0 || statusQuestion || maxScore == minScore) {
+            clearInterval(scroeBar);
+        }
+        $('#score').html(maxScore--)
+    }
+    function checkStatus() {
+        if(statusQuestion){
+            clearInterval(check);
+            callback(
+                {
+                    score : maxScore,
+                    time : totalSeconds
+                }
+            );
+        }
+    }
 }

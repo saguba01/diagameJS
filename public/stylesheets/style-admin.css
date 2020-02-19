@@ -195,6 +195,31 @@ body {
   margin-right: 54.5px;
 }
 
+.postit-middle-center {
+  width: 300px;
+  height: 310px;
+  box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.2);
+  border: solid 5px #000000;
+  float: center;
+  margin-top: 300px;
+  vertical-align:middle !important;
+  margin-top: 120px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-bottom: auto !important;
+}
+
+.postit-middle-center2 {
+  width: 220px;
+  height: 230px;
+  box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.2);
+  border: solid 5px #000000;
+  float: center;
+  vertical-align:middle !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
 .profile-icon {
   float: left;
   width: 70px;
@@ -575,4 +600,14 @@ body {
   background-repeat: no-repeat;
   background-position: center;
 }
+
+.menu-coaching{
+  background-image: url("/assets/svg/menu/coaching.svg");
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
+
 

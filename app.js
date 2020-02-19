@@ -103,8 +103,14 @@ app.use('/lesson/operator', require('./routes/route-operator'));
 app.use('/lesson/variable', require('./routes/route-variable'));
 app.use('/report', require('./routes/route-report'));
 app.use('/add/logic', require('./routes/route-logicQuestion'));
+<<<<<<< HEAD
 app.use('/add/diagram', require('./routes/route-diagram-question'));
 //app.use('/report', require('./routes/route-report'));
+=======
+app.use('/MDQ', require('./routes/route-diagram-question'));
+app.use('/tutorial', require('./routes/route-tutorial'));
+app.use('/report', require('./routes/route-report'));
+>>>>>>> e23616b99f417009e11e98a358c7a83ab4aa6c3e
 
 app.use('/lang', function (req, res, next) {
   var lang = req.query.lang;

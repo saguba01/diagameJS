@@ -1,12 +1,18 @@
 <div class="questionBox noselect">
-    <div class="questionCount">1/5 {{general.question}}</div>
+    <div class="questionCount">{{ questionName }}</div>
     <div class="questionArea">
         {{logicQuestion question}}
     </div>
 </div>
 
-<div class="sourceBottom noselect">
+<div class="sourceBottom noselect" style="width: 800px;margin-left:-367.5px;">
     <div class="tab-horizontal" style="padding-left: 15px;">
+        <div class="tab valign-wrapper"
+            style="padding-top: 15px;padding-right: 15px;">
+            <div id="backButton" class="canClick jellyButton button-tool" style="margin:0px;">
+                <div class="back-icon"></div>
+            </div>
+        </div>
         <div class="tab valign-wrapper"
             style="height: 90px;border-right: 5px solid;padding-top: 15px;padding-right: 15px;">
             <div id="playMinigame" class="canClick jellyButton button-tool" style="margin:0px;">
@@ -36,9 +42,18 @@
             <div class="canClick jellyButton operatorButton" event="!=">
                 <div class="notequal-icon"></div>
             </div>
+            <div class="canClick jellyButton operatorButton" event="||">
+                <div class="or-icon"></div>
+            </div>
+            <div class="canClick jellyButton operatorButton" event="&&">
+                <div class="and-icon"></div>
+            </div>
         </div>
     </div>
 </div>
+
+
+
 
 <script>
     $(function () {
@@ -119,13 +134,13 @@
                 answer = element.attr('event');
                 if (getResult()) {
                     playSoundEx('correct');
-                    var question = $('.active').attr('question');
-                    if(question != 5){
-                        changeQuestion(question);
-                    }else{
+                    // var question = $('.active').attr('question');
+                    // if(question != 5){
+                    //     changeQuestion(question);
+                    // }else{
                         showNavigator('{{general.congrat}}');
                         unlockLesson('{{lesson.url}}', '{{subLesson.url}}', timestamp);
-                    }
+                    // }
                 } else {
                     $('.questionBox').addClass("shake-vertical");
                     playSoundEx('error');
@@ -139,20 +154,32 @@
         }
 
         function getResult() {
-            console.log(eval(operand.join('')) == (answer == 'true'))
             var result = (eval(operand.join('')) == (answer == 'true'));
             return result;
         }
-
-        function changeQuestion(question) {
-            $('.active').addClass('slide-out-left');
-            setTimeout(function () {
-                $('.active').removeClass('active');
-                $('[question="' + (++question) + '"]').addClass('active');
-                var countText = $('.questionCount').text().split('/');
-                countText[0] = question;
-                $('.questionCount').text(countText.join('/'));
-            }, 500);
-        }
     }
+
+    $(document).ready(function(){
+        var minutesLabel = document.getElementById("minutes");
+        var secondsLabel = document.getElementById("seconds");
+        var totalSeconds = 0;
+        setInterval(setTime, 1000);
+
+        function setTime() {
+            ++totalSeconds;
+            secondsLabel.innerHTML = twoDigit(totalSeconds % 60);
+            minutesLabel.innerHTML = twoDigit(parseInt(totalSeconds / 60));
+        }
+
+        function twoDigit(val) {
+            var valString = val + "";
+            if (valString.length < 2) {
+                return "0" + valString;
+            } else {
+                return valString;
+            }
+        }
+    });
+
+    
 </script>
