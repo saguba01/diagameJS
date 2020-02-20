@@ -128,7 +128,9 @@ app.get('/api-service', function (req, res, next) {
           })
       });
       res.send(arr);
-
+    
+  })
+})    
 //Service
 app.get('/get-diagram', function(req, res){
   let citiesRef = firestore.collection('Diagram');
@@ -138,27 +140,7 @@ app.get('/get-diagram', function(req, res){
       console.log(doc.id, '=>', doc.data());
     });
   })
-  // subdata.get().then((doc)=>{
-  //   let arr = []
-  //     doc.forEach(element => {
-  //         arr.push(element.data())
-  //     });
-  //     res.send(arr);
-  // })
-  // let sfRef = firestore.collection('ScoreHistory').doc('z28G6cQT0hdWe83uJrfX88h4GXg2');
-  // sfRef.listCollections().then(collections => {
-  //   let arr = []
-  //   collections.forEach(collection => {
-  //       arr.push(collection.id)
-  //   });
-  //   res.send(arr);
-  // });
-});
-  .catch(err => {
-    console.log('Error getting documents', err);
-  });
 })
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

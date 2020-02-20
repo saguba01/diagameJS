@@ -16,6 +16,7 @@ var playsoundMaster = null
 $(document).ready(()=>{
     $('#changeLangThai').click(()=>{
         playSoundEx('click');
+        setLanguage('th')
     })
 
     $('#changeLangEng').click(()=>{
@@ -447,7 +448,6 @@ function closeModal(modal) {
 //     window.location.replace('/home');
 // }
 function setLanguage(setlang,callback){
-    localStorage.setItem("langSelected", true);
     const lang = Cookies.get('lang');
     if(lang != setlang ){
         blockUI();
@@ -457,6 +457,7 @@ function setLanguage(setlang,callback){
         closeModal('#modal-language')
         callback()
     }
+    localStorage.setItem("langSelected", true);
 }
 
 function editLanguage(setlang){
@@ -931,7 +932,7 @@ function applySetting(){
         playsoundMaster.pause()
     }
     if(newLang != ''){
-        setLanguage(newLang)
+        // setLanguage(newLang)
     }
     closeModal('#modal-setting');
 }
