@@ -1,11 +1,68 @@
 <header>
     <link rel="stylesheet" href="/stylesheets/style-admin.css">
     <link rel="stylesheet" href="/stylesheets/style-navbar.css">
+    <style>
+        #container{
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+        .all-font{
+            font-size:40px;
+            text-align:center;
+        }
+        .stadium{
+            width:250px;
+            float:left;
+        }
+        .gold{
+            background-color:#FFD700;
+            height: 200px;
+            border:black 5px solid; 
+        }
+        .silver{
+            background-color:#DCDCDC;
+            height: 100px; 
+            border:black 4px solid;
+            margin-right:1px;    
+        }
+        .gold-red{
+            background-color:#A52A2A;
+            border:black 4px solid; 
+            margin-left:1px;
+        }
+        #table-score{
+            background-color:green;
+            height:400px;
+            width:600px;
+            margin-top:30px;
+            position:relative;
+            left:32%;
+            border:black 4px solid;
+        }
+    </style>
 </header>
 
 <div id="book" style="display: table;margin: auto;margin-top: 80px;">
-  
-    
+</div>
+<div id="trophy">
+    <div id="container">
+        <div class="stadium silver all-font">2</div>
+        <div class="stadium gold all-font">1</div>
+        <div class="stadium gold-red all-font">3</div>
+    </div>
+    <div id="table-score">
+        
+    </div>
 </div>
 
+<script>
+    var history = [];
+    let refhistory = firestore.collection('ScoreHistory');
+    refhistory.get().then((doc) => {
+        doc.forEach((element) =>{
+            
+        })
+    })
+</script>
 

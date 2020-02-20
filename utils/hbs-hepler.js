@@ -400,7 +400,7 @@ handlebars.registerHelper('listquestion', function(question,score){
   var html = '';
   var index = 0;
   var color = ["bg-red","bg-purple","bg-blue","bg-sky-blue","bg-light-green","bg-yellow","bg-orange","bg-nude"];
-  question.forEach(function (qs){
+    question.forEach(function (qs){
     html += '<div class="'+color[index]+' canClick" style="margin-left:40px; padding-right:1px; border:2px solid black">';
     html += '<div class="list-lesson-title" id="lesson-logic">';
     html += qs.Name;

@@ -179,7 +179,7 @@
             <div class="innerpage">
                 <p class="lesson-title noselect">{{ lesson.operator.text }}</p>
                 <div class="list-question" id="listoperator">
-                    {{ listquestion questionOperator}}
+                    {{ listquestion questionOperator score}}
                 </div>
                 <!--<div target="/lesson/{{ lesson.operator.url }}/{{ lesson.operator.subLesson.easy.url }}"
                     class="postit postit-top-left bg-light-green canClick">{{ lesson.operator.subLesson.easy.text }}</div>
@@ -200,7 +200,7 @@
             <div class="innerpage">
                 <p class="lesson-title noselect">{{ lesson.logic.text }}</p>
                 <div class="list-question" id="listlogic">
-                {{ listquestion questionLogic}}
+                {{ listquestion questionLogic score}}
                 </div>
                 <!--<div target="/lesson/{{ lesson.logic.url }}/{{ lesson.logic.subLesson.easy.url }}"
                     class="postit postit-top-right bg-red canClick">{{ lesson.logic.subLesson.easy.text }}</div>
@@ -343,6 +343,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+       
        console.log(JSON.parse($('#ListMenu').val()))
         $(".panelindex").hide();
         // $(".indexone").css("opacity","1");

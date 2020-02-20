@@ -25,7 +25,7 @@ router.get('/', authen, async (req, res, next) => {
     //required
     unlock: await getAchievement(req.session.user.uid),
     passed: await getPassed(req.session.user.uid),
-    score: await JSON.stringify(getScore(req.session.user.uid)),
+    score: await JSON.stringify(getScore()),
     lesson: configString[lang].lesson,
     general: configString[lang].general,
     achievementList: configString[lang].achievement,
@@ -49,7 +49,7 @@ router.post('/', authen,async (req, res, next) => {
     //required
     unlock: await getAchievement(req.session.user.uid),
     passed: await getPassed(req.session.user.uid),
-    score: await JSON.stringify(getScore(req.session.user.uid)),
+    score: await JSON.stringify(getScore()),
     lesson: configString[lang].lesson,
     general: configString[lang].general,
     achievementList: configString[lang].achievement,
@@ -131,9 +131,9 @@ async function getOperator(){
   return question;
 }
 
-async function getScore(uid){
+async function getScore(){
   var score = [];
-  let refscore = firestore.collection('ScoreHistory').doc(uid).collection('Logic');
+  let refscore = firestore.collection('ScoreHistory');
   refscore.get().then(doc=>{
     doc.forEach(element => {
       score.push(element.data())
