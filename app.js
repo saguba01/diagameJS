@@ -133,6 +133,7 @@ app.get('/api-service', function (req, res, next) {
           })
       });
       res.send(arr);
+    snapshot.forEach(doc => {
     });
   });
 
