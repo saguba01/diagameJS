@@ -3,7 +3,7 @@ var router = express.Router();
 var authen = require('../utils/authen');
 var configString = require('../app').configString;
 var firestore = require('../configs/firebase-config').firestore;
-
+var setting = require('../public/javascripts/setting');
 /* 
  * name: homePage
  * description: open home page
@@ -12,15 +12,8 @@ var firestore = require('../configs/firebase-config').firestore;
  * modify date: 25/01/2019
  */
 router.get('/', authen, async (req, res, next) => {
-  console.log(req)
-  let lang = req.cookies.lang;
-  try{
-    console.log(lang)
-  }catch(e){
-    console.log(e)
-  }
-    
-    const general = await getSetting(lang)
+  let lang = req.cookies.lang; 
+    const general = await setting.getSetting(lang)
     let  menu = await getMenuTutorial()
     try{
       var data = {
@@ -37,7 +30,6 @@ router.get('/', authen, async (req, res, next) => {
         lesson: menu,
         // loginPage: true,
         walcomeModal : await getWalcome(lang),
-        test:JSON.stringify(await getintroStep(lang)) ,
         general: configString[lang].general,
         language: await getLang(lang),
         langInUsing: lang,

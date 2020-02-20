@@ -10,7 +10,7 @@ var favicon = require('serve-favicon');
 var expresshbs = require('express-handlebars');
 var hbsHelper = require('./utils/hbs-hepler');
 var firestore = require('./configs/firebase-config').firestore; //test firebase
-
+var setting = require('./public/javascripts/setting');
 var app = express();
 
 //const firestore = require('./configs/firebase-config').firestore;
@@ -121,7 +121,9 @@ app.use('/lang', function (req, res, next) {
   res.redirect('/home');
 });
 
-
+app.get('/api-service',async function (req, res, next) {
+      res.send(await setting.getSetting('th'));
+}) 
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
