@@ -48,7 +48,7 @@ router.get('/', authen, async (req, res, next) => {
   router.get('/logic', authen, async (req, res, next) => {
     const lang = req.cookies.lang;
     const score = await getScore()
-    const general = await getSetting(lang)
+    const general = await setting.getSetting(lang)
 
     const data = {
       diagameIntro : false,
@@ -89,7 +89,7 @@ router.get('/', authen, async (req, res, next) => {
   router.get('/flowchart', authen, async (req, res, next) => {
     const lang = req.cookies.lang;
     const score = await getScore()
-    const general = await getSetting(lang)
+    const general = await setting.getSetting(lang)
 
     const data = {
       layout: 'default',
@@ -298,21 +298,4 @@ async function getScore(){
   return score
 }
 
-async function getSetting(lang='en'){
-  // /System/Config/general/en
-  let general = [];
-  const refgeneral = firestore.collection('System').doc('Config')
-                      .collection('general').doc(lang)
-  await refgeneral.get().then(doc => {
-    if (!doc.exists) {
-      general.push(false)
-    } else {
-      general.push(doc.data())
-    }
-  })
-  .catch(err => {
-    general.push(false)
-  });
-  return general[0]
-}
   module.exports = router;

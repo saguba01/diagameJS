@@ -275,7 +275,7 @@ function playSoundEx(type,loop = false) {
     fun_sound.volume = 0.5;
     step_sound.volume = 0.3;
     step_sound.volume = 0.3;
-    console.log(`oldSoundMaster => ${oldSoundMaster}`)
+ 
     if(oldSoundMaster == "true" || typeof oldSoundMaster == 'undefined' || typeof oldSoundMaster == 'null' || oldSoundMaster == null){
         if (type == 'drop') {
             const playPromise = drop_sound.play();
