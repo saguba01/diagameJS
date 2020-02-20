@@ -4,7 +4,7 @@
 </header>
 
 <!-- <input type='text' value="{{test}}"> -->
-<nav class="nav-center z-depth-0" style="background-color: #fecf36;border-bottom: 5px solid black;">
+<!-- <nav class="nav-center z-depth-0" style="background-color: #fecf36;border-bottom: 5px solid black;">
     <div class="navbar-fixed">
         <div class="nav-wrapper" style="color: black;">
             <a href="javascript:window.location.replace('/home')" class="brand-logo"
@@ -24,7 +24,7 @@
             </ul>
         </div>
     </div>
-</nav>
+</nav> -->
 
 <div id="book" style="display: table;margin: auto;margin-top: 20px;">
     <div class="book">
@@ -193,15 +193,6 @@ const lang = '{{langInUsing}}'
         }else{
             showWellcome()
         }
-        
-        $('#changeLangThai').click(()=>{
-            setLang('th')
-            playSoundEx('click');
-        })
-        $('#changeLangEng').click(()=>{
-            setLang('en')
-            playSoundEx('click');
-        })
 
         // introJs().start()
       // console.log(JSON.parse($('#ListMenu').val()))
@@ -361,18 +352,6 @@ const lang = '{{langInUsing}}'
                 });
         }, 2000);
     }
-    function setLang(setlang){
-        localStorage.setItem("langSelected", true);
-        if(lang != setlang ){
-            blockUI();
-            Cookies.set('lang', setlang);
-            location.reload();
-        }else{
-            closeModal('#modal-language')
-            showWellcome()
-        }
-    }
-
     function startTutorial(){
         closeModal('#modal-wellcome')
         setTimeout(function(){ 
@@ -394,14 +373,18 @@ const lang = '{{langInUsing}}'
                 },
                 {
                     intro : '{{introStep.step2}}',
-                    element : '.profile-user'
+                    element : '.diagame-profile'
                 },
                 {
-                    intro : '  {{introStep.step3}}',
+                    intro : '{{introStep.step3}}',
+                    element : '.diagame-setting'
+                },
+                {
+                    intro : '  {{introStep.step4}}',
                     element : '.menu-logic'
                 },
                 {
-                    intro : '  {{introStep.step3}}',
+                    intro : '  {{introStep.step5}}',
                     element : '.menu-flowchart'
                 }
               

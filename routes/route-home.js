@@ -107,7 +107,7 @@ async function getMenu() {
 
 async function getLogic(){
     var question = [];
-    let refquestion = firestore.collection('Logic')
+    let refquestion = firestore.collection('Logic').orderBy('Level');
     await refquestion.get().then((doc)=>{
           doc.forEach(element => {
             if(element.data().Type == "logic"){
@@ -120,7 +120,7 @@ async function getLogic(){
 
 async function getOperator(){
   var question = [];
-  let refquestion = firestore.collection('Logic')
+  let refquestion = firestore.collection('Logic').orderBy('Level');
   refquestion.get().then((doc)=>{
         doc.forEach(element => {
           if(element.data().Type == "operator"){

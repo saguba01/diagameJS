@@ -55,6 +55,66 @@
     background-color: #56e3c4;
 }
 
+#modal-setting.modal {
+    width: 680px;
+}
+
+#modal-setting>.modal-content>.setting-header{
+    font-size: 48px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#modal-setting>.modal-footer {
+    border-top: 5px solid #000000;
+    background-color: #56e3c4;
+}
+#modal-setting>.modal-content>.setting-title>.language-title>div>div:nth-child(1){
+    width: 47%; 
+    padding: 10px;
+    height:200px; 
+    position: absolute;
+    border-right: 5px solid #000000;
+}
+
+#modal-setting>.modal-content>.setting-title>.language-title>div>div:nth-child(2){
+    float: right; 
+    width: 50%; 
+    padding: 10px;
+    height:200px;
+}
+
+#modal-setting>.modal-content>.setting-title>.language-title>div>div:nth-child(1){
+    width: 47%; 
+    padding: 10px;
+    height:200px; 
+    position: absolute;
+    border-right: 5px solid #000000;
+}
+
+#modal-setting>.modal-content>
+    .setting-title>.language-title>div>div:nth-child(1)>div:nth-child(2)>
+    #setting-lang-thai,
+#modal-setting>.modal-content>
+    .setting-title>.language-title>div>div:nth-child(1)>div:nth-child(2)>
+    #setting-lang-eng{
+        margin: 5px; 
+        float: left;
+        width: 120px;
+        height: 90px;
+        border: solid 5px #000000;
+        box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.2);
+}
+
+
+#modal-setting>.modal-content>
+    .setting-title>.language-title>div>div:nth-child(1)>div:nth-child(2)>
+    div>span{
+        position: absolute;
+        margin-top: 100px;
+        /* margin-left:12px;
+        font-size: 24px; */
+}
 #modal-input.modal {
     width: 400px;
 }
@@ -255,4 +315,39 @@
 
 .button-navigator::first-letter{
     text-transform: uppercase;
+}
+
+.language-no-select{
+    filter: grayscale(100%);
+}
+.blur{
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+}
+.unblur{
+    -webkit-filter: grayscale(0%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(0%);
+}
+
+.button-close-setting {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    width: 140px;
+    height: 50px;
+    font-size: 22px;
+    font-family: 'Mali', cursive;
+    background-color: #FC5972;
+    border: 5px solid #000000;
+    border-radius: 10px;
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.5);
+}
+
+.button-close-setting::first-letter {
+    text-transform: uppercase;
+}
+
+.button-close-setting:active,
+.button-close-setting:focus {
+    background-color: #FC5972;
 }

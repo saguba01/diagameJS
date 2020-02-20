@@ -122,36 +122,19 @@ app.use('/lang', function (req, res, next) {
 });
 
 app.get('/api-service', function (req, res, next) {
-  let data = firestore.collection('ScoreHistory')
+  let data = firestore.collection('Logic')
   // let subdata = data.doc(data.listDocuments(0)).collection('Answers')
-  data.get().then((doc)=>{  
-  let arr = []
-       doc.forEach(element => {
-          arr.push(element.data())
-       });
-       res.send(arr);
-  })
-  // subdata.get(). then((doc)=>{
-  //   let arr = []
-  //     doc.forEach(element => {
-  //         arr.push(element.data())
-  //     });
-  //     res.send(arr);
-  // })
-});
-//Service
-app.get('/get-diagram', function(req, res){
-  let citiesRef = firestore.collection('Diagram');
-  let allCities = citiesRef.get()
-  .then(snapshot => {
-    snapshot.forEach(doc => {
-      console.log(doc.id, '=>', doc.data());
+  data.get().then((doc)=>{
+    let arr = []
+      doc.forEach(element => {
+          arr.push({
+            id : element.id,
+            data : element.data()
+          })
+      });
+      res.send(arr);
     });
-  })
-  .catch(err => {
-    console.log('Error getting documents', err);
   });
-})
 
 
 // catch 404 and forward to error handler

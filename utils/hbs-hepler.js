@@ -405,7 +405,8 @@ handlebars.registerHelper('listquestion', function(question,score){
     html += '<div class="list-lesson-title" id="lesson-logic">';
     html += qs.Name;
     html += '<br>';
-    html += qs.Type;
+    html += 'Level:'
+    html += qs.Level;
     html += '</div>';
     html += '<div class="list-lesson-score" id="score">';
     html += 'Score : ';

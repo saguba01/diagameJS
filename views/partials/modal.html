@@ -61,10 +61,10 @@
     </div>
     
     <div class="language-title">
-        <div id="changeLangThai" 
+        <div id="changeLangThai" value="th"
                 class="flag-right bg-sky-blue flag-thai canClick">
                 </div>
-        <div id="changeLangEng" 
+        <div id="changeLangEng" value="en"
               class="flag-left bg-nude flag-eng canClick"></div>
     </div>
     <div class="language-content"></div>
@@ -95,3 +95,54 @@
     <div class="modal-footer">
     </div>
   </div>
+  
+<div id="modal-setting" class="modal">
+  <div class="modal-content">
+    <div class="button-close-custom canClick right" onclick="closeModal('#modal-setting');playSoundEx('click');"></div>
+    <div class="setting-header"> {{setting.header}} </div>
+    <div class="setting-title ">
+      <div class="language-title" style="height: 200px;">
+        <div style="width: 100%;height:200px; font-size: 24px;" >
+          <div style="display: block;"> 
+            <div style="text-align: center;">
+              <B >{{setting.titleLanguage}}</B>
+            </div>
+            <div style="margin-top: 10px;" class="flag-select-setting">
+           
+              <input type="hidden" id="setting-language">
+            </div>
+           
+          </div>
+         
+          <div  >
+            <div style="display: block;">
+              <div style="text-align: center;">
+                <B >{{setting.titleSound}}</B>
+              </div>
+              
+              <div style="position: absolute; width: 100%;">
+                <div class="canClick typeButton btn-main-sound" style="display: inline-flex;" onclick="editsoundMaster()">
+                </div>
+                <span  style="position: absolute; margin-left: 10px;width: 100%;margin-top: 15px;" >
+                  {{ setting.soundMaster }}
+                </span >
+              </div>
+              <div style="position: absolute; margin-top:70px; width: 100%;">
+                <div class="canClick typeButton btn-main-music" style="display: inline-flex;position: relative;" onclick="editsoundMusic()">
+                 
+                </div>
+                <span  style="position: absolute; margin-left: 10px; width: 100%;margin-top: 15px;">
+                  {{ setting.soundMusic }}
+                </span >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button onclick="playSoundEx('click');applySetting()" class="canClick button-close-modal">{{ button.apply }}</button>
+    <button onclick="playSoundEx('click');closeModal('#modal-setting');" class="canClick button-close-setting">{{button.close}}</button>
+  </div>
+</div>
