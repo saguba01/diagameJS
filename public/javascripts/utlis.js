@@ -936,18 +936,14 @@ function editsoundMaster(){
 
 function applySetting(){
     const newLang = $('#setting-language').val()
-    
-    console.log(`soundMusic : ${soundMusic} || localStorage.getItem("soundMusic") : ${localStorage.getItem("soundMusic")}` )
     if(soundMusic != localStorage.getItem("soundMusic") ){
         if( soundMusic == "true"){  
             playsoundMusic.play()
         }else{
-            console.log(`playsoundMusic false`)
             playsoundMusic.pause()
         }
         localStorage.setItem("soundMusic", soundMusic);
     }
-    
     localStorage.setItem("soundMaster", soundMaster);
     if(newLang != ''){
         setLanguage(newLang)
