@@ -12,7 +12,14 @@ var firestore = require('../configs/firebase-config').firestore;
  * modify date: 25/01/2019
  */
 router.get('/', authen, async (req, res, next) => {
-    let lang = req.cookies.lang;
+  console.log(req)
+  let lang = req.cookies.lang;
+  try{
+    console.log(lang)
+  }catch(e){
+    console.log(e)
+  }
+    
     const general = await getSetting(lang)
     let  menu = await getMenuTutorial()
     try{
@@ -40,10 +47,9 @@ router.get('/', authen, async (req, res, next) => {
         errorMsg: configString[lang].error,
       };
     }catch(e){
+      console.log(`lang => ${lang}`)
       console.log(e)
     }
-    
-    
     res.render('tutorial/index', data);
   });
   
