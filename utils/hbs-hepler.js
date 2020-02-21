@@ -400,6 +400,7 @@ handlebars.registerHelper('listquestion', function(question,scoreh,uid){
   var html = '';
   var index = 0;
   var type = '';
+  var maxscore;
   var color = ["bg-red","bg-purple","bg-blue","bg-sky-blue","bg-light-green","bg-orange","bg-nude"];
   if(Object.getOwnPropertyNames(question).length === 0){
         html += 'ggg';
@@ -422,14 +423,13 @@ handlebars.registerHelper('listquestion', function(question,scoreh,uid){
     html += '</div>';
     html += '<div class="list-lesson-score" id="score">';
     html += 'Score : -';
-    // scoreh.forEach(function (sc){
-    //     if(sc.uid == uid){
-    //       var logicid = testcut[1];
-    //       if(logicid == qs.Id){
-    //         html += 'Score : '+ sc.score;
-    //       }
-    //     }
-    // })
+    scoreh.forEach(function (sc){
+        if(sc.uid == uid){
+          if(logicid == qs.Id){
+            html += 'Score : '+ sc.score;
+          }
+        }
+    })
     html += '</div>';
     html += '</div>';
     index++;
