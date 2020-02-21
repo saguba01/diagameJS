@@ -39,6 +39,7 @@
 
 #modal-wellcome.modal {
     width: 60%;
+    max-height: 100%;
 }
 
 #modal-wellcome>.modal-footer {
@@ -57,6 +58,7 @@
 
 #modal-setting.modal {
     width: 680px;
+    
 }
 
 #modal-setting>.modal-content>.setting-header{
@@ -118,6 +120,7 @@
 #modal-input.modal {
     width: 400px;
 }
+
 
 #modal-input>.modal-content {
     font-size: 24px;

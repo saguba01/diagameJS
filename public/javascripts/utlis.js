@@ -9,19 +9,22 @@ $.fn.center = function () {
 var baseUrl = window.location.protocol + '//' + window.location.host;
 var progressInterval;
 var oldLang = Cookies.get('lang')
-var soundMusic = true
-var soundMaster = true
-var playsoundMusic = null 
+var soundMusic = (localStorage.getItem("soundMusic")== null ? "true" :localStorage.getItem("soundMusic"))
+var soundMaster = (localStorage.getItem("soundMaster") == null ? "true" :localStorage.getItem("soundMaster") )
+var playsoundMusic = null
 var playsoundMaster = null
 $(document).ready(()=>{
+    playSoundEx('fun',true);
     $('#changeLangThai').click(()=>{
         playSoundEx('click');
         setLanguage('th')
+        closeModal('#modal-language')
     })
 
     $('#changeLangEng').click(()=>{
-        setLanguage('en')
         playSoundEx('click');
+        setLanguage('en')
+        closeModal('#modal-language')
     })
 })
 
@@ -262,18 +265,9 @@ function playSoundEx(type,loop = false) {
     const fun_sound = new Audio(baseUrl + '/assets/sound/sound-fun.mp3');
     const step_sound = new Audio(baseUrl + '/assets/sound/step.mp3');
     const step_end_sound = new Audio(baseUrl + '/assets/sound/step-end.mp3');
-
-    playsoundMusic = [
-        pop_sound,
-        drop_sound,
-        error_sound,
-        correct_sound,
-        complete_sound,
-        achievement_sound,
-        click_sound,
-        step_sound,
-        step_end_sound
-    ]
+    
+    const oldSoundMusic =  (localStorage.getItem("soundMusic")== null ? "true" :localStorage.getItem("soundMusic"))
+    const oldSoundMaster = localStorage.getItem("soundMaster");
 
     pop_sound.volume = 0.2;
     drop_sound.volume = 0.5;
@@ -281,77 +275,84 @@ function playSoundEx(type,loop = false) {
     fun_sound.volume = 0.5;
     step_sound.volume = 0.3;
     step_sound.volume = 0.3;
-    if (type == 'drop') {
-        const playPromise = drop_sound.play();
-        if (playPromise !== null) {
-            playPromise.catch(() => {
-                drop_sound.play();
-            })
-        }
-    } else if (type == 'pop') {
-        const playPromise = pop_sound.play();
-        if (playPromise !== null) {
-            playPromise.catch(() => {
-                pop_sound.play();
-            });
-        }
-    } else if (type == 'error') {
-        const playPromise = error_sound.play();
-        if (playPromise !== null) {
-            playPromise.catch(() => {
-                error_sound.play();
-            });
-        }
-    } else if (type == 'correct') {
-        const playPromise = correct_sound.play();
-        if (playPromise !== null) {
-            playPromise.catch(() => {
-                correct_sound.play();
-            });
-        }
-    }else if (type == 'complete'){
-        const playPromise = complete_sound.play();
-        if (playPromise !== null) {
-            playPromise.catch(() => {
-                complete_sound.play();
-            });
-        }
-    }else if (type == 'achievement'){
-        const playPromise = achievement_sound.play();
-        if (playPromise !== null) {
-            playPromise.catch(() => {
-                achievement_sound.play();
-            });
-        }
-    }else if (type == 'click'){
-        const playPromise = click_sound.play();
-        if (playPromise !== null) {
-            playPromise.catch(() => {
-                click_sound.play();
-            });
-        }
-    }else if (type == 'fun'){
-        playsoundMaster = fun_sound
+ 
+    if(oldSoundMaster == "true" || typeof oldSoundMaster == 'undefined' || typeof oldSoundMaster == 'null' || oldSoundMaster == null){
+        if (type == 'drop') {
+            const playPromise = drop_sound.play();
+            if (playPromise !== null) {
+                playPromise.catch(() => {
+                    drop_sound.play();
+                })
+            }
+        } else if (type == 'pop') {
+            const playPromise = pop_sound.play();
+            if (playPromise !== null) {
+                playPromise.catch(() => {
+                    pop_sound.play();
+                });
+            }
+        } else if (type == 'error') {
+            const playPromise = error_sound.play();
+            if (playPromise !== null) {
+                playPromise.catch(() => {
+                    error_sound.play();
+                });
+            }
+        } else if (type == 'correct') {
+            const playPromise = correct_sound.play();
+            if (playPromise !== null) {
+                playPromise.catch(() => {
+                    correct_sound.play();
+                });
+            }
+        }else if (type == 'complete'){
+            const playPromise = complete_sound.play();
+            if (playPromise !== null) {
+                playPromise.catch(() => {
+                    complete_sound.play();
+                });
+            }
+        }else if (type == 'achievement'){
+            const playPromise = achievement_sound.play();
+            if (playPromise !== null) {
+                playPromise.catch(() => {
+                    achievement_sound.play();
+                });
+            }
+        }else if (type == 'click'){
+            const playPromise = click_sound.play();
+            if (playPromise !== null) {
+                playPromise.catch(() => {
+                    click_sound.play();
+                });
+            }
+        }else if (type == 'step'){
+            const playPromise = step_sound.play();
+            if (playPromise !== null) {
+                playPromise.catch(() => {
+                    step_sound.play();
+                });
+            }
+        }else if (type == 'step-end'){
+            const playPromise = step_end_sound.play();
+            if (playPromise !== null) {
+                playPromise.catch(() => {
+                    step_end_sound.play();
+                });
+            }
+        } 
+    }
+    if (type == 'fun'){
+       
         fun_sound.loop = loop
-        const playPromise = fun_sound.play();
-        if (playPromise !== null) {
-            playPromise.catch(() => {
-                // fun_sound.play();
-            });
-        }
-    }else if (type == 'step'){
-        const playPromise = step_sound.play();
-        if (playPromise !== null) {
-            playPromise.catch(() => {
-                step_sound.play();
-            });
-        }
-    }else if (type == 'step-end'){
-        const playPromise = step_end_sound.play();
-        if (playPromise !== null) {
-            playPromise.catch(() => {
-                step_end_sound.play();
-            });
+        playsoundMusic = fun_sound
+        if(oldSoundMusic == 'true'){
+            const playPromise = playsoundMusic.play();
+            if (playPromise !== null) {
+                playPromise.catch(() => {
+                    // fun_sound.play();
+                });
+            }
         }
     }
     
@@ -447,17 +448,14 @@ function closeModal(modal) {
 //     document.cookie = 'lang=' + lang;
 //     window.location.replace('/home');
 // }
-function setLanguage(setlang,callback){
+function setLanguage(setlang){
     const lang = Cookies.get('lang');
+    localStorage.setItem("langSelected", true);
     if(lang != setlang ){
         blockUI();
         Cookies.set('lang', setlang);
         location.reload();
-    }else{
-        closeModal('#modal-language')
-        callback()
     }
-    localStorage.setItem("langSelected", true);
 }
 
 function editLanguage(setlang){
@@ -861,6 +859,8 @@ function showSetting(flag_thai='',flag_eng='') {
             const lang = Cookies.get('lang');
             const th = $('<div></div>')
             const eng = $('<div></div>')
+            const eleSoundMusic = $('.btn-main-music')
+            const eleSoundMasterc = $('.btn-main-sound')
 
             th.attr('id','setting-lang-thai') 
                 .html(
@@ -880,11 +880,25 @@ function showSetting(flag_thai='',flag_eng='') {
                 eng.addClass('bg-nude flag-eng canClick '+( lang == 'en' ? 'unblur' :'blur' ));
             }
             flagSelect.append(th).append(eng)
+            
+            if(soundMaster == "false"){
+                eleSoundMasterc.html(
+                    $('<div></div>').addClass('btn-close-sound').html("")
+                ) 
+            }
+
+            if(soundMusic == "false"){
+                eleSoundMusic.html(
+                    $('<div></div>').addClass('btn-close-sound').html("")
+                ) 
+            }
         },
         'onOpenEnd': function () {},
         'onCloseStart': function () {},
         'onCloseEnd': function () {
             $('.flag-select-setting').empty()
+            $('.btn-main-music').empty()
+            $('.btn-main-sound').empty()
         },
     });
     $('#modal-setting').modal('open');
@@ -893,46 +907,46 @@ function showSetting(flag_thai='',flag_eng='') {
 function editsoundMusic(){
     const ele = $('.btn-main-music')
     const check = soundMusic
-    if(check){
+    if(check == "true"){
         ele.html(
             $('<div></div>').addClass('btn-close-sound').html("")
         )
-        soundMusic = false
+        soundMusic = "false"
     }else{
         ele.empty()
-        soundMusic = true
+        soundMusic = "true"
     }
 
 }
 
-
 function editsoundMaster(){
     const ele = $('.btn-main-sound')
     const check = soundMaster
-    if(check){
+    if(check == "true"){
         ele.html(
             $('<div></div>').addClass('btn-close-sound').html("")
         )
-        soundMaster = false
+        soundMaster = "false"
     }else{
         ele.empty()
-        soundMaster = true
+        soundMaster = "true"
     }
 
 }
 
 function applySetting(){
     const newLang = $('#setting-language').val()
-    console.log(`newLang : ${newLang}`)
-    console.log(`newLang : ${typeof newLang}`)
-    console.log(soundMusic)
-    if(soundMaster){
-        playsoundMaster.play()
-    }else{
-        playsoundMaster.pause()
+    if(soundMusic != localStorage.getItem("soundMusic") ){
+        if( soundMusic == "true"){  
+            playsoundMusic.play()
+        }else{
+            playsoundMusic.pause()
+        }
+        localStorage.setItem("soundMusic", soundMusic);
     }
+    localStorage.setItem("soundMaster", soundMaster);
     if(newLang != ''){
-        // setLanguage(newLang)
+        setLanguage(newLang)
     }
     closeModal('#modal-setting');
 }

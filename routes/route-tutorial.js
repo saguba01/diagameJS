@@ -3,7 +3,7 @@ var router = express.Router();
 var authen = require('../utils/authen');
 var configString = require('../app').configString;
 var firestore = require('../configs/firebase-config').firestore;
-
+var setting = require('../public/javascripts/setting');
 /* 
  * name: homePage
  * description: open home page
@@ -12,8 +12,8 @@ var firestore = require('../configs/firebase-config').firestore;
  * modify date: 25/01/2019
  */
 router.get('/', authen, async (req, res, next) => {
-    let lang = req.cookies.lang;
-    const general = await getSetting(lang)
+  let lang = req.cookies.lang; 
+    const general = await setting.getSetting(lang)
     let  menu = await getMenuTutorial()
     try{
       var data = {
@@ -30,7 +30,6 @@ router.get('/', authen, async (req, res, next) => {
         lesson: menu,
         // loginPage: true,
         walcomeModal : await getWalcome(lang),
-        test:JSON.stringify(await getintroStep(lang)) ,
         general: configString[lang].general,
         language: await getLang(lang),
         langInUsing: lang,
@@ -40,17 +39,16 @@ router.get('/', authen, async (req, res, next) => {
         errorMsg: configString[lang].error,
       };
     }catch(e){
+      console.log(`lang => ${lang}`)
       console.log(e)
     }
-    
-    
     res.render('tutorial/index', data);
   });
   
   router.get('/logic', authen, async (req, res, next) => {
     const lang = req.cookies.lang;
     const score = await getScore()
-    const general = await getSetting(lang)
+    const general = await setting.getSetting(lang)
 
     const data = {
       diagameIntro : false,
@@ -91,7 +89,7 @@ router.get('/', authen, async (req, res, next) => {
   router.get('/flowchart', authen, async (req, res, next) => {
     const lang = req.cookies.lang;
     const score = await getScore()
-    const general = await getSetting(lang)
+    const general = await setting.getSetting(lang)
 
     const data = {
       layout: 'default',
@@ -300,21 +298,4 @@ async function getScore(){
   return score
 }
 
-async function getSetting(lang='en'){
-  // /System/Config/general/en
-  let general = [];
-  const refgeneral = firestore.collection('System').doc('Config')
-                      .collection('general').doc(lang)
-  await refgeneral.get().then(doc => {
-    if (!doc.exists) {
-      general.push(false)
-    } else {
-      general.push(doc.data())
-    }
-  })
-  .catch(err => {
-    general.push(false)
-  });
-  return general[0]
-}
   module.exports = router;
