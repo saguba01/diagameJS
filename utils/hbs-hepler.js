@@ -400,14 +400,15 @@ handlebars.registerHelper('listquestion', function(question,scoreh,uid){
   var html = '';
   var index = 0;
   var type = '';
-  var maxscore;
   var color = ["bg-red","bg-purple","bg-blue","bg-sky-blue","bg-light-green","bg-orange","bg-nude"];
   if(Object.getOwnPropertyNames(question).length === 0){
         html += 'ggg';
   }else{
     question.forEach(function (qs){
-    if(qs.Type == 'logic' || qs.Type == 'operator'){
+    if(qs.Type == 'logic'){
       type = 'logic';
+    }else if(qs.Type == 'operator'){
+      type = 'operator';
     }
     html += '<div target="/lesson/'+type+'/'+qs.Id+'" class="'+color[index]+' qs canClick" style="margin-left:40px; padding-right:1px; border:2px solid black">';
     html += '<div class="list-lesson-title" id="lesson-logic">';
@@ -430,8 +431,8 @@ handlebars.registerHelper('listquestion', function(question,scoreh,uid){
     //       }
     //     }
     // })
-    // html += '</div>';
-    // html += '</div>';
+    html += '</div>';
+    html += '</div>';
     index++;
     if(index > 6){
       index = 0;
