@@ -489,3 +489,45 @@ handlebars.registerHelper('logicQuestion', function (question) {
   return new handlebars.SafeString(html);
 });
 //end section
+
+/*
+ *Description: List Question For HomePage
+ *@version 1.0
+ *@author Jirapat Lapudomsakda
+ *@since 19 April 2019
+ *@required javascript, handlebars.
+ */
+handlebars.registerHelper('listquestion', function(question,score){
+  var html = '';
+  var index = 0;
+  var color = ["bg-red","bg-purple","bg-blue","bg-sky-blue","bg-light-green","bg-yellow","bg-orange","bg-nude"];
+    question.forEach(function (qs){
+    html += '<div class="'+color[index]+' canClick" style="margin-left:40px; padding-right:1px; border:2px solid black">';
+    html += '<div class="list-lesson-title" id="lesson-logic">';
+    html += qs.Name;
+    html += '<br>';
+    html += 'Level:'
+    html += qs.Level;
+    html += '</div>';
+    html += '<div class="list-lesson-score" id="score">';
+    html += 'Score : ';
+    html += '</div>';
+    html += '</div>';
+    index++;
+    if(index > 7){
+      index = 0;
+    }
+  });
+  return new handlebars.SafeString(html);
+});
+
+handlebars.registerHelper('listcomment',function(feedback){
+    var html = '';
+    var index = 0;
+    feedback.forEach(function (fb){
+        html += '<div class="bg-light-green comment-box">';
+        html += fb.Comment;
+        html += '</div>';
+    });
+    return new handlebars.SafeString(html);
+});

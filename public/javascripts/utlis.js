@@ -8,6 +8,25 @@ $.fn.center = function () {
 
 var baseUrl = window.location.protocol + '//' + window.location.host;
 var progressInterval;
+var oldLang = Cookies.get('lang')
+var soundMusic = (localStorage.getItem("soundMusic")== null ? "true" :localStorage.getItem("soundMusic"))
+var soundMaster = (localStorage.getItem("soundMaster") == null ? "true" :localStorage.getItem("soundMaster") )
+var playsoundMusic = null
+var playsoundMaster = null
+$(document).ready(()=>{
+    playSoundEx('fun',true);
+    $('#changeLangThai').click(()=>{
+        playSoundEx('click');
+        setLanguage('th')
+        closeModal('#modal-language')
+    })
+
+    $('#changeLangEng').click(()=>{
+        playSoundEx('click');
+        setLanguage('en')
+        closeModal('#modal-language')
+    })
+})
 
 /*
  *Description: Block UI with preloader.
@@ -246,79 +265,94 @@ function playSoundEx(type,loop = false) {
     const fun_sound = new Audio(baseUrl + '/assets/sound/sound-fun.mp3');
     const step_sound = new Audio(baseUrl + '/assets/sound/step.mp3');
     const step_end_sound = new Audio(baseUrl + '/assets/sound/step-end.mp3');
+    
+    const oldSoundMusic =  (localStorage.getItem("soundMusic")== null ? "true" :localStorage.getItem("soundMusic"))
+    const oldSoundMaster = localStorage.getItem("soundMaster");
+
     pop_sound.volume = 0.2;
     drop_sound.volume = 0.5;
-
-    if (type == 'drop') {
-        const playPromise = drop_sound.play();
-        if (playPromise !== null) {
-            playPromise.catch(() => {
-                drop_sound.play();
-            })
-        }
-    } else if (type == 'pop') {
-        const playPromise = pop_sound.play();
-        if (playPromise !== null) {
-            playPromise.catch(() => {
-                pop_sound.play();
-            });
-        }
-    } else if (type == 'error') {
-        const playPromise = error_sound.play();
-        if (playPromise !== null) {
-            playPromise.catch(() => {
-                error_sound.play();
-            });
-        }
-    } else if (type == 'correct') {
-        const playPromise = correct_sound.play();
-        if (playPromise !== null) {
-            playPromise.catch(() => {
-                correct_sound.play();
-            });
-        }
-    }else if (type == 'complete'){
-        const playPromise = complete_sound.play();
-        if (playPromise !== null) {
-            playPromise.catch(() => {
-                complete_sound.play();
-            });
-        }
-    }else if (type == 'achievement'){
-        const playPromise = achievement_sound.play();
-        if (playPromise !== null) {
-            playPromise.catch(() => {
-                achievement_sound.play();
-            });
-        }
-    }else if (type == 'click'){
-        const playPromise = click_sound.play();
-        if (playPromise !== null) {
-            playPromise.catch(() => {
-                click_sound.play();
-            });
-        }
-    }else if (type == 'fun'){
+    click_sound.volume = 0.2;
+    fun_sound.volume = 0.5;
+    step_sound.volume = 0.3;
+    step_sound.volume = 0.3;
+ 
+    if(oldSoundMaster == "true" || typeof oldSoundMaster == 'undefined' || typeof oldSoundMaster == 'null' || oldSoundMaster == null){
+        if (type == 'drop') {
+            const playPromise = drop_sound.play();
+            if (playPromise !== null) {
+                playPromise.catch(() => {
+                    drop_sound.play();
+                })
+            }
+        } else if (type == 'pop') {
+            const playPromise = pop_sound.play();
+            if (playPromise !== null) {
+                playPromise.catch(() => {
+                    pop_sound.play();
+                });
+            }
+        } else if (type == 'error') {
+            const playPromise = error_sound.play();
+            if (playPromise !== null) {
+                playPromise.catch(() => {
+                    error_sound.play();
+                });
+            }
+        } else if (type == 'correct') {
+            const playPromise = correct_sound.play();
+            if (playPromise !== null) {
+                playPromise.catch(() => {
+                    correct_sound.play();
+                });
+            }
+        }else if (type == 'complete'){
+            const playPromise = complete_sound.play();
+            if (playPromise !== null) {
+                playPromise.catch(() => {
+                    complete_sound.play();
+                });
+            }
+        }else if (type == 'achievement'){
+            const playPromise = achievement_sound.play();
+            if (playPromise !== null) {
+                playPromise.catch(() => {
+                    achievement_sound.play();
+                });
+            }
+        }else if (type == 'click'){
+            const playPromise = click_sound.play();
+            if (playPromise !== null) {
+                playPromise.catch(() => {
+                    click_sound.play();
+                });
+            }
+        }else if (type == 'step'){
+            const playPromise = step_sound.play();
+            if (playPromise !== null) {
+                playPromise.catch(() => {
+                    step_sound.play();
+                });
+            }
+        }else if (type == 'step-end'){
+            const playPromise = step_end_sound.play();
+            if (playPromise !== null) {
+                playPromise.catch(() => {
+                    step_end_sound.play();
+                });
+            }
+        } 
+    }
+    if (type == 'fun'){
+       
         fun_sound.loop = loop
-        const playPromise = fun_sound.play();
-        if (playPromise !== null) {
-            playPromise.catch(() => {
-                fun_sound.play();
-            });
-        }
-    }else if (type == 'step'){
-        const playPromise = step_sound.play();
-        if (playPromise !== null) {
-            playPromise.catch(() => {
-                step_sound.play();
-            });
-        }
-    }else if (type == 'step-end'){
-        const playPromise = step_end_sound.play();
-        if (playPromise !== null) {
-            playPromise.catch(() => {
-                step_end_sound.play();
-            });
+        playsoundMusic = fun_sound
+        if(oldSoundMusic == 'true'){
+            const playPromise = playsoundMusic.play();
+            if (playPromise !== null) {
+                playPromise.catch(() => {
+                    // fun_sound.play();
+                });
+            }
         }
     }
     
@@ -410,11 +444,32 @@ function closeModal(modal) {
  *@since 22 march 2019
  *@required javascript.
  */
-function setLanguage(lang) {
-    document.cookie = 'lang=' + lang;
-    window.location.replace('/home');
+// function setLanguage(lang) {
+//     document.cookie = 'lang=' + lang;
+//     window.location.replace('/home');
+// }
+function setLanguage(setlang){
+    const lang = Cookies.get('lang');
+    localStorage.setItem("langSelected", true);
+    if(lang != setlang ){
+        blockUI();
+        Cookies.set('lang', setlang);
+        location.reload();
+    }
 }
 
+function editLanguage(setlang){
+    $('#setting-language').val(setlang)
+    
+    $('#setting-lang-thai').removeClass('blur');
+    $('#setting-lang-eng').removeClass('blur');
+
+    $('#setting-lang-thai').removeClass('unblur');
+    $('#setting-lang-eng').removeClass('unblur');
+
+    $('#setting-lang-thai').addClass(( setlang == 'en' ?'blur' :'unblur' ));
+    $('#setting-lang-eng').addClass(( setlang == 'en' ? 'unblur' :'blur' ));
+}
 /*
  *Description: Open home page with filpbook page number.
  *@version 1.0
@@ -743,7 +798,17 @@ function showLoading() {
  *@since 7 Feb 2020
  *@required javascript, materialize-css.
  */
+function closeLoading() {
+    $('#modal-saving').modal('close');
+}
 
+ /*
+ *Description: show wellcome
+ *@version 1.0
+ *@author Thanawin Poopangeon
+ *@since 15 Feb 2020
+ *@required javascript, materialize-css.
+ */
 function showWellcome() {
     $('#modal-wellcome').modal({
         'dismissible': true,
@@ -761,7 +826,15 @@ function showWellcome() {
     $('#modal-wellcome').modal('open');
 }
 
+/*
+ *Description: Close alert modal.
+ *@version 1.0
+ *@author Thanawin Poopangeon
+ *@since 15 Feb 2020
+ *@required javascript
+ */
 function showLanguage() {
+    localStorage.removeItem("langSelected");
     $('#modal-language').modal({
         'dismissible': true,
         'onOpenStart': function () {
@@ -778,7 +851,102 @@ function showLanguage() {
     $('#modal-language').modal('open');
 }
 
-function closeLoading() {
-    $('#modal-saving').modal('close');
+function showSetting(flag_thai='',flag_eng='') {
+    $('#modal-setting').modal({
+        'dismissible': true,
+        'onOpenStart': function () {
+            const flagSelect=  $('.flag-select-setting')
+            const lang = Cookies.get('lang');
+            const th = $('<div></div>')
+            const eng = $('<div></div>')
+            const eleSoundMusic = $('.btn-main-music')
+            const eleSoundMasterc = $('.btn-main-sound')
+
+            th.attr('id','setting-lang-thai') 
+                .html(
+                    $('<span></span>').css({'margin-left':'27px'})
+                        .html(flag_thai)
+                ).attr('onclick',"editLanguage('th')")    
+            eng.attr('id','setting-lang-eng') 
+                .html(
+                    $('<span></span>').css({'margin-left':'14px'})
+                        .html(flag_eng)
+                ).attr('onclick',"editLanguage('en')")      
+            if(typeof lang === 'undefined' ){
+                th.addClass('bg-nude flag-thai canClick blur');
+                eng.addClass('bg-nude flag-eng canClick unblur');
+            }else{
+                th.addClass('bg-nude flag-thai canClick '+( lang == 'en' ?'blur' :'unblur' ));
+                eng.addClass('bg-nude flag-eng canClick '+( lang == 'en' ? 'unblur' :'blur' ));
+            }
+            flagSelect.append(th).append(eng)
+            
+            if(soundMaster == "false"){
+                eleSoundMasterc.html(
+                    $('<div></div>').addClass('btn-close-sound').html("")
+                ) 
+            }
+
+            if(soundMusic == "false"){
+                eleSoundMusic.html(
+                    $('<div></div>').addClass('btn-close-sound').html("")
+                ) 
+            }
+        },
+        'onOpenEnd': function () {},
+        'onCloseStart': function () {},
+        'onCloseEnd': function () {
+            $('.flag-select-setting').empty()
+            $('.btn-main-music').empty()
+            $('.btn-main-sound').empty()
+        },
+    });
+    $('#modal-setting').modal('open');
 }
 
+function editsoundMusic(){
+    const ele = $('.btn-main-music')
+    const check = soundMusic
+    if(check == "true"){
+        ele.html(
+            $('<div></div>').addClass('btn-close-sound').html("")
+        )
+        soundMusic = "false"
+    }else{
+        ele.empty()
+        soundMusic = "true"
+    }
+
+}
+
+function editsoundMaster(){
+    const ele = $('.btn-main-sound')
+    const check = soundMaster
+    if(check == "true"){
+        ele.html(
+            $('<div></div>').addClass('btn-close-sound').html("")
+        )
+        soundMaster = "false"
+    }else{
+        ele.empty()
+        soundMaster = "true"
+    }
+
+}
+
+function applySetting(){
+    const newLang = $('#setting-language').val()
+    if(soundMusic != localStorage.getItem("soundMusic") ){
+        if( soundMusic == "true"){  
+            playsoundMusic.play()
+        }else{
+            playsoundMusic.pause()
+        }
+        localStorage.setItem("soundMusic", soundMusic);
+    }
+    localStorage.setItem("soundMaster", soundMaster);
+    if(newLang != ''){
+        setLanguage(newLang)
+    }
+    closeModal('#modal-setting');
+}

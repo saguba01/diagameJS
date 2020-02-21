@@ -136,7 +136,7 @@
     <!-- Variable -->
     <div class="panelleft" style="width:500px;height: 650px;position: absolute;">
         <div class="innerpage">
-            <p class="lesson-title noselect" guide="lesson">{{ lesson.variable.text }} </p>
+            <p class="lesson-title noselect" guide="lesson">Variable</p>
             <div guide="lesson" target="/lesson/{{ lesson.variable.url }}/{{ lesson.variable.subLesson.juice.url }}"
                 class="postit postit-top-right bg-orange canClick">
                 {{ lesson.variable.subLesson.juice.text }}</div>
@@ -151,6 +151,7 @@
                 {{lines 12}}
             </div>
         </div>
+
     </div>
 
     <div id="flipbook">
@@ -172,11 +173,15 @@
                 </div>
             </div>
         </div>
+
         <!-- Operators -->
         <div class="panelleft">
             <div class="innerpage">
                 <p class="lesson-title noselect">{{ lesson.operator.text }}</p>
-                <div target="/lesson/{{ lesson.operator.url }}/{{ lesson.operator.subLesson.easy.url }}"
+                <div class="list-question" id="listoperator">
+                    {{ listquestion questionOperator score}}
+                </div>
+                <!--<div target="/lesson/{{ lesson.operator.url }}/{{ lesson.operator.subLesson.easy.url }}"
                     class="postit postit-top-left bg-light-green canClick">{{ lesson.operator.subLesson.easy.text }}</div>
                 <div class="paragraph" style="width:220px;height: 250px;margin-top: 50px;margin-left: 240px;">
                     {{lines 11}}
@@ -186,30 +191,18 @@
                     {{ lesson.operator.subLesson.nomal.text }}</div>
                 <div class="paragraph" style="width:220px;height: 250px;margin-left: 240px;">
                     {{lines 9}}
-                </div>
+                </div>-->
             </div>
         </div>
+
+        <!-- Logic -->
         <div class="panelright">
             <div class="innerpage">
-                <p class="lesson-title"></p>
-                <div target="/lesson/{{ lesson.operator.url }}/{{ lesson.operator.subLesson.hard.url }}"
-                    class="postit postit postit-top-right bg-purple canClick {{locked passed lesson.operator.url lesson.operator.subLesson.easy.url }}">{{ lesson.operator.subLesson.hard.text }}
-                </div>
-                <div class="paragraph" style="width:250px;height: 250px;margin-top: 50px;">
-                    {{lines 11}}
-                </div>
-                <div target="/lesson/{{ lesson.operator.url }}/{{ lesson.operator.subLesson.advance.url }}"
-                    class="postit postit-bottom-left bg-yellow canClick  {{locked passed lesson.operator.url lesson.operator.subLesson.hard.url }}">{{ lesson.operator.subLesson.advance.text }}</div>
-                <div class="paragraph" style="width:220px;height: 250px;margin-left: 240px;">
-                    {{lines 12}}
-                </div>
-            </div>
-        </div>
-        <!-- Logic -->
-        <div class="panelleft">
-            <div class="innerpage">
                 <p class="lesson-title noselect">{{ lesson.logic.text }}</p>
-                <div target="/lesson/{{ lesson.logic.url }}/{{ lesson.logic.subLesson.easy.url }}"
+                <div class="list-question" id="listlogic">
+                {{ listquestion questionLogic score}}
+                </div>
+                <!--<div target="/lesson/{{ lesson.logic.url }}/{{ lesson.logic.subLesson.easy.url }}"
                     class="postit postit-top-right bg-red canClick">{{ lesson.logic.subLesson.easy.text }}</div>
                 <div class="paragraph" style="width:250px;height: 250px;margin-top: 50px;">
                     {{lines 11}}
@@ -218,24 +211,10 @@
                     class="postit postit-bottom-left bg-nude canClick  {{locked passed lesson.logic.url lesson.logic.subLesson.easy.url }}">{{ lesson.logic.subLesson.nomal.text }}</div>
                 <div class="paragraph" style="width:220px;height: 250px;margin-left: 240px;">
                     {{lines 12}}
-                </div>
+                </div>-->
             </div>
         </div>
-        <div class="panelright">
-            <div class="innerpage">
-                <p class="lesson-title"></p>
-                <div target="/lesson/{{ lesson.logic.url }}/{{ lesson.logic.subLesson.hard.url }}"
-                    class="postit postit-top-left bg-sky-blue canClick {{locked passed lesson.logic.url lesson.logic.subLesson.nomal.url }}">{{ lesson.logic.subLesson.hard.text }}</div>
-                <div class="paragraph" style="width:200px;height: 250px;margin-top: 50px;margin-left: 240px;">
-                    {{lines 12}}
-                </div>
-                <div target="/lesson/{{ lesson.logic.url }}/{{ lesson.logic.subLesson.advance.url }}"
-                    class="postit postit-bottom-right bg-orange canClick {{locked passed lesson.logic.url lesson.logic.subLesson.hard.url }}">{{ lesson.logic.subLesson.advance.text }}</div>
-                <div class="paragraph" style="width:180px;height: 250px;margin-left: 54.5px;">
-                    {{lines 11}}
-                </div>
-            </div>
-        </div>
+        
         <!-- Dicision -->
         <div class="panelleft">
             <div class="innerpage">
@@ -363,11 +342,9 @@
 </div>
 
 <script type="text/javascript">
-
     $(document).ready(function () {
-        
+       
        console.log(JSON.parse($('#ListMenu').val()))
-        
         $(".panelindex").hide();
         // $(".indexone").css("opacity","1");
         var page = '{{page}}';

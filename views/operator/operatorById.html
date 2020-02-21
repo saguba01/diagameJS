@@ -8,6 +8,12 @@
 <div class="sourceBottom noselect">
     <div class="tab-horizontal" style="padding-left: 15px;">
         <div class="tab valign-wrapper"
+            style="padding-top: 15px;padding-right: 15px;">
+            <div id="backButton" class="canClick jellyButton button-tool" style="margin:0px;">
+                <div class="back-icon"></div>
+            </div>
+        </div> 
+        <div class="tab valign-wrapper"
             style="height: 90px;border-right: 5px solid;padding-top: 15px;padding-right: 15px;">
             <div id="playMinigame" class="canClick jellyButton button-tool" style="margin:0px;">
                 <svg style="width: 20px;height: 30px;margin-top: 14px;margin-left: 16px;">
@@ -38,6 +44,12 @@
 </div>
 
 <script>
+    
+
+
+    $('#backButton').click(function(){
+        nextPage('/home');
+    });
     $(function () {
         $(".boxAnswer").sortable({
             // revert: true,
@@ -122,7 +134,9 @@
                     //     changeQuestion(question);
                     // }else{
                         showNavigator('{{general.congrat}}');
-                        unlockLesson('{{lesson.url}}', '{{subLesson.url}}', timestamp);
+
+
+                        //unlockLesson('{{lesson.url}}', '{{subLesson.url}}', timestamp);
                     // }
                 } else {
                     $('.questionBox').addClass("shake-vertical");

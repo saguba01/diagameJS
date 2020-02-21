@@ -1,32 +1,7 @@
 <header>
     <link rel="stylesheet" href="/stylesheets/style-admin.css">
-    <link rel="stylesheet" href="/stylesheets/style-navbar.css">
 </header>
-
-<!-- <input type='text' value="{{test}}"> -->
-<!-- <nav class="nav-center z-depth-0" style="background-color: #fecf36;border-bottom: 5px solid black;">
-    <div class="navbar-fixed">
-        <div class="nav-wrapper" style="color: black;">
-            <a href="javascript:window.location.replace('/home')" class="brand-logo"
-                style="color: black;padding-left: 10px">{{ general.site.title }}</a>
-            <a href="javascript:goHomePage(10)" class="right canClick profile-user">
-                <div style="font-size:22px;display: flex;align-items: center;justify-content: center;box-shadow: 3px 3px 0px #00000069;margin-top: 7px;width: 45px;height: 45px;border-radius: 50%;border: 3px solid #000000;background: #458aff;margin-right: 8px;">
-                    P</div>
-            </a>
-            <ul class="center">
-                <li style="font-size:20px">
-                    <a href="javascript:goHomePage({{lesson.page}})" style="color: black;padding: 0;font-size:20px"
-                        >{{ lesson.text }}</a>
-                    {{#if subLesson.text }}
-                        <span class="noselect canClick"> / {{ subLesson.text }}</span>
-                    {{/if}}
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav> -->
-
-<div id="book" style="display: table;margin: auto;margin-top: 20px;">
+<div id="book" style="display: table;margin: auto;margin-top: 80px;">
     <div class="book">
         <div class=" cover">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -161,18 +136,18 @@
     <!-- Variable -->
     <div class="panelleft" style="width:500px;height: 650px;position: absolute;">
         <div class="innerpage">
-            <p class="lesson-title noselect" guide="lesson">{{lesson.listMenu.logical.text}} </p>
-            <div target="{{lesson.listMenu.logical.path}}" onclick="blockUI();playSoundEx('click');"
-                class="postit postit-middle-center bg-light-green  menu-logic canClick" style="margin-right: 40px;"></div>
+            <p class="lesson-title noselect" guide="lesson">Feedback</p>
+            
         </div>
     </div>
 
     <div id="flipbook">
+        <!-- IO -->
         <div class="panelright">
             <div class="innerpage">
-                <p class="lesson-title noselect" guide="lesson">{{lesson.listMenu.flowchart.text}} </p>
-                <div guide="lesson" target="{{lesson.listMenu.flowchart.path}}" onclick="blockUI();playSoundEx('click');"
-                    class="postit postit-middle-center bg-sky-blue canClick menu-flowchart">
+                <p class="lesson-title noselect" guide="lesson">Comments</p>
+                <div class="list-question" id="listlogic">
+                    {{ listcomment feedback }}
                 </div>
             </div>
         </div>
@@ -181,18 +156,10 @@
 </div>
 
 
-
 <script type="text/javascript">
-const lang = '{{langInUsing}}'
-    $(document).ready(function () {
-       
-        if(!localStorage.getItem("langSelected")){
-            showLanguage()
-        }else{
-            showWellcome()
-        }
 
-        // introJs().start()
+    $(document).ready(function () {
+        
       // console.log(JSON.parse($('#ListMenu').val()))
         
         $(".panelindex").hide();
@@ -207,7 +174,6 @@ const lang = '{{langInUsing}}'
         // introLesson();
     });
 
-    
     $("#flipbook").turn({
         width: 1000,
         height: 650,
@@ -341,7 +307,7 @@ const lang = '{{langInUsing}}'
                 element: $('[guide="achievement"]')[2],
                 intro: '{{intro.achievement}}'
             }
-        ])
+        ]);
         setTimeout(function () {
             $("#flipbook").turn("disable", true);
             intro.start()
@@ -349,56 +315,5 @@ const lang = '{{langInUsing}}'
                     $("#flipbook").turn("disable", false);
                 });
         }, 2000);
-    }
-    function startTutorial(){
-        closeModal('#modal-wellcome')
-        setTimeout(function(){ 
-            startIntro()
-        }, 500);
-        
-    }
-
-    function startIntro(){
-        introJs().setOptions({
-            nextLabel: introLabel.nextLabel,
-            prevLabel: introLabel.prevLabel,
-            skipLabel: introLabel.skipLabel,
-            doneLabel: introLabel.doneLabel,
-            steps: [
-                {
-                    intro : '{{introStep.step1}}',
-                    element : '.brand-logo'
-                },
-                {
-                    intro : '{{introStep.step2}}',
-                    element : '.diagame-profile'
-                },
-                {
-                    intro : '{{introStep.step3}}',
-                    element : '.diagame-setting'
-                },
-                {
-                    intro : '  {{introStep.step4}}',
-                    element : '.menu-logic'
-                },
-                {
-                    intro : '  {{introStep.step5}}',
-                    element : '.menu-flowchart'
-                }
-              
-            ]
-        }).start()
-        .onchange((targetElement)=>{
-            playSoundEx('click');
-        })
-        // clicking 'Done'
-        .oncomplete(function(){
-            playSoundEx('click');
-        })
-
-        // clicking 'Skip'
-        .onexit(function(){
-            playSoundEx('click');
-        });
     }
 </script>

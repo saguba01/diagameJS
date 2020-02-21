@@ -73,7 +73,7 @@ body {
     left: 360px;
     /* margin: 10px; */
     margin-top: -7px;
-    width: 90%;;
+    width: 100%;;
     height: 100%;
     margin-left: -5px;
     margin-bottom: 5px;
@@ -711,6 +711,42 @@ hr {
 
 .play-screen{
     background-image: url("/assets/svg/board.svg");
+    background-size: 80% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+}
+
+.btn-setting{
+    background-image: url("/assets/svg/settings.svg");
+    background-size: 80% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+}
+
+.btn-main-sound{
+    background-image: url("/assets/svg/setting/speaker.svg");
+    background-size: 80% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* width: 100%;
+    height: 100%; */
+}
+
+.btn-main-music{
+    background-image: url("/assets/svg/setting/music-note.svg");
+    background-size: 80% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* width: 100%;
+    height: 100%; */
+}
+
+.btn-close-sound{
+    background-image: url("/assets/svg/setting/close.svg");
     background-size: 80% auto;
     background-repeat: no-repeat;
     background-position: center;

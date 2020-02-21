@@ -10,7 +10,7 @@ var favicon = require('serve-favicon');
 var expresshbs = require('express-handlebars');
 var hbsHelper = require('./utils/hbs-hepler');
 var firestore = require('./configs/firebase-config').firestore; //test firebase
-
+var setting = require('./public/javascripts/setting');
 var app = express();
 
 //const firestore = require('./configs/firebase-config').firestore;
@@ -104,6 +104,10 @@ app.use('/lesson/variable', require('./routes/route-variable'));
 app.use('/lesson/diagram', require('./routes/route-diagram'));
 app.use('/report', require('./routes/route-report'));
 app.use('/add/logic', require('./routes/route-logicQuestion'));
+app.use('/MDQ', require('./routes/route-diagram-question'));
+app.use('/show_feedback', require('./routes/route-feedback'));
+app.use('/leaderboard',require('./routes/route-leaderboard'));
+//app.use('/report', require('./routes/route-report'));
 app.use('/add/diagram', require('./routes/route-diagram-question'));
 app.use('/tutorial', require('./routes/route-tutorial'));
 app.use('/report', require('./routes/route-report'));
@@ -118,20 +122,9 @@ app.use('/lang', function (req, res, next) {
   res.redirect('/home');
 });
 
-//Service
-app.get('/get-diagram', function(req, res){
-  let citiesRef = firestore.collection('Diagram');
-  let allCities = citiesRef.get()
-  .then(snapshot => {
-    snapshot.forEach(doc => {
-      console.log(doc.id, '=>', doc.data());
-    });
-  })
-  .catch(err => {
-    console.log('Error getting documents', err);
-  });
-})
-
+app.get('/api-service',async function (req, res, next) {
+      res.send(await setting.getSetting('th'));
+}) 
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

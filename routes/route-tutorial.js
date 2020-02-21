@@ -3,7 +3,7 @@ var router = express.Router();
 var authen = require('../utils/authen');
 var configString = require('../app').configString;
 var firestore = require('../configs/firebase-config').firestore;
-
+var setting = require('../public/javascripts/setting');
 /* 
  * name: homePage
  * description: open home page
@@ -12,37 +12,44 @@ var firestore = require('../configs/firebase-config').firestore;
  * modify date: 25/01/2019
  */
 router.get('/', authen, async (req, res, next) => {
-    let lang = req.cookies.lang;
-
+  let lang = req.cookies.lang; 
+    const general = await setting.getSetting(lang)
     let  menu = await getMenuTutorial()
-    var data = {
-      diagameIntro : false,
-      introStep :await getintroStep(lang),
-      navBar : false,
-      layout: 'default',
-      user: req.session.user,
-      element: configString[lang].element.general,
-      intro: configString[lang].intro,
-      //required
-      unlock: await getAchievement(req.session.user.uid),
-      passed: await getPassed(req.session.user.uid),
-      lesson: menu,
-      // loginPage: true,
-      walcomeModal : await getWalcome(lang),
-      test:JSON.stringify(await getintroStep(lang)) ,
-      general: configString[lang].general,
-      language: await getLang(lang),
-      langInUsing: lang,
-      achievementList: configString[lang].achievement,
-      errorMsg: configString[lang].error,
-    };
-    
+    try{
+      var data = {
+        navBar : true,
+        diagameIntro : false,
+        introStep :await getintroStep(lang),
+        layout: 'default',
+        user: req.session.user,
+        element: configString[lang].element.general,
+        intro: configString[lang].intro,
+        //required
+        unlock: await getAchievement(req.session.user.uid),
+        passed: await getPassed(req.session.user.uid),
+        lesson: menu,
+        // loginPage: true,
+        walcomeModal : await getWalcome(lang),
+        general: configString[lang].general,
+        language: await getLang(lang),
+        langInUsing: lang,
+        setting : general.setting,
+        button : general.button,
+        achievementList: configString[lang].achievement,
+        errorMsg: configString[lang].error,
+      };
+    }catch(e){
+      console.log(`lang => ${lang}`)
+      console.log(e)
+    }
     res.render('tutorial/index', data);
   });
   
   router.get('/logic', authen, async (req, res, next) => {
     const lang = req.cookies.lang;
     const score = await getScore()
+    const general = await setting.getSetting(lang)
+
     const data = {
       diagameIntro : false,
       introStep :await getintroStep(lang),
@@ -71,6 +78,8 @@ router.get('/', authen, async (req, res, next) => {
       langInUsing: lang,
       achievementList: configString[lang].achievement,
       errorMsg: configString[lang].error,
+      setting : general.setting,
+      button : general.button,
       nextPage: '/tutorial/flowchart'
     };
     
@@ -80,6 +89,8 @@ router.get('/', authen, async (req, res, next) => {
   router.get('/flowchart', authen, async (req, res, next) => {
     const lang = req.cookies.lang;
     const score = await getScore()
+    const general = await setting.getSetting(lang)
+
     const data = {
       layout: 'default',
       navBar: true,
@@ -104,9 +115,10 @@ router.get('/', authen, async (req, res, next) => {
       langInUsing: lang,
       achievementList: configString[lang].achievement,
       errorMsg: configString[lang].error,
+      setting : general.setting,
+      button : general.button,
       nextPage: ''
     };
-
     res.render('tutorial/flowchart', data);
   });
 
@@ -285,4 +297,5 @@ async function getScore(){
   });
   return score
 }
+
   module.exports = router;

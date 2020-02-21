@@ -9,7 +9,9 @@ var firestore = require('../configs/firebase-config').firestore;
  * description: open home page
  * author: Bulakorn M.
  * create date: 25/01/2019
- * modify date: 25/01/2019
+ * 
+ * author: Jirapat L.
+ * modify date: 12/02/2020
  */
 router.get('/', authen, async (req, res, next) => {
   let lang = req.cookies.lang;
@@ -18,14 +20,17 @@ router.get('/', authen, async (req, res, next) => {
     user: req.session.user,
     element: configString[lang].element.general,
     intro: configString[lang].intro,
+    questionLogic: await getLogic(),
+    questionOperator: await getOperator(),
     //required
     unlock: await getAchievement(req.session.user.uid),
     passed: await getPassed(req.session.user.uid),
+    score: await JSON.stringify(getScore()),
     lesson: configString[lang].lesson,
     general: configString[lang].general,
     achievementList: configString[lang].achievement,
     errorMsg: configString[lang].error,
-    ListMenu : JSON.stringify(await getMenu())
+    ListMenu : JSON.stringify(await getMenu()),
   };
   res.render('home/index', data);
 });
@@ -39,13 +44,16 @@ router.post('/', authen,async (req, res, next) => {
     page: req.body.page, //req.session.homePost != req.body.page ? req.body.page : undefined,
     element: configString[lang].element.general,
     intro: configString[lang].intro,
+    questionLogic: await getLogic(),
+    questionOperator: await getOperator(),
     //required
     unlock: await getAchievement(req.session.user.uid),
     passed: await getPassed(req.session.user.uid),
+    score: await JSON.stringify(getScore()),
     lesson: configString[lang].lesson,
     general: configString[lang].general,
     achievementList: configString[lang].achievement,
-    errorMsg: configString[lang].error
+    errorMsg: configString[lang].error,
   };
   req.session.homePost = req.body.page;
   res.render('home/index', data);
@@ -96,5 +104,43 @@ async function getMenu() {
   });
   return Menu;
 }
+
+async function getLogic(){
+    var question = [];
+    let refquestion = firestore.collection('Logic').orderBy('Level');
+    await refquestion.get().then((doc)=>{
+          doc.forEach(element => {
+            if(element.data().Type == "logic"){
+            question.push(element.data())
+            }
+          })
+    });
+    return question;
+}
+
+async function getOperator(){
+  var question = [];
+  let refquestion = firestore.collection('Logic').orderBy('Level');
+  refquestion.get().then((doc)=>{
+        doc.forEach(element => {
+          if(element.data().Type == "operator"){
+          question.push(element.data())
+          }
+        })
+  });
+  return question;
+}
+
+async function getScore(){
+  var score = [];
+  let refscore = firestore.collection('ScoreHistory');
+  refscore.get().then(doc=>{
+    doc.forEach(element => {
+      score.push(element.data())
+    })
+  })
+  return score;
+}
+
 
 module.exports = router;

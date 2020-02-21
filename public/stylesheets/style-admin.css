@@ -601,6 +601,11 @@ body {
   background-position: center;
 }
 
+.comment-box{
+  margin-left:40px;
+  margin-right:40px;
+  border:3px solid black;
+}
 .menu-coaching{
   background-image: url("/assets/svg/menu/coaching.svg");
   background-size: 90% auto;
