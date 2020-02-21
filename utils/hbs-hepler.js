@@ -423,15 +423,15 @@ handlebars.registerHelper('listquestion', function(question,scoreh,uid){
     html += '</div>';
     html += '<div class="list-lesson-score" id="score">';
     html += 'Score : -';
-    scoreh.forEach(function (sc){
-        if(sc.uid == uid){
-          if(logicid == qs.Id){
-            html += 'Score : '+ sc.score;
-          }
-        }
-    })
-    html += '</div>';
-    html += '</div>';
+    // scoreh.forEach(function (sc){
+    //     if(sc.uid == uid){
+    //       if(logicid == qs.Id){
+    //         html += 'Score : '+ sc.score;
+    //       }
+    //     }
+    // })
+    // html += '</div>';
+    // html += '</div>';
     index++;
     if(index > 6){
       index = 0;
