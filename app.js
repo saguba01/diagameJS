@@ -122,20 +122,16 @@ app.use('/lang', function (req, res, next) {
 });
 
 app.get('/api-service', function (req, res, next) {
-  let data = firestore.collection('Logic')
+  let data = firestore.collection('ScoreHistory');
   // let subdata = data.doc(data.listDocuments(0)).collection('Answers')
   data.get().then((doc)=>{
     let arr = []
       doc.forEach(element => {
-          arr.push({
-            id : element.id,
-            data : element.data()
-          })
+          arr.push(element.data())
       });
       res.send(arr);
     });
   });
-
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

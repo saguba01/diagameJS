@@ -1,6 +1,7 @@
 <header>
     <link rel="stylesheet" href="/stylesheets/style-admin.css">
     <link rel="stylesheet" href="/stylesheets/style-navbar.css">
+    <link rel="stylesheet" href="/stylesheets/style-leaderboard.css">
     <style>
         #container{
             display: flex;
@@ -52,17 +53,11 @@
         <div class="stadium gold-red all-font">3</div>
     </div>
     <div id="table-score">
-        
+      {{ listscore score }}
     </div>
 </div>
 
 <script>
-    var history = [];
-    let refhistory = firestore.collection('ScoreHistory');
-    refhistory.get().then((doc) => {
-        doc.forEach((element) =>{
-            
-        })
-    })
+    console.log('{{ score }}')
 </script>
 

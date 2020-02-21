@@ -25,7 +25,7 @@ router.get('/', authen, async (req, res, next) => {
     //required
     unlock: await getAchievement(req.session.user.uid),
     passed: await getPassed(req.session.user.uid),
-    score: await JSON.stringify(getScore()),
+    score: await getScore(),
     lesson: configString[lang].lesson,
     general: configString[lang].general,
     achievementList: configString[lang].achievement,
@@ -49,7 +49,7 @@ router.post('/', authen,async (req, res, next) => {
     //required
     unlock: await getAchievement(req.session.user.uid),
     passed: await getPassed(req.session.user.uid),
-    score: await JSON.stringify(getScore()),
+    score: await getScore(),
     lesson: configString[lang].lesson,
     general: configString[lang].general,
     achievementList: configString[lang].achievement,
@@ -111,9 +111,14 @@ async function getLogic(){
     await refquestion.get().then((doc)=>{
           doc.forEach(element => {
             if(element.data().Type == "logic"){
-            question.push(element.data())
+            question.push({
+              Name:element.data().Name,
+              Type:element.data().Type,
+              Level:element.data().Level,
+              Id : element.id
+            })
             }
-          })
+          })  
     });
     return question;
 }
@@ -124,7 +129,12 @@ async function getOperator(){
   refquestion.get().then((doc)=>{
         doc.forEach(element => {
           if(element.data().Type == "operator"){
-          question.push(element.data())
+            question.push({
+              Name:element.data().Name,
+              Type:element.data().Type,
+              Level:element.data().Level,
+              Id : element.id
+            })
           }
         })
   });
@@ -132,13 +142,13 @@ async function getOperator(){
 }
 
 async function getScore(){
-  var score = [];
-  let refscore = firestore.collection('ScoreHistory');
-  refscore.get().then(doc=>{
-    doc.forEach(element => {
-      score.push(element.data())
+    var score = [];
+    let refscore = firestore.collection('ScoreHistory');
+    refscore.get().then(doc=>{
+      doc.forEach(element => {
+        score.push(element.data())
+      })
     })
-  })
   return score;
 }
 

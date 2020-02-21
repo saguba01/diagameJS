@@ -396,29 +396,58 @@ handlebars.registerHelper('logicQuestion', function (question) {
  *@since 19 April 2019
  *@required javascript, handlebars.
  */
-handlebars.registerHelper('listquestion', function(question,score){
+handlebars.registerHelper('listquestion', function(question,scoreh,uid){
   var html = '';
   var index = 0;
-  var color = ["bg-red","bg-purple","bg-blue","bg-sky-blue","bg-light-green","bg-yellow","bg-orange","bg-nude"];
+  var type = '';
+  var color = ["bg-red","bg-purple","bg-blue","bg-sky-blue","bg-light-green","bg-orange","bg-nude"];
+  if(Object.getOwnPropertyNames(question).length === 0){
+        html += 'ggg';
+  }else{
     question.forEach(function (qs){
-    html += '<div class="'+color[index]+' canClick" style="margin-left:40px; padding-right:1px; border:2px solid black">';
+    if(qs.Type == 'logic' || qs.Type == 'operator'){
+      type = 'logic';
+    }
+    html += '<div target="/lesson/'+type+'/'+qs.Id+'" class="'+color[index]+' qs canClick" style="margin-left:40px; padding-right:1px; border:2px solid black">';
     html += '<div class="list-lesson-title" id="lesson-logic">';
     html += qs.Name;
+    html += '<div class="menu-block " style="float:right;">';
+    html += '</div>';
     html += '<br>';
-    html += 'Level:'
-    html += qs.Level;
+    html += 'Level:';
+    for(var i = 0; i< qs.Level;i++){
+      html += '<i class="fa fa-star fa-fw" style="color:#FECF36;"></i>'
+    }
+    html += '</li>'
     html += '</div>';
     html += '<div class="list-lesson-score" id="score">';
-    html += 'Score : ';
+    html += 'Score : -';
+    // scoreh.forEach(function (sc){
+    //     if(sc.uid == uid){
+    //       var logicid = testcut[1];
+    //       if(logicid == qs.Id){
+    //         html += 'Score : '+ sc.score;
+    //       }
+    //     }
+    // })
     html += '</div>';
     html += '</div>';
     index++;
-    if(index > 7){
+    if(index > 6){
       index = 0;
     }
   });
+}
   return new handlebars.SafeString(html);
 });
+
+/*
+ *Description: List Comment for Feedback
+ *@version 1.0
+ *@author Jirapat Lapudomsakda
+ *@since 19 April 2019
+ *@required javascript, handlebars.
+ */
 
 handlebars.registerHelper('listcomment',function(feedback){
     var html = '';
@@ -429,4 +458,22 @@ handlebars.registerHelper('listcomment',function(feedback){
         html += '</div>';
     });
     return new handlebars.SafeString(html);
+});
+
+handlebars.registerHelper('listscore',function(score){
+  var html = '';
+  var index = 0;
+  var no = 4;
+  var color = ["list-bg-blue","list-bg-white"]
+  score.forEach(function (sc){
+    html += '<div class="list-table-leaderboard '+color[index]+'">';
+    html += no+' '+sc.uid;
+    html += '</div>';
+    index++;
+    no++;
+    if(index >= 1){
+        index = 0;
+    }
+  })
+  return new handlebars.SafeString(html);
 });
