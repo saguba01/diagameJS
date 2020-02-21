@@ -13,6 +13,7 @@ var soundMusic = (localStorage.getItem("soundMusic")== null ? "true" :localStora
 var soundMaster = (localStorage.getItem("soundMaster") == null ? "true" :localStorage.getItem("soundMaster") )
 var playsoundMusic = null
 var playsoundMaster = null
+
 $(document).ready(()=>{
     playSoundEx('fun',true);
     $('#changeLangThai').click(()=>{
@@ -458,7 +459,15 @@ function setLanguage(setlang){
     }
 }
 
+/*
+ *Description: Chabge language on modal setting
+ *@version 1.0
+ *@author Supachai Boonying
+ *@since 20 Feb 2020
+ *@required javascript
+ */
 function editLanguage(setlang){
+    playSoundEx('click');
     $('#setting-language').val(setlang)
     
     $('#setting-lang-thai').removeClass('blur');
@@ -802,14 +811,14 @@ function closeLoading() {
     $('#modal-saving').modal('close');
 }
 
- /*
- *Description: show wellcome
+/*
+ *Description: Show modal welcome tutorial 
  *@version 1.0
- *@author Thanawin Poopangeon
+ *@author Supachai Boonying
  *@since 15 Feb 2020
- *@required javascript, materialize-css.
+ *@required javascript
  */
-function showWellcome() {
+function showWelcome() {
     $('#modal-wellcome').modal({
         'dismissible': true,
         'onOpenStart': function () {
@@ -827,9 +836,9 @@ function showWellcome() {
 }
 
 /*
- *Description: Close alert modal.
+ *Description: Show modal select Language in tutorial 
  *@version 1.0
- *@author Thanawin Poopangeon
+ *@author Supachai Boonying
  *@since 15 Feb 2020
  *@required javascript
  */
@@ -851,6 +860,13 @@ function showLanguage() {
     $('#modal-language').modal('open');
 }
 
+/*
+ *Description: Show modal setting
+ *@version 1.0
+ *@author Supachai Boonying
+ *@since 20 Feb 2020
+ *@required javascript
+ */
 function showSetting(flag_thai='',flag_eng='') {
     $('#modal-setting').modal({
         'dismissible': true,
@@ -904,7 +920,15 @@ function showSetting(flag_thai='',flag_eng='') {
     $('#modal-setting').modal('open');
 }
 
+/*
+ *Description: Change status music sound
+ *@version 1.0
+ *@author Supachai Boonying
+ *@since 20 Feb 2020
+ *@required javascript
+ */
 function editsoundMusic(){
+    playSoundEx('click');
     const ele = $('.btn-main-music')
     const check = soundMusic
     if(check == "true"){
@@ -919,7 +943,15 @@ function editsoundMusic(){
 
 }
 
+/*
+ *Description: Change status master sound
+ *@version 1.0
+ *@author Supachai Boonying
+ *@since 20 Feb 2020
+ *@required javascript
+ */
 function editsoundMaster(){
+    playSoundEx('click');
     const ele = $('.btn-main-sound')
     const check = soundMaster
     if(check == "true"){
@@ -933,6 +965,14 @@ function editsoundMaster(){
     }
 
 }
+
+/*
+ *Description: Apply Setting
+ *@version 1.0
+ *@author Supachai Boonying
+ *@since 20 Feb 2020
+ *@required javascript
+ */
 
 function applySetting(){
     const newLang = $('#setting-language').val()
