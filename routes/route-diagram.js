@@ -3,7 +3,7 @@ var router = express.Router();
 var authen = require('../utils/authen');
 var configString = require('../app').configString;
 var firestore = require('../configs/firebase-config').firestore;
-
+var setting = require('../public/javascripts/setting');
 /*
  *Description: open diagram question.
  *@version 2.0
@@ -11,8 +11,10 @@ var firestore = require('../configs/firebase-config').firestore;
  *@since 6 December 2019
  *@required node.js,ExpressJS.
  */
-router.get('/:id', authen, function (req, res, next) {
+router.get('/:id', authen,async function (req, res, next) {
+    
     let lang = req.cookies.lang;
+    const general = await setting.getSetting(lang)
     //let lesson = configString[lang].lesson.logic;
     let refQuestion = firestore.collection("Diagram");
     let questionData;
@@ -29,6 +31,8 @@ router.get('/:id', authen, function (req, res, next) {
             questionHint: doc.data().Hint,
             questionName: doc.data().Name,
             length: doc.data().answer.length,
+            setting: general.setting,
+            button: general.button,
             elementsString: configString[lang].element.general,
             general: configString[lang].general,
             achievementList: configString[lang].achievement,

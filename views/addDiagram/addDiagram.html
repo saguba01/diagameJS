@@ -145,19 +145,6 @@
     </ul>
 </body>
 
-<div id="modal-input" class="modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            Input text
-        </div>
-        <input type="text" id="input-test" value="">
-    </div>
-    <div class="modal-footer">
-
-        <button class="modal-button button-element" style="float:right" onclick="save_text()">Save</button>
-    </div>
-</div>
-
 <script>
 
     $(document).ready(function () {
@@ -254,10 +241,10 @@
         console.log("Name", logicName);
         console.log("Hint", logicHint);
         console.log("Star", logicLevel);*/
-        
+
         refQuestion.get().then(function (doc) {
             keyId = doc.size + 1;
-            console.log("set("+keyId+")");
+            console.log("set(" + keyId + ")");
         }).then(function () {
             refQuestion.doc(keyId.toString()).set({
                 Name: logicName,

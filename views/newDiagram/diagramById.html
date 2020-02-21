@@ -47,6 +47,7 @@
             </div>
 
             <!-- Target -->
+            <div class="targetPanel-bg"></div>
             <div id="target" class="center-align connectedSource noselect targetPanel ui-widget-content">
 
             </div>
@@ -100,6 +101,32 @@
         </ul>
     </div>
     <input type="hidden" value="{{length}}" id="lengthFlow">
+
+    <div id="failModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                Flow Chart is Correct
+            </div>
+            <input type="text" id="input-test" value="">
+        </div>
+        <div class="modal-footer">
+            <button class="modal-button button-element" style="float:right">Home</button>
+            <button class="modal-button button-element" style="float:right">Next</button>
+        </div>
+    </div>
+
+    <div id="sucessModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                Flow Chart is Incorrect
+            </div>
+            <input type="text" id="input-test" value="">
+        </div>
+        <div class="modal-footer">
+            <button class="modal-button button-element" style="float:right">Home</button>
+            <button class="modal-button button-element" style="float:right">Restart</button>
+        </div>
+    </div>
 </body>
 
 <script>
@@ -178,8 +205,10 @@
 
         if (check == tempFlowchart.length && tempFlowchart.length == length) {
             flowchartBeenEqual = true;
+            showSaveStatus("Save Success!!");
         } else {
             flowchartBeenEqual = false;
+            showSaveStatus("Save Success!!");
         }
 
         console.log("flowchartBeenEqual: ", flowchartBeenEqual);
