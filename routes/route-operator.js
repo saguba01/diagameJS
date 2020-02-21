@@ -120,11 +120,14 @@ router.get('/advance', authen, function (req, res, next) {
  *@since 7 Feb 2020
  *@required node.js,ExpressJS.
  */
-router.get('/:id', authen, function (req, res, next) {
+router.get('/:id', authen,async function (req, res, next) {
   let lang = req.cookies.lang;
   let lesson = configString[lang].lesson.logic;
   let refQuestion = firestore.collection("Logic");
   let questionData;
+  const score = await getScore();
+  const general = await getSetting(lang);
+
   refQuestion.doc(req.params.id).get().then(function(doc){
     questionData = [{
       equation: doc.data().Question,
@@ -145,9 +148,49 @@ router.get('/:id', authen, function (req, res, next) {
       achievementList: configString[lang].achievement,
       errorMsg: configString[lang].error,
       //nextPage: '/lesson/decision/coffee'
+      questionId: req.params.id,
+      maxScore : score.maxScore,
+      minScore :score.minScore,
+      setting : general.setting,
+      button : general.button
     };
     res.render('operator/operatorById', data);
   });
 });
+
+async function getScore(){
+  let score = null;
+  const refscore = firestore.collection('System').doc('Score')
+  // /System/Score
+  await refscore.get().then(doc => {
+    if (!doc.exists) {
+      score = false
+    } else {
+      score = doc.data()
+    }
+  })
+  .catch(err => {
+    score = false
+  });
+  return score
+}
+
+async function getSetting(lang='en'){
+  // /System/Config/general/en
+  let general = [];
+  const refgeneral = firestore.collection('System').doc('Config')
+                      .collection('general').doc(lang)
+  await refgeneral.get().then(doc => {
+    if (!doc.exists) {
+      general.push(false)
+    } else {
+      general.push(doc.data())
+    }
+  })
+  .catch(err => {
+    general.push(false)
+  });
+  return general[0]
+}
 
 module.exports = router;

@@ -1,3 +1,17 @@
+<div class="timer timer-top-rigth noselect bg-nude" >
+    <div id="timeBar" style="background-color: #4CAF50; height:100%;width: 100%; position:absolute;border-radius:5px;" ></div>
+    <span style="font-size: 55px; position: relative;z-index: 15;">
+        <div class="icon-clock" ></div> <span id="minutes">00</span>:<span id="seconds">00</span></span>
+        <input type="text" id="timePlay" value="0" hidden>
+</div>
+
+<div class="scoreBar scoreBar-top-left noselect bg-purple" >
+    <div class="icon-award" ></div>
+    <div style="font-size: 48px;">
+        <span id="score">{{maxScore}}</span>
+        <input type="text" id="scorePlay" value="0" hidden>
+    </div>
+</div>
 <div class="questionBox noselect">
     <div class="questionCount">{{ questionName }}</div>
     <div class="questionArea">
@@ -44,7 +58,8 @@
 </div>
 
 <script>
-    
+    let refScore = firestore.collection("ScoreHistory");
+    let round = 0;
 
 
     $('#backButton').click(function(){
@@ -129,15 +144,30 @@
                 answer = element.attr('event');
                 if (getResult()) {
                     playSoundEx('correct');
-                    // var question = $('.active').attr('question');
-                    // if(question != 5){
-                    //     changeQuestion(question);
-                    // }else{
-                        showNavigator('{{general.congrat}}');
-
-
-                        //unlockLesson('{{lesson.url}}', '{{subLesson.url}}', timestamp);
-                    // }
+                    showNavigator('{{general.congrat}}');
+                    firebase.auth().onAuthStateChanged((user) => {
+                        if (user) {
+                            //save score history
+                            statusQuestion = true;
+                            console.log(user.uid);
+                            refScore.where("logicId","==","/Logic/{{ questionId }}").get().then(function(doc){
+                                round = doc.size + 1;
+                                //console.log("set("+keyId+")");
+                            }).then(function(){
+                                refScore.doc().set({
+                                    uid: user.uid,
+                                    logicId: "/Logic/{{ questionId }}",
+                                    round: round,
+                                    score: $("#scorePlay").val(),
+                                    time : $("#timePlay").val()
+                                }).then(function(){
+                                    console.log("Save Score");
+                                }).catch(err => {
+                                    console.log("Error : "+err);
+                                });
+                            });
+                        }
+                    });
                 } else {
                     $('.questionBox').addClass("shake-vertical");
                     playSoundEx('error');
@@ -155,4 +185,15 @@
             return result;
         }
     }
+
+    var statusQuestion = false;
+    $(document).ready(function(){
+        timer('{{maxScore}}','{{minScore}}',(obj)=>{
+            console.log(obj);
+            $("#scorePlay").val(obj.score);
+            $("#timePlay").val(obj.time);
+            console.log("score:"+ $("#scorePlay").val());
+            console.log("time:"+ $("#timePlay").val());
+        });
+    });
 </script>
