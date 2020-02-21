@@ -53,10 +53,10 @@
             </div>
 
             <!-- Recipe -->
-            <div class="recipe bg-nude">
+            <!--<div class="recipe bg-nude">
                 <div class="recipe-header"></div>
                 {{displayRecipeNew general.step question}}
-            </div>
+            </div>-->
 
             <!-- Display -->
             <div id="display" class="display"></div>
@@ -102,7 +102,7 @@
     </div>
     <input type="hidden" value="{{length}}" id="lengthFlow">
 
-    <div id="failModal" class="modal">
+    <div id="successModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 Flow Chart is Correct
@@ -115,7 +115,7 @@
         </div>
     </div>
 
-    <div id="sucessModal" class="modal">
+    <div id="failModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 Flow Chart is Incorrect
@@ -174,7 +174,7 @@
 
     function gameEngine(callback) {
         let length = $('#lengthFlow').val()
-        console.log("length",length);
+        console.log("length", length);
         let start = $('#target').find('[type="element"][event="start"]');
         var element = start;
         var timestamp = Date.now();
@@ -205,10 +205,10 @@
 
         if (check == tempFlowchart.length && tempFlowchart.length == length) {
             flowchartBeenEqual = true;
-            showSaveStatus("Save Success!!");
+            showSaveStatus("Flow Chart is Correct")
         } else {
             flowchartBeenEqual = false;
-            showSaveStatus("Save Success!!");
+            showSaveStatus(content)
         }
 
         console.log("flowchartBeenEqual: ", flowchartBeenEqual);
