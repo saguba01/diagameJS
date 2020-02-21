@@ -1,0 +1,190 @@
+<body>
+    <!--Panel Tool-->
+    <div style="width:100%;height: auto;">
+        <div class="center-align panelTool">
+            <!-- ฺBasic -->
+            <div class="noselect source sourceHeader activeSource" type="basic" style="background-color:#FF9D00;">
+                Basic</div>
+            <div id="source" class="connectedSource source sourcePanel activeSource noselect" type="basic">
+                <div type="element" event="start" source="basic">
+                    <svg width="210" height="90">
+                        <rect x="5" y="5" width="200" height="80" rx="40"
+                            style="fill: #FC5972;stroke: #000000;stroke-width: 5px;"></rect>
+                        <text text-anchor="middle" x="105" y="45" alignment-baseline="central"
+                            style="font-size:25px;">start</text>
+                    </svg>
+                </div>
+                <div type="element" event="end" source="basic">
+                    <svg width="210" height="90">
+                        <rect x="5" y="5" width="200" height="80" rx="40"
+                            style="fill: #FC5972;stroke: #000000;stroke-width: 5px;"></rect>
+                        <text text-anchor="middle" x="105" y="45" alignment-baseline="central"
+                            style="font-size:25px;">end</text>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Type Process -->
+            <div class="noselect source sourceHeader" type="process" style="display: none;background-color:#FF9D00;">
+                Process</div>
+            <div id="source" class="connectedSource source noselect sourcePanel" type="process" style="display: none;">
+                {{svgProcessNew question}}
+            </div>
+
+            <!-- Type io -->
+            <div class="noselect source sourceHeader" type="io" style="display: none;background-color:#FF9D00;">
+                Input & Output</div>
+            <div id="source" class="connectedSource source noselect sourcePanel" type="io" style="display: none;">
+                {{svgInputNew question}}
+                {{svgOutputNew question}}
+            </div>
+
+            <!-- Type Decision -->
+            <div class="noselect source sourceHeader" type="decision" style="display: none;background-color:#FF9D00;">
+                Decision</div>
+            <div id="source" class="connectedSource source noselect sourcePanel" type="decision" style="display: none;">
+
+            </div>
+
+            <!-- Target -->
+            <div id="target" class="center-align connectedSource noselect targetPanel ui-widget-content">
+
+            </div>
+
+            <!-- Recipe -->
+            <div class="recipe bg-nude">
+                <div class="recipe-header"></div>
+                {{displayRecipeNew general.step question}}
+            </div>
+
+            <!-- Display -->
+            <div id="display" class="display"></div>
+
+        </div>
+        <!--Menu Icon-->
+        <ul class="tabs">
+            <li style="height: 80px;" class="tab">
+                <div id="playButton" class="canClick jellyButton button-tool">
+                    <svg style="width: 20px;height: 30px;margin-top: 14px;margin-left: 3px;">
+                        <path
+                            d="M26.522,10.162,9.16.144a1.071,1.071,0,0,0-1.6.927V21.124a1.071,1.071,0,0,0,1.6.927L26.522,12.033A1.086,1.086,0,0,0,26.522,10.162Z"
+                            transform="translate(-7.556 0)"></path>
+                    </svg>
+                </div>
+            </li>
+            <li style="border-bottom: 5px solid black;height: 90px;margin-bottom:12px;" class="tab">
+                <div id="resetButton" class="canClick jellyButton button-tool">
+                    <div class="reset-icon"></div>
+                </div>
+            </li>
+            <li class="tab valign-wrapper" style="height: 80px">
+                <div class="canClick jellyButton typeButton selected" type="basic">
+                    <div class="basic-icon"></div>
+                </div>
+            </li>
+            <li class="tab valign-wrapper" style="height: 80px">
+                <div class="canClick jellyButton typeButton" type="process">
+                    <div class="process-icon"></div>
+                </div>
+            </li>
+            <li class="tab valign-wrapper" style="height: 80px">
+                <div class="canClick jellyButton typeButton" type="io">
+                    <div class="io-icon"></div>
+                </div>
+            </li>
+            <li class="tab valign-wrapper" style="height: 80px">
+                <div class="canClick jellyButton typeButton" type="decision">
+                    <div class="decision-icon"></div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <input type="hidden" value="{{length}}" id="lengthFlow">
+</body>
+
+<script>
+    $(function () {
+        $("#source,#target").sortable({
+            connectWith: ".connectedSource",
+            cancel: ".ui-state-disabled",
+            activate: function (event, ui) {
+                $(ui.item[0]).addClass("play_jelly");
+                playSoundEx('pop');
+            },
+            deactivate: function (event, ui) {
+                playSoundEx('drop');
+            },
+            update: function (event, ui) {
+                let targetId = $(event.target).attr('id');
+                let targetSource = $(event.target).attr('type');
+                let uiSource = $(ui.item[0]).attr('source');
+                if (targetId == 'source' && (targetSource != uiSource)) {
+                    $(ui.item[0]).detach().appendTo('#source[type="' + uiSource + '"]');
+                }
+            }
+        });
+
+        //
+        // update arrow between element
+        //
+        $("#target").sortable({
+            cancel: ".ui-state-disabled .arrow",
+            items: "div:not(.arrow)",
+            update: function (event, ui) {
+                updateFlowchart();
+            }
+        });
+        //
+        // end of update arrow function
+        //
+    });
+
+    $("#playButton").click(function () {
+        console.log("Play Test");
+        let elementArray = $('#target>div');
+        console.log(elementArray);
+    });
+
+    function gameEngine(callback) {
+        let length = $('#lengthFlow').val()
+        console.log("length",length);
+        let start = $('#target').find('[type="element"][event="start"]');
+        var element = start;
+        var timestamp = Date.now();
+        var flowchartBeenEqual = false;
+        console.log("tempFlowchart: ", tempFlowchart);
+        var currentFlowchart = [];
+        index = 0;
+        tempFlowchart.forEach(element => {
+            if (element.toLowerCase() == 'start') {
+                tempFlowchart[index] = "1";
+            } else if (element.toLowerCase() == 'end') {
+                tempFlowchart[index] = tempFlowchart.length.toString();
+            }
+            index++;
+        });
+        for (let i = 0; i < tempFlowchart.length; i++) {
+            currentFlowchart[i] = (i + 1).toString();
+        }
+
+        console.log("tempFlowchart: ", tempFlowchart);
+        console.log("currentFlowchart: ", currentFlowchart);
+        check = 0;
+        for (let i = 0; i < tempFlowchart.length; i++) {
+            if (tempFlowchart[i] == currentFlowchart[i]) {
+                check += 1;
+            }
+        }
+
+        if (check == tempFlowchart.length && tempFlowchart.length == length) {
+            flowchartBeenEqual = true;
+        } else {
+            flowchartBeenEqual = false;
+        }
+
+        console.log("flowchartBeenEqual: ", flowchartBeenEqual);
+
+    }
+
+
+</script>
