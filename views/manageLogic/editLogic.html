@@ -114,7 +114,9 @@ function saveQuestion(logicQuestion, logicLevel, logicName, logicAnswer) {
 }
 
 $(document).ready(function(){
-
+    var str = "{{question}}";
+    var questionArray = str.split("{target}");
+    
     //set star level
     for(let l=1;l<="{{level}}";l++){
         $("#level"+l).addClass('selected');
@@ -123,11 +125,21 @@ $(document).ready(function(){
     let question_partcount = 2; //question amount
     let target_count = 1;
 
+    for(question_partcount;question_partcount < questionArray.length;question_partcount){
+        question_partcount++;
+        target_count++;
+        var q_text = "&nbsp;[TARGET]&nbsp;&nbsp;<input id='question_part"+(question_partcount)+"' type='text' style='background-color: white;width: 100px;'/> ";        
+        document.getElementById("question_text").innerHTML += q_text;
+    }
+    for(let qp=1;qp<=question_partcount;qp++){
+        document.getElementById("question_part"+qp).value = questionArray[qp-1];
+    }
+
     //add answer in question
     $('#q_increase').click(function(){
         question_partcount++;
         target_count++;
-        var q_text = "&nbsp;[TARGET]&nbsp;<input id='question_part"+(question_partcount)+"' type='text' style='background-color: white;width: 100px;'/> ";        
+        var q_text = "&nbsp;[TARGET]&nbsp;&nbsp;<input id='question_part"+(question_partcount)+"' type='text' style='background-color: white;width: 100px;'/> ";        
         document.getElementById("question_text").innerHTML += q_text;   
     });
     //delete answer in question
@@ -214,7 +226,7 @@ $(document).ready(function(){
         });
     }).on('mouseout', function(){
         $(this).parent().children('li.star').each(function(e){
-        $(this).removeClass('hover');
+            $(this).removeClass('hover');
         });
     });
     //Action to perform on click
