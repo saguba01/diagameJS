@@ -160,17 +160,24 @@
                         if (user) {
                             //save score history
                             statusQuestion = true;
-                            console.log(user.uid);
                             refScore.where("logicId","==","/Logic/{{ questionId }}").get().then(function(doc){
                                 round = doc.size + 1;
                                 //console.log("set("+keyId+")");
                             }).then(function(){
+                                var today = new Date();
+                                var dd = today.getDate();
+                                var mm = today.getMonth();
+                                var HH = today.getHours();
+                                var MM = today.getMinutes();
+                                var SS = today.getSeconds();
+                                var yyyy = today.getFullYear();
                                 refScore.doc().set({
                                     uid: user.uid,
                                     logicId: "/Logic/{{ questionId }}",
                                     round: round,
                                     score: $("#scorePlay").val(),
-                                    time : $("#timePlay").val()
+                                    time : $("#timePlay").val(),
+                                    date : twoDigit(dd)+"/"+twoDigit(mm)+"/"+yyyy+"T"+twoDigit(HH)+":"+twoDigit(MM)+":"+twoDigit(SS)
                                 }).then(function(){
                                     console.log("Save Score");
                                 }).catch(err => {
@@ -199,29 +206,15 @@
     var statusQuestion = false;
     $(document).ready(function(){
         timer('{{maxScore}}','{{minScore}}',(obj)=>{
-            console.log(obj);
-            $("#scorePlay").val(obj.score);
-            $("#timePlay").val(obj.time);
+            if(typeof obj.score != "undefined"){
+                $("#scorePlay").val(obj.score);
+                console.log("score:"+ $("#scorePlay").val());
+            }
+            if(typeof obj.time != "undefined"){
+                $("#timePlay").val(obj.time);
+                console.log("time:"+ $("#timePlay").val());
+            }
         });
-        // var minutesLabel = document.getElementById("minutes");
-        // var secondsLabel = document.getElementById("seconds");
-        // var totalSeconds = 0;
-        // setInterval(setTime, 1000);
-
-        // function setTime() {
-        //     ++totalSeconds;
-        //     secondsLabel.innerHTML = twoDigit(totalSeconds % 60);
-        //     minutesLabel.innerHTML = twoDigit(parseInt(totalSeconds / 60));
-        // }
-
-        // function twoDigit(val) {
-        //     var valString = val + "";
-        //     if (valString.length < 2) {
-        //         return "0" + valString;
-        //     } else {
-        //         return valString;
-        //     }
-        // }
     });
 
     
