@@ -512,6 +512,8 @@ handlebars.registerHelper('listquestion', function(question,scoreh){
       type = 'logic';
     }else if(qs.Type == 'operator'){
       type = 'operator';
+    }else{
+      type = 'diagram';
     }
     html += '<div target="/lesson/'+type+'/'+qs.Id+'" class="'+color[index]+' qs canClick" style="margin-left:40px; padding-right:1px; border:2px solid black">';
     html += '<div class="list-lesson-title" id="lesson-logic">';
@@ -558,11 +560,12 @@ handlebars.registerHelper('listquestion', function(question,scoreh){
 
 handlebars.registerHelper('listcomment',function(feedback){
     var html = '';
-    var index = 0;
     feedback.forEach(function (fb){
+        if(fb.Comment != 'empty'){
         html += '<div class="bg-light-green comment-box">';
         html += fb.Name+' : '+fb.Comment;
         html += '</div>';
+        }
     });
     return new handlebars.SafeString(html);
 });

@@ -30,20 +30,9 @@ router.get('/', authen, async (req, res, next) => {
   res.render('feedback/show_feedback', data);
 });
 
-router.get('/datafeedback', function (req, res, next) {
-  var feedback = [];
-  let reffb = firestore.collection('Feedback')
-  reffb.get().then((doc)=>{
-        doc.forEach(element => {
-          feedback.push(element.data())
-        })
-  });
-  res.send(feedback);
-});
-
 async function getFeedback(){
     var feedback = [];
-    let reffb = firestore.collection('Feedback')
+    let reffb = firestore.collection('Feedback').orderBy('date','desc');
     reffb.get().then((doc)=>{
           doc.forEach(element => {
             feedback.push(element.data())
