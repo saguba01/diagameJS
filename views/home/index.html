@@ -344,7 +344,19 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        showSetName();
+        let refUserInfo = firestore.collection("UserInfo");
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                refUserInfo.doc(user.uid).get().then(function(doc) {
+                    if (!(doc.exists)) {
+                        showSetName();
+                    }
+                });
+            }
+        });
+        $(".avatarblock").on('click', function() {
+            showAvatarModal();
+        });
 
        console.log(JSON.parse($('#ListMenu').val()))
         $(".panelindex").hide();
