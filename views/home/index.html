@@ -343,7 +343,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-
+        
         let refUserInfo = firestore.collection("UserInfo");
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
@@ -356,6 +356,7 @@
         });
         $(".avatarblock").on('click', function() {
             showAvatarModal();
+            
         });
 
        console.log(JSON.parse($('#ListMenu').val()))

@@ -1065,6 +1065,7 @@ function showAvatar(){
         'trinity.svg',
         'vladimir-lenin.svg'
     );
+    $("#targetAvatar").html("");
     for(let round=0;round<avatar.length;round){
         var textHTML = "<div style='display: inline-flex;'><div><img src='" + folder + avatar[round] + "' class='avatar' value='"+avatar[round]+"' onclick='changeAvatar(this)'></div>"
                         +"<div style='margin-left: 5px;'><img src='" + folder + avatar[round+1] + "' class='avatar' value='"+avatar[round+1]+"' onclick='changeAvatar(this)'></div>"
@@ -1074,6 +1075,7 @@ function showAvatar(){
                         +"<div style='margin-left: 5px;'><img src='" + folder + avatar[round+5] + "' class='avatar' value='"+avatar[round+5]+"' onclick='changeAvatar(this)'></div></div><br>";
         round = round+6;
         $("#targetAvatar").append(textHTML);
+        
     }
 }
 
