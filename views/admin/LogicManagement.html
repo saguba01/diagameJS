@@ -1,0 +1,75 @@
+<div class="dia-row">
+    <div class="panel panel-default dia-12">
+        <div class="panel-heading">การจัดการ Flowchart</div>
+        <div class="panel-body">
+            <table id="LogicTable" class="table table-striped" cellspacing="0" width="100%">
+                <thead>
+                  <tr>
+                    <th class="th-sm" style="width: 15%;">ลำดับ
+                    </th>
+                    <th class="th-sm" style="width: 45%;">โจทย์
+                    </th>
+                    <th class="th-sm" style="width: 20%;">จำนวนการเล่น
+                    </th>
+                    <th class="th-sm" style="width: 20%;">ดำเนินการ
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Tiger Nixon</td>
+                    <td>System Architect</td>
+                    <td>Edinburgh</td>
+                    <td>63</td>
+                  </tr>
+                  <tr>
+                    <td>Garrett Winters</td>
+                    <td>Accountant</td>
+                    <td>Tokyo</td>
+                    <td>63</td>
+                  </tr>
+                  
+                </tbody>
+            
+              </table>
+        </div>
+        <div class="panel-footer">Panel footer</div>
+    </div>
+</div>
+<script>
+  $('#LogicTable').DataTable({
+    language: {
+      search: "",
+      searchPlaceholder: "Search records"
+    }
+  });
+
+  $(function () {
+    const logicResponces = JSON.parse("{{allLogic}}".replace(/&quot;/g, '\"'))
+    console.log(logicResponces)
+    const table = $('#LogicTable').DataTable()
+    table.clear().draw()
+    let index = 1
+    logicResponces.forEach((item,index)=>{
+      if(index != 0){
+        table.row.add([
+          `<center>${index++}</center>`,
+          item.data.Name,
+          `<center>0</center>`,
+          ` 
+            <div class="table-action">
+              <button class="canClick" onclick="location.href='/manage/logic/edit/${item.id}'">
+                  <div class="btn-edit" ></div>
+              </button>
+              <button class="canClick" onclick="console.log('Delete ID => ${item.id}')">
+                  <div class="btn-delete"></div>
+              </button>
+            </div>`
+        ])
+      }
+    //   
+    })
+    table.draw()
+  })
+  
+</script>

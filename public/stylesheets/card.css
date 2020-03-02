@@ -1,0 +1,76 @@
+.card{
+    padding: 10px;
+    height: 200px;
+    margin: 10px;
+    border: 5px solid black;
+    box-shadow: 7px 7px 0 0px #00000059;
+}
+/* .card{
+    cursor: url(/assets/cursor-auto.png), default;
+} */
+
+.card-icon{
+    float: right;
+    border: 5px solid black;
+    background-color: #b2bbff;
+}
+
+.card-icon:hover{
+    background-color: #7e8cff;
+}
+
+.card-heading{
+    height: 30%;
+    font-weight: bold;
+    font-size: 2vw;
+}
+
+.card-body{
+    height: 50%;
+    display: block;
+    width: 100%;
+}
+
+.card-body>.card-body-icon{
+    width: 40%;
+    height: 60%;
+    position: absolute;
+}
+
+.card-body>.card-body-title{
+    float: right;
+    text-align: center;
+    width: 60%;
+    font-size: 5vw;
+    height: 100%;
+}
+
+.card-footer{
+    height: 20%;
+    text-align: right;
+    font-size: 1.5vw;
+}
+
+.card-icon-search{
+    background-image: url("/assets/svg/search.svg");
+    background-size: 50% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 8%;
+    height: 25%;
+}
+
+.card-icon-user{
+    background-image: url("/assets/svg/dashboard/user.svg");
+    background-size: 50% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.card-icon-question{
+    background-image: url("/assets/svg/dashboard/question.svg");
+    background-size: 45% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+

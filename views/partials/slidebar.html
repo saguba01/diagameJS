@@ -1,0 +1,48 @@
+{{#if slideBar }}
+<header>
+    <link rel="stylesheet" href="/stylesheets/slidebar.css">
+</header>
+<!-- Sidebar -->
+<div class="diagame-fixed">
+  <div class="slidebar">
+    <ul >
+      <li class="slidebar-item valign-wrapper" onclick="location.href='/admin'">
+        Dashboard    
+      </li>
+      <li class="slidebar-item valign-wrapper">
+          <div class="collapsed" onclick="submenuToggle(this)">
+            <span class="menu-title">Management</span>
+            <div class="arrow-bottom"></div>
+          </div>
+          <div class="slidebar-item-sub" >
+            <ul class="sub-menu">
+              <li class="sub-item"> <a class="nav-link" href="/admin/flowchart"> Flowchart </a></li>
+              <li class="sub-item"> <a class="nav-link" href="/admin/logic"> Logic </a></li>
+              <li class="sub-item"> <a class="nav-link" href="/admin/score"> Score </a></li>
+            </ul>
+          </div>
+      </li>
+      <li class="slidebar-item valign-wrapper">
+        <div class="collapsed" onclick="submenuToggle(this)">
+          <span class="menu-title">System</span>
+          <div class="arrow-bottom"></div>
+        </div>
+        <div class="slidebar-item-sub" >
+          <ul class="sub-menu">
+            <li class="sub-item"> <a class="nav-link" href="pages/samples/blank-page.html"> Sound </a></li>
+          </ul>
+        </div>
+    </li>
+      <li class="slidebar-item valign-wrapper">
+        Feedback    
+      </li>
+    </ul>
+  </div>
+
+  <div class="diagame-content-wrapper">
+    {{{body}}}
+  </div>
+  
+</div>
+
+{{/if}}

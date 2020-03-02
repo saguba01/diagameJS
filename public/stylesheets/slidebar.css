@@ -1,0 +1,112 @@
+.diagame-fixed{
+  display: flex!important;
+  height: 93%;
+  width: 100%;
+  position: absolute;
+}
+.slidebar {
+  margin-top: 0px;
+  height: 100%;
+  position: relative;
+  white-space: normal;
+  background-color: #fff591;
+  width: 18%;
+  border-right: 5px solid black;
+}
+
+.slidebar>ul{
+  margin-top: 0px;
+}
+
+.slidebar-header {
+  padding: 10px;
+  height: 80px;
+  display: flex;
+  text-align: center;
+  background-color: #feb72b;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.slidebar-header>span {
+  font-size: 3vw;
+  font-weight: bold;
+  cursor: url(/assets/cursor-auto.png), default;
+}
+
+.slidebar-item {
+  display: block;
+  font-size: 25px;
+  padding: 10px;
+  width: 100%;
+  height: 80px auto;
+  /* background-color: #52de97; */
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.slidebar-item>a{
+  cursor: url(/assets/cursor-auto.png), default !important;
+}
+
+.slidebar-item>div>*{
+  cursor: url(/assets/cursor-auto.png), default !important;
+}
+.slidebar-item >.slidebar-item-sub{
+  display: none;
+}
+
+
+.sub-item{
+  margin-left: 10%;
+}
+
+.sub-menu>li>a,.sub-menu>li{
+  font-size: 1.5vw;
+}
+.sub-menu>li>a{
+  color: black;
+  cursor: url(/assets/cursor-auto.png), default;
+}
+
+.sub-menu>li>a:hover{
+  color: white;
+}
+.sub-item:hover{
+  /* background-color: red; */
+}
+.slidebar-item >a{
+  color: black;
+  cursor: url('/assets/cursor-auto.png'), pointer;
+}
+.slidebar-item:hover {
+  background-color: #527318;
+  color: white;
+}
+
+.diagame-content-wrapper {
+  position: relative;
+  width: 100%;
+  /* margin-right: 20px; */
+  overflow: auto;
+}
+
+.slidebar-item>div>.arrow-bottom{
+  display: inline-block;
+  vertical-align: middle;
+  float: right;
+  width: 20px;
+  height: 45px;
+}
+/* .slidebar-item>button{
+  width: 100%;
+  height: 100%;
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+} */
+
+.sub-item:first-child{
+  border-top: 3px solid rgba(255, 255, dd255, 0.2);
+}
+.sub-item{
+  border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+}

@@ -82,9 +82,13 @@
   <!-- anime.js -->
   <script src="/animejs/lib/anime.min.js"></script>
 
-  <!-- Chart.js-->
-  <script src="/chart.js/dist/Chart.js"></script>
-  <link rel="stylesheet" href="/chart.js/dist/Chart.css">
+  <!-- highcharts -->
+  <script src="/highcharts/highcharts.src.js"></script>
+  <!-- <link rel="stylesheet" href="/highcharts/css/highcharts.css"> -->
+
+  <!-- dataTables -->
+  <script src="/datatables/media/js/jquery.dataTables.js"></script>
+   <link rel="stylesheet" href="/datatables/media/css/jquery.dataTables.css">
 
   <!-- ZingChart.js-->
   <script src="/zingchart/zingchart.min.js"></script>
@@ -98,6 +102,10 @@
     <!-- avatar -->
   <link rel="stylesheet" href="/stylesheets/style-avatar.css">
   
+  <link rel="stylesheet" href="/stylesheets/panal.css">
+  <link rel="stylesheet" href="/stylesheets/card.css">
+  <link rel="stylesheet" href="/stylesheets/datatables-diagame.css">
+  <script src="/javascripts/slidebar.js"></script>
   {{#if diagameIntro}}
   
   {{else}}
@@ -129,7 +137,13 @@
 
 <body>
   {{> navbar }}
-  {{{body}}}
+  {{#if slideBar }}
+    {{> slidebar }}
+  {{else}}
+    {{{body}}}
+  {{/if }}
+  
+  
   {{> modal }}
 </body>
 
