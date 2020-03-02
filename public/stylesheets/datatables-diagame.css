@@ -1,0 +1,116 @@
+.dataTable>thead{
+    background-color: lightblue;
+}
+
+.dataTable>thead>tr>th{
+    border-top: 5px solid black;
+    border-left: 5px solid black;
+    border-bottom: 5px solid black;
+}
+
+.dataTable>thead>tr>th:last-child{
+    border-right: 5px solid black;
+}
+
+.dataTable>tbody>tr>td{
+    border-left: 5px solid black;
+    border-bottom: 0.5px solid #D7DBDD ;
+}
+.dataTable>tbody>tr>td:last-child{
+    border-right: 5px solid black;
+}
+table{
+    border-bottom: 5px solid black !important;
+}
+
+#dtMaterialDesignExample_length>label>select{
+    display: inline !important;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#dtMaterialDesignExample_length>label{
+    display: inline-flex ;
+    margin-top: -10px;
+    margin-bottom: 5px;
+    color: black;
+    font-size: 18px;
+}
+
+#LogicTable_length>label>select{
+    display: inline !important;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#LogicTable_length>label{
+    display: inline-flex ;
+    margin-top: -10px;
+    margin-bottom: 5px;
+    color: black;
+    font-size: 18px;
+}
+
+#dtMaterialDesignExample_paginate>span>.current{
+    border: 5px solid black;
+    /* background-color: lightblue; */
+    background: darkorange;
+}
+
+#LogicTable_paginate>span>.current{
+    border: 5px solid black;
+    /* background-color: lightblue; */
+    background: darkorange;
+}
+
+
+.table>thead>tr>th{
+    text-align: center;
+}
+
+.table-action{
+    width: 100%;
+    height: auto;
+    display: flex;
+}
+
+button>.btn-edit{
+    font-size:22px;display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 3px 3px 0px #00000069;
+    width: 45px;
+    height: 45px;
+    border: 3px solid #000000;
+    margin-right: 10px;
+    background-color: #F4D03F;
+    background-image: url("/assets/svg/table/action/pencil.svg");
+    background-size: 80% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+button>.btn-edit:hover{
+    background-color: #F9E79F;
+}
+
+button>.btn-delete{
+    font-size:22px;display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 3px 3px 0px #00000069;
+    width: 45px;
+    height: 45px;
+    border: 3px solid #000000;
+    margin-right: 10px;
+    background-color:#E74C3C;
+    background-image: url("/assets/svg/table/action/rubbish.svg");
+    background-size: 80% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+button>.btn-delete:hover{
+
+    background-color:#F1948A;
+}

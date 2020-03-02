@@ -107,7 +107,6 @@ app.use('/manage/logic', require('./routes/route-logicQuestion'));
 app.use('/MDQ', require('./routes/route-diagram-question'));
 app.use('/show_feedback', require('./routes/route-feedback'));
 app.use('/leaderboard',require('./routes/route-leaderboard'));
-//app.use('/report', require('./routes/route-report'));
 app.use('/add/diagram', require('./routes/route-diagram-question'));
 app.use('/tutorial', require('./routes/route-tutorial'));
 app.use('/report', require('./routes/route-report'));
@@ -123,8 +122,38 @@ app.use('/lang', function (req, res, next) {
 });
 
 app.get('/api-service',async function (req, res, next) {
-      res.send(await setting.getSetting('th'));
+  let responces = [];
+  const flowchart = firestore.collection('Logic')
+  await flowchart.get().then(snapshot => {
+    snapshot.forEach(doc => {
+      responces.push({id:doc.id,data:doc.data() })
+      // responces.push()
+      // console.log(doc.id, '=>', doc.data());
+    });
+
+  })
+  .catch(err => {
+    responces.push(err.message)
+  });
+
+  
+  // res.send(responces);
+  res.send(responces.sort(compareValues('id')));
 }) 
+
+// function compare(a, b) {
+//   // Use toUpperCase() to ignore character casing
+//   const bandA = a.band.toUpperCase();
+//   const bandB = b.band.toUpperCase();
+
+//   let comparison = 0;
+//   if (bandA > bandB) {
+//     comparison = 1;
+//   } else if (bandA < bandB) {
+//     comparison = -1;
+//   }
+//   return comparison;
+// }
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
