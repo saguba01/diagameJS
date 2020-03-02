@@ -3,26 +3,42 @@ var router = express.Router();
 var authen = require('../utils/authen');
 var configString = require('../app').configString;
 var firestore = require('../configs/firebase-config').firestore;
+var setting = require('../public/javascripts/setting');
 
 
 router.get('/', authen, async (req, res, next) => {
   let lang = req.cookies.lang;
+  const general = await setting.getSetting(lang)
   var data = {
     layout: 'default',
+    navBar: true,
     user: req.session.user,
     element: configString[lang].element.general,
     intro: configString[lang].intro,
     feedback : await getFeedback(),
     //required
-    unlock: await getAchievement(req.session.user.uid),
-    passed: await getPassed(req.session.user.uid),
-    lesson: configString[lang].lesson,
+    lesson:{
+      text:"Feedback",
+    },
+    setting:general.setting,
+    button:general.button,
     general: configString[lang].general,
     achievementList: configString[lang].achievement,
     errorMsg: configString[lang].error,
     ListMenu : JSON.stringify(await getMenu())
   };
   res.render('feedback/show_feedback', data);
+});
+
+router.get('/datafeedback', function (req, res, next) {
+  var feedback = [];
+  let reffb = firestore.collection('Feedback')
+  reffb.get().then((doc)=>{
+        doc.forEach(element => {
+          feedback.push(element.data())
+        })
+  });
+  res.send(feedback);
 });
 
 async function getFeedback(){
@@ -36,33 +52,7 @@ async function getFeedback(){
     return feedback;
 }
 
-async function getAchievement(uid) {
-  var unlock = [];
-  let refAchieve = firestore.collection("lessons").doc(uid).collection('achievements');
-  await refAchieve.get().then(function (querySnapshot) {
-    querySnapshot.forEach(function (doc) {
-      unlock.push(doc.data());
-    });
-  }).catch(function (error) {
-    console.log(error);
-    unlock = [];
-  });
-  return unlock;
-}
 
-async function getPassed(uid) {
-  var passed = [];
-  let refAchieve = firestore.collection("lessons").doc(uid).collection('passed');
-  await refAchieve.get().then(function (querySnapshot) {
-    querySnapshot.forEach(function (doc) {
-      passed.push(doc.id);
-    });
-  }).catch(function (error) {
-    console.log(error);
-    passed = [];
-  });
-  return passed;
-}
 
 async function getMenu() {
   var Menu = [];

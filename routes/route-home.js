@@ -22,6 +22,7 @@ router.get('/', authen, async (req, res, next) => {
     intro: configString[lang].intro,
     questionLogic: await getLogic(),
     questionOperator: await getOperator(),
+    questionDiagram: await getDiagram(lang),
     //required
     unlock: await getAchievement(req.session.user.uid),
     passed: await getPassed(req.session.user.uid),
@@ -46,6 +47,7 @@ router.post('/', authen,async (req, res, next) => {
     intro: configString[lang].intro,
     questionLogic: await getLogic(),
     questionOperator: await getOperator(),
+    questionDiagram: await getDiagram(lang),
     //required
     unlock: await getAchievement(req.session.user.uid),
     passed: await getPassed(req.session.user.uid),
@@ -146,7 +148,7 @@ async function getScore(uid){
     let refscore = firestore.collection('ScoreHistory');
     refscore.get().then(doc=>{
       doc.forEach(element => {
-        if(element.data().uid == uid){
+        if(element.data().uid == 'pgZMfXfiDkcP3wFE31OWUNvmQdI3'){
         score.push(element.data())
         }
       })
@@ -154,5 +156,25 @@ async function getScore(uid){
   return score;
 }
 
+async function getDiagram(lang){
+  var diagram = [];
+  let refdiagram = firestore.collection('Diagram');
+  refdiagram.get().then(doc=>{
+    doc.forEach(element => {
+      if(lang == 'en'){
+        diagram.push({
+            Name : element.data().NameEng,
+            Level : element.data().Level
+        });
+      }else if(lang == 'th'){
+        diagram.push({
+          Name : element.data().NameTh,
+          Level : element.data().Level
+        });
+      }
+    })
+  })
+  return diagram;
+}
 
 module.exports = router;

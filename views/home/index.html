@@ -158,8 +158,11 @@
         <!-- IO -->
         <div class="panelright">
             <div class="innerpage">
-                <p class="lesson-title noselect">{{ lesson.io.text }}</p>
-                <div target="/lesson/{{ lesson.io.url }}/{{ lesson.io.subLesson.juice.url }}"
+                <p class="lesson-title noselect">Diagram</p>
+                <div class="list-question" id="listoperator">
+                    {{ listquestion questionDiagram score}}
+                </div>
+                <!--<div target="/lesson/{{ lesson.io.url }}/{{ lesson.io.subLesson.juice.url }}"
                     class="postit postit-top-left bg-nude canClick">{{ lesson.io.subLesson.juice.text }}</div>
                 <div target="/lesson/{{ lesson.io.url }}/{{ lesson.io.subLesson.toast.url }}"
                 class="postit postit-top-right bg-yellow canClick {{locked passed lesson.io.url lesson.io.subLesson.juice.url }}">{{ lesson.io.subLesson.toast.text }}</div>
@@ -170,7 +173,7 @@
                     class="postit postit-bottom-right bg-red canClick {{locked passed lesson.io.url lesson.io.subLesson.toast.url }}">{{ lesson.io.subLesson.bacon.text }}</div>
                 <div class="paragraph" style="width:180px;height: 250px;margin-left: 54.5px;">
                     {{lines 11}}
-                </div>
+                </div>-->
             </div>
         </div>
 
@@ -179,7 +182,7 @@
             <div class="innerpage">
                 <p class="lesson-title noselect">{{ lesson.operator.text }}</p>
                 <div class="list-question" id="listoperator">
-                    {{ listquestion questionOperator score user.uid}}
+                    {{ listquestion questionOperator score}}
                 </div>
                 <!--<div target="/lesson/{{ lesson.operator.url }}/{{ lesson.operator.subLesson.easy.url }}"
                     class="postit postit-top-left bg-light-green canClick">{{ lesson.operator.subLesson.easy.text }}</div>
@@ -200,7 +203,7 @@
             <div class="innerpage">
                 <p class="lesson-title noselect">{{ lesson.logic.text }}</p>
                 <div class="list-question" id="listlogic">
-                {{ listquestion questionLogic score user.uid}}
+                {{ listquestion questionLogic score}}
                 </div>
                 <!--<div target="/lesson/{{ lesson.logic.url }}/{{ lesson.logic.subLesson.easy.url }}"
                     class="postit postit-top-right bg-red canClick">{{ lesson.logic.subLesson.easy.text }}</div>
@@ -342,6 +345,8 @@
 </div>
 
 <script type="text/javascript">
+    const lang = Cookies.get('lang')
+    console.log(lang);
     $(document).ready(function () {
        console.log(JSON.parse($('#ListMenu').val()))
         $(".panelindex").hide();

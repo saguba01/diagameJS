@@ -225,6 +225,29 @@
     background-color: #feae36;
 }
 
+.button-apply-feedback {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    width: 140px;
+    height: 50px;
+    font-size: 22px;
+    font-family: 'Mali', cursive;
+    background-color: #56e3ad;
+    border: 5px solid #000000;
+    border-radius: 10px;
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.5);
+}
+
+.button-apply-feedback::first-letter {
+    text-transform: uppercase;
+}
+
+.button-apply-feedback:active,
+.button-apply-feedbackl:focus {
+    background-color: #56e3ad;
+}
+
 .button-close-custom {
     width: 16px;
     height: 16px;

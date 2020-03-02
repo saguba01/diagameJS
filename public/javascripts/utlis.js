@@ -27,6 +27,7 @@ $(document).ready(()=>{
         setLanguage('en')
         closeModal('#modal-language')
     })
+    ratingstart();
 })
 
 /*
@@ -460,7 +461,7 @@ function setLanguage(setlang){
 }
 
 /*
- *Description: Chabge language on modal setting
+ *Description: Change language on modal setting
  *@version 1.0
  *@author Supachai Boonying
  *@since 20 Feb 2020
@@ -990,3 +991,103 @@ function applySetting(){
     }
     closeModal('#modal-setting');
 }
+
+/*
+ *Description: Show modal Feedback
+ *@version 1.0
+ *@author Jirapat Lapudomsakda
+ *@since 26 Feb 2020
+ *@required javascript
+ */
+
+ function showFeedback(){
+    $('#modal-feedback').modal({
+        'dismissible': true,
+    });
+    $('#modal-feedback').modal('open');
+ }
+
+ /*
+ *Description: Save feedback to Firebase
+ *@version 1.0
+ *@author Jirapat Lapudomsakda
+ *@since 26 Feb 2020
+ *@required javascript
+ */
+
+ function saveFeedback(name){
+        showLoading();
+        console.log('savefeedback...');
+        var stars = $("#ratingStar").val();
+        var comment = $("#comment-feedback").val();
+        if(stars != 0){
+        let refFeedback = firestore.collection('Feedback');
+        refFeedback.add({
+            Comment:comment,
+            Level:stars,
+            Name:name,
+            Version:1
+        }).then(ref =>{
+            $("#ratingStar").val('');
+            $("#comment-feedback").val('');
+            closeModal('#modal-feedback');
+            closeLoading();
+            location.reload('/');
+        });
+    }else{
+        $('#ratingStar').css
+    }
+        //console.log(comment);
+        //console.log(stars);
+ }
+
+ 
+/*
+ *Description: Rating star
+ *@version 1.0
+ *@author Thanawin
+ *@since 26 Feb 2020
+ *@required javascript
+ */
+
+ function ratingstart(){
+    //Visualizing things on Hover
+    $('#stars li').on('mouseover', function(){
+        var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+        // highlight all the stars that's not after the current hovered star
+        $(this).parent().children('li.star').each(function(e){
+            if (e < onStar) {
+                $(this).addClass('hover');
+            }
+            else {
+                $(this).removeClass('hover');
+            }
+        });
+    }).on('mouseout', function(){
+        $(this).parent().children('li.star').each(function(e){
+        $(this).removeClass('hover');
+        });
+    });
+    //Action to perform on click
+    $('#stars li').on('click', function(){
+        var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+        var stars = $(this).parent().children('li.star');
+        
+        for (i = 0; i < stars.length; i++) {
+        $(stars[i]).removeClass('selected'); 
+        }
+        
+        for (i = 0; i < onStar; i++) {
+        $(stars[i]).addClass('selected');
+        }
+         
+        // JUST RESPONSE (Not needed)
+        var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+        //set input level
+        document.getElementById("ratingStar").value = ratingValue;
+        console.log(ratingValue);
+        //console.log(document.getElementById("ratingStar").value);
+    });
+ }
+
+ 
