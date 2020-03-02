@@ -366,15 +366,6 @@ function timer(max=0,min=0,callback){
         }
     }
 
-    function twoDigit(val) {
-        var valString = val + "";
-        if (valString.length < 2) {
-            return "0" + valString;
-        } else {
-            return valString;
-        }
-    }
-
     function frame() {
         if (width == 0 || statusQuestion) {
             clearInterval(countDown);
@@ -406,5 +397,14 @@ function timer(max=0,min=0,callback){
                 }
             );
         }
+    }
+}
+
+function twoDigit(val) {
+    var valString = val + "";
+    if (valString.length < 2) {
+        return "0" + valString;
+    } else {
+        return valString;
     }
 }

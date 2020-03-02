@@ -172,3 +172,21 @@
     <button onclick="playSoundEx('click');closeModal('#modal-setting');" class="canClick button-close-setting">{{button.close}}</button>
   </div>
 </div>
+
+
+<div id="modal-firstPlay" class="modal" style="width: 600px;">
+  <div class="modal-content">
+    <div style="display: inline-flex;">
+      <div style="width: 30%;align-content: center;">
+        <img src="/assets/svg/avatar/robot-01.svg" alt="Avatar" class="avatar">
+      </div>
+      <div style="width: 70%;align-self: center;position: fixed;right: 0%;padding: 30px;">
+        <span style="font-size: 28px;font-weight: bold;">What is your name?</span>
+        <input type="text" id="username" style="border: solid 3px #000000;text-align:center;font-size: 20px;font-weight: bold;">
+      </div>
+    </div>
+    <div class="button-close-custom canClick right" onclick="closeModal('#modal-firstPlay');playSoundEx('click');"></div>   
+  </div>
+  <div class="modal-footer">
+  </div>
+</div>

@@ -802,6 +802,23 @@ function showLoading() {
     $('#modal-saving').modal('open');
 }
 /*
+ *Description: Show avatar modal.
+ *@version 1.0
+ *@author Thanawin Poopangeon
+ *@since 5 Feb 2020
+ *@required javascript, materialize-css.
+ */
+function showSetName() {
+    $('#modal-firstPlay').modal({
+        'dismissible': false,
+        // 'onOpenStart': function () {},
+        // 'onOpenEnd': function () {
+        //     $('.addQuestion-content').text();
+        // }
+    });
+    $('#modal-firstPlay').modal('open');
+}
+/*
  *Description: Close alert modal.
  *@version 1.0
  *@author Thanawin Poopangeon
