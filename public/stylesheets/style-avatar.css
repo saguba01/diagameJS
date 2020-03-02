@@ -1,7 +1,41 @@
+
 .avatar {
-    vertical-align: middle;
+    opacity: 1;
+    display: block;
     width: 150px;
     height: 150px;
     border-radius: 50%;
     border: solid 5px #000000;
+    transition: .5s ease;
+    backface-visibility: hidden;
+  }
+  
+  .middle {
+    position: absolute;
+    opacity: 0;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    top: 36.8%;
+    left: 16.7%;
+    border: solid 5px #000000;
+    transition: .5s ease;
+    backface-visibility: hidden;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  
+  .avatarblock:hover .avatar {
+    opacity: 0.1;
+  }
+  
+  .avatarblock:hover .middle {
+    opacity: 1;
+  }
+  
+  .textavatar{
+    font-size: 24px;
+    font-weight: bold;
+    position: absolute;
+    top: 28%;
   }

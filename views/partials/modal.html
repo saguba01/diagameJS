@@ -178,7 +178,12 @@
   <div class="modal-content">
     <div style="display: inline-flex;">
       <div style="width: 30%;align-content: center;">
-        <img src="/assets/svg/avatar/robot-01.svg" alt="Avatar" class="avatar">
+        <div class="avatarblock">
+          <img src="/assets/svg/avatar/robot-01.svg" alt="Avatar" class="avatar" id="selectavatar" value="robot-01.svg">
+          <div class="middle">
+            <div class="textavatar">Change Avatar</div>
+          </div>
+        </div>
       </div>
       <div style="width: 70%;align-self: center;position: fixed;right: 0%;padding: 30px;">
         <span style="font-size: 28px;font-weight: bold;">What is your name?</span>
@@ -188,5 +193,15 @@
     <div class="button-close-custom canClick right" onclick="closeModal('#modal-firstPlay');playSoundEx('click');"></div>   
   </div>
   <div class="modal-footer">
+    <button onclick="playSoundEx('click');saveUserInfo();" class="canClick button-close-modal">Save</button>
   </div>
 </div>
+
+<div id="modal-showAvatar" class="modal" style="width: 1000px;overflow-y: auto;">
+  <div class="modal-content" id="targetAvatar">
+    <div class="button-close-custom canClick right" onclick="closeModal('#modal-showAvatar');playSoundEx('click');"></div>   
+  </div>
+  <div class="modal-footer">
+  </div>
+</div>
+

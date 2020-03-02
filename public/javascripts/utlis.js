@@ -1124,4 +1124,107 @@ function ratingstart() {
     });
 }
 
+/*
+ *Description: select new avatar
+ *@version 1.0
+ *@author Thanawin Poopangeon
+ *@since 20 Feb 2020
+ *@required javascript
+ */
+
+function showAvatarModal(){
+    $('#modal-showAvatar').modal({
+        'onOpenStart': function () {
+            showAvatar();
+        }
+    });
+    $('#modal-showAvatar').modal('open');
+}
+/*
+ *Description: show all avatar
+ *@version 1.0
+ *@author Thanawin Poopangeon
+ *@since 20 Feb 2020
+ *@required javascript
+ */
+
+function showAvatar(){
+    var folder = "/assets/svg/avatar/";
+    var avatar = new Array(
+        'andy-warhol.svg',
+        'barack-obama.svg',
+        'batman.svg',
+        'charlie-chaplin.svg',
+        'cristiano-ronaldo.svg',
+        'dalai-lama.svg',
+        'dave-grohl.svg',
+        'donald-trump.svg',
+        'girl-in-ballcap.svg',
+        'indian-man.svg',
+        'indian-woman.svg',
+        'joseph-stalin.svg',
+        'luis-suarez.svg',
+        'mahatma-gandhi.svg',
+        'malcolm-x.svg',
+        'mick-jagger.svg',
+        'muslim-man.svg',
+        'muslim-woman.svg',
+        'native-man.svg',
+        'native-woman.svg',
+        'nikola-tesla.svg',
+        'robot-01.svg',
+        'robot-02.svg',
+        'robot-03.svg',
+        'traditiona-japanese-man.svg',
+        'traditional-african-man.svg',
+        'traditional-african-woman.svg',
+        'traditional-japanese-woman.svg',
+        'trinity.svg',
+        'vladimir-lenin.svg'
+    );
+    for(let round=0;round<avatar.length;round){
+        var textHTML = "<div style='display: inline-flex;'><div><img src='" + folder + avatar[round] + "' class='avatar' value='"+avatar[round]+"' onclick='changeAvatar(this)'></div>"
+                        +"<div style='margin-left: 5px;'><img src='" + folder + avatar[round+1] + "' class='avatar' value='"+avatar[round+1]+"' onclick='changeAvatar(this)'></div>"
+                        +"<div style='margin-left: 5px;'><img src='" + folder + avatar[round+2] + "' class='avatar' value='"+avatar[round+2]+"' onclick='changeAvatar(this)'></div>"
+                        +"<div style='margin-left: 5px;'><img src='" + folder + avatar[round+3] + "' class='avatar' value='"+avatar[round+3]+"' onclick='changeAvatar(this)'></div>"
+                        +"<div style='margin-left: 5px;'><img src='" + folder + avatar[round+4] + "' class='avatar' value='"+avatar[round+4]+"' onclick='changeAvatar(this)'></div>"
+                        +"<div style='margin-left: 5px;'><img src='" + folder + avatar[round+5] + "' class='avatar' value='"+avatar[round+5]+"' onclick='changeAvatar(this)'></div></div><br>";
+        round = round+6;
+        $("#targetAvatar").append(textHTML);
+    }
+}
+
+/*
+ *Description: change avatar
+ *@version 1.0
+ *@author Thanawin Poopangeon
+ *@since 20 Feb 2020
+ *@required javascript
+ */
+function changeAvatar(element){
+    document.getElementById("selectavatar").src = "/assets/svg/avatar/"+element.getAttribute("value");
+    document.getElementById("selectavatar").value = element.getAttribute("value");
+    closeModal('#modal-showAvatar');
+}
+
+/*
+ *Description: save avatar
+ *@version 1.0
+ *@author Thanawin Poopangeon
+ *@since 20 Feb 2020
+ *@required javascript
+ */
+function saveUserInfo(){
+    let refUserInfo = firestore.collection("UserInfo");
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            refUserInfo.doc(user.uid).set({
+                avatar: document.getElementById("selectavatar").value,
+                nickname: document.getElementById("username").value,
+                role:"user"
+            });
+        }
+    });
+    closeModal('#modal-firstPlay');
+}
 
