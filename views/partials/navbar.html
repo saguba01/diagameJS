@@ -37,7 +37,7 @@
             if (user) {
                 refUserInfo.doc(user.uid).get().then(function(doc) {
                     if (doc.exists) {
-                        let textHTML = "<img src='/assets/svg/avatar/"+doc.data().avatar+"' alt='Avatar' style='width: 45px;height: 45px;'>";
+                        let textHTML = "<img src='/assets/svg/avatar/"+doc.data().avatar+"' alt='Avatar' class='avatar-navbar''>";
                         $("#userAvatar").append(textHTML);
                     }
                 });
