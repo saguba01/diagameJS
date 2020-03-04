@@ -603,3 +603,29 @@ handlebars.registerHelper('listscore', function (score) {
   })
   return new handlebars.SafeString(html);
 });
+
+handlebars.registerHelper('card-level', function (level,ganaral) {
+  var html = '';
+  level.forEach((value,index)=>{
+    html+= `
+    <div class="card dia-3">
+      <div class="card-heading" style="color: black;text-align: center;">
+          <span>${ganaral.title} ${index+1}</span>
+      </div>
+      <div class="card-body" style="height:70%;display: flex;">
+        <div class="card-body-left card-text-center dia-6" style="display: grid; height: 100%; ">
+          <span>${ganaral.rateScore.rate.title}</span>
+          <span style="font-size:48px;font-weight: bold;">${value.rate}</span>
+          <span>${ganaral.rateScore.rate.footer}</span>
+        </div>
+        <div class="card-body-right card-text-center dia-6" style="display: grid; height: 100%; ">
+          <span>${ganaral.rateScore.score.title}</span>
+          <span style="font-size:48px;font-weight: bold;">${value.score}</span>
+          <span>${ganaral.rateScore.score.footer}</span>
+        </div>
+      </div>
+    </div>
+    `
+  })
+  return new handlebars.SafeString(html);
+});

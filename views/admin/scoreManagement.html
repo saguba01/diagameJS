@@ -1,0 +1,350 @@
+<div class="dia-row">
+    <div class="panel panel-default dia-12">
+      <div class="panel-heading" style="display: flex;">
+        <span>{{general.score.header}}</span>
+        <div class="panel-btn-action" style="position: absolute; right: 10px; margin-top: -5px;">
+          <button class="canClick btn-tran" onclick="editScore(this)">
+            <div class="btn-edit-pencil"></div>
+          </button>
+        </div>
+      </div>
+      <div class="panel-body">
+          <div class="dia-row">
+            <div class="panel panel-default dia-6">
+                <div class="panel-body" style="background-color: white;">
+                  <div class="dia-row" style="margin-bottom: 0;display: grid; align-items: center;">
+                    <div class="dia-4">
+                      {{general.score.manageScoreMax.title}} :
+                    </div>
+                    <div class="dia-8 score" id="scoreMax" format="max" style="font-size: 28px; font-weight: bold;">
+                      <span>{{score.maxScore}}</span> 
+                    </div>
+                  </div>
+                  
+                </div>
+            </div>
+            <div class="panel panel-default dia-6">
+              <div class="panel-body" style="background-color: white;">
+                <div class="dia-row" style="margin-bottom: 0;display: grid; align-items: center;">
+                  <div class="dia-4">
+                    {{general.score.manageScoreMin.title}} :
+                  </div>
+                  <div class="dia-8 score" id="scoreMin" format="min"  style="font-size: 28px; font-weight: bold;">
+                    <span>{{score.minScore}}</span> 
+                  </div>
+                </div>
+                
+              </div>
+            </div>    
+          </div>
+          <div class="dia-row">
+            {{card-level score.level general.score}}
+          </div>
+          <div class="dia-row massage-error" >
+            
+          </div>
+      </div>
+    </div>
+</div>
+
+<script>
+  $(document).ready(()=>{
+    // $('input').keyup(function(e){
+    //     if(e.keyCode == 13)
+    //     {
+    //         console.log(this)
+    //     }
+    // });
+  })
+  
+  function editScore(ele){
+    const element = elementThisPage(ele)
+    const oldData = element.oldData
+    const scoreMax = $(element.score.eleScoreMax.span)
+    const scoreMin = $(element.score.eleScoreMin.span)
+    let listCard = []
+
+    for(let i = 0 ; i < element.card.length ; i++){
+      const eleRight = $(element.card.get(i)).find(".card-body .card-body-right").find("span").get(1)
+      const eleLeft = $(element.card.get(i)).find(".card-body .card-body-left").find("span").get(1)
+      
+      listCard.push({
+        eleRight : $(eleRight),
+        eleLeft : $(eleLeft)
+      })
+    }
+
+    // display none old data 
+    // score
+    const none = {"display":"none"}
+    scoreMax.css(none)
+    scoreMin.css(none)
+
+    // card 
+    listCard.forEach((value,index)=>{
+      value.eleRight.css(none)
+      value.eleLeft.css(none)
+    })
+    // end display none
+
+    //add input 
+    scoreMax.parent().append(newElements().input.attr({value : oldData.score.maxScore}).css({"font-size":"28px","text-align" : "left"}))
+    scoreMin.parent().append(newElements().input.attr({value : oldData.score.minScore}).css({"font-size":"28px","text-align" : "left"}))
+
+    listCard.forEach((value,index)=>{
+      value.eleRight.after(newElements().input.attr({value : oldData.card[index].rateScore}).css({"font-size":"48px","text-align" : "center"}))
+      value.eleLeft.after(newElements().input.attr({value : oldData.card[index].rateSec}).css({"font-size":"48px","text-align" : "center"}))
+    })
+
+    // end add input 
+    
+    // btn action 
+    const btnAction = $(element.panel).find(".panel-btn-action")
+    btnAction.empty()
+              .html(newElements().btnSave)
+              .append(newElements().btnClose.css({"margin-right":"5px"}))
+    // end set btn 
+    
+  }
+
+  function clearScore(ele){
+    const element = elementThisPage(ele)
+    const oldData = element.oldData
+    const scoreMax = $(element.score.eleScoreMax.span)
+    const scoreMin = $(element.score.eleScoreMin.span)
+    let listCard = []
+
+    for(let i = 0 ; i < element.card.length ; i++){
+      const eleRight = $(element.card.get(i)).find(".card-body .card-body-right").find("span").get(1)
+      const eleLeft = $(element.card.get(i)).find(".card-body .card-body-left").find("span").get(1)
+      
+      listCard.push({
+        eleRight : $(eleRight),
+        eleLeft : $(eleLeft)
+      })
+    }
+
+     // display show old data 
+    // score
+    const show = {"display":""}
+    scoreMax.css(show)
+    scoreMin.css(show)
+
+    // card 
+    listCard.forEach((value,index)=>{
+      value.eleRight.css(show)
+      value.eleLeft.css(show)
+    })
+    // end display none
+
+    // remove input
+    scoreMax.parent().find("input").remove()
+    scoreMin.parent().find("input").remove()
+    listCard.forEach((value,index)=>{
+      value.eleRight.parent().find("input").remove()
+      value.eleLeft.parent().find("input").remove()
+    })
+    //
+
+    // btn action 
+    const btnAction = $(element.panel).find(".panel-btn-action")
+    btnAction.empty().html(newElements().btnEdit)
+    // end set btn 
+  }
+
+  function saveEditScore(ele){
+    const element = elementThisPage(ele)
+    const oldData = element.oldData
+    const scoreMax = $(element.score.eleScoreMax.span)
+    const scoreMin = $(element.score.eleScoreMin.span)
+    let listCard = []
+
+    for(let i = 0 ; i < element.card.length ; i++){
+      const eleRight = $(element.card.get(i)).find(".card-body .card-body-right").find("span").get(1)
+      const eleLeft = $(element.card.get(i)).find(".card-body .card-body-left").find("span").get(1)
+      
+      listCard.push({
+        eleRight : $(eleRight),
+        eleLeft : $(eleLeft)
+      })
+    }
+    // new value
+    let newData = {
+      maxScore:parseInt(scoreMax.parent().find("input").val()),
+      minScore:parseInt(scoreMin.parent().find("input").val()),
+      level : []
+    }
+    
+    listCard.forEach((value,index)=>{
+      newData.level.push({
+        score : parseInt(value.eleRight.parent().find("input").val()),
+        rate : parseInt(value.eleLeft.parent().find("input").val())
+      }) 
+    })
+    
+    if(validate()){
+      // save 
+      saveScore(newData)
+
+      // display show old data 
+      // score
+      scoreMax.html(newData.maxScore)
+      scoreMin.html(newData.minScore)
+
+      // card 
+      listCard.forEach((value,index)=>{
+      value.eleRight.html(newData.level[index].score)
+      value.eleLeft.html(newData.level[index].rate)
+      })
+      clearScore(ele)
+    }
+    
+  }
+
+  function saveScore(obj){
+    blockUI();
+    $.ajax({
+      type: "POST",
+      contentType: "application/json",
+      data: JSON.stringify(obj)  ,
+      url: "/admin/saveScore", 
+      success: function(result){
+        unblockUI();
+      },
+      error: (e)=>{
+        unblockUI();
+        console.error(e)
+      }
+    });
+  }
+
+  function validate(){
+    const input = $(".panel ").find("input")
+    let status = true
+    for(let i = 0 ; i < input.length ; i++){
+      let newInput = $(input.get(i)).val()
+      if(newInput == ""){
+        $(input.get(i)).addClass("redBorder").addClass("placeholder-red")
+        status = false
+      }
+    }
+
+    const maxScore = parseInt($(input.get(0)).val())
+    const minScore = parseInt($(input.get(1)).val())
+    if(maxScore <= minScore){
+      $(input.get(0)).addClass("redBorder").addClass("placeholder-red")
+      $(input.get(1)).addClass("redBorder").addClass("placeholder-red")
+      status = false
+    }
+    if(!status){
+      $(".massage-error").html("{{general.input.empty}}").css({"color":"red","font-size":"28px"})
+    }else{
+      $(".massage-error").empty()
+    }
+    return status
+  }
+
+  function eventEnter(ele,event){
+    if(event.keyCode == 13){
+      $(".btn-save-dis").click()
+      // saveEditScore($(".panel-btn-action"))
+    }
+  }
+
+  function newElements(){
+    const input = $("<input>").attr({
+                          type: 'number',
+                          name: 'bar',
+                          
+                      }).css({
+                        "width" : "90%",
+                          "margin" :"0",
+                          "font-size" : "48px",
+                          "font-weight": "bold",
+                          "font-family" : "'Mali', cursive"
+                      }).attr({
+                        "onkeyup": "eventEnter(this,event)",
+                        // "oninput" : "numberOnly(this)"
+                        "onkeypress" : "return numberOnly(event)"
+                      }) 
+    const btnEdit = $("<button></button>").addClass("canClick").addClass("btn-tran")
+                      .attr("onclick","editScore(this)")
+                      .html(
+                        $("<div></div>").addClass("btn-edit-pencil")
+                      )
+    const btnSave = $("<button></button>").addClass("canClick").addClass("btn-tran")
+                      .attr("onclick","saveEditScore(this)")
+                      .html(
+                        $("<div></div>").addClass("btn-save-dis").css({"margin-right" : "0"})
+                      )
+    const btnClose = $("<button></button>").addClass("canClick").addClass("btn-tran")
+                      .attr("onclick","clearScore(this)")
+                      .html(
+                        $("<div></div>").addClass("btn-close").css({"margin-right" : "0"})
+                      )
+    return {
+      input : input,
+      btnEdit : btnEdit,
+      btnSave : btnSave,
+      btnClose : btnClose
+    }
+  }
+
+    function elementThisPage(ele){
+      const elementPanal = $(ele.parentNode.parentNode.parentNode)
+      const panalBody = elementPanal.find(".panel-body").get(0)
+      const eleScoreMax = elementPanal.find(".panel-body").get(1)  
+      const eleScoreMin = elementPanal.find(".panel-body").get(2)
+
+      let oldDataOfCard = []
+
+      for(let i = 0 ; i < $(panalBody).find(".card").length;i++){
+        const body = $($(panalBody).find(".card").get(i)).find(".card-body")
+        const score = $(body.find(".card-body-right").find("span").get(1)).html()
+        const sec = $(body.find(".card-body-left").find("span").get(1)).html()
+        oldDataOfCard.push({
+          rateScore : parseInt(score),
+          rateSec : parseInt(sec)
+        })
+      }
+      const oldData = {
+        score : {
+          maxScore : parseInt($(eleScoreMax).find(".score").find("span").html()),
+          minScore : parseInt($(eleScoreMin).find(".score").find("span").html())
+        },
+        card : oldDataOfCard
+      }
+      return {
+        panel : elementPanal,
+        panalBody : panalBody,
+        score : {
+          eleScoreMax : {
+            body : eleScoreMax,
+            span :  $(eleScoreMax).find(".score").find("span") ,
+            maxScore : parseInt($(eleScoreMax).find(".score").find("span").html())
+          },
+          eleScoreMin : {
+            body : eleScoreMin,
+            span :  $(eleScoreMin).find(".score").find("span") ,
+            minScore : parseInt($(eleScoreMin).find(".score").find("span").html())
+          }
+        },
+        card : $(panalBody).find(".card"),
+        oldData : oldData
+
+      }
+    }
+
+    function numberOnly(event){
+      const ASCIICode = (event.which) ? event.which : event.keyCode 
+      if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57)) 
+          return false; 
+      return true; 
+    }
+</script>
+<style>
+.placeholder-red::-webkit-input-placeholder {
+  color: red;
+  font-weight: bold;
+}
+</style>

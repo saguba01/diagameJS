@@ -863,16 +863,6 @@ function showLanguage() {
     localStorage.removeItem("langSelected");
     $('#modal-language').modal({
         'dismissible': true,
-        'onOpenStart': function () {
-            // $('#modal-language>.modal-content>.language-title').html(title);
-            // $('#modal-language>.modal-content>.language-content').html(message);
-        },
-        'onOpenEnd': function () {},
-        'onCloseStart': function () {},
-        'onCloseEnd': function () {
-            // $('#modal-language>.modal-content>.language-title').empty();
-            // $('#modal-language>.modal-content>.language-content').empty();
-        },
     });
     $('#modal-language').modal('open');
 }
@@ -893,8 +883,11 @@ function showSetting(flag_thai='',flag_eng='') {
             const th = $('<div></div>')
             const eng = $('<div></div>')
             const eleSoundMusic = $('.btn-main-music')
-            const eleSoundMasterc = $('.btn-main-sound')
+            const eleSoundMaster = $('.btn-main-sound')
 
+            soundMaster = localStorage.getItem("soundMaster")
+            soundMusic = localStorage.getItem("soundMusic")
+            
             th.attr('id','setting-lang-thai') 
                 .html(
                     $('<span></span>').css({'margin-left':'27px'})
@@ -915,7 +908,7 @@ function showSetting(flag_thai='',flag_eng='') {
             flagSelect.append(th).append(eng)
             
             if(soundMaster == "false"){
-                eleSoundMasterc.html(
+                eleSoundMaster.html(
                     $('<div></div>').addClass('btn-close-sound').html("")
                 ) 
             }
@@ -1117,3 +1110,16 @@ function saveUserInfo(){
     closeModal('#modal-firstPlay');
 }
 
+/*
+ *Description: Show modal select Language in tutorial 
+ *@version 1.0
+ *@author Supachai Boonying
+ *@since 15 Feb 2020
+ *@required javascript
+ */
+function showConfirmSignout() {
+    $('#modal-confirm-signout').modal({
+        'dismissible': true,
+    });
+    $('#modal-language').modal('open');
+}
