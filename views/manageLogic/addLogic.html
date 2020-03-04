@@ -12,39 +12,39 @@
 <body>
         <!-- Question Area -->
         <div class="targetPanel-bg"></div>
-        <div id="target" class="center-align connectedSource noselect targetPanel ui-widget-content">
+        <div id="target" class="connectedSource noselect targetPanel ui-widget-content">
             <div>
-                <div style="display: inline-flex;">
+                <div style="display: inline-flex;width: 100%;">
                     <div style="width: 50%;">
-                        <p style="text-align: left;font-size: 18px;font-weight: bold;" >Question Name : EN</p>
+                        <p class="textLabel" >Question Name : EN</p>
                         <input id="questionInputEN" type="text" class="textBox"/>
-                        <p id="validate_name" style="text-align: left;" class="textValidate"></p>
+                        <p id="validate_nameEN" style="text-align: left;" class="textValidate"></p>
                     </div>
-                    <div style="width: 50%;">
-                        <p style="text-align: left;font-size: 18px;font-weight: bold;" >Question Name : TH</p>
+                    <div style="width: 50%;padding-left: 2%;">
+                        <p class="textLabel" >Question Name : TH</p>
                         <input id="questionInputTH" type="text" class="textBox"/>
-                        <p id="validate_name" style="text-align: left;" class="textValidate"></p>
+                        <p id="validate_nameTH" style="text-align: left;" class="textValidate"></p>
                     </div>
                 </div>
-                <p style="text-align: left;font-size: 18px;font-weight: bold;" >Equation
-                <button id="q_increase">+</button>
-                <button id="q_decrease">-</button>
+                <p class="textLabel" >Equation
+                <button id="q_increase" class="book-button blue-button"><i class="fa fa-plus"></i></button>
+                <button id="q_decrease" class="book-button blue-button"><i class="fa fa-minus"></i></button>
                 </p>
-                <div id="question_text" style="overflow: hidden;">
-                    <input id="question_part1" type="text" class="textBox-100"/>
-                    &nbsp;[TARGET]&nbsp;
-                    <input id="question_part2" type="text" class="textBox-100"/>
+                <div id="question_text" style="overflow: hidden;text-align: center;">
+                    <input id="question_part1" type="text" class="textBox-150"/>
+                    &nbsp;<input type="text" class="ans-box" value="Answer" disabled/>&nbsp;
+                    <input id="question_part2" type="text" class="textBox-150"/>
                 </div>
-                <p id="validate_question" class="textValidate"></p>
-                <p style="text-align: left;font-size: 18px;font-weight: bold;" >
+                <p id="validate_question" class="textValidate" style="text-align: center;"></p>
+                <p class="textLabel" >
                     Answer
                 </p>
-                <button id="ansTrue" class="canClick jellyButton button-tool">True</button>
-                <button id="ansFalse" class="canClick jellyButton button-tool">False</button>
-                <button id="ansNum" class="canClick jellyButton button-tool">Number</button>
-                <input id="answer" type="text" class="textBox-100" hidden/>
+                <button id="ansTrue" class="ans-button nonselect-button">True</button>
+                <button id="ansFalse" class="ans-button nonselect-button">False</button>
+                <button id="ansNum" class="ans-button nonselect-button">Number</button>
+                <input id="answer" type="text" class="textBox-150" hidden/>
                 <p id="validate_ans" class="textValidate"></p>
-                <p style="text-align: left;font-size: 18px;font-weight: bold;" >Level</p>
+                <p class="textLabel" >Level</p>
                 <!-- Rating Stars Box -->
                 <section class='rating-widget'>
                     <div class='rating-stars' style="text-align: left;">
@@ -130,11 +130,12 @@ function saveQuestion(logicQuestion, logicLevel, logicNameEN,logicNameTH, logicA
 $(document).ready(function(){
     let question_partcount = 2; //question amount
     let target_count = 1;
+    let targetAnswer = "&nbsp;&nbsp;<input type='text' class='ans-box' value='Answer' disabled/>&nbsp;&nbsp;";
     //add answer in question
     $('#q_increase').click(function(){
         question_partcount++;
         target_count++;
-        var q_text = "&nbsp;[TARGET]&nbsp;<input id='question_part"+(question_partcount)+"' type='text' style='background-color: white;width: 100px;'/> ";        
+        var q_text = targetAnswer+"<input id='question_part"+(question_partcount)+"' type='text' class='textBox-150'/>";        
         document.getElementById("question_text").innerHTML += q_text;   
     });
     //delete answer in question
@@ -142,9 +143,9 @@ $(document).ready(function(){
         if(target_count > 1){
             question_partcount--;
             target_count--;
-            var q_text_part = "<input id='question_part1' type='text' style='background-color: white;width: 100px;'/> "
+            var q_text_part = "<input id='question_part1' type='text' class='textBox-150'/>"
             for(let i=1;i<=target_count;i++){
-                var q_text = "&nbsp;[TARGET]&nbsp;<input id='question_part"+(i+1)+"' type='text' style='background-color: white;width: 100px;'/> ";        
+                var q_text = targetAnswer+"<input id='question_part"+(i+1)+"' type='text' class='textBox-150'/> ";        
                 q_text_part += q_text;
             };
             document.getElementById("question_text").innerHTML = q_text_part;
@@ -183,17 +184,17 @@ $(document).ready(function(){
         if(checkNameNullEN||checkNameNullTH||checkAnsNull||checkQuestionNull){
             if(checkNameNullEN){
                 $("#questionInputEN").addClass("redBorder");
-                $("#validate_name").text("Please fill in Question Name English.");
+                $("#validate_nameEN").text("Please fill in Question Name English.");
             }else{
                 $("#questionInputEN").removeClass("redBorder");
-                $("#validate_name").text("");
+                $("#validate_nameEN").text("");
             }
             if(checkNameNullTH){
                 $("#questionInputTH").addClass("redBorder");
-                $("#validate_name").text("Please fill in Question Name Thai.");
+                $("#validate_nameTH").text("Please fill in Question Name Thai.");
             }else{
                 $("#questionInputTH").removeClass("redBorder");
-                $("#validate_name").text("");
+                $("#validate_nameTH").text("");
             }
             if(checkAnsNull){
                 $("#answer").addClass("redBorder");
@@ -258,14 +259,24 @@ $(document).ready(function(){
     $('#ansNum').click(function(){
         document.getElementById("answer").removeAttribute("hidden");
         document.getElementById("answer").value = "";
+        selectButton("ansNum");
     });
     $('#ansTrue').click(function(){
         document.getElementById("answer").setAttribute("hidden","hidden");
         document.getElementById("answer").value = "true";
+        selectButton("ansTrue");
     });
     $('#ansFalse').click(function(){
         document.getElementById("answer").setAttribute("hidden","hidden");
         document.getElementById("answer").value = "false";
+        selectButton("ansFalse");
     });
 });
+function selectButton(id){
+    document.getElementById("ansNum").setAttribute("class","ans-button nonselect-button");
+    document.getElementById("ansTrue").setAttribute("class","ans-button nonselect-button");
+    document.getElementById("ansFalse").setAttribute("class","ans-button nonselect-button");
+    $("#"+id).removeClass("nonselect-button");
+    $("#"+id).addClass("select-button");
+}
 </script>
