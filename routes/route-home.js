@@ -3,7 +3,7 @@ var router = express.Router();
 var authen = require('../utils/authen');
 var configString = require('../app').configString;
 var firestore = require('../configs/firebase-config').firestore;
-
+var user_info = require('../public/javascripts/userInfo');
 /* 
  * name: homePage
  * description: open home page
@@ -15,24 +15,47 @@ var firestore = require('../configs/firebase-config').firestore;
  */
 router.get('/', authen, async (req, res, next) => {
   let lang = req.cookies.lang;
-  var data = {
-    layout: 'default',
-    user: req.session.user,
-    element: configString[lang].element.general,
-    intro: configString[lang].intro,
-    questionLogic: await getLogic(),
-    questionOperator: await getOperator(),
-    //required
-    unlock: await getAchievement(req.session.user.uid),
-    passed: await getPassed(req.session.user.uid),
-    score: await getScore(req.session.user.uid),
-    lesson: configString[lang].lesson,
-    general: configString[lang].general,
-    achievementList: configString[lang].achievement,
-    errorMsg: configString[lang].error,
-    ListMenu : JSON.stringify(await getMenu()),
-  };
-  res.render('home/index', data);
+  const uid = req.session.user.uid;
+  const user = await user_info.userInfo(uid)
+  try{
+    switch(user.status) {
+      case 'sucess':
+        const userInfo = user.data
+        if(!userInfo.playTutorial){
+          var data = {
+            layout: 'default',
+            user: req.session.user,
+            element: configString[lang].element.general,
+            intro: configString[lang].intro,
+            questionLogic: await getLogic(),
+            questionOperator: await getOperator(),
+            //required
+            unlock: await getAchievement(req.session.user.uid),
+            passed: await getPassed(req.session.user.uid),
+            score: await getScore(req.session.user.uid),
+            lesson: configString[lang].lesson,
+            general: configString[lang].general,
+            achievementList: configString[lang].achievement,
+            errorMsg: configString[lang].error,
+            ListMenu : JSON.stringify(await getMenu()),
+          };
+          res.render('home/index', data);
+        }else{
+          res.redirect('/tutorial');
+        }
+        break;
+      default:
+        console.error({
+          status : user.status,
+          massage : user.massage
+        })
+        break;
+    }
+    
+  }catch(e){
+    console.error(e)
+  }
+  
 });
 
 router.post('/', authen,async (req, res, next) => {

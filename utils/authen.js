@@ -8,6 +8,7 @@ var authen = function (req, res, next) {
   if (!req.session.idToken) {
     req.session.idToken = req.cookies.idToken;
   }
+
   var idToken = req.session.idToken;
   if (idToken) {
     admin.auth().verifyIdToken(idToken)
@@ -29,7 +30,7 @@ var authen = function (req, res, next) {
         req.session.destroy(function (err) {});
         res.redirect('/');
       });
-  } else {
+  }else{
     req.cookies.lang = lang;
     res.redirect('/');
   }
