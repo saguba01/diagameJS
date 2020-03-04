@@ -1117,5 +1117,5 @@ function showConfirmSignout() {
     $('#modal-confirm-signout').modal({
         'dismissible': true,
     });
-    $('#modal-language').modal('open');
+    $('#modal-confirm-signout').modal('open');
 }
