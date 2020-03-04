@@ -45,7 +45,6 @@
     }
 
 
-
     .book-button {
         width: 50px;
         height: 50px;
@@ -67,22 +66,46 @@
     }
 
 
-    .book-button.google-button {
+    .book-button.red-button {
         color: #FFFFFF;
         background-color: #cf4332;
     }
 
-    .book-button.facebook-button {
+    .book-button.blue-button {
         color: #FFFFFF;
         background-color: #3a5892;
     }
 
-    .add-button.facebook-button {
+    .add-button.blue-button {
         color: #FFFFFF;
         background-color: #3a5892;
     }
 
-    .add-button.google-button {
+    .add-button.red-button {
         color: #FFFFFF;
         background-color: #cf4332;
+    }
+
+    .input-name{
+        text-align: left;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .content-input{
+        padding: 0px 20px 20px 20px;
+        text-align: left;
+    }
+
+    .div-question{
+        width: 48%;
+    }
+    .div-question2{
+        width: 49%;
+    }
+    .div-question3{
+        width: 49%;padding-left: 1%;
+    }
+    .div-question4{
+        width: 49%;
     }
