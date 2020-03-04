@@ -1,6 +1,8 @@
 <style>
     #target{
         overflow: auto;
+        width: 100% !important;
+        padding: 0px 125px 20px 20px !important;
     }
     .targetPanel{
         left: 90px;
@@ -10,31 +12,38 @@
 <body>
         <!-- Question Area -->
         <div class="targetPanel-bg"></div>
-        <div id="target" class="center-align connectedSource noselect targetPanel ui-widget-content" style="width: 70%;">
-            <div style="padding: 0px 20px 20px 20px;">
-                <p style="text-align: left;font-size: 18px;font-weight: bold;" >Question Name</p>
-                <input id="questionInput" type="text" style="background-color: white;"/>
-                <!-- <p for="questionType" style="text-align: left;font-size: 18px;font-weight: bold;">Question Type : </p>
-                <select id="questionType" style="display: inline-block;background-color: white;">
-                    <option value="1">Logic</option>
-                    <option value="2">Operator</option>
-                </select> -->
-                <p id="validate_name" style="text-align: left;font-size: 18px;font-weight: bold;color: red;"></p>
+        <div id="target" class="center-align connectedSource noselect targetPanel ui-widget-content">
+            <div>
+                <div style="display: inline-flex;">
+                    <div style="width: 50%;">
+                        <p style="text-align: left;font-size: 18px;font-weight: bold;" >Question Name : EN</p>
+                        <input id="questionInputEN" type="text" class="textBox"/>
+                        <p id="validate_name" style="text-align: left;" class="textValidate"></p>
+                    </div>
+                    <div style="width: 50%;">
+                        <p style="text-align: left;font-size: 18px;font-weight: bold;" >Question Name : TH</p>
+                        <input id="questionInputTH" type="text" class="textBox"/>
+                        <p id="validate_name" style="text-align: left;" class="textValidate"></p>
+                    </div>
+                </div>
                 <p style="text-align: left;font-size: 18px;font-weight: bold;" >Equation
                 <button id="q_increase">+</button>
                 <button id="q_decrease">-</button>
                 </p>
                 <div id="question_text" style="overflow: hidden;">
-                    <input id="question_part1" type="text" style="background-color: white;width: 100px;"/>
+                    <input id="question_part1" type="text" class="textBox-100"/>
                     &nbsp;[TARGET]&nbsp;
-                    <input id="question_part2" type="text" style="background-color: white;width: 100px;"/>
+                    <input id="question_part2" type="text" class="textBox-100"/>
                 </div>
-                <p id="validate_question" style="font-size: 18px;font-weight: bold;color: red;"></p>
+                <p id="validate_question" class="textValidate"></p>
                 <p style="text-align: left;font-size: 18px;font-weight: bold;" >
-                    Answer (Only number or True False)
+                    Answer
                 </p>
-                <input id="answer" type="text" style="background-color: white;width: 100px;"/>
-                <p id="validate_ans" style="font-size: 18px;font-weight: bold;color: red;"></p>
+                <button id="ansTrue" class="canClick jellyButton button-tool">True</button>
+                <button id="ansFalse" class="canClick jellyButton button-tool">False</button>
+                <button id="ansNum" class="canClick jellyButton button-tool">Number</button>
+                <input id="answer" type="text" class="textBox-100" hidden/>
+                <p id="validate_ans" class="textValidate"></p>
                 <p style="text-align: left;font-size: 18px;font-weight: bold;" >Level</p>
                 <!-- Rating Stars Box -->
                 <section class='rating-widget'>
@@ -90,7 +99,7 @@ let keyId = 0;
  *@since 5 Feb 2020
  *@required javascript
  */
-function saveQuestion(logicQuestion, logicLevel, logicName, logicAnswer) {
+function saveQuestion(logicQuestion, logicLevel, logicNameEN,logicNameTH, logicAnswer) {
     console.log("save...");
     let type = "operator";
     if(logicAnswer.toLowerCase()=="true"||logicAnswer.toLowerCase()=="false"){
@@ -103,7 +112,8 @@ function saveQuestion(logicQuestion, logicLevel, logicName, logicAnswer) {
         showLoading();
         refQuestion.doc(keyId.toString()).set({
             Question: logicQuestion,
-            Name: logicName,
+            NameTH: logicNameTH,
+            NameEN: logicNameEN,
             Answer: logicAnswer,
             Level : logicLevel,
             Type : type
@@ -118,10 +128,8 @@ function saveQuestion(logicQuestion, logicLevel, logicName, logicAnswer) {
 }
 
 $(document).ready(function(){
-
     let question_partcount = 2; //question amount
     let target_count = 1;
-
     //add answer in question
     $('#q_increase').click(function(){
         question_partcount++;
@@ -146,12 +154,14 @@ $(document).ready(function(){
     //save button click
     $('#saveButton').click(function(){
         //console.log("save data:");
-        let logicName = document.getElementById("questionInput").value;
+        let logicNameEN = document.getElementById("questionInputEN").value;
+        let logicNameTH = document.getElementById("questionInputTH").value;
         let logicQuestion = document.getElementById("question_part1").value;
         let logicAnswer = document.getElementById("answer").value;
         let logicLevel = document.getElementById("ratingStar").value;
         //condition
-        let checkNameNull = logicName == "";
+        let checkNameNullEN = logicNameEN == "";
+        let checkNameNullTH = logicNameTH == "";
         let checkAnsNull = logicAnswer == "";
         let checkQuestionNull = logicQuestion == "";
         let numQuestionFail = 0;
@@ -170,12 +180,19 @@ $(document).ready(function(){
                 logicQuestion = logicQuestion + " {target} " + q_part;
             }
         }
-        if(checkNameNull||checkAnsNull||checkQuestionNull){
-            if(checkNameNull){
-                $("#questionInput").addClass("redBorder");
-                $("#validate_name").text("Please fill in Question Name.");
+        if(checkNameNullEN||checkNameNullTH||checkAnsNull||checkQuestionNull){
+            if(checkNameNullEN){
+                $("#questionInputEN").addClass("redBorder");
+                $("#validate_name").text("Please fill in Question Name English.");
             }else{
-                $("#questionInput").removeClass("redBorder");
+                $("#questionInputEN").removeClass("redBorder");
+                $("#validate_name").text("");
+            }
+            if(checkNameNullTH){
+                $("#questionInputTH").addClass("redBorder");
+                $("#validate_name").text("Please fill in Question Name Thai.");
+            }else{
+                $("#questionInputTH").removeClass("redBorder");
                 $("#validate_name").text("");
             }
             if(checkAnsNull){
@@ -196,7 +213,7 @@ $(document).ready(function(){
                 }
             }
         }else{
-            saveQuestion(logicQuestion,logicLevel,logicName,logicAnswer);
+            saveQuestion(logicQuestion,logicLevel,logicNameEN,logicNameTH,logicAnswer);
         }
     });
 
@@ -236,6 +253,19 @@ $(document).ready(function(){
         document.getElementById("ratingStar").value = ratingValue;
         // console.log(ratingValue);
         // console.log(document.getElementById("ratingStar").value);
+    });
+    //answer click
+    $('#ansNum').click(function(){
+        document.getElementById("answer").removeAttribute("hidden");
+        document.getElementById("answer").value = "";
+    });
+    $('#ansTrue').click(function(){
+        document.getElementById("answer").setAttribute("hidden","hidden");
+        document.getElementById("answer").value = "true";
+    });
+    $('#ansFalse').click(function(){
+        document.getElementById("answer").setAttribute("hidden","hidden");
+        document.getElementById("answer").value = "false";
     });
 });
 </script>
