@@ -1,0 +1,20 @@
+.textBox{
+    background-color: white !important;
+    border: solid 5px #000000 !important;
+    padding-left: 10px !important;
+    font-size: 20px !important;
+}
+
+.textBox-100{
+    background-color: white !important;
+    border: solid 5px #000000 !important;
+    padding-left: 10px !important;
+    font-size: 20px !important;
+    width: 100px !important;
+}
+
+.textValidate{
+    font-size: 18px;
+    font-weight: bold;
+    color: red;
+}
