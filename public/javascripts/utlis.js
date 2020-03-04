@@ -1101,12 +1101,16 @@ function changeAvatar(element){
  */
 function saveUserInfo(){
     let refUserInfo = firestore.collection("UserInfo");
+    if(typeof document.getElementById("selectavatar").value == "undefined"){
+        document.getElementById("selectavatar").value = "robot-01.svg";
+    }
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
             refUserInfo.doc(user.uid).set({
                 avatar: document.getElementById("selectavatar").value,
                 nickname: document.getElementById("username").value,
-                role:"user"
+                role:"user",
+                score:0
             });
         }
     });
