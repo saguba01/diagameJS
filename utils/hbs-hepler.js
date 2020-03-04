@@ -501,13 +501,14 @@ handlebars.registerHelper('listquestion', function(question,scoreh){
   var html = '';
   var index = 0;
   var type = '';
-  var score = 0;
-  var max = 0;
   var color = ["bg-red","bg-purple","bg-blue","bg-sky-blue","bg-light-green","bg-orange","bg-nude"];
   if(Object.getOwnPropertyNames(question).length === 0){
         html += 'ggg';
   }else{
     question.forEach(function (qs){
+    var mark = 0;
+    var score = 0;
+    var max = 0;
     if(qs.Type == 'logic'){
       type = 'logic';
     }else if(qs.Type == 'operator'){
@@ -518,7 +519,19 @@ handlebars.registerHelper('listquestion', function(question,scoreh){
     html += '<div target="/lesson/'+type+'/'+qs.Id+'" class="'+color[index]+' qs canClick" style="margin-left:40px; padding-right:1px; border:2px solid black">';
     html += '<div class="list-lesson-title" id="lesson-logic">';
     html += qs.Name;
+    scoreh.forEach(function (sc){
+      if(sc.questionId == '/Logic/'+qs.Id){
+        mark = 1;
+       if(sc.score > max){
+         score = sc.score;
+         max = score;
+       }
+      }
+    })
     html += '<div class="menu-block " style="float:right;">';
+    if(mark == 1){
+    html += '<span class="mark-question"></span>';
+    }
     html += '</div>';
     html += '<br>';
     html += 'Level:';
@@ -529,18 +542,9 @@ handlebars.registerHelper('listquestion', function(question,scoreh){
     html += '</div>';
     html += '<div class="list-lesson-score" id="score">';
     html += 'Score:'
-    scoreh.forEach(function (sc){
-          if(sc.logicId == '/Logic/'+qs.Id){
-           if(sc.score > max){
-             score = sc.score;
-             max = score;
-           }
-          }
-    })
     html += score;
     html += '</div>';
     html += '</div>';
-    score = 0;
     index++;
     if(index > 6){
       index = 0;
@@ -577,14 +581,14 @@ handlebars.registerHelper('listscore',function(score){
   var color = ["list-bg-blue","list-bg-white"]
   score.forEach(function (sc){
     html += '<div class="list-table-leaderboard '+color[index]+'">';
-    html += no+' '+sc.uid;
+    html += no+' '+sc.nickname;
     html += '</div>';
     index++;
     no++;
     if(index >= 1){
         index = 0;
     }
-  })
+  });
   return new handlebars.SafeString(html);
 });
 
@@ -687,7 +691,7 @@ handlebars.registerHelper('listprogressbar',function(feedback){
     html += '<div class="side">';
     html += '<span>'+i+'</span><i class="fa fa-star fa-fw" style="color:#FECF36;"></i>';
     html += '</div>';
-    html += '<div class="middle hint--top" aria-label="'+level[index]+'">';
+    html += '<div class="mid hint--top" aria-label="'+level[index]+'">';
     html += '<div class="progressbars">';
     html += '<div class="'+color[index]+' stars" style="width:'+percent[index]+'%"></div>';
     html += '</div>';

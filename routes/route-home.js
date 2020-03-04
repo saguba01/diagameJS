@@ -148,7 +148,7 @@ async function getScore(uid){
     let refscore = firestore.collection('ScoreHistory');
     refscore.get().then(doc=>{
       doc.forEach(element => {
-        if(element.data().uid == 'pgZMfXfiDkcP3wFE31OWUNvmQdI3'){
+        if(element.data().uid == uid){
         score.push(element.data())
         }
       })
