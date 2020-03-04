@@ -31,3 +31,13 @@
     border-color: red !important;
     border-width: 3px !important ;
 }
+
+.redBorder2{
+    border-color: red !important;
+    background-color: rgb(241, 187, 203)!important;
+}
+
+i.fa.fa-star.fa-fw{
+    -webkit-text-stroke: black;
+    -webkit-text-stroke-width: 3px;
+}
