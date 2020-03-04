@@ -136,7 +136,7 @@
     <!-- Variable -->
     <div class="panelleft" style="width:500px;height: 650px;position: absolute;">
         <div class="innerpage">
-            <p class="lesson-title noselect" guide="lesson">Variable</p>
+            <p class="lesson-title noselect" guide="lesson">{{ lesson.variable.text }}</p>
             <div guide="lesson" target="/lesson/{{ lesson.variable.url }}/{{ lesson.variable.subLesson.juice.url }}"
                 class="postit postit-top-right bg-orange canClick">
                 {{ lesson.variable.subLesson.juice.text }}</div>
@@ -158,7 +158,7 @@
         <!-- IO -->
         <div class="panelright">
             <div class="innerpage">
-                <p class="lesson-title noselect">Diagram</p>
+                <p class="lesson-title noselect">{{ lesson.diagram.text }}</p>
                 <div class="list-question" id="listoperator">
                     {{ listquestion questionDiagram score}}
                 </div>

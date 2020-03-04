@@ -516,7 +516,7 @@ handlebars.registerHelper('listquestion', function(question,scoreh){
     }else{
       type = 'diagram';
     }
-    html += '<div target="/lesson/'+type+'/'+qs.Id+'" class="'+color[index]+' qs canClick" style="margin-left:40px; padding-right:1px; border:2px solid black">';
+    html += '<div target="/lesson/'+type+'/'+qs.Id+'" class="'+color[index]+' qs canClick" style="margin-left:40px; padding-right:1px; padding-left:6px; border:2px solid black">';
     html += '<div class="list-lesson-title" id="lesson-logic">';
     html += qs.Name;
     scoreh.forEach(function (sc){

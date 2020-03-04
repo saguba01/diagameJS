@@ -546,13 +546,6 @@ body {
     overflow-y: overlay;
 }
 
-:root {
-    --borderWidth: 7px;
-    --height: 24px;
-    --width: 12px;
-    --borderColor: #78b13f;
-  } 
-
 .mark-question{
     display: inline-block;
     transform: rotate(45deg);
