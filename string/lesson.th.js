@@ -18,6 +18,10 @@ module.exports = {
             }
         }
     },
+    diagram:{
+        text: 'ไดอะแกรม',
+        url: 'diagram',
+    },
     io: {
         text: 'นำเข้าและแสดงผล',
         url: 'io',

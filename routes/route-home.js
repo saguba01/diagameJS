@@ -4,12 +4,15 @@ var authen = require('../utils/authen');
 var configString = require('../app').configString;
 var firestore = require('../configs/firebase-config').firestore;
 var user_info = require('../public/javascripts/userInfo');
+var setting = require('../public/javascripts/setting');
+
 /* 
  * name: homePage
  * description: open home page
  * author: Bulakorn M.
  * create date: 25/01/2019
  * 
+ * name: Edit list Question
  * author: Jirapat L.
  * modify date: 12/02/2020
  */
@@ -24,20 +27,26 @@ router.get('/', authen, async (req, res, next) => {
         if(!userInfo.playTutorial){
           var data = {
             layout: 'default',
+            navBar: true,
             user: req.session.user,
             element: configString[lang].element.general,
             intro: configString[lang].intro,
-            questionLogic: await getLogic(),
-            questionOperator: await getOperator(),
+            questionLogic: await getLogic(lang),
+            questionOperator: await getOperator(lang),
+            questionDiagram: await getDiagram(lang),
             //required
             unlock: await getAchievement(req.session.user.uid),
             passed: await getPassed(req.session.user.uid),
             score: await getScore(req.session.user.uid),
+            feedback:general.feedback,
             lesson: configString[lang].lesson,
             general: configString[lang].general,
             achievementList: configString[lang].achievement,
             errorMsg: configString[lang].error,
             ListMenu : JSON.stringify(await getMenu()),
+            ListMenu: JSON.stringify(await getMenu()),
+            setting:general.setting,
+            button:general.button
           };
           res.render('home/index', data);
         }else{
@@ -55,10 +64,9 @@ router.get('/', authen, async (req, res, next) => {
   }catch(e){
     console.error(e)
   }
-  
 });
 
-router.post('/', authen,async (req, res, next) => {
+router.post('/', authen, async (req, res, next) => {
   let lang = req.cookies.lang;
   await getPassed(req.session.user.uid);
   var data = {
@@ -69,6 +77,8 @@ router.post('/', authen,async (req, res, next) => {
     intro: configString[lang].intro,
     questionLogic: await getLogic(),
     questionOperator: await getOperator(),
+    questionDiagram: await getDiagram(lang),
+    feedback:general.feedback,
     //required
     unlock: await getAchievement(req.session.user.uid),
     passed: await getPassed(req.session.user.uid),
@@ -120,7 +130,7 @@ async function getMenu() {
     } else {
       Menu.push(doc.data());
     }
-     
+
   }).catch(function (error) {
     console.log(error);
     Menu.push(error);
@@ -128,54 +138,92 @@ async function getMenu() {
   return Menu;
 }
 
-async function getLogic(){
-    var question = [];
-    let refquestion = firestore.collection('Logic').orderBy('Level');
-    await refquestion.get().then((doc)=>{
-          doc.forEach(element => {
-            if(element.data().Type == "logic"){
-            question.push({
-              Name:element.data().Name,
-              Type:element.data().Type,
-              Level:element.data().Level,
-              Id : element.id
-            })
-            }
-          })  
-    });
-    return question;
-}
-
-async function getOperator(){
+async function getLogic(lang) {
   var question = [];
   let refquestion = firestore.collection('Logic').orderBy('Level');
-  refquestion.get().then((doc)=>{
-        doc.forEach(element => {
-          if(element.data().Type == "operator"){
-            question.push({
-              Name:element.data().Name,
-              Type:element.data().Type,
-              Level:element.data().Level,
-              Id : element.id
-            })
-          }
-        })
+  await refquestion.get().then((doc) => {
+    doc.forEach(element => {
+      if (element.data().Type == "logic") {
+        if (lang == 'en') {
+          question.push({
+            Name: element.data().NameEN,
+            Type: element.data().Type,
+            Level: element.data().Level,
+            Id: element.id
+          })
+        }else if(lang == 'th'){
+          question.push({
+            Name: element.data().NameTH,
+            Type: element.data().Type,
+            Level: element.data().Level,
+            Id: element.id
+          })
+        }
+      }
+    })
   });
   return question;
 }
 
-async function getScore(uid){
-    var score = [];
-    let refscore = firestore.collection('ScoreHistory');
-    refscore.get().then(doc=>{
-      doc.forEach(element => {
-        if(element.data().uid == uid){
-        score.push(element.data())
+async function getOperator(lang) {
+  var question = [];
+  let refquestion = firestore.collection('Logic').orderBy('Level');
+  refquestion.get().then((doc) => {
+    doc.forEach(element => {
+      if (element.data().Type == "operator") {
+        if (lang == 'en') {
+          question.push({
+            Name: element.data().NameEN,
+            Type: element.data().Type,
+            Level: element.data().Level,
+            Id: element.id
+          })
+        }else if(lang == 'th'){
+          question.push({
+            Name: element.data().NameTH,
+            Type: element.data().Type,
+            Level: element.data().Level,
+            Id: element.id
+          })
         }
-      })
+      }
     })
+  });
+  return question;
+}
+
+async function getScore(uid) {
+  var score = [];
+  let refscore = firestore.collection('ScoreHistory');
+  refscore.get().then(doc => {
+    doc.forEach(element => {
+      if (element.data().uid == uid) {
+        score.push(element.data())
+      }
+    })
+  })
   return score;
 }
 
+async function getDiagram(lang) {
+  var diagram = [];
+  let refdiagram = firestore.collection('Diagram');
+  refdiagram.get().then(doc => {
+    doc.forEach(element => {
+      if (lang == 'en') {
+        diagram.push({
+          Name: element.data().NameEng,
+          Level: element.data().Level
+        });
+      } else if (lang == 'th') {
+        diagram.push({
+          Name: element.data().NameTh,
+          Level: element.data().Level
+        });
+      }
+    })
+  })
+  return diagram;
+}
 
 module.exports = router;

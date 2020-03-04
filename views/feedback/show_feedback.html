@@ -1,7 +1,10 @@
 <header>
     <link rel="stylesheet" href="/stylesheets/style-admin.css">
+    <link rel="stylesheet" href="/stylesheets/style-navbar.css">
+    <link rel="stylesheet" href="/stylesheets/style-feedback.css">
+    <link rel="stylesheet" href="/stylesheets/hint/hint.css"/>
 </header>
-<div id="book" style="display: table;margin: auto;margin-top: 80px;">
+<div id="book" style="display: table;margin: auto;margin-top: 40px;">
     <div class="book">
         <div class=" cover">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -133,19 +136,31 @@
         </div>
     </div>
 
-    <!-- Variable -->
+    <!-- Feedback -->
     <div class="panelleft" style="width:500px;height: 650px;position: absolute;">
         <div class="innerpage">
             <p class="lesson-title noselect" guide="lesson">Feedback</p>
-            
+            {{ ratingstar-feedback feedback }}
+            <!-- Start Progress Bar -->
+            <div id="list-progressbars"> 
+                {{ listprogressbar feedback }}
+            </div>
+            <!-- End Progress Bar -->
         </div>
     </div>
 
     <div id="flipbook">
-        <!-- IO -->
+        <!-- Comments -->
         <div class="panelright">
             <div class="innerpage">
                 <p class="lesson-title noselect" guide="lesson">Comments</p>
+                <div class="sort-version" style="padding-left:300px;">
+                <select class="bg-blue sort-select" id="sort-comment" onchange="newComment()">
+                        <option value="1" selected>Version  1</option>
+                        <option value="2" >Version 2</option>
+                </select>
+                </div>
+                <br>
                 <div class="list-question" id="listlogic">
                     {{ listcomment feedback }}
                 </div>
@@ -159,6 +174,7 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+
         
       // console.log(JSON.parse($('#ListMenu').val()))
         
@@ -315,5 +331,25 @@
                     $("#flipbook").turn("disable", false);
                 });
         }, 2000);
+    }
+</script>
+
+<script>
+    function newComment(){
+        var ver = $('#sort-comment').val();
+        $.ajax({
+            url: "",
+            type: "POST",
+            dataType: "json",
+            data:{
+                version:ver,
+            },
+            success:function(){
+
+            },
+            error:function(){
+
+            },
+        });
     }
 </script>

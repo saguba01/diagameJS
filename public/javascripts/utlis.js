@@ -9,24 +9,25 @@ $.fn.center = function () {
 var baseUrl = window.location.protocol + '//' + window.location.host;
 var progressInterval;
 var oldLang = Cookies.get('lang')
-var soundMusic = (localStorage.getItem("soundMusic")== null ? "true" :localStorage.getItem("soundMusic"))
-var soundMaster = (localStorage.getItem("soundMaster") == null ? "true" :localStorage.getItem("soundMaster") )
+var soundMusic = (localStorage.getItem("soundMusic") == null ? "true" : localStorage.getItem("soundMusic"))
+var soundMaster = (localStorage.getItem("soundMaster") == null ? "true" : localStorage.getItem("soundMaster"))
 var playsoundMusic = null
 var playsoundMaster = null
 
-$(document).ready(()=>{
-    playSoundEx('fun',true);
-    $('#changeLangThai').click(()=>{
+$(document).ready(() => {
+    playSoundEx('fun', true);
+    $('#changeLangThai').click(() => {
         playSoundEx('click');
         setLanguage('th')
         closeModal('#modal-language')
     })
 
-    $('#changeLangEng').click(()=>{
+    $('#changeLangEng').click(() => {
         playSoundEx('click');
         setLanguage('en')
         closeModal('#modal-language')
     })
+    ratingstart();
 })
 
 /*
@@ -165,8 +166,8 @@ function signUpWithEmailAndPassword(username, email, password) {
         .then(function (result) {
             var user = firebase.auth().currentUser;
             user.updateProfile({
-                    displayName: username
-                })
+                displayName: username
+            })
                 .then(function () {
                     newUser(user,username)
                     signInWithEmailAndPassword(email, password);
@@ -268,7 +269,7 @@ function signInWithGoogle() {
         });
 }
 
-function playSoundEx(type,loop = false) {
+function playSoundEx(type, loop = false) {
     var pop_sound = new Audio(baseUrl + '/assets/sound/pop.mp3');
     var drop_sound = new Audio(baseUrl + '/assets/sound/drop.wav');
     var error_sound = new Audio(baseUrl + '/assets/sound/incorrect.wav');
@@ -279,8 +280,8 @@ function playSoundEx(type,loop = false) {
     const fun_sound = new Audio(baseUrl + '/assets/sound/sound-fun.mp3');
     const step_sound = new Audio(baseUrl + '/assets/sound/step.mp3');
     const step_end_sound = new Audio(baseUrl + '/assets/sound/step-end.mp3');
-    
-    const oldSoundMusic =  (localStorage.getItem("soundMusic")== null ? "true" :localStorage.getItem("soundMusic"))
+
+    const oldSoundMusic = (localStorage.getItem("soundMusic") == null ? "true" : localStorage.getItem("soundMusic"))
     const oldSoundMaster = localStorage.getItem("soundMaster");
 
     pop_sound.volume = 0.2;
@@ -289,8 +290,8 @@ function playSoundEx(type,loop = false) {
     fun_sound.volume = 0.5;
     step_sound.volume = 0.3;
     step_sound.volume = 0.3;
- 
-    if(oldSoundMaster == "true" || typeof oldSoundMaster == 'undefined' || typeof oldSoundMaster == 'null' || oldSoundMaster == null){
+
+    if (oldSoundMaster == "true" || typeof oldSoundMaster == 'undefined' || typeof oldSoundMaster == 'null' || oldSoundMaster == null) {
         if (type == 'drop') {
             const playPromise = drop_sound.play();
             if (playPromise !== null) {
@@ -319,48 +320,48 @@ function playSoundEx(type,loop = false) {
                     correct_sound.play();
                 });
             }
-        }else if (type == 'complete'){
+        } else if (type == 'complete') {
             const playPromise = complete_sound.play();
             if (playPromise !== null) {
                 playPromise.catch(() => {
                     complete_sound.play();
                 });
             }
-        }else if (type == 'achievement'){
+        } else if (type == 'achievement') {
             const playPromise = achievement_sound.play();
             if (playPromise !== null) {
                 playPromise.catch(() => {
                     achievement_sound.play();
                 });
             }
-        }else if (type == 'click'){
+        } else if (type == 'click') {
             const playPromise = click_sound.play();
             if (playPromise !== null) {
                 playPromise.catch(() => {
                     click_sound.play();
                 });
             }
-        }else if (type == 'step'){
+        } else if (type == 'step') {
             const playPromise = step_sound.play();
             if (playPromise !== null) {
                 playPromise.catch(() => {
                     step_sound.play();
                 });
             }
-        }else if (type == 'step-end'){
+        } else if (type == 'step-end') {
             const playPromise = step_end_sound.play();
             if (playPromise !== null) {
                 playPromise.catch(() => {
                     step_end_sound.play();
                 });
             }
-        } 
+        }
     }
-    if (type == 'fun'){
-       
+    if (type == 'fun') {
+
         fun_sound.loop = loop
         playsoundMusic = fun_sound
-        if(oldSoundMusic == 'true'){
+        if (oldSoundMusic == 'true') {
             const playPromise = playsoundMusic.play();
             if (playPromise !== null) {
                 playPromise.catch(() => {
@@ -369,7 +370,7 @@ function playSoundEx(type,loop = false) {
             }
         }
     }
-    
+
 }
 
 /*
@@ -401,7 +402,7 @@ function notice(timeOut, type, text, title, callback) {
         "hideEasing": "linear",
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut",
-        "onShown": function () {},
+        "onShown": function () { },
         "onHidden": function () {
             callback ? callback() : '';
         },
@@ -430,8 +431,8 @@ function showError(title, message) {
             $('#modal-alert>.modal-content>.alert-title').html(title);
             $('#modal-alert>.modal-content>.alert-content').html(message);
         },
-        'onOpenEnd': function () {},
-        'onCloseStart': function () {},
+        'onOpenEnd': function () { },
+        'onCloseStart': function () { },
         'onCloseEnd': function () {
             $('#modal-alert>.modal-content>.alert-title').empty();
             $('#modal-alert>.modal-content>.alert-content').empty();
@@ -462,10 +463,10 @@ function closeModal(modal) {
 //     document.cookie = 'lang=' + lang;
 //     window.location.replace('/home');
 // }
-function setLanguage(setlang){
+function setLanguage(setlang) {
     const lang = Cookies.get('lang');
     localStorage.setItem("langSelected", true);
-    if(lang != setlang ){
+    if (lang != setlang) {
         blockUI();
         Cookies.set('lang', setlang);
         location.reload();
@@ -473,24 +474,24 @@ function setLanguage(setlang){
 }
 
 /*
- *Description: Chabge language on modal setting
+ *Description: Change language on modal setting
  *@version 1.0
  *@author Supachai Boonying
  *@since 20 Feb 2020
  *@required javascript
  */
-function editLanguage(setlang){
+function editLanguage(setlang) {
     playSoundEx('click');
     $('#setting-language').val(setlang)
-    
+
     $('#setting-lang-thai').removeClass('blur');
     $('#setting-lang-eng').removeClass('blur');
 
     $('#setting-lang-thai').removeClass('unblur');
     $('#setting-lang-eng').removeClass('unblur');
 
-    $('#setting-lang-thai').addClass(( setlang == 'en' ?'blur' :'unblur' ));
-    $('#setting-lang-eng').addClass(( setlang == 'en' ? 'unblur' :'blur' ));
+    $('#setting-lang-thai').addClass((setlang == 'en' ? 'blur' : 'unblur'));
+    $('#setting-lang-eng').addClass((setlang == 'en' ? 'unblur' : 'blur'));
 }
 /*
  *Description: Open home page with filpbook page number.
@@ -614,7 +615,7 @@ function showAchievement(photo, title, content, nextFlag = false) {
                     // `el` property is the SVG element
                     myVivus.el.setAttribute('height', '100%');
                     myVivus.el.setAttribute('width', '100%');
-                    vivus.play(animationSpeed, function () {});
+                    vivus.play(animationSpeed, function () { });
                     $('#menu-photo>svg').each(function (index, obj) {
                         if (index != 0) {
                             $(obj).detach();
@@ -633,7 +634,7 @@ function showAchievement(photo, title, content, nextFlag = false) {
                 showCursor: false
             });
         },
-        'onCloseStart': function () {},
+        'onCloseStart': function () { },
         'onCloseEnd': function () {
             $('#modal-achievement>.modal-content>.achievement-photo').empty();
             $('#modal-achievement>.modal-content>.achievement-title').empty();
@@ -664,7 +665,7 @@ function nextPage(target) {
 function showNavigator(content) {
     $('#modal-navigator').modal({
         'dismissible': false,
-        'onOpenStart': function () {},
+        'onOpenStart': function () { },
         'onOpenEnd': function () {
             $('.navigator-content').text(content);
         }
@@ -681,7 +682,7 @@ function showNavigator(content) {
 function showSaveStatus(content) {
     $('#modal-addQuestion').modal({
         'dismissible': false,
-        'onOpenStart': function () {},
+        'onOpenStart': function () { },
         'onOpenEnd': function () {
             $('.addQuestion-content').text(content);
         }
@@ -698,7 +699,7 @@ function showSaveStatus(content) {
 function showLoading() {
     $('#modal-saving').modal({
         'dismissible': false,
-        'onOpenStart': function () {},
+        'onOpenStart': function () { },
         'onOpenEnd': function () {
             $('.addQuestion-content').text();
         }
@@ -747,8 +748,8 @@ function showWelcome() {
             // $('#modal-wellcome>.modal-content>.wellcome-title').html(title);
             // $('#modal-wellcome>.modal-content>.wellcome-content').html(message);
         },
-        'onOpenEnd': function () {},
-        'onCloseStart': function () {},
+        'onOpenEnd': function () { },
+        'onCloseStart': function () { },
         'onCloseEnd': function () {
             // $('#modal-wellcome>.modal-content>.wellcome-title').empty();
             // $('#modal-wellcome>.modal-content>.wellcome-content').empty();
@@ -779,11 +780,11 @@ function showLanguage() {
  *@since 20 Feb 2020
  *@required javascript
  */
-function showSetting(flag_thai='',flag_eng='') {
+function showSetting(flag_thai = '', flag_eng = '') {
     $('#modal-setting').modal({
         'dismissible': true,
         'onOpenStart': function () {
-            const flagSelect=  $('.flag-select-setting')
+            const flagSelect = $('.flag-select-setting')
             const lang = Cookies.get('lang');
             const th = $('<div></div>')
             const eng = $('<div></div>')
@@ -795,37 +796,37 @@ function showSetting(flag_thai='',flag_eng='') {
             
             th.attr('id','setting-lang-thai') 
                 .html(
-                    $('<span></span>').css({'margin-left':'27px'})
+                    $('<span></span>').css({ 'margin-left': '27px' })
                         .html(flag_thai)
-                ).attr('onclick',"editLanguage('th')")    
-            eng.attr('id','setting-lang-eng') 
+                ).attr('onclick', "editLanguage('th')")
+            eng.attr('id', 'setting-lang-eng')
                 .html(
-                    $('<span></span>').css({'margin-left':'14px'})
+                    $('<span></span>').css({ 'margin-left': '14px' })
                         .html(flag_eng)
-                ).attr('onclick',"editLanguage('en')")      
-            if(typeof lang === 'undefined' ){
+                ).attr('onclick', "editLanguage('en')")
+            if (typeof lang === 'undefined') {
                 th.addClass('bg-nude flag-thai canClick blur');
                 eng.addClass('bg-nude flag-eng canClick unblur');
-            }else{
-                th.addClass('bg-nude flag-thai canClick '+( lang == 'en' ?'blur' :'unblur' ));
-                eng.addClass('bg-nude flag-eng canClick '+( lang == 'en' ? 'unblur' :'blur' ));
+            } else {
+                th.addClass('bg-nude flag-thai canClick ' + (lang == 'en' ? 'blur' : 'unblur'));
+                eng.addClass('bg-nude flag-eng canClick ' + (lang == 'en' ? 'unblur' : 'blur'));
             }
             flagSelect.append(th).append(eng)
             
             if(soundMaster == "false"){
                 eleSoundMaster.html(
                     $('<div></div>').addClass('btn-close-sound').html("")
-                ) 
+                )
             }
 
-            if(soundMusic == "false"){
+            if (soundMusic == "false") {
                 eleSoundMusic.html(
                     $('<div></div>').addClass('btn-close-sound').html("")
-                ) 
+                )
             }
         },
-        'onOpenEnd': function () {},
-        'onCloseStart': function () {},
+        'onOpenEnd': function () { },
+        'onCloseStart': function () { },
         'onCloseEnd': function () {
             $('.flag-select-setting').empty()
             $('.btn-main-music').empty()
@@ -842,16 +843,16 @@ function showSetting(flag_thai='',flag_eng='') {
  *@since 20 Feb 2020
  *@required javascript
  */
-function editsoundMusic(){
+function editsoundMusic() {
     playSoundEx('click');
     const ele = $('.btn-main-music')
     const check = soundMusic
-    if(check == "true"){
+    if (check == "true") {
         ele.html(
             $('<div></div>').addClass('btn-close-sound').html("")
         )
         soundMusic = "false"
-    }else{
+    } else {
         ele.empty()
         soundMusic = "true"
     }
@@ -865,16 +866,16 @@ function editsoundMusic(){
  *@since 20 Feb 2020
  *@required javascript
  */
-function editsoundMaster(){
+function editsoundMaster() {
     playSoundEx('click');
     const ele = $('.btn-main-sound')
     const check = soundMaster
-    if(check == "true"){
+    if (check == "true") {
         ele.html(
             $('<div></div>').addClass('btn-close-sound').html("")
         )
         soundMaster = "false"
-    }else{
+    } else {
         ele.empty()
         soundMaster = "true"
     }
@@ -889,21 +890,136 @@ function editsoundMaster(){
  *@required javascript
  */
 
-function applySetting(){
+function applySetting() {
     const newLang = $('#setting-language').val()
-    if(soundMusic != localStorage.getItem("soundMusic") ){
-        if( soundMusic == "true"){  
+    if (soundMusic != localStorage.getItem("soundMusic")) {
+        if (soundMusic == "true") {
             playsoundMusic.play()
-        }else{
+        } else {
             playsoundMusic.pause()
         }
         localStorage.setItem("soundMusic", soundMusic);
     }
     localStorage.setItem("soundMaster", soundMaster);
-    if(newLang != ''){
+    if (newLang != '') {
         setLanguage(newLang)
     }
     closeModal('#modal-setting');
+}
+
+/*
+ *Description: Show modal Feedback
+ *@version 1.0
+ *@author Jirapat Lapudomsakda
+ *@since 26 Feb 2020
+ *@required javascript
+ */
+
+function showFeedback() {
+    $('#modal-feedback').modal({
+        'dismissible': true,
+    });
+    var stars = $('#stars li').parent().children('li.star');
+    for (i = 0; i < stars.length; i++) {
+        $(stars[i]).removeClass('selected');
+    }
+    $("#ratingStar").val(0);
+    $("#comment-feedback").val('');
+    $('#modal-feedback').modal('open');
+}
+
+/*
+*Description: Save feedback to Firebase
+*@version 1.0
+*@author Jirapat Lapudomsakda
+*@since 26 Feb 2020
+*@required javascript
+*/
+
+function saveFeedback(name) {
+    console.log('savefeedback...');
+    var stars = $("#ratingStar").val();
+    var comment = $("#comment-feedback").val();
+    if(comment == ""){
+        comment = "empty";
+    }
+    if (stars != 0) {
+        showLoading();
+        let refFeedback = firestore.collection('Feedback');
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth();
+        var HH = today.getHours();
+        var MM = today.getMinutes();
+        var SS = today.getSeconds();
+        var yyyy = today.getFullYear();
+        refFeedback.add({
+            Comment: comment,
+            Level: stars,
+            Name: name,
+            Version: 1,
+            date:twoDigit(dd)+"/"+twoDigit(mm)+"/"+yyyy+"T"+twoDigit(HH)+":"+twoDigit(MM)+":"+twoDigit(SS)
+        }).then(ref => {
+            $("#ratingStar").val('');
+            $("#comment-feedback").val('');
+            closeModal('#modal-feedback');
+            closeLoading();
+            location.reload();
+        });
+    } else {
+        showError('','กรุณาเลือกดาวเพื่อให้คะแนน Feedback');
+    }
+    //console.log(comment);
+    //console.log(stars);
+}
+
+
+/*
+ *Description: Rating star
+ *@version 1.0
+ *@author Thanawin
+ *@since 26 Feb 2020
+ *@required javascript
+ */
+
+function ratingstart() {
+    //Visualizing things on Hover
+    $('#stars li').on('mouseover', function () {
+        var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+        // highlight all the stars that's not after the current hovered star
+        $(this).parent().children('li.star').each(function (e) {
+            if (e < onStar) {
+                $(this).addClass('hover');
+            }
+            else {
+                $(this).removeClass('hover');
+            }
+        });
+    }).on('mouseout', function () {
+        $(this).parent().children('li.star').each(function (e) {
+            $(this).removeClass('hover');
+        });
+    });
+    //Action to perform on click
+    $('#stars li').on('click', function () {
+        var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+        var stars = $(this).parent().children('li.star');
+
+        for (i = 0; i < stars.length; i++) {
+            $(stars[i]).removeClass('selected');
+        }
+
+        for (i = 0; i < onStar; i++) {
+            $(stars[i]).addClass('selected');
+        }
+
+        // JUST RESPONSE (Not needed)
+        var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+        //set input level
+        document.getElementById("ratingStar").value = ratingValue;
+        console.log(ratingValue);
+        //console.log(document.getElementById("ratingStar").value);
+    });
 }
 
 /*
@@ -913,6 +1029,7 @@ function applySetting(){
  *@since 20 Feb 2020
  *@required javascript
  */
+
 function showAvatarModal(){
     $('#modal-showAvatar').modal({
         'onOpenStart': function () {

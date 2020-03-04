@@ -21,6 +21,11 @@ body {
     background-image: url('../assets/svg/wood-background.svg');
 }
 
+textarea{
+    font-family: "Mali", cursive;
+    font-size:20px;
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 13px;
@@ -118,4 +123,9 @@ background-image: url("/assets/svg/flag/united-kingdom.svg");
 background-size: 90% auto;
 background-repeat: no-repeat;
 background-position: center;
+}
+
+.rating-stars{
+    text-align:center;
+    font-size:30px;
 }

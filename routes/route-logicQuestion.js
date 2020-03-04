@@ -56,7 +56,8 @@ router.get('/edit/:id', authen, function (req, res, next) {
       //data for edit
       logicId: req.params.id,
       answer: doc.data().Answer,
-      name: doc.data().Name,
+      nameEN: doc.data().NameEN,
+      nameTH: doc.data().NameTH,
       question: doc.data().Question,
       level: doc.data().Level
     };
