@@ -1,8 +1,7 @@
 <div class="dia-row">
     <div class="card dia-6 bg-light-green" >
-        <div class="canClick card-icon card-icon-search"></div>
         <div class="card-heading" style="color: black;">
-            <span>จำนวนผู้ใช้งานระบบทั้งหมด</span>
+            <span>{{ dashboard.card.total_user.title}}</span>
             
         </div>
         <div class="card-body">
@@ -13,14 +12,14 @@
             </div>
         </div>
         <div class="card-footer">
-            <span class="text-danger">คน</span>
+            <span class="text-danger">{{ dashboard.card.total_user.unit}}</span>
         </div>
     </div>
 
     <div class="card dia-6 bg-orange" >
         
         <div class="card-heading" style="color: black;">
-            <span>จำนวนโจทย์มั้งหมดภายในระบบ</span>
+            <span>{{ dashboard.card.total_question.title}}</span>
             
         </div>
         <div class="card-body">
@@ -30,35 +29,51 @@
             </div>
         </div>
         <div class="card-footer">
-            <span class="text-danger">ข้อ</span>
+            <span class="text-danger">{{ dashboard.card.total_question.unit}}</span>
         </div>
     </div>
     
 </div>
 <div class="dia-row">
     <div class="panel panel-default dia-12">
-        <div class="panel-heading">Panel Heading</div>
+        <div class="panel-heading">{{dashboard.report.line.play_questions.title}}</div>
         <div class="panel-body">
-            <div id="line2" style="min-width: 310px; height: 400px; max-width: 100%; margin: 0 auto"></div>
+            <div id="play_question" style="min-width: 310px; height: 400px; max-width: 100%; margin: 0 auto"></div>
         </div>
-        <div class="panel-footer">Panel footer</div>
     </div>
 </div>
+
+<div class="dia-row">
+    <div class="panel panel-default dia-12">
+        <div class="panel-heading">{{dashboard.report.line.playtime_summary.title}}</div>
+        <div class="panel-body">
+            <div id="playtime_summary" style="min-width: 310px; height: 400px; max-width: 100%; margin: 0 auto"></div>
+        </div>
+    </div>
+</div>
+
+<div class="dia-row">
+    <div class="panel panel-default dia-12">
+        <div class="panel-heading">{{dashboard.report.line.score_summary.title}}</div>
+        <div class="panel-body">
+            <div id="score_summary" style="min-width: 310px; height: 400px; max-width: 100%; margin: 0 auto"></div>
+        </div>
+    </div>
+</div>
+
 <div class="dia-row">
     <div class="panel panel-default dia-6">
-        <div class="panel-heading">คำถามทั้งหมด</div>
+        <div class="panel-heading">{{dashboard.report.pie.compare_questions.title}}</div>
         <div class="panel-body">
             <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
         </div>
-        <div class="panel-footer">asdasd</div>
     </div>
     <div class="panel panel-default dia-6">
-        <div class="panel-heading">รายานการเข้าเล่น 7 วันย้อนหลัง</div>
+        <div class="panel-heading">{{dashboard.report.line.use_system_back7day.title}}</div>
         <div class="panel-body">
             <div id="line" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
             
         </div>
-        <div class="panel-footer">asdasd</div>
     </div>
 </div>
 
@@ -69,7 +84,9 @@
     $(document).ready(()=>{
         genanrateChart()
         test()
-        test2()
+        play_question()
+        score_summary()
+        playtime_summary()
     })
 
     function genanrateChart(){
@@ -185,8 +202,144 @@
             });
     }
 
-    function test2(){
-        Highcharts.chart('line2', {
+    function play_question(){
+        Highcharts.chart('play_question', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                backgroundColor: null
+            },
+            credits: {
+                enabled: false
+            },
+            title: {
+                text: null
+            },
+
+            subtitle: {
+                text: null
+            },
+            xAxis: {
+                allowDecimals: false,
+                title: {
+                    text: 'ข้อ'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'คะแนนเฉลี่ย'
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle'
+            },
+
+            plotOptions: {
+                series: {
+                    pointStart: 1
+                }
+            },
+
+            series: [{
+                name: 'Installation',
+                data: [43934, 52503, 57177, 69658, ]
+            }, {
+                name: 'Manufacturing',
+                data: [24916, 24064, 29742, 29851, 32490]
+            }, {
+                name: 'Sales & Distribution',
+                data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387,11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
+            }],
+
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+            });
+    }
+
+    function playtime_summary(){
+        Highcharts.chart('playtime_summary', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                backgroundColor: null
+            },
+            credits: {
+                enabled: false
+            },
+            title: {
+                text: null
+            },
+
+            subtitle: {
+                text: null
+            },
+            xAxis: {
+                allowDecimals: false,
+                title: {
+                    text: 'ข้อ'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'คะแนนเฉลี่ย'
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle'
+            },
+
+            plotOptions: {
+                series: {
+                    pointStart: 1
+                }
+            },
+
+            series: [{
+                name: 'Installation',
+                data: [43934, 52503, 57177, 69658, ]
+            }, {
+                name: 'Manufacturing',
+                data: [24916, 24064, 29742, 29851, 32490]
+            }, {
+                name: 'Sales & Distribution',
+                data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387,11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
+            }],
+
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+            });
+    }
+    
+    function score_summary(){
+        Highcharts.chart('score_summary', {
             chart: {
                 plotBackgroundColor: null,
                 plotBorderWidth: null,

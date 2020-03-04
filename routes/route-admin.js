@@ -4,6 +4,7 @@ var authen = require('../utils/authen');
 var configString = require('../app').configString;
 var firestore = require('../configs/firebase-config').firestore;
 var genaral = require('../public/javascripts/genaral');
+var score = require('../public/javascripts/score');
 var questionFlowchart = require('../public/javascripts/question-flowchart');
 var questionLogic = require('../public/javascripts/question-logic');
 
@@ -21,9 +22,11 @@ router.get('/', authen, async (req, res, next) => {
     unlock: await getAchievement(req.session.user.uid),
     passed: await getPassed(req.session.user.uid),
     lesson: configString[lang].lesson,
-    general: configString[lang].general,
+    general: general,
     setting : general.setting,
     button : general.button,
+    slidebar: general.slidebar,
+    dashboard : general.dashboard,
     achievementList: configString[lang].achievement,
     errorMsg: configString[lang].error,
   };
@@ -45,9 +48,10 @@ router.get('/flowchart', authen, async (req, res, next) => {
     unlock: await getAchievement(req.session.user.uid),
     passed: await getPassed(req.session.user.uid),
     lesson: configString[lang].lesson,
-    general: configString[lang].general,
+    general: general,
     setting : general.setting,
     button : general.button,
+    slidebar: general.slidebar,
     achievementList: configString[lang].achievement,
     errorMsg: configString[lang].error,
     allFlowchart : JSON.stringify(allFlowchart)
@@ -58,7 +62,7 @@ router.get('/flowchart', authen, async (req, res, next) => {
 router.get('/logic', authen, async (req, res, next) => {
   let lang = req.cookies.lang;
   const general = await genaral.getGanaral(lang)
-  const allLogic = await questionLogic.getAllLogic()
+  const allLogic = await questionLogic.getAllLogic(lang)
   var data = {
     layout: 'default',
     navBar : true,
@@ -70,15 +74,68 @@ router.get('/logic', authen, async (req, res, next) => {
     unlock: await getAchievement(req.session.user.uid),
     passed: await getPassed(req.session.user.uid),
     lesson: configString[lang].lesson,
-    general: configString[lang].general,
+    general: general,
     setting : general.setting,
     button : general.button,
+    slidebar: general.slidebar,
     achievementList: configString[lang].achievement,
     errorMsg: configString[lang].error,
     allLogic : JSON.stringify(allLogic)
   };
   res.render('admin/LogicManagement', data);
 });
+
+router.get('/score', authen, async (req, res, next) => {
+  let lang = req.cookies.lang;
+  const general = await genaral.getGanaral(lang)
+  const scoreData = await score.getScore()
+  var data = {
+    layout: 'default',
+    navBar : true,
+    slideBar : true,
+    user: req.session.user,
+    element: configString[lang].element.general,
+    intro: configString[lang].intro,
+    //required
+    unlock: await getAchievement(req.session.user.uid),
+    passed: await getPassed(req.session.user.uid),
+    lesson: configString[lang].lesson,
+    general: general,
+    setting : general.setting,
+    score : scoreData.data,
+    button : general.button,
+    slidebar: general.slidebar,
+    achievementList: configString[lang].achievement,
+    errorMsg: configString[lang].error,
+    allLogic : JSON.stringify(allLogic),
+    test : JSON.stringify(scoreData.data),
+  };
+  res.render('admin/scoreManagement', data);
+});
+
+router.post('/saveScore', (req, res, next) => {
+  const postData = req.body
+  let refScore = firestore.collection("System").doc("Score") 
+  let respones = {
+    status : "",
+    massage : ""
+  }
+
+  refScore.set({
+      maxScore : postData.maxScore,
+      minScore : postData.minScore,
+      level : postData.level
+  }).then(()=>{
+    respones.status = "success"
+    res.send(respones);
+  }).catch((e)=>{
+    respones.status = "error"
+    respones.massage = e
+    res.send(respones);
+  })
+ 
+  // 
+})
 
 async function getAchievement(uid) {
   var unlock = [];

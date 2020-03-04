@@ -84,7 +84,7 @@
     
   </div>
   <div class="modal-footer">
-    <button onclick="startTutorial();playSoundEx('click');" class="canClick button-close-modal">{{walcomeModal.button.learning}}</button>
+    <button style="width: 230px;" onclick="startTutorial();playSoundEx('click');" class="canClick button-close-modal">{{walcomeModal.button.learning}}</button>
   </div>
 </div>
 
@@ -175,6 +175,18 @@
        
   </div>
   <div class="modal-footer">
+  </div>
+</div>
+
+<div id="modal-confirm-signout" class="modal">
+  <div class="modal-content">
+    <div class="button-close-custom canClick right" onclick="startTutorial();playSoundEx('click');"></div>
+    <div class="signout-header">{{ signOut.header }}</div>
+    <div class="signout-title">&emsp;{{ signOut.title }}</div>
+    
+  </div>
+  <div class="modal-footer">
+    <button style="width: 230px;" onclick="startTutorial();playSoundEx('click');" class="canClick button-close-modal">{{walcomeModal.button.learning}}</button>
   </div>
 </div>
 

@@ -121,6 +121,8 @@ app.use('/lang', function (req, res, next) {
   res.redirect('/home');
 });
 
+
+
 app.get('/api-service',async function (req, res, next) {
   let responces = [];
   const flowchart = firestore.collection('Logic')
@@ -157,7 +159,8 @@ app.get('/api-service',async function (req, res, next) {
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  next(createError(404));
+  console.error(404)
+  res.render('shared/page_404',{ path : `${req.get('host')}${req.url}` });
 });
 
 // error handler

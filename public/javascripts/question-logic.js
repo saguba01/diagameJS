@@ -7,9 +7,17 @@ module.exports = {
         const flowchart = firestore.collection('Logic')
         await flowchart.get().then(snapshot => {
           snapshot.forEach(doc => {
-            responces.push({id:doc.id,data:doc.data() })
-            // responces.push()
-            // console.log(doc.id, '=>', doc.data());
+            let resBack = doc.data()
+            responces.push({
+              id : doc.id,
+              data : {
+                Name : (lang == "en"? resBack.NameEN : resBack.NameTH ),
+                Level : resBack.Level,
+                Answer : resBack.Answer,
+                Question : resBack.Question,
+                Type : resBack.Type
+              }
+            })
           });
       
         })
