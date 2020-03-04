@@ -18,6 +18,10 @@ module.exports = {
             }
         }
     },
+    diagram:{
+        text: 'Diagram',
+        url: 'diagram',
+    },
     io: {
         text: 'Input & Output',
         url: 'io',

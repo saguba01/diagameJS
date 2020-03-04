@@ -764,6 +764,11 @@ hr {
     height: 100%;
 }
 
+.btn-feedback{
+    background-image: url("/assets/svg/rank.svg");
+    background-size: 100% auto;
+}
+
 .btn-logout{
     background-image: url("/assets/svg/logout.svg");
     background-size: 70% auto;

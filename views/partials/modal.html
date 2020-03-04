@@ -89,12 +89,39 @@
 </div>
 
 <div id="modal-feedback" class="modal">
-    <div class="modal-content">
-      <div class="button-close-custom canClick right" onclick="closeModal('#modal-feedback');playSoundEx('click');"></div>   
+    <div class="modal-content" style="background-color: #64cc45;">
+      <div class="button-close-custom canClick right" onclick="closeModal('#modal-feedback');playSoundEx('click');"></div>
+      <div class="" style="text-align:center; font-size:50px; font-weight: bold;">{{ general.feedback.title }}</div>
+      <div class=""><textarea style="border:5px solid black; height:100px; background-color: white;" placeholder="{{ general.feedback.text }}" id="comment-feedback"></textarea></div>
+        <!-- Rating Stars Box -->
+        <section class='rating-widget'>
+         <div class='rating-stars' style="text-align: center;">
+           <ul id='stars'>
+             <li class='star' title='Poor' data-value='1'>
+               <i class='fa fa-star fa-fw lvl'></i>
+             </li>
+             <li class='star' title='Fair' data-value='2'>
+               <i class='fa fa-star fa-fw lvl'></i>
+             </li>
+             <li class='star' title='Good' data-value='3'>
+               <i class='fa fa-star fa-fw lvl'></i>
+             </li>
+             <li class='star' title='Excellent' data-value='4'>
+               <i class='fa fa-star fa-fw lvl'></i>
+             </li>
+             <li class='star' title='WOW!!!' data-value='5'>
+               <i class='fa fa-star fa-fw lvl'></i>
+             </li>
+           </ul>
+      </div>
+      <input type="hidden" id="ratingStar">
     </div>
-    <div class="modal-footer">
+    <div class="modal-footer" style="border-top: 5px solid black;">
+      <button onclick="playSoundEx('click');saveFeedback('{{ user.displayName }}');" class="canClick button-apply-feedback">{{ button.submit }}</button>
+      <button onclick="playSoundEx('click');closeModal('#modal-feedback');" class="canClick button-close-setting">{{button.close}}</button>
     </div>
   </div>
+
   
 <div id="modal-setting" class="modal">
   <div class="modal-content">

@@ -521,49 +521,60 @@ handlebars.registerHelper('logicQuestion', function (question) {
  *@since 19 April 2019
  *@required javascript, handlebars.
  */
-handlebars.registerHelper('listquestion', function (question, scoreh, uid) {
+handlebars.registerHelper('listquestion', function(question,scoreh){
   var html = '';
   var index = 0;
   var type = '';
-  var color = ["bg-red", "bg-purple", "bg-blue", "bg-sky-blue", "bg-light-green", "bg-orange", "bg-nude"];
-  if (Object.getOwnPropertyNames(question).length === 0) {
-    html += 'ggg';
-  } else {
-    question.forEach(function (qs) {
-      if (qs.Type == 'logic') {
-        type = 'logic';
-      } else if (qs.Type == 'operator') {
-        type = 'operator';
+  var color = ["bg-red","bg-purple","bg-blue","bg-sky-blue","bg-light-green","bg-orange","bg-nude"];
+  if(Object.getOwnPropertyNames(question).length === 0){
+        html += 'ggg';
+  }else{
+    question.forEach(function (qs){
+    var mark = 0;
+    var score = 0;
+    var max = 0;
+    if(qs.Type == 'logic'){
+      type = 'logic';
+    }else if(qs.Type == 'operator'){
+      type = 'operator';
+    }else{
+      type = 'diagram';
+    }
+    html += '<div target="/lesson/'+type+'/'+qs.Id+'" class="'+color[index]+' qs canClick" style="margin-left:40px; padding-right:1px; padding-left:6px; border:2px solid black">';
+    html += '<div class="list-lesson-title" id="lesson-logic">';
+    html += qs.Name;
+    scoreh.forEach(function (sc){
+      if(sc.questionId == '/Logic/'+qs.Id){
+        mark = 1;
+       if(sc.score > max){
+         score = sc.score;
+         max = score;
+       }
       }
-      html += '<div target="/lesson/' + type + '/' + qs.Id + '" class="' + color[index] + ' qs canClick" style="margin-left:40px; padding-right:1px; border:2px solid black">';
-      html += '<div class="list-lesson-title" id="lesson-logic">';
-      html += qs.Name;
-      html += '<div class="menu-block " style="float:right;">';
-      html += '</div>';
-      html += '<br>';
-      html += 'Level:';
-      for (var i = 0; i < qs.Level; i++) {
-        html += '<i class="fa fa-star fa-fw" style="color:#FECF36;"></i>'
-      }
-      html += '</li>'
-      html += '</div>';
-      html += '<div class="list-lesson-score" id="score">';
-      html += 'Score : -';
-      // scoreh.forEach(function (sc){
-      //     if(sc.uid == uid){
-      //       if(logicid == qs.Id){
-      //         html += 'Score : '+ sc.score;
-      //       }
-      //     }
-      // })
-      html += '</div>';
-      html += '</div>';
-      index++;
-      if (index > 6) {
-        index = 0;
-      }
-    });
-  }
+    })
+    html += '<div class="menu-block " style="float:right;">';
+    if(mark == 1){
+    html += '<span class="mark-question"></span>';
+    }
+    html += '</div>';
+    html += '<br>';
+    html += 'Level:';
+    for(var i = 0; i< qs.Level;i++){
+      html += '<i class="fa fa-star fa-fw" style="color:#FECF36;"></i>'
+    }
+    html += '</li>'
+    html += '</div>';
+    html += '<div class="list-lesson-score" id="score">';
+    html += 'Score:'
+    html += score;
+    html += '</div>';
+    html += '</div>';
+    index++;
+    if(index > 6){
+      index = 0;
+    }
+  });
+}
   return new handlebars.SafeString(html);
 });
 
@@ -575,34 +586,221 @@ handlebars.registerHelper('listquestion', function (question, scoreh, uid) {
  *@required javascript, handlebars.
  */
 
-handlebars.registerHelper('listcomment', function (feedback) {
-  var html = '';
-  var index = 0;
-  feedback.forEach(function (fb) {
-    html += '<div class="bg-light-green comment-box">';
-    html += fb.Comment;
-    html += '</div>';
-  });
-  return new handlebars.SafeString(html);
+handlebars.registerHelper('listcomment',function(feedback){
+    var html = '';
+    feedback.forEach(function (fb){
+        if(fb.Comment != 'empty'){
+        html += '<div class="bg-light-green comment-box">';
+        html += fb.Name+' : '+fb.Comment;
+        html += '</div>';
+        }
+    });
+    return new handlebars.SafeString(html);
 });
 
 handlebars.registerHelper('listscore', function (score) {
   var html = '';
   var index = 0;
   var no = 4;
-  var color = ["list-bg-blue", "list-bg-white"]
-  score.forEach(function (sc) {
-    html += '<div class="list-table-leaderboard ' + color[index] + '">';
-    html += no + ' ' + sc.uid;
+  var color = ["list-bg-blue","list-bg-white"]
+  score.forEach(function (sc){
+    html += '<div class="list-table-leaderboard '+color[index]+'">';
+    html += no+' '+sc.nickname;
     html += '</div>';
     index++;
     no++;
     if (index >= 1) {
       index = 0;
     }
-  })
+  });
   return new handlebars.SafeString(html);
 });
+
+
+
+handlebars.registerHelper('listquestionadmin', function(question){
+  var html = '';
+  var index = 0;
+  var type = '';
+  var score = 0;
+  var max = 0;
+  var color = ["bg-red","bg-purple","bg-blue","bg-sky-blue","bg-light-green","bg-orange","bg-nude"];
+  if(Object.getOwnPropertyNames(question).length === 0){
+        html += 'ggg';
+  }else{
+    question.forEach(function (qs){
+    if(qs.Type == 'logic'){
+      type = 'logic';
+    }else if(qs.Type == 'operator'){
+      type = 'operator';
+    }
+    html += '<div target="/lesson/'+type+'/'+qs.Id+'" class="'+color[index]+' qs canClick" style="margin-left:40px; padding-right:1px; border:2px solid black">';
+    html += '<div class="list-lesson-title" id="lesson-logic">';
+    html += qs.Name;
+    html += '<div class="menu-block " style="float:right;">';
+    html += '</div>';
+    html += '<br>';
+    html += 'Level:';
+    for(var i = 0; i< qs.Level;i++){
+      html += '<i class="fa fa-star fa-fw" style="color:#FECF36;"></i>'
+    }
+    html += '</li>'
+    html += '</div>';
+    html += '</div>';
+    score = 0;
+    index++;
+    if(index > 6){
+      index = 0;
+    }
+  });
+}
+  return new handlebars.SafeString(html);
+});
+
+/*
+ *Description: List Progressbar of Feedback
+ *@version 1.0
+ *@author Jirapat Lapudomsakda
+ *@since 19 April 2019
+ *@required javascript, handlebars.
+ */
+
+handlebars.registerHelper('listprogressbar',function(feedback){
+  var html = '';
+  var color = ['bg-blue','bg-light-green','bg-yellow','bg-orange','bg-red'];
+  var index = 0;
+  //Stars
+  var level1 = 0;
+  var level2 = 0;
+  var level3 = 0;
+  var level4 = 0;
+  var level5 = 0;
+  var total = 0; // all feedback
+
+  // Persen Progressbar
+  var percent1 = 0;
+  var percent2 = 0;
+  var percent3 = 0;
+  var percent4 = 0;
+  var percent5 = 0;
+  feedback.forEach(function (fb){
+    if(fb.Level == 5){
+      level5++;
+      total++;
+    }else if(fb.Level == 4){
+      level4++;
+      total++;
+    }else if(fb.Level == 3){
+      level3++;
+      total++;
+    }else if(fb.Level == 2){
+      level2++;
+      total++;
+    }else if(fb.Level == 1){
+      level1++;
+      total++;
+    }
+  });
+  
+  //Calculate Persen for 
+  percent5 = Math.floor((level5/total)*100);
+  percent4 = Math.floor((level4/total)*100);
+  percent3 = Math.floor((level3/total)*100);
+  percent2 = Math.floor((level2/total)*100);
+  percent1 = Math.floor((level1/total)*100);
+
+  var percent = [percent5,percent4,percent3,percent2,percent1]
+  var level = [level5,level4,level3,level2,level1]
+  for(var i = 5;i > 0;i--){
+    html += '<div class="side">';
+    html += '<span>'+i+'</span><i class="fa fa-star fa-fw" style="color:#FECF36;"></i>';
+    html += '</div>';
+    html += '<div class="mid hint--top" aria-label="'+level[index]+'">';
+    html += '<div class="progressbars">';
+    html += '<div class="'+color[index]+' stars" style="width:'+percent[index]+'%"></div>';
+    html += '</div>';
+    html += '</div>';
+    index++;
+  }
+  return new handlebars.SafeString(html);
+});
+
+handlebars.registerHelper('ratingstar-feedback',function(feedback){
+  var html = '';
+  var total = 0;
+  feedback.forEach(function (fb){
+    total++;
+  })
+  var html = total;
+  return new handlebars.SafeString(html);
+});
+
+/*
+ *Description: Ratingstars of Feedback
+ *@version 1.0
+ *@author Jirapat Lapudomsakda
+ *@since 19 April 2019
+ *@required javascript, handlebars.
+ */
+
+handlebars.registerHelper('ratingstar-feedback',function(feedback){
+  var html = '';
+  var total = 0;
+  var rating = 0;
+  var level5 = 0;
+  var level4 = 0;
+  var level3 = 0;
+  var level2 = 0;
+  var level1 = 0;
+  var allstars = 0;
+  feedback.forEach(function (fb){
+    if(fb.Level == 5){
+      level5++;
+      total++;
+    }else if(fb.Level == 4){
+      level4++;
+      total++;
+    }else if(fb.Level == 3){
+      level3++;
+      total++;
+    }else if(fb.Level == 2){
+      level2++;
+      total++;
+    }else if(fb.Level == 1){
+      level1++;
+      total++;
+    }
+  })
+  allstars = (level5*5)+(level4*4)+(level3*3)+(level2*2)+(level1*1);
+  rating = allstars/total;
+  rating = Math.round(rating*10)/10;
+  if(rating >= 5){
+    rating = 5;
+  }
+  html += '<div class="rating text-rating">'+rating+'</div>';
+  html +=   '<div class="rating-stars">';
+      for(var i = 0;i < 5;i++){
+        if(rating >= i+1){      
+        html += '<i class="fa fa-star fa-fw" style="color:#FECF36;"></i>';
+        }else{
+        html += '<i class="fa fa-star fa-fw" style="color:#f1f1f1;"></i>';
+        }
+      }
+  html +=   '</div>';
+  html +=   '<p style="margin-left:20px; font-weight: bold; font-size:20px;">Total : '+total+' reviews</p>';
+  return new handlebars.SafeString(html);
+});
+
+handlebars.registerHelper('totalfeedback',function(feedback){
+  html = '';
+  total = 0;
+  feedback.forEach(function (fb){
+    total++;
+  });
+  html = "Total : "+total+" comment";
+  return new handlebars.SafeString(html);
+})
+
 
 handlebars.registerHelper('card-level', function (level,ganaral) {
   var html = '';
