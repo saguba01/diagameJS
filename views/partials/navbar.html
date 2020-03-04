@@ -3,15 +3,19 @@
 <nav class="nav-center z-depth-0" style="background-color: #fecf36;border-bottom: 5px solid black;">
     <div class="navbar-fixed">
         <div class="nav-wrapper" style="color: black;">
+            <a class="right canClick diagame-logout" onclick="signOut();playSoundEx('click');">
+                <div class="bg-red btn-top" style="margin-right: 10px;">
+                    <i class="btn-logout" style="width: 100%;height: 100%;"></i>    
+                </div>
+            </a>
             <a href="javascript:window.location.replace('/home')" class="brand-logo"
                 style="color: black;padding-left: 10px">{{ general.site.title }}</a>
             <a href="javascript:goHomePage(10)" class="right canClick diagame-profile">
-                <div id="userAvatar" style="font-size:22px;display: flex;align-items: center;justify-content: center;box-shadow: 3px 3px 0px #00000069;margin-top: 7px;width: 45px;height: 45px;border-radius: 50%;border: 3px solid #000000;background: #458aff;margin-right: 8px;">
-                    
-                </div>
+                <div id="userAvatar" class="btn-top" style="background: #458aff;margin-right: 8px;">
+                    </div>
             </a>
             <a class="right canClick diagame-setting" onclick="showSetting('{{setting.thai}}','{{setting.eng}}');playSoundEx('click');">
-                <div class="bg-purple" style="font-size:22px;display: flex;align-items: center;justify-content: center;box-shadow: 3px 3px 0px #00000069;margin-top: 7px;width: 45px;height: 45px;border-radius: 50%;border: 3px solid #000000; margin-right: 10px;">
+                <div class="bg-purple btn-top" style="margin-right: 10px;">
                     <i class="btn-setting" style="width: 100%;height: 100%;"></i>    
                 </div>
             </a>
@@ -38,7 +42,7 @@
             if (user) {
                 refUserInfo.doc(user.uid).get().then(function(doc) {
                     if (doc.exists) {
-                        let textHTML = "<img src='/assets/svg/avatar/"+doc.data().avatar+"' alt='Avatar' style='width: 45px;height: 45px;'>";
+                        let textHTML = "<img src='/assets/svg/avatar/"+doc.data().avatar+"' alt='Avatar' class='avatar-navbar''>";
                         $("#userAvatar").append(textHTML);
                     }
                 });

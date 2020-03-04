@@ -348,7 +348,7 @@
     const lang = Cookies.get('lang')
     console.log(lang);
     $(document).ready(function () {
-
+        
         let refUserInfo = firestore.collection("UserInfo");
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {

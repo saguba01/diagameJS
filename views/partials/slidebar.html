@@ -1,0 +1,51 @@
+{{#if slideBar }}
+<header>
+    <link rel="stylesheet" href="/stylesheets/slidebar.css">
+</header>
+<!-- Sidebar -->
+<div class="diagame-fixed">
+  <div class="slidebar">
+    <ul >
+      <li class="slidebar-item valign-wrapper" onclick="location.href='/admin'">
+        {{slidebar.dashboard.title}}    
+      </li>
+      <li class="slidebar-item valign-wrapper" onclick="alert('comming soon !!!')">
+        {{slidebar.leaderboard.title}}    
+      </li>
+      <li class="slidebar-item valign-wrapper">
+          <div class="collapsed" onclick="submenuToggle(this)">
+            <span class="menu-title">{{slidebar.management.title}} </span>
+            <div class="arrow-bottom"></div>
+          </div>
+          <div class="slidebar-item-sub" >
+            <ul class="sub-menu">
+              <li class="sub-item"> <a class="nav-link" href="/admin/flowchart"> {{slidebar.management.flowchart}}  </a></li>
+              <li class="sub-item"> <a class="nav-link" href="/admin/logic"> {{slidebar.management.logic}}  </a></li>
+              <li class="sub-item"> <a class="nav-link" href="/admin/score"> {{slidebar.management.score}}  </a></li>
+            </ul>
+          </div>
+      </li>
+      <li class="slidebar-item valign-wrapper">
+        <div class="collapsed" onclick="submenuToggle(this)">
+          <span class="menu-title">{{slidebar.system.title}}</span>
+          <div class="arrow-bottom"></div>
+        </div>
+        <div class="slidebar-item-sub" >
+          <ul class="sub-menu">
+            <li class="sub-item"> <a class="nav-link" href="#" onclick="alert('comming soon !!!')"> {{slidebar.system.sound}} </a></li>
+          </ul>
+        </div>
+    </li>
+      <li class="slidebar-item valign-wrapper"  onclick="alert('comming soon !!!')">
+        {{slidebar.feedback.title}}    
+      </li>
+    </ul>
+  </div>
+
+  <div class="diagame-content-wrapper">
+    {{{body}}}
+  </div>
+  
+</div>
+
+{{/if}}

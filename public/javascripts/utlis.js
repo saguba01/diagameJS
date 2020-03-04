@@ -864,16 +864,6 @@ function showLanguage() {
     localStorage.removeItem("langSelected");
     $('#modal-language').modal({
         'dismissible': true,
-        'onOpenStart': function () {
-            // $('#modal-language>.modal-content>.language-title').html(title);
-            // $('#modal-language>.modal-content>.language-content').html(message);
-        },
-        'onOpenEnd': function () { },
-        'onCloseStart': function () { },
-        'onCloseEnd': function () {
-            // $('#modal-language>.modal-content>.language-title').empty();
-            // $('#modal-language>.modal-content>.language-content').empty();
-        },
     });
     $('#modal-language').modal('open');
 }
@@ -894,9 +884,12 @@ function showSetting(flag_thai = '', flag_eng = '') {
             const th = $('<div></div>')
             const eng = $('<div></div>')
             const eleSoundMusic = $('.btn-main-music')
-            const eleSoundMasterc = $('.btn-main-sound')
+            const eleSoundMaster = $('.btn-main-sound')
 
-            th.attr('id', 'setting-lang-thai')
+            soundMaster = localStorage.getItem("soundMaster")
+            soundMusic = localStorage.getItem("soundMusic")
+            
+            th.attr('id','setting-lang-thai') 
                 .html(
                     $('<span></span>').css({ 'margin-left': '27px' })
                         .html(flag_thai)
@@ -914,9 +907,9 @@ function showSetting(flag_thai = '', flag_eng = '') {
                 eng.addClass('bg-nude flag-eng canClick ' + (lang == 'en' ? 'unblur' : 'blur'));
             }
             flagSelect.append(th).append(eng)
-
-            if (soundMaster == "false") {
-                eleSoundMasterc.html(
+            
+            if(soundMaster == "false"){
+                eleSoundMaster.html(
                     $('<div></div>').addClass('btn-close-sound').html("")
                 )
             }
@@ -1182,6 +1175,7 @@ function showAvatar(){
         'trinity.svg',
         'vladimir-lenin.svg'
     );
+    $("#targetAvatar").html("");
     for(let round=0;round<avatar.length;round){
         var textHTML = "<div style='display: inline-flex;'><div><img src='" + folder + avatar[round] + "' class='avatar' value='"+avatar[round]+"' onclick='changeAvatar(this)'></div>"
                         +"<div style='margin-left: 5px;'><img src='" + folder + avatar[round+1] + "' class='avatar' value='"+avatar[round+1]+"' onclick='changeAvatar(this)'></div>"
@@ -1191,6 +1185,7 @@ function showAvatar(){
                         +"<div style='margin-left: 5px;'><img src='" + folder + avatar[round+5] + "' class='avatar' value='"+avatar[round+5]+"' onclick='changeAvatar(this)'></div></div><br>";
         round = round+6;
         $("#targetAvatar").append(textHTML);
+        
     }
 }
 
@@ -1216,15 +1211,32 @@ function changeAvatar(element){
  */
 function saveUserInfo(){
     let refUserInfo = firestore.collection("UserInfo");
+    if(typeof document.getElementById("selectavatar").value == "undefined"){
+        document.getElementById("selectavatar").value = "robot-01.svg";
+    }
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
             refUserInfo.doc(user.uid).set({
                 avatar: document.getElementById("selectavatar").value,
                 nickname: document.getElementById("username").value,
-                role:"user"
+                role:"user",
+                score:0
             });
         }
     });
     closeModal('#modal-firstPlay');
 }
 
+/*
+ *Description: Show modal select Language in tutorial 
+ *@version 1.0
+ *@author Supachai Boonying
+ *@since 15 Feb 2020
+ *@required javascript
+ */
+function showConfirmSignout() {
+    $('#modal-confirm-signout').modal({
+        'dismissible': true,
+    });
+    $('#modal-confirm-signout').modal('open');
+}

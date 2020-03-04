@@ -47,19 +47,33 @@
             </div>
 
             <!-- Target -->
-            <div class="targetPanel-bg"></div>
-            <div id="target" class="center-align connectedSource noselect targetPanel ui-widget-content">
+            <div class="targetPanel-bg">
+                <div id="target" class="center-align connectedSource noselect targetPanel ui-widget-content">
 
+                </div>
+
+
+                <!-- Recipe -->
+                <div class="recipe bg-nude">
+                    <div class="recipe-header" id="headHint"></div>
+                    {{displayRecipeNew lang questionHintEng questionHintTh}}
+                </div>
             </div>
-
-            <!-- Recipe -->
-            <!--<div class="recipe bg-nude">
-                <div class="recipe-header"></div>
-                {{displayRecipeNew general.step question}}
-            </div>-->
-
-            <!-- Display -->
             <div id="display" class="display"></div>
+            <div class="scoreBar scoreBar-bottom-rigth noselect bg-purple" style="bottom: 120px; z-index: 10;">
+                <div class="icon-award"></div>
+                <div style="font-size: 48px;">
+                    <span id="score">{{maxScore}}</span>
+                </div>
+            </div>
+            <div class="timer timer-botton-rigth noselect bg-nude" style=" z-index: 10;">
+                <div id="timeBar"
+                    style="background-color: #4CAF50; height:100%;width: 100%; position:absolute;border-radius:5px;">
+                </div>
+                <span style="font-size: 55px; position: relative;z-index: 15;">
+                    <div class="icon-clock"></div> <span id="minutes">00</span>:<span id="seconds">00</span>
+                </span>
+            </div>
 
         </div>
         <!--Menu Icon-->
@@ -101,36 +115,26 @@
         </ul>
     </div>
     <input type="hidden" value="{{length}}" id="lengthFlow">
+    <input type="hidden" value="{{allAnswer answerStep}}" id="allFlow">
 
-    <div id="successModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                Flow Chart is Correct
-            </div>
-            <input type="text" id="input-test" value="">
-        </div>
-        <div class="modal-footer">
-            <button class="modal-button button-element" style="float:right">Home</button>
-            <button class="modal-button button-element" style="float:right">Next</button>
-        </div>
-    </div>
 
-    <div id="failModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                Flow Chart is Incorrect
-            </div>
-            <input type="text" id="input-test" value="">
-        </div>
-        <div class="modal-footer">
-            <button class="modal-button button-element" style="float:right">Home</button>
-            <button class="modal-button button-element" style="float:right">Restart</button>
-        </div>
-    </div>
 </body>
 
 <script>
+    let c = "{{answerStep}}";
+    var statusQuestion = false;
+    console.log("Test", c[0][0].processTh);
     $(function () {
+        timer('{{maxScore}}', '{{minScore}}', (obj) => {
+            if (typeof obj.score != "undefined") {
+                $("#scorePlay").val(obj.score);
+                console.log("score:" + $("#scorePlay").val());
+            }
+            if (typeof obj.time != "undefined") {
+                $("#timePlay").val(obj.time);
+                console.log("time:" + $("#timePlay").val());
+            }
+        });
         $("#source,#target").sortable({
             connectWith: ".connectedSource",
             cancel: ".ui-state-disabled",
@@ -166,15 +170,14 @@
         //
     });
 
-    $("#playButton").click(function () {
-        console.log("Play Test");
-        let elementArray = $('#target>div');
-        console.log(elementArray);
-    });
-
     function gameEngine(callback) {
         let length = $('#lengthFlow').val()
+        let allFlow = $('#allFlow').val()
+        var result = allFlow.split('-').map(s => s.split(','));
+        result.pop()
         console.log("length", length);
+        console.log("length2", "{{length}}");
+        console.log("allFlow", result);
         let start = $('#target').find('[type="element"][event="start"]');
         var element = start;
         var timestamp = Date.now();
@@ -190,30 +193,31 @@
             }
             index++;
         });
-        for (let i = 0; i < tempFlowchart.length; i++) {
-            currentFlowchart[i] = (i + 1).toString();
-        }
 
         console.log("tempFlowchart: ", tempFlowchart);
-        console.log("currentFlowchart: ", currentFlowchart);
-        check = 0;
-        for (let i = 0; i < tempFlowchart.length; i++) {
-            if (tempFlowchart[i] == currentFlowchart[i]) {
-                check += 1;
+        for (let index = 0; index < result.length; index++) {
+            check = 0;
+            for (let i = 0; i < tempFlowchart.length; i++) {
+                if (tempFlowchart[i] == result[index][i]) {
+                    check += 1;
+                }
+            }
+            if (check == tempFlowchart.length && tempFlowchart.length == length) {
+                flowchartBeenEqual = true;
+                statusQuestion = true;
+                console.log("scoretime", parseInt($("#score").html())-1);
+                console.log("playtime", $("#seconds").html());
+                playSoundEx('correct');
+                showNavigator('{{general.congrat}}');
             }
         }
 
-        if (check == tempFlowchart.length && tempFlowchart.length == length) {
-            flowchartBeenEqual = true;
-            showSaveStatus("Flow Chart is Correct")
-        } else {
+
+        if (check != tempFlowchart.length && tempFlowchart.length != length) {
             flowchartBeenEqual = false;
             showSaveStatus("Flow Chart is Incorrect")
         }
-
         console.log("flowchartBeenEqual: ", flowchartBeenEqual);
 
     }
-
-
 </script>

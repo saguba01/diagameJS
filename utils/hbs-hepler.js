@@ -224,19 +224,43 @@ handlebars.registerHelper('displayRecipe', function (label, object) {
  *@since 3 April 2019
  *@required javascript, handlebars.
  */
-handlebars.registerHelper('displayRecipeNew', function (label, object) {
+handlebars.registerHelper('displayRecipeNew', function (lang, HintEn, HintTh) {
   var html = '';
-  var index;
-  //console.log(object)
-  /*for (index = 0; index < object.length; index++) {
-    html += '&#9656; ' + object.material[index] + '<br>';
-    if ((index + 1) == object.material.length) {
-      html += '<hr>';
+  //var oldLang = Cookies.get('lang')
+  if (lang == 'th') {
+    html += HintTh + '<br>';
+  } else {
+    html += HintEn + '<br>';
+  }
+
+  return new handlebars.SafeString(html);
+});
+
+//section game engine helper
+/*
+ *Description: change array answer to string.
+ *@version 1.0
+ *@author Thongthorn Karapakdee
+ *@since 29 Feb 2020
+ *@required javascript, handlebars.
+ */
+handlebars.registerHelper('allAnswer', function (obj) {
+  var html = '';
+  console.log("LOG", obj);
+  for (let index = 0; index < obj.length; index++) {
+    for (let index2 = 0; index2 < obj[index].length; index2++) {
+      for (let index3 = 0; index3 < obj[0].length; index3++) {
+        if ((obj[index][index2].processTh === obj[0][index3].processTh)) {
+          //console.log("OBJ1",obj[index][index2].processTh,obj[index][index2].sequence);
+          //console.log("OBJ2",obj[0][index3].processTh,obj[0][index3].sequence);
+          if (index2 != obj[index].length - 1) {
+            html += obj[0][index3].sequence + ",";
+          } else {
+            html += obj[0][index3].sequence + "-";
+          }
+        }
+      }
     }
-    
-  }*/
-  for (index = 0; index < object.length; index++) {
-    html += label.replace('{num}', (index + 1)) + object[index].process + '<br>';
   }
   return new handlebars.SafeString(html);
 });
@@ -281,7 +305,7 @@ handlebars.registerHelper('svgProcessNew', function (object) {
       html += '<svg width="210" height="90">';
       html += '<rect class="svgStroke" x="5" y="5" width="200" height="80" rx="10" style="fill:#FECF36"></rect>';
 
-      html += '<text text-anchor="middle" x="105" y="45" alignment-baseline="central" style="font-size:25px;">' + svg.process + '</text>';
+      html += '<text text-anchor="middle" x="105" y="45" alignment-baseline="central" style="font-size:25px;">' + svg.processTh + '</text>';
       html += '</svg>';
       html += '</div>';
     }
@@ -333,7 +357,7 @@ handlebars.registerHelper('svgInputNew', function (object) {
       html += '<g style="fill:#b668fc" transform="translate(0 26.58)">';
       html += '<path class="svgStroke" d="M 194.525390625 71.80303955078125 L 15.47463893890381 71.80303955078125 C 8.320388793945312 71.80303955078125 2.5 66.32384490966797 2.5 59.58900833129883 L 2.5 12.57773113250732 C 2.5 5.842869758605957 8.320388793945312 0.3636751472949982 15.47463893890381 0.3636751472949982 L 15.64449977874756 0.3636751472949982 L 15.81280517578125 0.3407029211521149 L 194.6898498535156 -24.0793342590332 C 198.2745513916016 -24.04719161987305 201.5287780761719 -22.96221351623535 203.8690490722656 -21.0159912109375 C 206.2444458007812 -19.04054641723633 207.5 -16.33832550048828 207.5 -13.20146369934082 L 207.5 59.58900833129883 C 207.5 66.32384490966797 201.6796112060547 71.80303955078125 194.525390625 71.80303955078125 Z"/>';
       html += '</g>';
-      html += '<text text-anchor="middle" x="105" y="57" alignment-baseline="central" style="font-size:25px;">' + svg.process + '</text>';
+      html += '<text text-anchor="middle" x="105" y="57" alignment-baseline="central" style="font-size:25px;">' + svg.processTh + '</text>';
       html += '</svg>';
       html += '</div>';
     }
@@ -384,7 +408,7 @@ handlebars.registerHelper('svgOutputNew', function (object) {
       html += '<g style="fill:#56e3c4">';
       html += '<path class="svgStroke" d="M 167.8278961181641 80.61994171142578 L 43.19696044921875 80.61994171142578 L 3.561671495437622 41.55996704101562 L 43.19696044921875 2.49999475479126 L 167.8278961181641 2.49999475479126 C 173.1891937255859 2.49999475479126 178.3884735107422 3.534078121185303 183.2813262939453 5.573550224304199 C 188.0061645507812 7.542966842651367 192.2494506835938 10.36232852935791 195.8932800292969 13.95327281951904 C 199.5345764160156 17.54171752929688 202.3928070068359 21.71896743774414 204.3885498046875 26.36896705627441 C 206.4531707763672 31.17935562133789 207.5 36.29035568237305 207.5 41.55996704101562 C 207.5 46.8295783996582 206.4531707763672 51.94057846069336 204.3885498046875 56.75096893310547 C 202.3928070068359 61.40096664428711 199.5345764160156 65.57821655273438 195.8932800292969 69.16666412353516 C 192.2494506835938 72.75760650634766 188.0061645507812 75.57696533203125 183.2813262939453 77.54638671875 C 178.3884735107422 79.58585357666016 173.1891937255859 80.61994171142578 167.8278961181641 80.61994171142578 Z"/>';
       html += '</g>';
-      html += '<text text-anchor="middle" x="105" y="40" alignment-baseline="central" style="font-size:25px;">' + svg.process + '</text>';
+      html += '<text text-anchor="middle" x="105" y="40" alignment-baseline="central" style="font-size:25px;">' + svg.processTh + '</text>';
 
       html += '</svg>';
       html += '</div>';
@@ -574,7 +598,7 @@ handlebars.registerHelper('listcomment',function(feedback){
     return new handlebars.SafeString(html);
 });
 
-handlebars.registerHelper('listscore',function(score){
+handlebars.registerHelper('listscore', function (score) {
   var html = '';
   var index = 0;
   var no = 4;
@@ -585,8 +609,8 @@ handlebars.registerHelper('listscore',function(score){
     html += '</div>';
     index++;
     no++;
-    if(index >= 1){
-        index = 0;
+    if (index >= 1) {
+      index = 0;
     }
   });
   return new handlebars.SafeString(html);
@@ -778,3 +802,28 @@ handlebars.registerHelper('totalfeedback',function(feedback){
 })
 
 
+handlebars.registerHelper('card-level', function (level,ganaral) {
+  var html = '';
+  level.forEach((value,index)=>{
+    html+= `
+    <div class="card dia-3">
+      <div class="card-heading" style="color: black;text-align: center;">
+          <span>${ganaral.title} ${index+1}</span>
+      </div>
+      <div class="card-body" style="height:70%;display: flex;">
+        <div class="card-body-left card-text-center dia-6" style="display: grid; height: 100%; ">
+          <span>${ganaral.rateScore.rate.title}</span>
+          <span style="font-size:48px;font-weight: bold;">${value.rate}</span>
+          <span>${ganaral.rateScore.rate.footer}</span>
+        </div>
+        <div class="card-body-right card-text-center dia-6" style="display: grid; height: 100%; ">
+          <span>${ganaral.rateScore.score.title}</span>
+          <span style="font-size:48px;font-weight: bold;">${value.score}</span>
+          <span>${ganaral.rateScore.score.footer}</span>
+        </div>
+      </div>
+    </div>
+    `
+  })
+  return new handlebars.SafeString(html);
+});

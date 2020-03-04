@@ -1,0 +1,66 @@
+<div class="dia-row">
+    <div class="panel panel-default dia-12">
+        <div class="panel-heading">{{general.management.flowchart.title}}</div>
+        <div class="panel-body">
+          <div class="dia-row" style="margin-bottom: 10px;">
+            <div class="canClick btn-add"  onclick="alert('comming soon !!!')">+ {{button.add_flowchart}}</div>
+          </div>
+          <div class="dia-row">
+            <table id="dtMaterialDesignExample" class="table table-striped" cellspacing="0" width="100%">
+              <thead>
+                <tr>
+                  <th class="th-sm" style="width: 20%;">{{general.table.index}}</th>
+                  <th class="th-sm" style="width: 60%;">{{general.table.questions}}</th>
+                  <th class="th-sm" style="width: 20%;">{{general.table.actions}}</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+    </div>
+</div>
+<script>
+  $('#dtMaterialDesignExample').DataTable({
+    language: {
+      search: "",
+      searchPlaceholder: "{{general.table.search_placeholder}}",
+      sLengthMenu : "{{general.table.length_menu.display}} _MENU_ {{general.table.length_menu.records}}",
+      info : "{{general.table.info.showing}} _START_ {{general.table.info.to}} _END_ {{general.table.info.of}} _TOTAL_ {{general.table.info.entries}}",
+      oPaginate : {
+        sFirst: "{{general.table.paginate.first}}", // This is the link to the first page
+        sPrevious: "{{general.table.paginate.previous}}", // This is the link to the previous page
+        sNext: "{{general.table.paginate.next}}", // This is the link to the next page
+        sLast: "{{general.table.paginate.last}}" // This is the link to the last page
+      }
+    }
+  });
+ 
+  $(function () {
+    const flowchartResponces = JSON.parse("{{allFlowchart}}".replace(/&quot;/g, '\"'))
+    const table = $('#dtMaterialDesignExample').DataTable()
+    table.clear().draw()
+    let index = 1
+    flowchartResponces.forEach((item,index)=>{
+      if(index != 0){
+        table.row.add([
+          `<center>${index++}</center>`,
+          item.data.name,
+          ` 
+            <div class="table-action">
+              <button class="canClick btn-edit" onclick="alert('comming soon !!!');console.log('Edit ID => ${item.id}')">
+                  <div class="btn-edit-pencil" ></div>
+              </button>
+              <button class="canClick" onclick="alert('comming soon !!!');console.log('Delete ID => ${item.id}')">
+                  <div class="btn-delete"></div>
+              </button>
+            </div>`
+        ])
+      }
+     
+    })
+    table.draw()
+  })
+  
+</script>

@@ -1,0 +1,73 @@
+.dia-row{
+    width: 100%;
+    display: inline-flex !important;
+}
+
+.dia-row:last-child{
+    margin-bottom: 20px;
+}
+
+.panel{
+    margin: 10px;
+    border: 5px solid black;
+    box-shadow: 7px 7px 0 0px #00000059;
+    height: min-content;
+}
+
+.panel-heading{
+    padding: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    background-color: slateblue;
+    border-bottom: 5px solid black;
+}
+
+.panel-body{
+    background-color: lemonchiffon;
+    padding: 10px;
+    font-size: 20px;
+}
+
+.panel-footer{
+    background-color:gainsboro;
+    padding: 10px;
+    border-top: 5px solid black;
+    font-size: 20px;
+}
+
+.dia-12{
+    width: 100%;
+}
+.dia-11{
+    width: 91.666%;
+}
+.dia-10{
+    width: 83.333%;
+}
+.dia-9{
+    width: 75%;
+}
+.dia-8{
+    width: 66.666%;
+}
+.dia-7{
+    width: 58.333%;
+}
+.dia-6{
+    width: 50%;
+}
+.dia-5{
+    width: 41.666%;
+}
+.dia-4{
+    width: 33.333%;
+}
+.dia-3{
+    width: 25%;
+}
+.dia-2{
+    width: 16.666%;
+}
+.dia-1{
+    width: 8.333%;
+}
