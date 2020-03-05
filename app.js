@@ -29,6 +29,9 @@ var configString = {
       operator: require('./string/question-operator'),
       logic: require('./string/question-logic.en')
     },
+    manage:{
+      logic: require('./string/manage-logic.en')
+    },
     error: require('./string/error-message.en'),
     lesson: require('./string/lesson.en'),
     intro: require('./string/intro-message.en'),
@@ -46,6 +49,9 @@ var configString = {
     question:{
       operator: require('./string/question-operator'),
       logic: require('./string/question-logic.th')
+    },
+    manage:{
+      logic: require('./string/manage-logic.th')
     },
     error: require('./string/error-message.th'),
     lesson: require('./string/lesson.th'),
