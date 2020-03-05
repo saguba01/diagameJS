@@ -160,7 +160,7 @@
                                 let round = 1;
                                 let uid = "{{user.uid}}";
                                 if(doc.exists){
-                                    round = doc.data().round;
+                                    round = doc.data().round+1;
                                 }
                                 refScore.doc("{{user.uid}}logic{{questionId}}").set({
                                     uid: uid,
