@@ -25,34 +25,41 @@ router.get('/', authen, async (req, res, next) => {
     switch(user.status) {
       case 'sucess':
         const userInfo = user.data
-          var data = {
-            layout: 'default',
-            navBar: true,
-            user: req.session.user,
-            element: configString[lang].element.general,
-            intro: configString[lang].intro,
-            questionLogic: await getLogic(lang),
-            questionOperator: await getOperator(lang),
-            questionDiagram: await getDiagram(lang),
-            //required
-            unlock: await getAchievement(req.session.user.uid),
-            passed: await getPassed(req.session.user.uid),
-            score: await getScore(req.session.user.uid),
-            feedback: general.feedback,
-            lesson: configString[lang].lesson,
-            general: configString[lang].general,
-            achievementList: configString[lang].achievement,
-            errorMsg: configString[lang].error,
-            ListMenu : JSON.stringify(await getMenu()),
-            ListMenu: JSON.stringify(await getMenu()),
-            setting:general.setting,
-            button:general.button
-          };
-          res.render('home/index', data);
-      
+        console.log(`playTutorial type : ${typeof userInfo.playTutorial} ${userInfo.playTutorial}`)
+        console.log(`!userInfo.playTutorial : ${!userInfo.playTutorial}`)
+        console.log(`userInfo.playTutorial == undefined : ${typeof userInfo.playTutorial == undefined}`)
+        console.log(`userInfo.playTutorial =="undefined" : ${typeof userInfo.playTutorial =="undefined"}`)
+          if(!userInfo.playTutorial && typeof userInfo.playTutorial !="undefined"){
+            var data = {
+              layout: 'default',
+              navBar: true,
+              user: req.session.user,
+              element: configString[lang].element.general,
+              intro: configString[lang].intro,
+              questionLogic: await getLogic(lang),
+              questionOperator: await getOperator(lang),
+              questionDiagram: await getDiagram(lang),
+              //required
+              unlock: await getAchievement(req.session.user.uid),
+              passed: await getPassed(req.session.user.uid),
+              score: await getScore(req.session.user.uid),
+              feedback: general.feedback,
+              lesson: configString[lang].lesson,
+              general: configString[lang].general,
+              achievementList: configString[lang].achievement,
+              errorMsg: configString[lang].error,
+              ListMenu : JSON.stringify(await getMenu()),
+              ListMenu: JSON.stringify(await getMenu()),
+              setting:general.setting,
+              button:general.button
+            };
+            res.render('home/index', data);
+          }else{
+            res.redirect('/tutorial');
+          }
         break;
       case 'waring':
-        res.redirect('/tutorial');
+        
         break;
       default:
         console.error({
@@ -70,6 +77,7 @@ router.get('/', authen, async (req, res, next) => {
 router.post('/', authen, async (req, res, next) => {
   let lang = req.cookies.lang;
   await getPassed(req.session.user.uid);
+  const general = await genaral.getGanaral(lang)
   var data = {
     layout: 'default',
     user: req.session.user,
