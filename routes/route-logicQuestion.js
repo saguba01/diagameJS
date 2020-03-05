@@ -3,7 +3,7 @@ var router = express.Router();
 var authen = require('../utils/authen');
 var configString = require('../app').configString;
 var firestore = require('../configs/firebase-config').firestore;
-
+var general = require('../public/javascripts/genaral');
 /*
  *Description: add
  *@version 1.0
@@ -12,9 +12,10 @@ var firestore = require('../configs/firebase-config').firestore;
  *@required node.js,ExpressJS.
  */
 
-router.get('/add', authen, function (req, res, next) {
+router.get('/add', authen,async function (req, res, next) {
     let lang = req.cookies.lang;
     let lesson = configString[lang].lesson.logic;
+    const setting = await general.getGanaral(lang)
     var data = {
       layout: 'default',
       user: req.session.user,
@@ -22,9 +23,12 @@ router.get('/add', authen, function (req, res, next) {
       navBar: true,
       elementDefault: configString[lang].element.general,
       general: configString[lang].general,
+      addForm: configString[lang].manage.logic,
       lesson: lesson,
-      subLesson: lesson.subLesson.addlogic
+      subLesson: lesson.subLesson.addlogic,
       //
+      setting : setting.setting,
+      button : setting.button
     };
     res.render('manageLogic/addLogic', data);
   });
@@ -37,11 +41,11 @@ router.get('/add', authen, function (req, res, next) {
  *@required node.js,ExpressJS.
  */
 
-router.get('/edit/:id', authen, function (req, res, next) {
+router.get('/edit/:id', authen,async function (req, res, next) {
   let lang = req.cookies.lang;
   let lesson = configString[lang].lesson.logic;
   let refQuestion = firestore.collection("Logic");
-
+  const setting = await general.getGanaral(lang)
   //get data for edit
   refQuestion.doc(req.params.id).get().then(function(doc){
     var data = {
@@ -53,13 +57,17 @@ router.get('/edit/:id', authen, function (req, res, next) {
       general: configString[lang].general,
       lesson: lesson,
       subLesson: lesson.subLesson.addlogic,
+      addForm: configString[lang].manage.logic,
       //data for edit
       logicId: req.params.id,
       answer: doc.data().Answer,
       nameEN: doc.data().NameEN,
       nameTH: doc.data().NameTH,
       question: doc.data().Question,
-      level: doc.data().Level
+      level: doc.data().Level,
+      //setting
+      setting : setting.setting,
+      button : setting.button
     };
     res.render('manageLogic/editLogic', data);
   });

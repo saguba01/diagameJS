@@ -15,35 +15,36 @@
         <div>
             <div style="display: inline-flex;width: 100%;">
                 <div style="width: 50%;">
-                    <p class="textLabel" >Question Name : EN</p>
+                    <p class="textLabel" >{{addForm.form.questionNameEN.text}}</p>
                     <input id="questionInputEN" type="text" class="textBox" value="{{nameEN}}"/>
                     <p id="validate_nameEN" style="text-align: left;" class="textValidate"></p>
                 </div>
                 <div style="width: 50%;padding-left: 2%;">
-                    <p class="textLabel" >Question Name : TH</p>
+                    <p class="textLabel" >{{addForm.form.questionNameTH.text}}</p>
                     <input id="questionInputTH" type="text" class="textBox" value="{{nameTH}}"/>
                     <p id="validate_nameTH" style="text-align: left;" class="textValidate"></p>
                 </div>
             </div>
-            <p class="textLabel" >Equation
+            <p class="textLabel" >{{addForm.form.equation.text}}
             <button id="q_increase" class="book-button blue-button"><i class="fa fa-plus"></i></button>
-            <button id="q_decrease" class="book-button blue-button"><i class="fa fa-minus"></i></button>
             </p>
             <div id="question_text" style="overflow: hidden;text-align: center;">
-                <input id="question_part1" type="text" class="textBox-150"/>
-                &nbsp;<input type="text" class="ans-box" value="Answer" disabled/>&nbsp;
-                <input id="question_part2" type="text" class="textBox-150"/>
+                <div style="display: inline-flex;">
+                    <input id="question_part1" type="text" class="textBox-150"/>
+                    &nbsp;<input type="text" class="ans-box" value="Answer" disabled/>&nbsp;
+                    <input id="question_part2" type="text" class="textBox-150"/>
+                </div>
             </div>
             <p id="validate_question" class="textValidate" style="text-align: center;"></p>
             <p class="textLabel" >
-                Answer
+                {{addForm.form.answer.text}}
             </p>
-            <button id="ansTrue" class="ans-button nonselect-button">True</button>
-            <button id="ansFalse" class="ans-button nonselect-button">False</button>
-            <button id="ansNum" class="ans-button nonselect-button">Number</button>
+            <button id="ansTrue" class="ans-button nonselect-button">{{addForm.form.answer.trueText}}</button>
+            <button id="ansFalse" class="ans-button nonselect-button">{{addForm.form.answer.falseText}}</button>
+            <button id="ansNum" class="ans-button nonselect-button">{{addForm.form.answer.number}}</button>
             <input id="answer" type="text" class="textBox-150" hidden/>
             <p id="validate_ans" class="textValidate"></p>
-            <p class="textLabel" >Level</p>
+            <p class="textLabel" >{{addForm.form.level.text}}</p>
             <!-- Rating Stars Box -->
             <section class='rating-widget'>
                 <div class='rating-stars' style="text-align: left;">
@@ -92,7 +93,6 @@
 
 
 $(document).ready(function(){
-    deleteQuestion(1);
     //set star level
     for(let l=1;l<="{{level}}";l++){
         $("#level"+l).addClass('selected');
@@ -106,8 +106,10 @@ $(document).ready(function(){
     for(question_partcount;question_partcount < questionArray.length;question_partcount){
         question_partcount++;
         target_count++;
-        var q_text = targetAnswer+"<input id='question_part"+(question_partcount)+"' type='text' class='textBox-150'/>";        
-        document.getElementById("question_text").innerHTML += q_text;
+        var q_text = targetAnswer+"<input id='question_part"+(question_partcount)+"' type='text' class='textBox-150'/>";
+        var deleteButton = "&nbsp;&nbsp;<button class='book-button red-button' id='btn"+question_partcount+"' onclick='removeQuestion(this);'><i class='fa fa-times'></i></button>";
+        var divElement = "<div id='div"+question_partcount+"' style='display:inline-block'>"+q_text+deleteButton+"</div>";        
+        document.getElementById("question_text").innerHTML += divElement; 
     }
     for(let qp=1;qp<=question_partcount;qp++){
         document.getElementById("question_part"+qp).value = questionArray[qp-1];
@@ -125,6 +127,32 @@ $(document).ready(function(){
         document.getElementById("answer").value = "{{answer}}";
         selectButton("ansNum");
     }
+
+    
 });
 
+function saveQuestion(logicQuestion, logicLevel, logicNameEN,logicNameTH, logicAnswer) {
+    console.log("save...");
+    let type = "operator";
+    if(logicAnswer.toLowerCase()=="true"||logicAnswer.toLowerCase()=="false"){
+        type = "logic";
+    }
+    refQuestion.doc("{{logicId}}").get().then(function(){
+        showLoading();
+        refQuestion.doc("{{logicId}}").set({
+            Question: logicQuestion,
+            NameTH: logicNameTH,
+            NameEN: logicNameEN,
+            Answer: logicAnswer,
+            Level : logicLevel,
+            Type : type
+        }).then(function(){
+            closeLoading();
+            showSaveStatus("Save Success!!");
+        }).catch(err => {
+            closeLoading();
+            showSaveStatus("Error : "+err);
+        });
+    });
+}
 </script>
