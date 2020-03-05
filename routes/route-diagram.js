@@ -26,7 +26,7 @@ router.get('/:id', authen, async function (req, res, next) {
                 arrAnswer.push(doc2.data().answerStep)
             });
         }
-        console.log("Answer => ", arrAnswer);
+        //console.log("Answer => ", arrAnswer);
     })
 
     refQuestion.doc(req.params.id).get().then(function (doc) {

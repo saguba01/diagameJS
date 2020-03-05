@@ -349,7 +349,8 @@ handlebars.registerHelper('displayTableEdit', function (obj) {
           }
           html += "</select></td>" +
           "<td><div style='text-align: center;'>" +
-          "<button class='book-button blue-button' onclick='addProcess(this)'><i class='fa fa-plus'></i></button>" +
+          "<button class='book-button blue-button' onclick='addProcess(this)'><i class='fa fa-plus'></i></button></button>" +
+          "<button class='book-button red-button' onclick='removeProcess(this)'><i class='fa fa-close'></button>" +
           "</div></td>" +
           "</tr>";
       }
