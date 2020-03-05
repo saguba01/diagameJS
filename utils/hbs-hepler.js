@@ -266,6 +266,102 @@ handlebars.registerHelper('allAnswer', function (obj) {
 });
 
 /*
+ *Description: change array answer to string.
+ *@version 1.0
+ *@author Thongthorn Karapakdee
+ *@since 29 Feb 2020
+ *@required javascript, handlebars.
+ */
+handlebars.registerHelper('displayTableEdit', function (obj) {
+  var html = '';
+  for (let index = 1; index <= obj.length; index++) {
+    if (index == 1) {
+      html += "<table id='answerTable_" + index + "'>" +
+        "<thead><tr><strong>" +
+        "<td style='width: 2%;font-size: 20px;font-weight: bold;'>Step</td>" +
+        "<td style='text-align: center;width: 39%;font-size: 20px;font-weight: bold;'>Process (Eng)</td>" +
+        "<td style='text-align: center;width: 39%;font-size: 20px;font-weight: bold;'>Process (Thai)</td>" +
+        "<td style='text-align: center;width: 10%;font-size: 20px;font-weight: bold;'>Type</td>" +
+        "<td style='text-align: center;width: 10%;font-size: 20px;font-weight: bold;'></td>" +
+        "</strong>";
+    } else {
+      html += "<div><hr style='border:0px;'><button class='add-button red-button' onclick='removeAnswer(answerTable_" + index + ",this)'>" +
+      "<i class='fa fa-close'></i> Answer</button></div>" +
+        "<table id='answerTable_" + index + "'>" +
+        "<thead><tr><strong>" +
+        "<td style='width: 2%;font-size: 20px;font-weight: bold;'>Step</td>" +
+        "<td style='text-align: center;width: 39%;font-size: 20px;font-weight: bold;'>Process (Eng)</td>" +
+        "<td style='text-align: center;width: 39%;font-size: 20px;font-weight: bold;'>Process (Thai)</td>" +
+        "<td style='text-align: center;width: 10%;font-size: 20px;font-weight: bold;'>Type</td>" +
+        "<td style='text-align: center;width: 10%;font-size: 20px;font-weight: bold;'></td>" +
+        "</strong>";
+    }
+    html += "</tr></thead><tbody>"
+    for (let index2 = 1; index2 <= obj[index - 1].length; index2++) {
+      if (index2 == 1) {
+        html += "<tr class='sort-disabled'>" +
+          "<td class='order'>"+ index2 +"</td>" +
+          "<td><input type='text' style='width: 95%;' value='Start' id='processEn' disabled></td>" +
+          "<td><input type='text' style='width: 95%;' value='Start' id='processTh' disabled></td>" +
+          "<td><select style='display: inline;' disabled id='type'>" +
+          "<option value='Basic' selected>Basic</option>" +
+          "<option value='Input' >Input</option>" +
+          "<option value='Output' >Output</option>" +
+          "<option value='Process' >Process</option>" +
+          "<option value='Decision' >Decision</option>" +
+          "</select></td>" +
+          "<td><div style='text-align: center;'>" +
+          "<button class='book-button blue-button' onclick='addProcess(this)'><i class='fa fa-plus'></i></button>" +
+          "</div></td>" +
+          "</tr>";
+      } else {
+        html += "<tr>" +
+          "<td class='order'>"+ index2 +"</td>" +
+          "<td><input type='text' style='width: 95%;' value='"+ obj[index - 1][index2 -1].processEn +"' id='processEn'></td>" +
+          "<td><input type='text' style='width: 95%;' value='"+ obj[index - 1][index2 -1].processTh +"' id='processTh'></td>" +
+          "<td><select style='display: inline;' id='type'>" +
+          "<option value='0'>--Select--</option>";
+          //console.log("type" ,obj[index - 1][index2 -1].type.toLowerCase());
+          if(obj[index - 1][index2 -1].type.toLowerCase() == "basic"){
+            html += "<option value='Basic' selected>Basic</option>";
+          }else{
+            html += "<option value='Basic'>Basic</option>";
+          }
+          if(obj[index - 1][index2 -1].type.toLowerCase() == "input"){
+            html += "<option value='Input' selected>Input</option>";
+          }else{
+            html += "<option value='Input'>Input</option>";
+          }
+          if(obj[index - 1][index2 -1].type.toLowerCase() == "output"){
+            html += "<option value='Output' selected>Output</option>";
+          }else{
+            html += "<option value='Output'>Output</option>";
+          }
+          if(obj[index - 1][index2 -1].type.toLowerCase() == "process"){
+            html += "<option value='Process' selected>Process</option>";
+          }else{
+            html += "<option value='Process'>Process</option>";
+          }
+          if(obj[index - 1][index2 -1].type.toLowerCase() == "decision"){
+            html += "<option value='Decision' selected>Decision</option>";
+          }else{
+            html += "<option value='Decision'>Decision</option>";
+          }
+          html += "</select></td>" +
+          "<td><div style='text-align: center;'>" +
+          "<button class='book-button blue-button' onclick='addProcess(this)'><i class='fa fa-plus'></i></button>" +
+          "</div></td>" +
+          "</tr>";
+      }
+    }
+    html += "</tbody>" +
+    "</table>"
+  }
+  
+  return new handlebars.SafeString(html);
+});
+
+/*
  *Description: Display process svg.
  *@version 1.0
  *@author Bulakorn Maneesang
