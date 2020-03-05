@@ -189,7 +189,6 @@ function newUser(user){
     refUerInfo.set({
         avatar : "",
         nickname : "",
-        role : 'user',
         playTutorial : true,
     })
 }
@@ -259,10 +258,12 @@ function signInWithFacebook() {
  *@required javascript,jQuery,Firebase Authentication.
  */
 function signInWithGoogle() {
+    console.log("signInWithGoogle")
     firebase.auth().signInWithPopup(googleProvider)
         .then(function (result) {
             var token = result.credential.accessToken; // Use it to access the Google API
             var user = result.user;
+            console.log("signInWithGoogle success")
             replaceHome();
         }).catch(function (error) {
             showError('Oh no!', errorMsg.firebase.auth[error.code]);

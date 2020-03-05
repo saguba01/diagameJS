@@ -15,30 +15,42 @@ router.get('/', authen, async (req, res, next) => {
   const general = await genaral.getGanaral(lang)
   const user = await user_info.userInfo(uid)
   try{
-    if(user.status == "success" && user.data.role == "admin"){
-      var data = {
-        layout: 'default',
-        navBar : true,
-        slideBar : true,
-        user: req.session.user,
-        element: configString[lang].element.general,
-        intro: configString[lang].intro,
-        //required
-        unlock: await getAchievement(req.session.user.uid),
-        passed: await getPassed(req.session.user.uid),
-        lesson: configString[lang].lesson,
-        general: general,
-        setting : general.setting,
-        button : general.button,
-        slidebar: general.slidebar,
-        dashboard : general.dashboard,
-        achievementList: configString[lang].achievement,
-        errorMsg: configString[lang].error,
-      };
-      res.render('admin/index', data);
-    }else{
-      res.render('shared/page_404',{ path : `${req.get('host')}${req.url}` });
+    switch(user.status) {
+      case 'success':
+        if( user.data.role == "admin"){
+          var data = {
+            layout: 'default',
+            navBar : true,
+            slideBar : true,
+            user: req.session.user,
+            element: configString[lang].element.general,
+            intro: configString[lang].intro,
+            //required
+            unlock: await getAchievement(req.session.user.uid),
+            passed: await getPassed(req.session.user.uid),
+            lesson: configString[lang].lesson,
+            general: general,
+            setting : general.setting,
+            button : general.button,
+            slidebar: general.slidebar,
+            dashboard : general.dashboard,
+            achievementList: configString[lang].achievement,
+            errorMsg: configString[lang].error,
+          };
+          res.render('admin/index', data);
+        }else{
+          res.render('shared/page_404');
+        }
+        break;
+      default:
+        res.render('shared/page_404');
+        console.error({
+          status : user.status,
+          massage : user.massage
+        })
+        break;
     }
+    
   }catch(e){
     // res.redirect('/');
     res.locals.message = err.message;

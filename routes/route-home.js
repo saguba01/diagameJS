@@ -21,14 +21,16 @@ router.get('/', authen, async (req, res, next) => {
   const general = await genaral.getGanaral(lang)
   const uid = req.session.user.uid;
   const user = await user_info.userInfo(uid)
+  console.warn("come to home page")
   try{
     switch(user.status) {
-      case 'sucess':
+      case 'success':
         const userInfo = user.data
         console.log(`playTutorial type : ${typeof userInfo.playTutorial} ${userInfo.playTutorial}`)
         console.log(`!userInfo.playTutorial : ${!userInfo.playTutorial}`)
         console.log(`userInfo.playTutorial == undefined : ${typeof userInfo.playTutorial == undefined}`)
         console.log(`userInfo.playTutorial =="undefined" : ${typeof userInfo.playTutorial =="undefined"}`)
+        console.log(`userInfo.role" : ${userInfo.role}`)
           if(!userInfo.playTutorial && typeof userInfo.playTutorial !="undefined"){
             var data = {
               layout: 'default',
