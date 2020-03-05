@@ -764,6 +764,16 @@ hr {
     height: 100%;
 }
 
+.btn-feedback{
+    background-image: url("/assets/svg/rank.svg");
+    background-size: 100% auto;
+}
+
+.btn-leaderboard{
+    background-image: url("/assets/svg/leaderboard.png");
+    background-size: 100% auto;
+}
+
 .btn-logout{
     background-image: url("/assets/svg/logout.svg");
     background-size: 70% auto;
@@ -804,7 +814,24 @@ a>.btn-top{
     height: 100%;
 }
 
-.table-action>button{
+.btn-add{
+    padding: 5px;
+    text-align: center;
+    display: grid;
+    width: 30%;
+    float: left;
+    min-height: 55px;
+    height: 55px auto;
+    border: 5px solid black;
+    background-color: #2ECC71;
+    align-items: center;
+}
+
+.btn-add:hover{
+    background-color: #D5F5E3;
+}
+
+button.btn-tran{
     background-color: Transparent;
     background-repeat:no-repeat;
     border: none;
@@ -814,3 +841,55 @@ a>.btn-top{
     margin: auto;
 }
 
+button.btn-edit{
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    margin: auto;
+}
+
+button>.btn-save-dis{
+    font-size:22px;display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 3px 3px 0px #00000069;
+    width: 45px;
+    height: 45px;
+    border: 3px solid #000000;
+    margin-right: 10px;
+    background-color: #2ECC71;
+    background-image: url('/assets/svg/save.svg');
+    background-size: 80% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+button>.btn-save-dis:hover{
+    background-color: #82E0AA;
+}
+
+button>.btn-close{
+    font-size:22px;display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 3px 3px 0px #00000069;
+    width: 45px;
+    height: 45px;
+    border: 3px solid #000000;
+    margin-right: 10px;
+    background-color: #E74C3C;
+    background-image: url('/assets/svg/close.svg');
+    background-size: 80% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+button>.btn-close:hover{
+    background-color: #F5B7B1;
+}
+
+button.btn-rigth{
+    float: right;
+}

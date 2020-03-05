@@ -7,34 +7,37 @@
   <div class="slidebar">
     <ul >
       <li class="slidebar-item valign-wrapper" onclick="location.href='/admin'">
-        Dashboard    
+        {{slidebar.dashboard.title}}    
+      </li>
+      <li class="slidebar-item valign-wrapper" onclick="alert('comming soon !!!')">
+        {{slidebar.leaderboard.title}}    
       </li>
       <li class="slidebar-item valign-wrapper">
           <div class="collapsed" onclick="submenuToggle(this)">
-            <span class="menu-title">Management</span>
+            <span class="menu-title">{{slidebar.management.title}} </span>
             <div class="arrow-bottom"></div>
           </div>
           <div class="slidebar-item-sub" >
             <ul class="sub-menu">
-              <li class="sub-item"> <a class="nav-link" href="/admin/flowchart"> Flowchart </a></li>
-              <li class="sub-item"> <a class="nav-link" href="/admin/logic"> Logic </a></li>
-              <li class="sub-item"> <a class="nav-link" href="/admin/score"> Score </a></li>
+              <li class="sub-item"> <a class="nav-link" href="/admin/flowchart"> {{slidebar.management.flowchart}}  </a></li>
+              <li class="sub-item"> <a class="nav-link" href="/admin/logic"> {{slidebar.management.logic}}  </a></li>
+              <li class="sub-item"> <a class="nav-link" href="/admin/score"> {{slidebar.management.score}}  </a></li>
             </ul>
           </div>
       </li>
       <li class="slidebar-item valign-wrapper">
         <div class="collapsed" onclick="submenuToggle(this)">
-          <span class="menu-title">System</span>
+          <span class="menu-title">{{slidebar.system.title}}</span>
           <div class="arrow-bottom"></div>
         </div>
         <div class="slidebar-item-sub" >
           <ul class="sub-menu">
-            <li class="sub-item"> <a class="nav-link" href="pages/samples/blank-page.html"> Sound </a></li>
+            <li class="sub-item"> <a class="nav-link" href="#" onclick="alert('comming soon !!!')"> {{slidebar.system.sound}} </a></li>
           </ul>
         </div>
     </li>
-      <li class="slidebar-item valign-wrapper">
-        Feedback    
+      <li class="slidebar-item valign-wrapper"  onclick="alert('comming soon !!!')">
+        {{slidebar.feedback.title}}    
       </li>
     </ul>
   </div>

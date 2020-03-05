@@ -19,7 +19,7 @@
   </div>
   <div class="modal-footer">
     <button onclick="closeModal('#modal-achievement')" style="float: left;" class="canClick button-achievement">{{general.button.done}}</button>
-    <button id="nextPage" onclick="nextPage('{{ nextPage }}')" class="canClick button-achievement" style="float: right;">{{general.button.next}}</button>
+    <button id="nextPage" onclick="nextPage('{{ nextPage }}');" class="canClick button-achievement" style="float: right;">{{general.button.next}}</button>
   </div>
 </div>
 
@@ -84,17 +84,44 @@
     
   </div>
   <div class="modal-footer">
-    <button onclick="startTutorial();playSoundEx('click');" class="canClick button-close-modal">{{walcomeModal.button.learning}}</button>
+    <button style="width: 230px;" onclick="startTutorial();playSoundEx('click');" class="canClick button-close-modal">{{walcomeModal.button.learning}}</button>
   </div>
 </div>
 
 <div id="modal-feedback" class="modal">
-    <div class="modal-content">
-      <div class="button-close-custom canClick right" onclick="closeModal('#modal-feedback');playSoundEx('click');"></div>   
+    <div class="modal-content" style="background-color: #64cc45;">
+      <div class="button-close-custom canClick right" onclick="closeModal('#modal-feedback');playSoundEx('click');"></div>
+      <div class="" style="text-align:center; font-size:50px; font-weight: bold;">{{ general.feedback.title }}</div>
+      <div class=""><textarea style="border:5px solid black; height:100px; background-color: white;" placeholder="{{ general.feedback.text }}" id="comment-feedback"></textarea></div>
+        <!-- Rating Stars Box -->
+        <section class='rating-widget'>
+         <div class='rating-starsfeedback' style="text-align: center;">
+           <ul id='stars'>
+             <li class='star' title='Poor' data-value='1'>
+               <i class='fa fa-star fa-fw lvl'></i>
+             </li>
+             <li class='star' title='Fair' data-value='2'>
+               <i class='fa fa-star fa-fw lvl'></i>
+             </li>
+             <li class='star' title='Good' data-value='3'>
+               <i class='fa fa-star fa-fw lvl'></i>
+             </li>
+             <li class='star' title='Excellent' data-value='4'>
+               <i class='fa fa-star fa-fw lvl'></i>
+             </li>
+             <li class='star' title='WOW!!!' data-value='5'>
+               <i class='fa fa-star fa-fw lvl'></i>
+             </li>
+           </ul>
+      </div>
+      <input type="hidden" id="ratingStar">
     </div>
-    <div class="modal-footer">
+    <div class="modal-footer" style="border-top: 5px solid black;">
+      <button onclick="playSoundEx('click');saveFeedback('{{ user.displayName }}');" class="canClick button-apply-feedback">{{ button.submit }}</button>
+      <button onclick="playSoundEx('click');closeModal('#modal-feedback');" class="canClick button-close-setting">{{button.close}}</button>
     </div>
   </div>
+
   
 <div id="modal-setting" class="modal">
   <div class="modal-content">
@@ -178,3 +205,55 @@
   </div>
 </div>
 
+<div id="modal-confirm-signout" class="modal">
+  <div class="modal-content">
+    <div class="button-close-custom canClick right" onclick="startTutorial();playSoundEx('click');"></div>
+    <div class="signout-header">{{ signOut.header }}</div>
+    <div class="signout-title">&emsp;{{ signOut.title }}</div>
+    
+  </div>
+  <div class="modal-footer">
+    <button style="width: 230px;" onclick="startTutorial();playSoundEx('click');" class="canClick button-close-modal">{{walcomeModal.button.learning}}</button>
+  </div>
+</div>
+
+<div id="modal-leaderboard" class="modal">
+  <div class="modal-content">
+    <div class="button-close-custom canClick right" onclick="closeModal('#modal-leaderboard');playSoundEx('click');"></div>
+    <br>
+    <div style="text-align: center; font-size: 30px;">Leaderboard</div>
+    <br>
+    <table>
+      <thead style="text-align: center;">
+          <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Score</th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Test</td>
+          <td>10000</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+  <div class="modal-footer">
+  </div>
+</div>
+
+
+<div id="modal-pass-tutorial" class="modal">
+  <div class="modal-content">
+    <div id="tutorial-photo" class="tutorial-photo"></div>
+    <div class="tutorial-title"></div>
+    <div class="tutorial-content"></div>
+  </div>
+  <div class="modal-footer">
+    <button onclick="closeModal('#modal-pass-tutorial')" style="float: left;" class="canClick button-achievement">{{general.button.done}}</button>
+    <button onclick="passTutorial();" class="canClick button-achievement" style="float: right;">{{general.button.next}}</button>
+  </div>
+</div>

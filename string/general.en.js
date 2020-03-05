@@ -61,5 +61,10 @@ module.exports = {
     recipe:'Recipe',
     step: 'Step {num} - ',
     question: 'Questions',
-    congrat: 'Congratulations on passing this level!'
+    congrat: 'Congratulations on passing this level!',
+    feedback:{
+        title: 'Feedback',
+        text: 'Type Your Comment Here...'
+    },
+    comment:'Comment',
 };

@@ -105,7 +105,7 @@ app.use('/lesson/diagram', require('./routes/route-diagram'));
 app.use('/report', require('./routes/route-report'));
 app.use('/manage/logic', require('./routes/route-logicQuestion'));
 app.use('/MDQ', require('./routes/route-diagram-question'));
-app.use('/show_feedback', require('./routes/route-feedback'));
+app.use('/manage/feedback', require('./routes/route-feedback'));
 app.use('/leaderboard',require('./routes/route-leaderboard'));
 app.use('/manage/diagram', require('./routes/route-diagram-question'));
 app.use('/tutorial', require('./routes/route-tutorial'));
@@ -120,6 +120,8 @@ app.use('/lang', function (req, res, next) {
   }
   res.redirect('/home');
 });
+
+
 
 app.get('/api-service',async function (req, res, next) {
   let responces = [];
@@ -157,7 +159,8 @@ app.get('/api-service',async function (req, res, next) {
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  next(createError(404));
+  console.error(404)
+  res.render('shared/page_404',{ path : `${req.get('host')}${req.url}` });
 });
 
 // error handler

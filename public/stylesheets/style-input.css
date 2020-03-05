@@ -1,0 +1,59 @@
+.textBox{
+    background-color: white !important;
+    border: solid 5px #000000 !important;
+    padding-left: 10px !important;
+    font-size: 20px !important;
+    display: inline-block;
+    border-radius: 12px !important;
+}
+
+.textBox-150{
+    background-color: white !important;
+    border: solid 5px #000000 !important;
+    padding-left: 10px !important;
+    font-size: 20px !important;
+    width: 150px !important;
+    border-radius: 12px !important;
+}
+
+.ans-box{
+    background-color: #ffbb00 !important;
+    border: solid 5px #000000 !important;
+    font-size: 20px !important;
+    font-weight: bold;
+    width: 100px !important;
+    text-align: center;
+    border-radius: 12px !important;
+}
+
+.textValidate{
+    font-size: 18px;
+    font-weight: bold;
+    color: red;
+}
+
+.ans-button {
+    width: 150px;
+    height: 55px;
+    font-family: 'Mali', cursive;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 12px;
+    box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.16);
+    border: solid 5px #000000;
+}
+
+.ans-button.nonselect-button {
+    color: #000000;
+    background-color: rgb(206, 206, 206);
+}
+
+.ans-button.select-button {
+    color: #FFFFFF;
+    background-color: #3a5892;
+}
+
+.textLabel{
+    font-size: 24px;
+    font-weight: bold;
+}

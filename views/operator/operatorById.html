@@ -59,6 +59,7 @@
 
 <script>
     let refScore = firestore.collection("ScoreHistory");
+    let refUserInfo = firestore.collection("UserInfo");
     let round = 0;
 
 
@@ -149,9 +150,16 @@
                         if (user) {
                             //save score history
                             statusQuestion = true;
+                            // refUserInfo.doc(user.uid).get().then(function(doc){
+                            //     refUserInfo.doc(user.uid).set({
+                            //         avatar: doc.data().avatar,
+                            //         nickname: doc.data().nickname,
+                            //         role: doc.data().role,
+                            //         score: doc.data().score + $("#scorePlay").val()
+                            //     })
+                            // });
                             refScore.where("logicId","==","/Logic/{{ questionId }}").get().then(function(doc){
                                 round = doc.size + 1;
-                                //console.log("set("+keyId+")");
                             }).then(function(){
                                 var today = new Date();
                                 var dd = today.getDate();

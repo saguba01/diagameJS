@@ -545,3 +545,12 @@ body {
     height: 500px;
     overflow-y: overlay;
 }
+
+.mark-question{
+    display: inline-block;
+    transform: rotate(45deg);
+    height: 50px;
+    width: 25px;
+    border-bottom: 10px solid #78b13f;
+    border-right: 10px solid #78b13f;
+}
