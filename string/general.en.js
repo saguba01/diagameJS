@@ -65,5 +65,6 @@ module.exports = {
     feedback:{
         title: 'Feedback',
         text: 'Type Your Comment Here...'
-    }
+    },
+    comment:'Comment',
 };

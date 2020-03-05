@@ -1147,6 +1147,12 @@ function showConfirmSignout() {
     $('#modal-confirm-signout').modal('open');
 }
 
+function showLeaderboard(){
+    $('#modal-leaderboard').modal({
+        'dismissible': true,
+    });
+    $('#modal-leaderboard').modal('open');
+}
 
 function showPasstutorial(photo, title, content, nextFlag = false) {
     $('#modal-pass-tutorial').modal({
@@ -1208,4 +1214,4 @@ function passTutorial(){
           console.error(e)
         }
       });
-}
+    }

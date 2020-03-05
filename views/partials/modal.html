@@ -95,7 +95,7 @@
       <div class=""><textarea style="border:5px solid black; height:100px; background-color: white;" placeholder="{{ general.feedback.text }}" id="comment-feedback"></textarea></div>
         <!-- Rating Stars Box -->
         <section class='rating-widget'>
-         <div class='rating-stars' style="text-align: center;">
+         <div class='rating-starsfeedback' style="text-align: center;">
            <ul id='stars'>
              <li class='star' title='Poor' data-value='1'>
                <i class='fa fa-star fa-fw lvl'></i>
@@ -216,6 +216,35 @@
     <button style="width: 230px;" onclick="startTutorial();playSoundEx('click');" class="canClick button-close-modal">{{walcomeModal.button.learning}}</button>
   </div>
 </div>
+
+<div id="modal-leaderboard" class="modal">
+  <div class="modal-content">
+    <div class="button-close-custom canClick right" onclick="closeModal('#modal-leaderboard');playSoundEx('click');"></div>
+    <br>
+    <div style="text-align: center; font-size: 30px;">Leaderboard</div>
+    <br>
+    <table>
+      <thead style="text-align: center;">
+          <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Score</th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Test</td>
+          <td>10000</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+  <div class="modal-footer">
+  </div>
+</div>
+
 
 <div id="modal-pass-tutorial" class="modal">
   <div class="modal-content">

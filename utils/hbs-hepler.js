@@ -526,7 +526,7 @@ handlebars.registerHelper('listquestion', function(question,scoreh){
   var index = 0;
   var type = '';
   var color = ["bg-red","bg-purple","bg-blue","bg-sky-blue","bg-light-green","bg-orange","bg-nude"];
-  if(Object.getOwnPropertyNames(question).length === 0){
+  if(typeof question === 'undefined'){
         html += 'ggg';
   }else{
     question.forEach(function (qs){
@@ -540,7 +540,7 @@ handlebars.registerHelper('listquestion', function(question,scoreh){
     }else{
       type = 'diagram';
     }
-    html += '<div target="/lesson/'+type+'/'+qs.Id+'" class="'+color[index]+' qs canClick" style="margin-left:40px; padding-right:1px; padding-left:6px; border:2px solid black">';
+    html += '<div target="/lesson/'+type+'/'+qs.Id+'" class="'+color[index]+' qs canClick" style="margin-left:40px; margin-bottom:-2px; padding-right:1px; padding-left:6px;  border:2px solid black">';
     html += '<div class="list-lesson-title" id="lesson-logic">';
     html += qs.Name;
     scoreh.forEach(function (sc){
@@ -592,6 +592,10 @@ handlebars.registerHelper('listcomment',function(feedback){
         if(fb.Comment != 'empty'){
         html += '<div class="bg-light-green comment-box">';
         html += fb.Name+' : '+fb.Comment;
+        html += '<br>';
+        for(var i = 0;i < fb.Level;i++){
+          html += '<i class="fa fa-star fa-fw" style="color:#FECF36; font-size:12px;"></i>'
+        }
         html += '</div>';
         }
     });

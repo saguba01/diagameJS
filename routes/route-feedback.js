@@ -18,7 +18,7 @@ router.get('/', authen, async (req, res, next) => {
     feedback : await getFeedback(),
     //required
     lesson:{
-      text:"Feedback",
+      text:configString[lang].general.feedback.title,
     },
     setting:general.setting,
     button:general.button,
