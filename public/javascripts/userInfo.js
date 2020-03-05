@@ -13,7 +13,7 @@ module.exports = {
             }
            } else {
             user ={ 
-                status : "sucess" , 
+                status : "success" , 
                 massage : "",
                 data : doc.data() 
             }
