@@ -56,21 +56,10 @@ $(document).ready(function(){
     $('#q_increase').click(function(){
         question_partcount++;
         target_count++;
-        var q_text = targetAnswer+"<input id='question_part"+(question_partcount)+"' type='text' class='textBox-150'/>";        
-        document.getElementById("question_text").innerHTML += q_text;   
-    });
-    //delete answer in question
-    $('#q_decrease').click(function(){
-        if(target_count > 1){
-            question_partcount--;
-            target_count--;
-            var q_text_part = "<input id='question_part1' type='text' class='textBox-150'/>"
-            for(let i=1;i<=target_count;i++){
-                var q_text = targetAnswer+"<input id='question_part"+(i+1)+"' type='text' class='textBox-150'/> ";        
-                q_text_part += q_text;
-            };
-            document.getElementById("question_text").innerHTML = q_text_part;
-        }
+        var q_text = targetAnswer+"<input id='question_part"+(question_partcount)+"' type='text' class='textBox-150'/>";
+        var deleteButton = "&nbsp;&nbsp;<button class='book-button red-button' id='btn"+question_partcount+"' onclick='removeQuestion(this);'><i class='fa fa-times'></i></button>";
+        var divElement = "<div id='div"+question_partcount+"' style='display:inline-block'>"+q_text+deleteButton+"</div>";        
+        document.getElementById("question_text").innerHTML += divElement;   
     });
     //save button click
     $('#saveButton').click(function(){
@@ -88,17 +77,19 @@ $(document).ready(function(){
         let numQuestionFail = 0;
         //console.log(logicName);
         for(let x=2;x<=question_partcount;x++){
-            let q_part = document.getElementById("question_part"+x).value;
-            if(q_part == ""){
-                numQuestionFail++;
-                $("#question_part"+x).addClass("redBorder");
-                $("#validate_question").text("Please fill in Question Part "+x+".");
-            }else{
-                if(numQuestionFail == 0){
-                    $("#question_part"+x).removeClass("redBorder");
-                    $("#validate_question").text("");
+            if(document.getElementById("question_part"+x) != null){
+                let q_part = document.getElementById("question_part"+x).value;
+                if(q_part == ""){
+                    numQuestionFail++;
+                    $("#question_part"+x).addClass("redBorder");
+                    $("#validate_question").text("Please fill in Question Part "+x+".");
+                }else{
+                    if(numQuestionFail == 0){
+                        $("#question_part"+x).removeClass("redBorder");
+                        $("#validate_question").text("");
+                    }
+                    logicQuestion = logicQuestion + " {target} " + q_part;
                 }
-                logicQuestion = logicQuestion + " {target} " + q_part;
             }
         }
         if(checkNameNullEN||checkNameNullTH||checkAnsNull||checkQuestionNull){
@@ -223,4 +214,18 @@ function deleteConfirm(id) {
         'dismissible': false
     });
     $('#modal-confirm-delete').modal('open');
+}
+
+/*
+ *Description: Delete question part
+ *@version 1.0
+ *@author Thanawin Poopangeon
+ *@since 5 Feb 2020
+ *@required javascript, materialize-css.
+*/
+function removeQuestion(element){
+    let str = element.id;
+    //console.log(str.substring(3,str.length));
+    element.remove();
+    $("#div"+str.substring(3,str.length)).remove();
 }

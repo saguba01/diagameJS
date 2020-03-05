@@ -27,12 +27,13 @@
                 </div>
                 <p class="textLabel" >{{addForm.form.equation.text}}
                 <button id="q_increase" class="book-button blue-button"><i class="fa fa-plus"></i></button>
-                <button id="q_decrease" class="book-button blue-button"><i class="fa fa-minus"></i></button>
                 </p>
                 <div id="question_text" style="overflow: hidden;text-align: center;">
-                    <input id="question_part1" type="text" class="textBox-150"/>
-                    &nbsp;<input type="text" class="ans-box" value="Answer" disabled/>&nbsp;
-                    <input id="question_part2" type="text" class="textBox-150"/>
+                    <div style="display: inline-flex;">
+                        <input id="question_part1" type="text" class="textBox-150"/>
+                        &nbsp;<input type="text" class="ans-box" value="Answer" disabled/>&nbsp;
+                        <input id="question_part2" type="text" class="textBox-150"/>
+                    </div>
                 </div>
                 <p id="validate_question" class="textValidate" style="text-align: center;"></p>
                 <p class="textLabel" >
@@ -65,7 +66,6 @@
                         </li>
                       </ul>
                     </div>
-                    
                     <div>
                       <input type="text" id="ratingStar" value="0" hidden>
                     </div>

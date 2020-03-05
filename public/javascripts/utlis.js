@@ -1122,12 +1122,15 @@ function saveUserInfo(){
     }
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
-            refUserInfo.doc(user.uid).set({
-                avatar: document.getElementById("selectavatar").value,
-                nickname: document.getElementById("username").value,
-                role:"user",
-                score:0
-            });
+            refUserInfo.doc(user.uid).get().then(function(doc){
+                refUserInfo.doc(user.uid).set({
+                    avatar: document.getElementById("selectavatar").value,
+                    nickname: document.getElementById("username").value,
+                    role: doc.data().role,
+                    playTutorial: doc.data().playTutorial,
+                    score:0
+                });
+            })
         }
     });
     closeModal('#modal-firstPlay');
