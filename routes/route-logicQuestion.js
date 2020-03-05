@@ -22,6 +22,7 @@ router.get('/add', authen, function (req, res, next) {
       navBar: true,
       elementDefault: configString[lang].element.general,
       general: configString[lang].general,
+      addForm: configString[lang].manage.logic,
       lesson: lesson,
       subLesson: lesson.subLesson.addlogic
       //
@@ -53,6 +54,7 @@ router.get('/edit/:id', authen, function (req, res, next) {
       general: configString[lang].general,
       lesson: lesson,
       subLesson: lesson.subLesson.addlogic,
+      addForm: configString[lang].manage.logic,
       //data for edit
       logicId: req.params.id,
       answer: doc.data().Answer,

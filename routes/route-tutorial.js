@@ -129,9 +129,8 @@ router.get('/passTutorail', async (req, res, next) => {
   const postData = req.body
   const uid = req.session.user.uid;
   let userInfo = {
-    avatar : "robot-01",
+    avatar : "robot-01.svg",
     nickname : "",
-    role : "user",
     playTutorial : false
   }
   userInfo.playTutorial = false

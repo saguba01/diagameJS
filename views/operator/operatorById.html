@@ -146,21 +146,10 @@
                 if (getResult()) {
                     playSoundEx('correct');
                     showNavigator('{{general.congrat}}');
-                    firebase.auth().onAuthStateChanged((user) => {
-                        if (user) {
+                            //save score history
                             //save score history
                             statusQuestion = true;
-                            // refUserInfo.doc(user.uid).get().then(function(doc){
-                            //     refUserInfo.doc(user.uid).set({
-                            //         avatar: doc.data().avatar,
-                            //         nickname: doc.data().nickname,
-                            //         role: doc.data().role,
-                            //         score: doc.data().score + $("#scorePlay").val()
-                            //     })
-                            // });
-                            refScore.where("logicId","==","/Logic/{{ questionId }}").get().then(function(doc){
-                                round = doc.size + 1;
-                            }).then(function(){
+                            refScore.doc("{{user.uid}}logic{{questionId}}").get().then(function(doc){
                                 var today = new Date();
                                 var dd = today.getDate();
                                 var mm = today.getMonth();
@@ -168,9 +157,15 @@
                                 var MM = today.getMinutes();
                                 var SS = today.getSeconds();
                                 var yyyy = today.getFullYear();
-                                refScore.doc().set({
-                                    uid: user.uid,
-                                    questionId: "/Logic/{{ questionId }}",
+                                let round = 1;
+                                let uid = "{{user.uid}}";
+                                if(doc.exists){
+                                    round = doc.data().round+1;
+                                }
+                                refScore.doc("{{user.uid}}logic{{questionId}}").set({
+                                    uid: uid,
+                                    type: "logic",
+                                    questionId: "{{ questionId }}",
                                     round: round,
                                     score: $("#scorePlay").val(),
                                     time : $("#timePlay").val(),
@@ -181,8 +176,6 @@
                                     console.log("Error : "+err);
                                 });
                             });
-                        }
-                    });
                 } else {
                     $('.questionBox').addClass("shake-vertical");
                     playSoundEx('error');

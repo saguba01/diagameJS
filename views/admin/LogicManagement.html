@@ -56,7 +56,7 @@
             <button class="canClick btn-edit" onclick="location.href='/manage/logic/edit/${item.id}'">
                 <div class="btn-edit-pencil" ></div>
             </button>
-            <button class="canClick" onclick="alert('comming soon !!!');console.log('Delete ID => ${item.id}')">
+            <button class="canClick" onclick="deleteConfirm(${item.id});console.log('Delete ID => ${item.id}')">
                 <div class="btn-delete"></div>
             </button>
           </div>`

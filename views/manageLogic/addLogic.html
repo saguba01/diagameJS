@@ -15,17 +15,17 @@
             <div>
                 <div style="display: inline-flex;width: 100%;">
                     <div style="width: 50%;">
-                        <p class="textLabel" >Question Name : EN</p>
+                        <p class="textLabel" >{{addForm.form.questionNameEN.text}}</p>
                         <input id="questionInputEN" type="text" class="textBox"/>
                         <p id="validate_nameEN" style="text-align: left;" class="textValidate"></p>
                     </div>
                     <div style="width: 50%;padding-left: 2%;">
-                        <p class="textLabel" >Question Name : TH</p>
+                        <p class="textLabel" >{{addForm.form.questionNameTH.text}}</p>
                         <input id="questionInputTH" type="text" class="textBox"/>
                         <p id="validate_nameTH" style="text-align: left;" class="textValidate"></p>
                     </div>
                 </div>
-                <p class="textLabel" >Equation
+                <p class="textLabel" >{{addForm.form.equation.text}}
                 <button id="q_increase" class="book-button blue-button"><i class="fa fa-plus"></i></button>
                 <button id="q_decrease" class="book-button blue-button"><i class="fa fa-minus"></i></button>
                 </p>
@@ -36,14 +36,14 @@
                 </div>
                 <p id="validate_question" class="textValidate" style="text-align: center;"></p>
                 <p class="textLabel" >
-                    Answer
+                    {{addForm.form.answer.text}}
                 </p>
-                <button id="ansTrue" class="ans-button nonselect-button">True</button>
-                <button id="ansFalse" class="ans-button nonselect-button">False</button>
-                <button id="ansNum" class="ans-button nonselect-button">Number</button>
+                <button id="ansTrue" class="ans-button nonselect-button">{{addForm.form.answer.trueText}}</button>
+                <button id="ansFalse" class="ans-button nonselect-button">{{addForm.form.answer.falseText}}</button>
+                <button id="ansNum" class="ans-button nonselect-button">{{addForm.form.answer.number}}</button>
                 <input id="answer" type="text" class="textBox-150" hidden/>
                 <p id="validate_ans" class="textValidate"></p>
-                <p class="textLabel" >Level</p>
+                <p class="textLabel" >{{addForm.form.level.text}}</p>
                 <!-- Rating Stars Box -->
                 <section class='rating-widget'>
                     <div class='rating-stars' style="text-align: left;">
@@ -87,3 +87,9 @@
 
     </ul>
 </body>
+<!-- <script>
+    $(document).ready(function(){
+        console.log("{{addForm.form.questionNameEN.text}}")
+        console.log("{{user.uid}}")
+    });
+</script> -->

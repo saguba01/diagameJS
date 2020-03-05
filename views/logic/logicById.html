@@ -156,14 +156,9 @@
                 if (getResult()) {
                     playSoundEx('correct');
                     showNavigator('{{general.congrat}}');
-                    firebase.auth().onAuthStateChanged((user) => {
-                        if (user) {
                             //save score history
                             statusQuestion = true;
-                            refScore.where("logicId","==","/Logic/{{ questionId }}").get().then(function(doc){
-                                round = doc.size + 1;
-                                //console.log("set("+keyId+")");
-                            }).then(function(){
+                            refScore.doc("{{user.uid}}logic{{questionId}}").get().then(function(doc){
                                 var today = new Date();
                                 var dd = today.getDate();
                                 var mm = today.getMonth();
@@ -171,9 +166,15 @@
                                 var MM = today.getMinutes();
                                 var SS = today.getSeconds();
                                 var yyyy = today.getFullYear();
-                                refScore.doc().set({
-                                    uid: user.uid,
-                                    questionId: "/Logic/{{ questionId }}",
+                                let round = 1;
+                                let uid = "{{user.uid}}";
+                                if(doc.exists){
+                                    round = doc.data().round;
+                                }
+                                refScore.doc("{{user.uid}}logic{{questionId}}").set({
+                                    uid: uid,
+                                    type: "logic",
+                                    questionId: "{{ questionId }}",
                                     round: round,
                                     score: $("#scorePlay").val(),
                                     time : $("#timePlay").val(),
@@ -184,8 +185,6 @@
                                     console.log("Error : "+err);
                                 });
                             });
-                        }
-                    });
                 } else {
                     $('.questionBox').addClass("shake-vertical");
                     playSoundEx('error');
