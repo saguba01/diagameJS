@@ -3,7 +3,7 @@
         <div class="panel-heading">{{general.management.flowchart.title}}</div>
         <div class="panel-body">
           <div class="dia-row" style="margin-bottom: 10px;">
-            <div class="canClick btn-add"  onclick="alert('comming soon !!!')">+ {{button.add_flowchart}}</div>
+            <div class="canClick btn-add"  onclick="location.href='/manage/diagram/add'">+ {{button.add_flowchart}}</div>
           </div>
           <div class="dia-row">
             <table id="dtMaterialDesignExample" class="table table-striped" cellspacing="0" width="100%">
@@ -38,6 +38,7 @@
   });
  
   $(function () {
+    
     const flowchartResponces = JSON.parse("{{allFlowchart}}".replace(/&quot;/g, '\"'))
     const table = $('#dtMaterialDesignExample').DataTable()
     table.clear().draw()
@@ -49,7 +50,7 @@
           item.data.name,
           ` 
             <div class="table-action">
-              <button class="canClick btn-edit" onclick="alert('comming soon !!!');console.log('Edit ID => ${item.id}')">
+              <button class="canClick btn-edit" onclick="location.href='/manage/diagram/edit/${item.id}'">
                   <div class="btn-edit-pencil" ></div>
               </button>
               <button class="canClick" onclick="alert('comming soon !!!');console.log('Delete ID => ${item.id}')">

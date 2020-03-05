@@ -8,6 +8,7 @@ var score = require('../public/javascripts/score');
 var user_info = require('../public/javascripts/userInfo');
 var questionFlowchart = require('../public/javascripts/question-flowchart');
 var questionLogic = require('../public/javascripts/question-logic');
+var dashboard = require('../public/javascripts/dashboard');
 
 router.get('/', authen, async (req, res, next) => {
   let lang = req.cookies.lang;
@@ -18,6 +19,9 @@ router.get('/', authen, async (req, res, next) => {
     switch(user.status) {
       case 'success':
         if( user.data.role == "admin"){
+          const allUser = await dashboard.getNumOfUser()
+          const allFlowchart = await questionFlowchart.getAllFlowchart()
+          const allLogic = await questionLogic.getAllLogic()
           var data = {
             layout: 'default',
             navBar : true,
@@ -34,6 +38,10 @@ router.get('/', authen, async (req, res, next) => {
             button : general.button,
             slidebar: general.slidebar,
             dashboard : general.dashboard,
+            cardData : {
+              total_user : allUser.length,
+              total_question : parseInt(allFlowchart.length) +  parseInt(allLogic.length)
+            },
             achievementList: configString[lang].achievement,
             errorMsg: configString[lang].error,
           };
@@ -216,6 +224,17 @@ router.post('/saveScore', (req, res, next) => {
  
   // 
 })
+
+router.get('/getAllLogicPie', async (req, res, next) => {
+  try{
+    const allFlowchart = await questionFlowchart.getAllFlowchart()
+    const allLogic = await questionLogic.getAllLogic(sortByKey="Type")
+    res.send(allLogic);
+  }catch(e){
+    res.send(allLogic);
+  }
+})
+
 
 async function getAchievement(uid) {
   var unlock = [];

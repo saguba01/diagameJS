@@ -8,7 +8,7 @@
             <div class="card-body-icon card-icon-user">
             </div>
             <div class="card-body-title">
-                53
+                {{cardData.total_user}}
             </div>
         </div>
         <div class="card-footer">
@@ -25,7 +25,7 @@
         <div class="card-body">
             <div class="card-body-icon card-icon-question"></div>
             <div class="card-body-title">
-                70
+                {{cardData.total_question}}
             </div>
         </div>
         <div class="card-footer">
@@ -65,7 +65,7 @@
     <div class="panel panel-default dia-6">
         <div class="panel-heading">{{dashboard.report.pie.compare_questions.title}}</div>
         <div class="panel-body">
-            <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+            <div id="compareQuestions" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
         </div>
     </div>
     <div class="panel panel-default dia-6">
@@ -90,7 +90,7 @@
     })
 
     function genanrateChart(){
-        Highcharts.chart('container', {
+        Highcharts.chart('compareQuestions', {
             chart: {
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
