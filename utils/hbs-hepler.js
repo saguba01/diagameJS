@@ -641,7 +641,7 @@ handlebars.registerHelper('listquestion', function(question,scoreh){
     html += '<div class="list-lesson-title" id="lesson-logic">';
     html += qs.Name;
     scoreh.forEach(function (sc){
-      if(sc.questionId == '/Logic/'+qs.Id){
+      if(sc.questionId == qs.Id){
         mark = 1;
        if(sc.score > max){
          score = sc.score;
@@ -688,10 +688,10 @@ handlebars.registerHelper('listcomment',function(feedback){
     feedback.forEach(function (fb){
         if(fb.Comment != 'empty'){
         html += '<div class="bg-light-green comment-box">';
-        html += fb.Name+' : '+fb.Comment;
+        html += '<b>'+fb.Name+'</b>'+' : '+fb.Comment;
         html += '<br>';
         for(var i = 0;i < fb.Level;i++){
-          html += '<i class="fa fa-star fa-fw" style="color:#FECF36; font-size:12px;"></i>'
+          html += '<i class="fa fa-star fa-fw feedback" style="color:#FECF36; font-size:12px;"></i>'
         }
         html += '</div>';
         }

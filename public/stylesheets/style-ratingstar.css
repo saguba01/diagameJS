@@ -36,6 +36,10 @@ i.fa.fa-star.fa-fw{
     -webkit-text-stroke-width: 3px;
 }
 
+i.fa.fa-star.fa-fw.feedback{
+    -webkit-text-stroke: black;
+    -webkit-text-stroke-width: 1px;
+}
 /* Rating Star Widgets Style */
 .rating-starsfeedback ul {
     list-style-type:none;
