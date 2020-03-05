@@ -26,11 +26,6 @@ router.get('/', authen, async (req, res, next) => {
     switch(user.status) {
       case 'success':
         const userInfo = user.data
-        console.log(`playTutorial type : ${typeof userInfo.playTutorial} ${userInfo.playTutorial}`)
-        console.log(`!userInfo.playTutorial : ${!userInfo.playTutorial}`)
-        console.log(`userInfo.playTutorial == undefined : ${typeof userInfo.playTutorial == undefined}`)
-        console.log(`userInfo.playTutorial =="undefined" : ${typeof userInfo.playTutorial =="undefined"}`)
-        console.log(`userInfo.role" : ${userInfo.role}`)
           if(!userInfo.playTutorial && typeof userInfo.playTutorial !="undefined"){
             var data = {
               layout: 'default',
