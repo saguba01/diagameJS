@@ -66,5 +66,6 @@ module.exports = {
     feedback:{
         title: 'ข้อเสนอแนะ',
         text: 'พิมพ์ข้อเสนอแนะลงตรงนี้...'
-    }
+    },
+    comment:'ความคิดเห็น',
 };

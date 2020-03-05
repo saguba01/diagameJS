@@ -4,6 +4,8 @@ var authen = require('../utils/authen');
 var configString = require('../app').configString;
 var firestore = require('../configs/firebase-config').firestore;
 var setting = require('../public/javascripts/setting');
+var user_info = require('../public/javascripts/userInfo');
+
 /* 
  * name: homePage
  * description: open home page
@@ -121,7 +123,22 @@ router.get('/', authen, async (req, res, next) => {
     };
     res.render('tutorial/flowchart', data);
   });
+  // service
 
+router.get('/passTutorail', async (req, res, next) => {
+  const postData = req.body
+  const uid = req.session.user.uid;
+  let userInfo = {
+    avatar : "robot-01",
+    nickname : "",
+    role : "user",
+    playTutorial : false
+  }
+  userInfo.playTutorial = false
+  res.send(await user_info.passTutorail(uid,userInfo));
+})
+
+  // function 
   async function getAchievement(uid) {
     var unlock = [];
     let refAchieve = firestore.collection("lessons").doc(uid).collection('achievements');

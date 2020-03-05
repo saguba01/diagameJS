@@ -3,7 +3,8 @@ var router = express.Router();
 var authen = require('../utils/authen');
 var configString = require('../app').configString;
 var firestore = require('../configs/firebase-config').firestore;
-var setting = require('../public/javascripts/setting');
+var user_info = require('../public/javascripts/userInfo');
+var genaral = require('../public/javascripts/genaral');
 
 /* 
  * name: homePage
@@ -17,47 +18,77 @@ var setting = require('../public/javascripts/setting');
  */
 router.get('/', authen, async (req, res, next) => {
   let lang = req.cookies.lang;
-  const general = await setting.getSetting(lang);
-  var data = {
-    navBar: true,
-    layout: 'default',
-    user: req.session.user,
-    element: configString[lang].element.general,
-    intro: configString[lang].intro,
-    questionLogic: await getLogic(lang),
-    questionOperator: await getOperator(lang),
-    questionDiagram: await getDiagram(lang),
-    //required
-    unlock: await getAchievement(req.session.user.uid),
-    passed: await getPassed(req.session.user.uid),
-    score: await getScore(req.session.user.uid),
-    setting:general.setting,
-    button:general.button,
-    feedback:general.feedback,
-    lesson: configString[lang].lesson,
-    general: configString[lang].general,
-    achievementList: configString[lang].achievement,
-    errorMsg: configString[lang].error,
-    ListMenu: JSON.stringify(await getMenu()),
-    setting:general.setting,
-    button:general.button,
-  };
-  res.render('home/index', data);
+  const general = await genaral.getGanaral(lang)
+  const uid = req.session.user.uid;
+  const user = await user_info.userInfo(uid)
+  console.warn("come to home page")
+  try{
+    switch(user.status) {
+      case 'success':
+        const userInfo = user.data
+        console.log(`playTutorial type : ${typeof userInfo.playTutorial} ${userInfo.playTutorial}`)
+        console.log(`!userInfo.playTutorial : ${!userInfo.playTutorial}`)
+        console.log(`userInfo.playTutorial == undefined : ${typeof userInfo.playTutorial == undefined}`)
+        console.log(`userInfo.playTutorial =="undefined" : ${typeof userInfo.playTutorial =="undefined"}`)
+        console.log(`userInfo.role" : ${userInfo.role}`)
+          if(!userInfo.playTutorial && typeof userInfo.playTutorial !="undefined"){
+            var data = {
+              layout: 'default',
+              navBar: true,
+              user: req.session.user,
+              element: configString[lang].element.general,
+              intro: configString[lang].intro,
+              questionLogic: await getLogic(lang),
+              questionOperator: await getOperator(lang),
+              questionDiagram: await getDiagram(lang),
+              //required
+              unlock: await getAchievement(req.session.user.uid),
+              passed: await getPassed(req.session.user.uid),
+              score: await getScore(req.session.user.uid),
+              feedback: general.feedback,
+              lesson: configString[lang].lesson,
+              general: configString[lang].general,
+              achievementList: configString[lang].achievement,
+              errorMsg: configString[lang].error,
+              ListMenu : JSON.stringify(await getMenu()),
+              ListMenu: JSON.stringify(await getMenu()),
+              setting:general.setting,
+              button:general.button
+            };
+            res.render('home/index', data);
+          }else{
+            res.redirect('/tutorial');
+          }
+        break;
+      case 'waring':
+        
+        break;
+      default:
+        console.error({
+          status : user.status,
+          massage : user.massage
+        })
+        break;
+    }
+    
+  }catch(e){
+    console.error(e)
+  }
 });
 
 router.post('/', authen, async (req, res, next) => {
   let lang = req.cookies.lang;
   await getPassed(req.session.user.uid);
+  const general = await genaral.getGanaral(lang)
   var data = {
     layout: 'default',
     user: req.session.user,
     page: req.body.page, //req.session.homePost != req.body.page ? req.body.page : undefined,
     element: configString[lang].element.general,
     intro: configString[lang].intro,
-    questionLogic: await getLogic(),
-    questionOperator: await getOperator(),
+    questionLogic: await getLogic(lang),
+    questionOperator: await getOperator(lang),
     questionDiagram: await getDiagram(lang),
-    feedback:general.feedback,
     //required
     unlock: await getAchievement(req.session.user.uid),
     passed: await getPassed(req.session.user.uid),
