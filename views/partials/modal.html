@@ -19,7 +19,7 @@
   </div>
   <div class="modal-footer">
     <button onclick="closeModal('#modal-achievement')" style="float: left;" class="canClick button-achievement">{{general.button.done}}</button>
-    <button id="nextPage" onclick="nextPage('{{ nextPage }}')" class="canClick button-achievement" style="float: right;">{{general.button.next}}</button>
+    <button id="nextPage" onclick="nextPage('{{ nextPage }}');" class="canClick button-achievement" style="float: right;">{{general.button.next}}</button>
   </div>
 </div>
 
@@ -246,3 +246,14 @@
 </div>
 
 
+<div id="modal-pass-tutorial" class="modal">
+  <div class="modal-content">
+    <div id="tutorial-photo" class="tutorial-photo"></div>
+    <div class="tutorial-title"></div>
+    <div class="tutorial-content"></div>
+  </div>
+  <div class="modal-footer">
+    <button onclick="closeModal('#modal-pass-tutorial')" style="float: left;" class="canClick button-achievement">{{general.button.done}}</button>
+    <button onclick="passTutorial();" class="canClick button-achievement" style="float: right;">{{general.button.next}}</button>
+  </div>
+</div>
