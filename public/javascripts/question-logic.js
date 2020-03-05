@@ -3,6 +3,7 @@ var sortId = require('./sortId')
 module.exports = {
   getAllLogic: async function(lang ="en",sortByKey="id")
     {
+      console.log(`sortByKey : ${sortByKey}`)
         let responces = [];
         const flowchart = firestore.collection('Logic')
         await flowchart.get().then(snapshot => {
@@ -10,7 +11,7 @@ module.exports = {
             let resBack = doc.data()
             responces.push({
               id : doc.id,
-              Type : resBack.Type,
+              type : resBack.Type,
               data : {
                 Name : (lang == "en"? resBack.NameEN : resBack.NameTH ),
                 Level : resBack.Level,

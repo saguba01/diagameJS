@@ -23,6 +23,7 @@ router.get('/', authen, async (req, res, next) => {
         diagameIntro : false,
         introStep :await getintroStep(lang),
         layout: 'default',
+        
         user: req.session.user,
         element: configString[lang].element.general,
         intro: configString[lang].intro,

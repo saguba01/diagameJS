@@ -162,7 +162,7 @@ router.get('/score', authen, async (req, res, next) => {
   const scoreData = await score.getScore()
   const uid = req.session.user.uid;
   const user = await user_info.userInfo(uid)
-
+  const allLogic = await questionLogic.getAllLogic(lang)
   try{
     if(user.status == "success" && user.data.role == "admin"){
       var data = {
@@ -191,11 +191,11 @@ router.get('/score', authen, async (req, res, next) => {
       res.render('shared/page_404');
     }
   }catch(e){
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    res.locals.message = e.message;
+    res.locals.error = req.app.get('env') === 'development' ? e : {};
 
     // render the error page
-    res.status(err.status || 500);
+    res.status(e.status || 500);
     res.render('shared/error');
   }
   
@@ -221,20 +221,119 @@ router.post('/saveScore', (req, res, next) => {
     respones.massage = e
     res.send(respones);
   })
- 
   // 
 })
 
 router.get('/getAllLogicPie', async (req, res, next) => {
   try{
-    const allFlowchart = await questionFlowchart.getAllFlowchart()
-    const allLogic = await questionLogic.getAllLogic(sortByKey="Type")
-    res.send(allLogic);
+    let lang = req.cookies.lang;
+    const general = await genaral.getGanaral(lang)
+    const allFlowchart = await questionFlowchart.getAllFlowchart(lang)
+    const allLogic = await questionLogic.getAllLogic(lang)
+    let logic = []
+    let operator = []
+    let other = []
+    allLogic.forEach((value)=>{
+      switch (value.type) {
+        case "operator":
+          operator.push(value)
+          break;
+        case "logic":
+          logic.push(value)
+          break;
+        default:
+          other.push(value)
+          break;
+      }
+    })
+    let compareTitle = general.dashboard.report.pie.compare_questions.compare
+    res.send([
+       {
+        title : compareTitle.flowchart,
+        type: "flowchart",
+        data : allFlowchart
+      },
+      {
+        title : compareTitle.logic,
+        type: "logic",
+        data : logic
+      },
+       {
+        title : compareTitle.operator,
+        type: "operator",
+        data : operator
+      },
+      {
+        title : compareTitle.other,
+        type: "other",
+        data : other
+      }
+    ]);
   }catch(e){
-    res.send(allLogic);
+    console.warn(e)
+    res.send({
+      status : "error",
+      massage : e
+    });
   }
 })
 
+router.get('/getscroeHistory', async (req, res, next) => {
+  try{
+    let lang = req.cookies.lang;
+    const scroeHistory = await dashboard.getscroeHistory()
+    const general = await genaral.getGanaral(lang)
+    let flowchart = []
+    let logic = []
+    let operator = []
+    let other = []
+    scroeHistory.forEach((value)=>{
+      switch (value.type) {
+        case "flowchart":
+          flowchart.push(value)
+          break;
+        case "operator":
+          operator.push(value)
+          break;
+        case "logic":
+          logic.push(value)
+          break;
+        default:
+          other.push(value)
+          break;
+      }
+    })
+    let compareTitle = general.dashboard.report.pie.compare_questions.compare
+    res.send([
+       {
+        title : compareTitle.flowchart,
+        type: "flowchart",
+        data : flowchart
+      },
+      {
+        title : compareTitle.logic,
+        type: "logic",
+        data : logic
+      },
+       {
+        title : compareTitle.operator,
+        type: "operator",
+        data : operator
+      },
+      {
+        title : compareTitle.other,
+        type: "other",
+        data : other
+      }
+    ]);
+  }catch(e){
+    console.warn(e)
+    res.send({
+      status : "error",
+      massage : e
+    });
+  }
+})
 
 async function getAchievement(uid) {
   var unlock = [];
