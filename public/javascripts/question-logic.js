@@ -1,7 +1,7 @@
 var firestore = require('../../configs/firebase-config').firestore; //test firebase
 var sortId = require('./sortId')
 module.exports = {
-  getAllLogic: async function(lang ="en")
+  getAllLogic: async function(lang ="en",sortByKey="id")
     {
         let responces = [];
         const flowchart = firestore.collection('Logic')
@@ -10,6 +10,7 @@ module.exports = {
             let resBack = doc.data()
             responces.push({
               id : doc.id,
+              Type : resBack.Type,
               data : {
                 Name : (lang == "en"? resBack.NameEN : resBack.NameTH ),
                 Level : resBack.Level,
@@ -24,6 +25,6 @@ module.exports = {
         .catch(err => {
           responces.push(err.message)
         });
-        return responces.sort(sortId.compareValues('id'))
+        return responces.sort(sortId.compareValues(sortByKey))
     } 
 }
