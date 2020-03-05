@@ -198,7 +198,8 @@ $(document).ready(function(){
  *@since 29 Feb 2020
  *@required javascript
  */
-function deleteQuestion(id){
+function deleteQuestion(){
+    let id = document.getElementById("deleteId").value;
     refQuestion.doc(id.toString()).delete().then(function(){
         $('#modal-addQuestion').modal({
             'dismissible': false,
@@ -208,4 +209,18 @@ function deleteQuestion(id){
         });
         $('#modal-addQuestion').modal('open');
     });
+}
+/*
+ *Description: Confirm Delete
+ *@version 1.0
+ *@author Thanawin Poopangeon
+ *@since 5 Feb 2020
+ *@required javascript, materialize-css.
+*/
+function deleteConfirm(id) {
+    document.getElementById("deleteId").value = id;
+    $('#modal-confirm-delete').modal({
+        'dismissible': false
+    });
+    $('#modal-confirm-delete').modal('open');
 }

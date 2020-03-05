@@ -14,7 +14,8 @@ module.exports = {
         close: 'ปิด',
         next: 'ถัดไป',
         done: 'เสร็จสิ้น',
-        home: 'หน้าหลัก'
+        home: 'หน้าหลัก',
+        confirm: 'ยืนยัน'
     },
     form: {
         username: {

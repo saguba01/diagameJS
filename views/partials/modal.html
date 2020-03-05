@@ -217,3 +217,13 @@
   </div>
 </div>
 
+<div id="modal-confirm-delete" class="modal">
+  <div class="modal-content">
+    <span>Confirm Delete?</span>
+    <input type="text" id="deleteId" value="" hidden>
+  </div>
+  <div class="modal-footer">
+    <button onclick="playSoundEx('click');deleteQuestion();" class="canClick button-close-modal">{{ button.confirm }}</button>
+    <button onclick="playSoundEx('click');closeModal('#modal-confirm-delete');" class="canClick button-close-setting">{{button.close}}</button>
+  </div>
+</div>
