@@ -88,12 +88,12 @@
     // end display none
 
     //add input 
-    scoreMax.parent().append(newElements().input.attr({value : oldData.score.maxScore}).css({"font-size":"28px","text-align" : "left"}))
-    scoreMin.parent().append(newElements().input.attr({value : oldData.score.minScore}).css({"font-size":"28px","text-align" : "left"}))
+    scoreMax.parent().append(newElements().input.attr({value : oldData.score.maxScore , group : "score" }).css({"font-size":"28px","text-align" : "left"}))
+    scoreMin.parent().append(newElements().input.attr({value : oldData.score.minScore , group : "score"}).css({"font-size":"28px","text-align" : "left"}))
 
     listCard.forEach((value,index)=>{
-      value.eleRight.after(newElements().input.attr({value : oldData.card[index].rateScore}).css({"font-size":"48px","text-align" : "center"}))
-      value.eleLeft.after(newElements().input.attr({value : oldData.card[index].rateSec}).css({"font-size":"48px","text-align" : "center"}))
+      value.eleRight.after(newElements().input.attr({value : oldData.card[index].rateScore, group : `rate-score`,index : index}).css({"font-size":"48px","text-align" : "center"}))
+      value.eleLeft.after(newElements().input.attr({value : oldData.card[index].rateSec, group : `rate-sec` , index :index }).css({"font-size":"48px","text-align" : "center"}))
     })
 
     // end add input 
@@ -162,7 +162,6 @@
     for(let i = 0 ; i < element.card.length ; i++){
       const eleRight = $(element.card.get(i)).find(".card-body .card-body-right").find("span").get(1)
       const eleLeft = $(element.card.get(i)).find(".card-body .card-body-left").find("span").get(1)
-      
       listCard.push({
         eleRight : $(eleRight),
         eleLeft : $(eleLeft)
@@ -221,21 +220,84 @@
   function validate(){
     const input = $(".panel ").find("input")
     let status = true
+    
+    // let
+    let listRateScore = []
+    let rateScore = []
+    let rateSec = []
+
+    for(let i = 0 ; i < input.length ; i++){
+      let newInput = $(input.get(i)).val()
+      if($(input.get(i)).attr("group") == "rate-score"){
+        rateScore.push({
+          ele : $(input.get(i)) , 
+          value :  newInput
+        })
+      }else if($(input.get(i)).attr("group") == "rate-sec"){
+        rateSec.push({
+          ele : $(input.get(i)) , 
+          value :  newInput
+        })
+      }
+    }
+
+    rateScore.forEach((value,index)=>{
+      let sec = rateSec[index]
+      let oneSec = parseFloat(parseInt(value.value)/ parseInt(sec.value))
+      listRateScore.push({
+        ele : {
+          rateSec :  sec.ele,
+          rateScore : value.ele
+        },
+        rate : oneSec
+      })
+    })
+
+    let oldRate 
+    listRateScore.forEach((value,index)=>{
+      if(index == 0){
+        oldRate = value
+      }else{
+        if(oldRate.rate >= value.rate){
+          status = false
+          oldRate.ele.rateSec.addClass("redBorder").addClass("placeholder-red")
+          oldRate.ele.rateScore.addClass("redBorder").addClass("placeholder-red")
+
+          value.ele.rateSec.addClass("redBorder").addClass("placeholder-red")
+          value.ele.rateScore.addClass("redBorder").addClass("placeholder-red")
+          oldRate = value
+        }else{
+          oldRate.ele.rateSec.removeClass("redBorder").removeClass("placeholder-red")
+          oldRate.ele.rateScore.removeClass("redBorder").removeClass("placeholder-red")
+
+          value.ele.rateSec.removeClass("redBorder").removeClass("placeholder-red")
+          value.ele.rateScore.removeClass("redBorder").removeClass("placeholder-red")
+          oldRate = value
+        }
+      }
+    })
+
     for(let i = 0 ; i < input.length ; i++){
       let newInput = $(input.get(i)).val()
       if(newInput == ""){
         $(input.get(i)).addClass("redBorder").addClass("placeholder-red")
         status = false
+      }else{
+        if($(input.get(i)).attr("group") == "score"){
+          $(input.get(i)).removeClass("redBorder").removeClass("placeholder-red")
+        }
       }
     }
-
     const maxScore = parseInt($(input.get(0)).val())
     const minScore = parseInt($(input.get(1)).val())
+
     if(maxScore <= minScore){
       $(input.get(0)).addClass("redBorder").addClass("placeholder-red")
       $(input.get(1)).addClass("redBorder").addClass("placeholder-red")
       status = false
     }
+
+
     if(!status){
       $(".massage-error").html("{{general.input.empty}}").css({"color":"red","font-size":"28px"})
     }else{

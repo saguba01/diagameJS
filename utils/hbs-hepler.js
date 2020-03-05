@@ -928,3 +928,11 @@ handlebars.registerHelper('card-level', function (level,ganaral) {
   })
   return new handlebars.SafeString(html);
 });
+
+handlebars.registerHelper('list-option-question', function (obj) {
+  var html = '';
+  obj.forEach((value,index)=>{
+    html+= ` <option value="${value.value}" ${( index == 0 ? "selected" :"" )}>${value.title}</option>`
+  })
+  return new handlebars.SafeString(html);
+});

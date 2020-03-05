@@ -5,7 +5,6 @@ module.exports = {
             // property doesn't exist on either object
             return 0;
           }
-          console.log(a[key])
           const varA = parseInt(a[key]); 
           const varB = parseInt(b[key]);
       
