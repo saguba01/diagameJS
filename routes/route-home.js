@@ -61,7 +61,7 @@ router.get('/', authen, async (req, res, next) => {
           }
         break;
       case 'waring':
-        
+        res.redirect('/tutorial');
         break;
       default:
         console.error({
