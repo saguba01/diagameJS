@@ -4,7 +4,7 @@ var authen = require('../utils/authen');
 var configString = require('../app').configString;
 var firestore = require('../configs/firebase-config').firestore;
 var user_info = require('../public/javascripts/userInfo');
-var setting = require('../public/javascripts/setting');
+var genaral = require('../public/javascripts/genaral');
 
 /* 
  * name: homePage
@@ -18,13 +18,13 @@ var setting = require('../public/javascripts/setting');
  */
 router.get('/', authen, async (req, res, next) => {
   let lang = req.cookies.lang;
+  const general = await genaral.getGanaral(lang)
   const uid = req.session.user.uid;
   const user = await user_info.userInfo(uid)
   try{
     switch(user.status) {
       case 'sucess':
         const userInfo = user.data
-        if(!userInfo.playTutorial){
           var data = {
             layout: 'default',
             navBar: true,
@@ -38,7 +38,7 @@ router.get('/', authen, async (req, res, next) => {
             unlock: await getAchievement(req.session.user.uid),
             passed: await getPassed(req.session.user.uid),
             score: await getScore(req.session.user.uid),
-            feedback:general.feedback,
+            feedback: general.feedback,
             lesson: configString[lang].lesson,
             general: configString[lang].general,
             achievementList: configString[lang].achievement,
@@ -49,9 +49,10 @@ router.get('/', authen, async (req, res, next) => {
             button:general.button
           };
           res.render('home/index', data);
-        }else{
-          res.redirect('/tutorial');
-        }
+      
+        break;
+      case 'waring':
+        res.redirect('/tutorial');
         break;
       default:
         console.error({

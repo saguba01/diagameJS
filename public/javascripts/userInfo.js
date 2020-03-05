@@ -9,7 +9,7 @@ module.exports = {
            if (!doc.exists) {
             user = { 
                 status : "waring" , 
-                massage : "not have data"
+                massage : "404"
             }
            } else {
             user ={ 

@@ -169,7 +169,7 @@ function signUpWithEmailAndPassword(username, email, password) {
                 displayName: username
             })
                 .then(function () {
-                    newUser(user,username)
+                    // newUser(user,username)
                     signInWithEmailAndPassword(email, password);
                 }).catch(function (error) {
                     console.log(error)
