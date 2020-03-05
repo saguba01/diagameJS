@@ -127,13 +127,21 @@ router.get('/', authen, async (req, res, next) => {
   // service
 
 router.get('/passTutorail', async (req, res, next) => {
+  
   const postData = req.body
   const uid = req.session.user.uid;
+  const user = await user_info.userInfo(uid)
+  const userInfoData = user.data
   let userInfo = {
     avatar : "robot-01.svg",
     nickname : "",
-    playTutorial : false
+    playTutorial : false,
+    role : "user"
   }
+  if(typeof userInfoData.role !="undefined" && userInfoData.role == "admin"){
+    userInfo.role = "admin"
+  }
+
   userInfo.playTutorial = false
   res.send(await user_info.passTutorail(uid,userInfo));
 })
