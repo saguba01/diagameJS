@@ -769,6 +769,11 @@ hr {
     background-size: 100% auto;
 }
 
+.btn-leaderboard{
+    background-image: url("/assets/svg/leaderboard.png");
+    background-size: 100% auto;
+}
+
 .btn-logout{
     background-image: url("/assets/svg/logout.svg");
     background-size: 70% auto;

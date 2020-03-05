@@ -1240,3 +1240,10 @@ function showConfirmSignout() {
     });
     $('#modal-confirm-signout').modal('open');
 }
+
+function showLeaderboard(){
+    $('#modal-leaderboard').modal({
+        'dismissible': true,
+    });
+    $('#modal-leaderboard').modal('open');
+}

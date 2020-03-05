@@ -54,10 +54,9 @@ router.post('/', authen, async (req, res, next) => {
     page: req.body.page, //req.session.homePost != req.body.page ? req.body.page : undefined,
     element: configString[lang].element.general,
     intro: configString[lang].intro,
-    questionLogic: await getLogic(),
-    questionOperator: await getOperator(),
+    questionLogic: await getLogic(lang),
+    questionOperator: await getOperator(lang),
     questionDiagram: await getDiagram(lang),
-    feedback:general.feedback,
     //required
     unlock: await getAchievement(req.session.user.uid),
     passed: await getPassed(req.session.user.uid),

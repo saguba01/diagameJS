@@ -139,7 +139,7 @@
     <!-- Feedback -->
     <div class="panelleft" style="width:500px;height: 650px;position: absolute;">
         <div class="innerpage">
-            <p class="lesson-title noselect" guide="lesson">Feedback</p>
+            <p class="lesson-title noselect" guide="lesson">{{ lesson.text }}</p>
             {{ ratingstar-feedback feedback }}
             <!-- Start Progress Bar -->
             <div id="list-progressbars"> 
@@ -153,7 +153,7 @@
         <!-- Comments -->
         <div class="panelright">
             <div class="innerpage">
-                <p class="lesson-title noselect" guide="lesson">Comments</p>
+                <p class="lesson-title noselect" guide="lesson">{{ general.comment }}</p>
                 <div class="sort-version" style="padding-left:300px;">
                 <select class="bg-blue sort-select" id="sort-comment" onchange="newComment()">
                         <option value="1" selected>Version  1</option>
@@ -336,20 +336,7 @@
 
 <script>
     function newComment(){
-        var ver = $('#sort-comment').val();
-        $.ajax({
-            url: "",
-            type: "POST",
-            dataType: "json",
-            data:{
-                version:ver,
-            },
-            success:function(){
-
-            },
-            error:function(){
-
-            },
-        });
+        //var ver = $('#sort-comment').val();
+        alert('Coming Soon!!');
     }
 </script>
