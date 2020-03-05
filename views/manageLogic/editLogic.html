@@ -27,12 +27,13 @@
             </div>
             <p class="textLabel" >{{addForm.form.equation.text}}
             <button id="q_increase" class="book-button blue-button"><i class="fa fa-plus"></i></button>
-            <button id="q_decrease" class="book-button blue-button"><i class="fa fa-minus"></i></button>
             </p>
             <div id="question_text" style="overflow: hidden;text-align: center;">
-                <input id="question_part1" type="text" class="textBox-150"/>
-                &nbsp;<input type="text" class="ans-box" value="Answer" disabled/>&nbsp;
-                <input id="question_part2" type="text" class="textBox-150"/>
+                <div style="display: inline-flex;">
+                    <input id="question_part1" type="text" class="textBox-150"/>
+                    &nbsp;<input type="text" class="ans-box" value="Answer" disabled/>&nbsp;
+                    <input id="question_part2" type="text" class="textBox-150"/>
+                </div>
             </div>
             <p id="validate_question" class="textValidate" style="text-align: center;"></p>
             <p class="textLabel" >
@@ -92,7 +93,6 @@
 
 
 $(document).ready(function(){
-    deleteQuestion(1);
     //set star level
     for(let l=1;l<="{{level}}";l++){
         $("#level"+l).addClass('selected');
@@ -106,8 +106,10 @@ $(document).ready(function(){
     for(question_partcount;question_partcount < questionArray.length;question_partcount){
         question_partcount++;
         target_count++;
-        var q_text = targetAnswer+"<input id='question_part"+(question_partcount)+"' type='text' class='textBox-150'/>";        
-        document.getElementById("question_text").innerHTML += q_text;
+        var q_text = targetAnswer+"<input id='question_part"+(question_partcount)+"' type='text' class='textBox-150'/>";
+        var deleteButton = "&nbsp;&nbsp;<button class='book-button red-button' id='btn"+question_partcount+"' onclick='removeQuestion(this);'><i class='fa fa-times'></i></button>";
+        var divElement = "<div id='div"+question_partcount+"' style='display:inline-block'>"+q_text+deleteButton+"</div>";        
+        document.getElementById("question_text").innerHTML += divElement; 
     }
     for(let qp=1;qp<=question_partcount;qp++){
         document.getElementById("question_part"+qp).value = questionArray[qp-1];
@@ -125,6 +127,32 @@ $(document).ready(function(){
         document.getElementById("answer").value = "{{answer}}";
         selectButton("ansNum");
     }
+
+    
 });
 
+function saveQuestion(logicQuestion, logicLevel, logicNameEN,logicNameTH, logicAnswer) {
+    console.log("save...");
+    let type = "operator";
+    if(logicAnswer.toLowerCase()=="true"||logicAnswer.toLowerCase()=="false"){
+        type = "logic";
+    }
+    refQuestion.doc("{{logicId}}").get().then(function(){
+        showLoading();
+        refQuestion.doc("{{logicId}}").set({
+            Question: logicQuestion,
+            NameTH: logicNameTH,
+            NameEN: logicNameEN,
+            Answer: logicAnswer,
+            Level : logicLevel,
+            Type : type
+        }).then(function(){
+            closeLoading();
+            showSaveStatus("Save Success!!");
+        }).catch(err => {
+            closeLoading();
+            showSaveStatus("Error : "+err);
+        });
+    });
+}
 </script>

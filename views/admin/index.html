@@ -90,7 +90,22 @@
     })
 
     function genanrateChart(){
-        Highcharts.chart('compareQuestions', {
+        $.ajax({
+        type: "GET",
+        contentType: "application/json",
+        url: "/admin/getAllLogicPie", 
+        success: function(response){
+            let seriesData = []
+            response.forEach((value)=>{
+                if(value.type != "other"){
+                    seriesData.push({
+                        name : value.title,
+                        y : parseInt(value.data.length)
+                    })
+                }
+                
+            })
+            Highcharts.chart('compareQuestions', {
             chart: {
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
@@ -117,23 +132,18 @@
                 enabled: false
             },
             series: [{
-                name: 'Brands',
+                name: '{{general.dashboard.report.pie.compare_questions.series_name}}',
                 colorByPoint: true,
-                data: [
-                    {
-                name: 'Flowchart',
-                y: 10
-
-                }, {
-                name: 'logic',
-                y: 25
-                }, {
-                name: 'Operrator',
-                y: 10
-
-                }]
+                data: seriesData
             }]
             });
+        },
+        error: (e)=>{
+          unblockUI();
+          console.error(e)
+        }
+      });
+        
     }
 
     function test(){
@@ -203,71 +213,98 @@
     }
 
     function play_question(){
-        Highcharts.chart('play_question', {
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                backgroundColor: null
-            },
-            credits: {
-                enabled: false
-            },
-            title: {
-                text: null
-            },
-
-            subtitle: {
-                text: null
-            },
-            xAxis: {
-                allowDecimals: false,
-                title: {
-                    text: 'ข้อ'
-                }
-            },
-            yAxis: {
-                title: {
-                    text: 'คะแนนเฉลี่ย'
-                }
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle'
-            },
-
-            plotOptions: {
-                series: {
-                    pointStart: 1
-                }
-            },
-
-            series: [{
-                name: 'Installation',
-                data: [43934, 52503, 57177, 69658, ]
-            }, {
-                name: 'Manufacturing',
-                data: [24916, 24064, 29742, 29851, 32490]
-            }, {
-                name: 'Sales & Distribution',
-                data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387,11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
-            }],
-
-            responsive: {
-                rules: [{
-                    condition: {
-                        maxWidth: 500
-                    },
-                    chartOptions: {
-                        legend: {
-                            layout: 'horizontal',
-                            align: 'center',
-                            verticalAlign: 'bottom'
-                        }
+        $.ajax({
+            type: "GET",
+            contentType: "application/json",
+            url: "/admin/getscroeHistory", 
+            success: function(response){
+                let type = "operator"
+                let chart 
+                response.forEach((value)=>{
+                    if(value.type == type){
+                        chart = value
+                        return
                     }
-                }]
-            }
-            });
+                })
+                console.log(chart)
+                let listXAxis = []
+                chart.data.forEach((value)=>{
+                    switch(Cookies.get('lang')){
+                        case "en":
+                            listXAxis.push(value.ref.NameEN)
+                            break;
+                        case "th":
+                            listXAxis.push(value.ref.NameTH)
+                            break;
+                    }
+                    
+                })
+                console.log(listXAxis)
+                Highcharts.chart('play_question', {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        backgroundColor: null
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    title: {
+                        text: null
+                    },
+
+                    subtitle: {
+                        text: null
+                    },
+                    xAxis: {
+                        // allowDecimals: false,
+                        categories: listXAxis,
+                        title: {
+                            text: '{{dashboard.report.line.play_questions.xUnit}}'
+                        }
+                    },
+                    yAxis: {
+                        title: {
+                            text: '{{dashboard.report.line.play_questions.yUnit}}'
+                        }
+                    },
+                    legend: {
+                        accessibility : {
+                            enabled : false
+                        }
+                    },
+
+                    plotOptions: {
+                        line: {
+                            dataLabels: {
+                                enabled: true
+                            },
+                            enableMouseTracking: false
+                        }
+                    },
+
+                    series: [{
+                        data: [43934, 52503, 57177 ]
+                    }],
+
+                    responsive: {
+                        rules: [{
+                            condition: {
+                                maxWidth: 500
+                            },
+                            chartOptions: {
+                                legend: {
+                                    layout: 'horizontal',
+                                    align: 'center',
+                                    verticalAlign: 'bottom'
+                                }
+                            }
+                        }]
+                    }
+                    });
+                    }
+        })
+        
     }
 
     function playtime_summary(){

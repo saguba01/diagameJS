@@ -106,6 +106,7 @@ button>.btn-delete:hover{
     border: 5px solid black !important;
     /* background-color: #D0D3D4 !important; */
     background : #F8F9F9 !important;
+    text-indent: 7px !important;
 }
 
 .dataTables_wrapper{

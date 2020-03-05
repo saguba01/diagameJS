@@ -1,123 +1,145 @@
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<body>
+<div class="dia-row">
+    <div class="panel panel-default dia-12">
+        <div class="panel-heading">เพิ่มโจทย์</div>
+        <div class="panel-body">
+            <div class="dia-row">
+                <div class="panel panel-default dia-12">
+                    <div class="panel-heading">เพิ่มโจทย์</div>
+                    <div class="panel-body">
+                        <div class="content-input dia-row">
+                            <div class="dia-6" id="question1">
+                                <p class="input-name">Question Name (Eng)</p>
+                                <input id="questionInputEng" type="text" style="width: 90%;" />
+                            </div>
+                            <div class="dia-6" id="question2">
+                                <p class="input-name ">Question Name (Thai)</p>
+                                <input id="questionInputTh" type="text" style="width: 90%;" />
+                            </div>
 
-
-    <!--Panel Tool-->
-    <div class="center-align panelToolAdd panelQuestion">
-        <!-- ฺBasic -->
-        <!-- Question Area -->
-        <div id="target" style="background-color: aquamarine;">
-            <div class="content-input">
-                <div class="div-question" id="question1">
-                    <p class="input-name">Question Name (Eng)</p>
-                    <input id="questionInputEng" type="text" class="inputC" />
-                </div>
-                <div  class="div-question3" id="question2">
-                    <p class="input-name">Question Name (Thai)</p>
-                    <input id="questionInputTh" type="text" class="inputC" />
-                </div>
-                <div class="div-question2" id="hint1">
-                    <p class="input-name">Hint (Eng)</p>
-                    <textarea id="hintInputEng" class="inputC" style="height: 220px;"></textarea>
-                </div>
-                <div class="div-question4" id="hint2">
-                    <p class="input-name">Hint (Thai)</p>
-                    <textarea id="hintInputTh" class="inputC" style="height: 220px;"></textarea>
-                </div>
-                <div id="starLate">
-                    <p class="input-name">Difficult</p>
-                    <!-- Rating Stars Box -->
-                    <section class='rating-widget'>
-                        <div class='rating-stars' style="text-align: left;">
-                            <ul id='stars'>
-                                <li class='star' title='Poor' data-value='1'>
-                                    <i class='fa fa-star fa-fw'></i>
-                                </li>
-                                <li class='star' title='Fair' data-value='2'>
-                                    <i class='fa fa-star fa-fw'></i>
-                                </li>
-                                <li class='star' title='Good' data-value='3'>
-                                    <i class='fa fa-star fa-fw'></i>
-                                </li>
-                                <li class='star' title='Excellent' data-value='4'>
-                                    <i class='fa fa-star fa-fw'></i>
-                                </li>
-                                <li class='star' title='WOW!!!' data-value='5'>
-                                    <i class='fa fa-star fa-fw'></i>
-                                </li>
-                            </ul>
                         </div>
-                        <div>
-                            <input type="text" id="ratingStar" value="0" hidden>
+                        <div class="content-input dia-row">
+                            <div class="dia-6" id="hint1">
+                                <p class="input-name">Hint (Eng)</p>
+                                <textarea id="hintInputEng" style="height: 220px;width: 92%;" class="inputC"></textarea>
+                            </div>
+                            <div class="dia-6" id="hint2">
+                                <p class="input-name">Hint (Thai)</p>
+                                <textarea id="hintInputTh" style="height: 220px;width: 92%;" class="inputC"></textarea>
+                            </div>
+
                         </div>
-                        <div class='success-box'>
-                            <div class='clearfix'></div>
-                            <div class='text-message'></div>
-                            <div class='clearfix'></div>
-                        </div>
-                    </section>
-                </div>
-
-            </div>
-            <div class="content-input">
-                <p  class="input-name" style="text-align: center">Pseudo Code</p>
-
-                <button class="add-button blue-button" onclick="addAnswer()">
-                    <i class="fa fa-plus"></i> Answer</button>
-
-            </div>
-            <div style="padding: 0px 20px 20px 20px;text-align: left;" id="statement">
-                <table id="answerTable_1" frame="box">
-                    <thead>
-                        <tr>
-                            <strong>
-                                <td style="width: 2%;font-size: 20px;font-weight: bold;">Step</td>
-                                <td style="text-align: center;width: 39%;font-size: 20px;font-weight: bold;">Process
-                                    (Eng)</td>
-                                <td style="text-align: center;width: 39%;font-size: 20px;font-weight: bold;">Process
-                                    (Thai)</td>
-                                <td style="text-align: center;width: 10%;font-size: 20px;font-weight: bold;">Type</td>
-                                <td style="text-align: center;width: 10%;font-size: 20px;font-weight: bold;"></td>
-                            </strong>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="sort-disabled">
-                            <td class="order">1</td>
-                            <td><input type="text" style="width: 95%;" value="Start" id="processEn" disabled>
-                            </td>
-                            <td><input type="text" style="width: 95%;" value="เริ่มต้น" id="processTh" disabled>
-                            </td>
-                            <td>
-                                <select style="display: inline;" disabled id="type">
-                                    <option value="Basic" selected>Basic</option>
-                                    <option value="Input">Input</option>
-                                    <option value="Output">Output</option>
-                                    <option value="Process">Process</option>
-                                    <option value="Decision">Decision</option>
-                                </select>
-                            </td>
-                            <td>
-                                <div style="text-align: center;">
-                                    <button class="book-button blue-button" onclick="addProcess(this)"><i
-                                            class="fa fa-plus"></i></button>
+                        <div id="starLate">
+                            <p class="input-name">Difficult</p>
+                            <!-- Rating Stars Box -->
+                            <section class='rating-widget'>
+                                <div class='rating-stars' style="text-align: left;">
+                                    <ul id='stars'>
+                                        <li class='star' title='Poor' data-value='1'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Fair' data-value='2'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Good' data-value='3'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Excellent' data-value='4'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='WOW!!!' data-value='5'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                    </ul>
                                 </div>
-
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
+                                <div>
+                                    <input type="text" id="ratingStar" value="0" hidden>
+                                </div>
+                                <div class='success-box'>
+                                    <div class='clearfix'></div>
+                                    <div class='text-message'></div>
+                                    <div class='clearfix'></div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <div class="dia-row">
+                <div class="panel panel-default dia-12">
+                    <div class="panel-heading">Pseudo Code</div>
+                    <div class="panel-body">
+                        
+                        <div class="content-input">
+                            
 
+                            <button class="add-button blue-button" onclick="addAnswer()">
+                                <i class="fa fa-plus"></i> Answer</button>
+
+                        </div>
+                        <div style="padding: 0px 20px 20px 20px;text-align: left;" id="statement">
+                            <table id="answerTable_1">
+                                <thead>
+                                    <tr>
+                                        <strong>
+                                            <td style="width: 2%;font-size: 20px;font-weight: bold;">Step</td>
+                                            <td
+                                                style="text-align: center;width: 37%;font-size: 20px;font-weight: bold;">
+                                                Process
+                                                (Eng)</td>
+                                            <td
+                                                style="text-align: center;width: 37%;font-size: 20px;font-weight: bold;">
+                                                Process
+                                                (Thai)</td>
+                                            <td style="text-align: center;width: 14;font-size: 20px;font-weight: bold;">
+                                                Type</td>
+                                            <td
+                                                style="text-align: center;width: 10%;font-size: 20px;font-weight: bold;">
+                                            </td>
+                                        </strong>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="sort-disabled">
+                                        <td class="order">1</td>
+                                        <td><input type="text" style="width: 95%;" value="Start" id="processEn"
+                                                disabled>
+                                        </td>
+                                        <td><input type="text" style="width: 95%;" value="เริ่มต้น" id="processTh"
+                                                disabled>
+                                        </td>
+                                        <td>
+                                            <select style="display: inline;" disabled id="type">
+                                                <option value="Basic" selected>Basic</option>
+                                                <option value="Input">Input</option>
+                                                <option value="Output">Output</option>
+                                                <option value="Process">Process</option>
+                                                <option value="Decision">Decision</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <div style="text-align: center;">
+                                                <button class="book-button blue-button" onclick="addProcess(this)"><i
+                                                        class="fa fa-plus"></i></button>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
+        <div class="panel-footer" style="text-align: right;">
+            <button class="add-button blue-button" id="saveButton" >Save Answer</button>
+        </div>
     </div>
-    <!--Menu Icon-->
+</div>
+<!--Menu Icon
     <ul class="tabs">
         <li style="height: 80px;" class="tab">
             <div id="saveButton" class="canClick jellyButton button-tool">
@@ -130,8 +152,8 @@
             </div>
         </li>
 
-    </ul>
-</body>
+    </ul>-->
+
 
 <script>
 
@@ -230,7 +252,8 @@
             "<option value='Process'>Process</option>" +
             "<option value='Decision' disabled>Decision</option>" +
             "</select>";
-        cell5.innerHTML = "<div style='overflow:inline;text-align:center;'><button style='padding:5px;' class='book-button blue-button' onclick='addProcess(this)'><i class='fa fa-plus'></i></button><button class='book-button red-button' onclick='removeProcess(this)'><i class='fa fa-close'></button></div>";
+        cell5.innerHTML = "<div style='overflow:inline;text-align:center;'><button style='padding:5px;' class='book-button blue-button' onclick='addProcess(this)'><i class='fa fa-plus'></i>" +
+            "</button><button class='book-button red-button' onclick='removeProcess(this)'><i class='fa fa-minus'></button></div>";
 
         $('#' + tableID + ' td.order').text(function (i) {
             return i + 1;
@@ -257,7 +280,7 @@
 
     function addAnswer() {
         myTable = document.getElementsByTagName("table")[0];
-        myHeadClone = "<div><hr style='border:0px;'><button class='add-button google-button' onclick='removeAnswer(answerTable_" + ++countTable + ",this)'>" +
+        myHeadClone = "<div><hr style='border:0px;'><button class='add-button red-button' onclick='removeAnswer(answerTable_" + ++countTable + ",this)'>" +
             "<i class='fa fa-close'></i> Answer</button></div>";
         myTableClone = myTable.cloneNode(true);
         myTableClone.id = "answerTable_" + countTable;
@@ -332,53 +355,53 @@
         //var thai = /^([ก-๙ 0-9])+$/;
         var check = true;
         if (!(eng.test($("#questionInputEng").val())) || $("#questionInputEng").val() == "") {
-            $("#questionInputEng").addClass("redBorder2");
+            $("#questionInputEng").addClass("redBorder");
             check = false;
         } else {
-            $("#questionInputEng").removeClass("redBorder2");
+            $("#questionInputEng").removeClass("redBorder");
         }
         if (!(eng.test($("#hintInputEng").val())) || $("#hintInputEng").val() == "") {
-            $("#hintInputEng").addClass("redBorder2");
+            $("#hintInputEng").addClass("redBorder");
             check = false;
         } else {
-            $("#hintInputEng").removeClass("redBorder2");
+            $("#hintInputEng").removeClass("redBorder");
         }
         if ($("#questionInputTh").val() == "") {
-            $("#questionInputTh").addClass("redBorder2");
+            $("#questionInputTh").addClass("redBorder");
             check = false;
         } else {
-            $("#questionInputTh").removeClass("redBorder2");
+            $("#questionInputTh").removeClass("redBorder");
         }
         if ($("#hintInputTh").val() == "") {
-            $("#hintInputTh").addClass("redBorder2");
+            $("#hintInputTh").addClass("redBorder");
             check = false;
         } else {
-            $("#hintInputTh").removeClass("redBorder2");
+            $("#hintInputTh").removeClass("redBorder");
         }
         for (let index = 0; index < countTable; index++) {
             $('table[id="' + countID[index] + '"] input[id="processEn"]').each(function (i, elem) {
 
                 if ($(elem).val() == "") {
-                    $(elem).addClass("redBorder2");
+                    $(elem).addClass("redBorder");
                     check = false;
                 } else {
-                    $(elem).removeClass("redBorder2");
+                    $(elem).removeClass("redBorder");
                 }
             });
             $('table[id="' + countID[index] + '"] input[id="processTh"]').each(function (i, elem) {
                 if ($(elem).val() == "") {
-                    $(elem).addClass("redBorder2");
+                    $(elem).addClass("redBorder");
                     check = false;
                 } else {
-                    $(elem).removeClass("redBorder2");
+                    $(elem).removeClass("redBorder");
                 }
             });
             $('table[id="' + countID[index] + '"] select[id="type"]').each(function (i, elem) {
                 if ($(elem).val() == 0) {
-                    $(elem).addClass("redBorder2");
+                    $(elem).addClass("redBorder");
                     check = false;
                 } else {
-                    $(elem).removeClass("redBorder2");
+                    $(elem).removeClass("redBorder");
                 }
             });
         }
@@ -389,8 +412,8 @@
         }
     }
 
-    let refQuestion = firestore.collection("Diagram");
-    let keyId = 0;
+    var refQuestion = firestore.collection("Diagram");
+    var keyId = 0;
     //save data to firebase 
     function saveQuestion(dataAnswer, diagramNameEn, diagramNameTh, diagramHintEn, diagramHintTh, diagramLevel) {
         console.log("save...");

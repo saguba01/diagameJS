@@ -18,6 +18,8 @@ router.get('/add', authen, async function (req, res, next) {
     var data = {
         layout: 'default',
         navBar: true,
+        slideBar: true,
+        slidebar: general.slidebar,
         user: req.session.user,
         //lesson: lesson,
         //subLesson: lesson.subLesson.juice,
@@ -49,32 +51,54 @@ router.get('/edit/:id', authen, async function (req, res, next) {
     const general = await setting.getSetting(lang)
     let lesson = configString[lang].lesson.variable;
     let refQuestion = firestore.collection("Diagram");
-    refQuestion.doc(req.params.id).get().then(function (doc) {
-        var data = {
-            layout: 'default',
-            navBar: true,
-            user: req.session.user,
-            //lesson: lesson,
-            //subLesson: lesson.subLesson.juice,
-            //element: configString[lang].element.variable.juice,
-            intro: configString[lang].intro,
-            recipe: configString[lang].recipe.variable.juice,
-            HintEn: doc.data().HintEng,
-            HintTh: doc.data().HintTh,
-            NameEn: doc.data().NameEng,
-            NameTh: doc.data().NameTh,
-            level: doc.data().Level,
-            //required
-            setting: general.setting,
-            button: general.button,
-            elementDefault: configString[lang].element.general,
-            general: configString[lang].general,
-            achievementList: configString[lang].achievement,
-            errorMsg: configString[lang].error,
-            nextPage: '/lesson/variable/cereal'
-        };
-        res.render('manageDiagram/editDiagram', data);
-    });
+    var arrAnswer = [];
+    let keyId = 0;
+    refQuestion.doc(req.params.id).collection("answer").get().then(function (Doc) {
+        keyId = Doc.size;
+        for (let index = 1; index <= keyId; index++) {
+            console.log("Index => ", index);
+            refQuestion.doc(req.params.id).collection("answer").doc(index.toString()).get().then(function (doc2) {
+                arrAnswer.push(doc2.data().answerStep)
+                console.log("Answer 11111111 => ", arrAnswer);
+
+            });
+
+        }
+    })
+    setTimeout(function () {
+        console.log("Answer => ", arrAnswer);
+        refQuestion.doc(req.params.id).get().then(function (doc) {
+            var data = {
+                layout: 'default',
+                navBar: true,
+                slideBar: true,
+                user: req.session.user,
+                //lesson: lesson,
+                //subLesson: lesson.subLesson.juice,
+                //element: configString[lang].element.variable.juice,
+                intro: configString[lang].intro,
+                recipe: configString[lang].recipe.variable.juice,
+                HintEn: doc.data().HintEng,
+                HintTh: doc.data().HintTh,
+                NameEn: doc.data().NameEng,
+                NameTh: doc.data().NameTh,
+                level: doc.data().Level,
+                answer: arrAnswer,
+                countAnswer: keyId,
+                //required
+                diagramId: req.params.id,
+                setting: general.setting,
+                button: general.button,
+                elementDefault: configString[lang].element.general,
+                general: configString[lang].general,
+                achievementList: configString[lang].achievement,
+                errorMsg: configString[lang].error,
+                nextPage: '/lesson/variable/cereal'
+            };
+            res.render('manageDiagram/editDiagram', data);
+        });
+    }, 1000);
+
 });
 
 async function getScore() {
