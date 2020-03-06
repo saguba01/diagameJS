@@ -1,5 +1,5 @@
 <body>
-    <div class="dia-row">
+    <div class="dia-row" style="padding-bottom: 3%">
         <div class="panel panel-default dia-12">
             <div class="panel-heading">เพิ่มโจทย์</div>
             <div class="panel-body">
@@ -18,6 +18,7 @@
                 </div>
                 <p class="textLabel">{{addForm.form.equation.text}}
                     <button id="q_increase" class="book-button blue-button"><i class="fa fa-plus"></i></button>
+                    <button id="preview" class="add-button blue-button" style="height: 55px !important;">{{general.button.preview}}</button>
                 </p>
                 <div id="question_text" style="overflow: hidden;text-align: center;">
                     <div style="display: inline-flex;">
@@ -59,13 +60,14 @@
                     </div>
                     <div>
                         <input type="text" id="ratingStar" value="{{ level }}" hidden>
+                        <p id="validate_level" class="textValidate"></p>
                     </div>
                 </section>
             </div>
             <!--Menu Icon-->
-            <div class="panel-footer">
+            <div class="panel-footer" style="text-align: right;">
                 <div style="display: inline-flex;">
-                    <button class="add-button blue-button">{{general.button.save}}</button>
+                    <button id="saveButton" class="add-button blue-button">{{general.button.save}}</button>
                 </div>
             </div>
         </div>
@@ -74,6 +76,83 @@
 
 <script>
     $(document).ready(function () {
+                //save button click
+                $('#saveButton').click(function () {
+            //console.log("save data:");
+            let logicNameEN = document.getElementById("questionInputEN").value;
+            let logicNameTH = document.getElementById("questionInputTH").value;
+            let logicQuestion = document.getElementById("question_part1").value;
+            let logicAnswer = document.getElementById("answer").value;
+            let logicLevel = document.getElementById("ratingStar").value;
+            //condition
+            let checkNameNullEN = logicNameEN == "";
+            let checkNameNullTH = logicNameTH == "";
+            let checkAnsNull = logicAnswer == "";
+            let checkQuestionNull = logicQuestion == "";
+            let checkLevelNull = logicLevel == 0;
+            let numQuestionFail = 0;
+            //console.log(logicName);
+            for (let x = 2; x <= question_partcount; x++) {
+                if (document.getElementById("question_part" + x) != null) {
+                    let q_part = document.getElementById("question_part" + x).value;
+                    if (q_part == "") {
+                        numQuestionFail++;
+                        $("#question_part" + x).addClass("redBorder");
+                        $("#validate_question").text("{{addForm.form.equation.required}}");
+                    } else {
+                        if (numQuestionFail == 0) {
+                            $("#question_part" + x).removeClass("redBorder");
+                            $("#validate_question").text("");
+                        }
+                        logicQuestion = logicQuestion + " {target} " + q_part;
+                    }
+                }
+            }
+            if (checkNameNullEN || checkNameNullTH || checkAnsNull || checkQuestionNull) {
+                if (checkNameNullEN) {
+                    $("#questionInputEN").addClass("redBorder");
+                    $("#validate_nameEN").text("{{addForm.form.questionNameEN.required}}");
+                } else {
+                    $("#questionInputEN").removeClass("redBorder");
+                    $("#validate_nameEN").text("");
+                }
+                if (checkNameNullTH) {
+                    $("#questionInputTH").addClass("redBorder");
+                    $("#validate_nameTH").text("{{addForm.form.questionNameTH.required}}");
+                } else {
+                    $("#questionInputTH").removeClass("redBorder");
+                    $("#validate_nameTH").text("");
+                }
+                if (checkAnsNull) {
+                    $("#answer").addClass("redBorder");
+                    $("#validate_ans").text("{{addForm.form.answer.required}}");
+                } else {
+                    $("#answer").removeClass("redBorder");
+                    $("#validate_ans").text("");
+                }
+                if (checkLevelNull) {
+                    $("#answer").addClass("redBorder");
+                    $("#validate_level").text("{{addForm.form.level.required}}");
+                } else {
+                    $("#answer").removeClass("redBorder");
+                    $("#validate_level").text("");
+                }
+                if (checkQuestionNull) {
+                    numQuestionFail++;
+                    $("#question_part1").addClass("redBorder");
+                    $("#validate_question").text("{{addForm.form.equation.required}}");
+                } else {
+                    if (numQuestionFail == 0) {
+                        $("#question_part1").removeClass("redBorder");
+                        $("#validate_question").text("");
+                    }
+                }
+            } else {
+                if (numQuestionFail == 0) {
+                    saveQuestion(logicQuestion, logicLevel, logicNameEN, logicNameTH, logicAnswer);
+                }
+            }
+        });
         //set star level
         for (let l = 1; l <= "{{level}}"; l++) {
             $("#level" + l).addClass('selected');
@@ -85,7 +164,7 @@
             question_partcount++;
             target_count++;
             var q_text = targetAnswer + "<input id='question_part" + (question_partcount) + "' type='text' class='textBox-150'/>";
-            var deleteButton = "&nbsp;&nbsp;<button class='book-button red-button' id='btn" + question_partcount + "' onclick='removeQuestion(this);'><i class='fa fa-times'></i></button>";
+            var deleteButton = "&nbsp;<button class='book-button red-button' id='btn" + question_partcount + "' onclick='removeQuestion(this);'><i class='fa fa-times'></i></button>";
             var divElement = "<div id='div" + question_partcount + "' style='display:inline-block'>" + q_text + deleteButton + "</div>";
             document.getElementById("question_text").innerHTML += divElement;
         }

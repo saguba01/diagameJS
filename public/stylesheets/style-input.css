@@ -6,6 +6,9 @@
     display: inline-block;
     border-radius: 12px !important;
 }
+.textBox.redBorder{
+    border: solid 5px red !important;
+}
 
 .textBox-150{
     background-color: white !important;
@@ -14,6 +17,10 @@
     font-size: 20px !important;
     width: 150px !important;
     border-radius: 12px !important;
+}
+
+.textBox-150.redBorder{
+    border: solid 5px red !important;
 }
 
 .ans-box{

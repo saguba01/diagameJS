@@ -26,11 +26,6 @@
     color:#FF912C;
 }
 
-.redBorder{
-    border-color: red !important;
-    border-width: 4px !important ;
-}
-
 i.fa.fa-star.fa-fw{
     -webkit-text-stroke: black;
     -webkit-text-stroke-width: 3px;

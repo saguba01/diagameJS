@@ -1218,3 +1218,33 @@ function passTutorial(){
         }
       });
     }
+
+    function previewQuestion(question) {
+        var html = '';
+        var index = 0;
+        question.forEach(function (qs) {
+          var seq = 1;
+          var array = qs.equation.split('{target}');
+          html += '<div class="question' + (index == 0 ? ' active' : '') + '" question="' + (index + 1) + '">';
+          array.forEach(function (value) {
+            html += '<div class="questionText" type="operand" style="margin-right: 20px;' + (seq > 1 ? 'margin-left: 60px;' : '') + '" event="' + value + '">' + value + '</div>';
+            array.length != seq ? html += '<div class="boxAnswer" type = "operator" style="margin-left: -10px;margin-top: 25px;"></div>' : '';
+            seq++;
+          });
+          html += '<div class="questionText" type="result" event="' + qs.answer + '"> = ' + qs.answer + '</div>'
+          html += '</div>';
+          index++;
+        });
+        return html;
+      }
+
+      function showPreview(question){
+        $('#modal-preview').modal({
+            'dismissible': false,
+            'onOpenStart': function () { },
+            'onOpenEnd': function () {
+                $('.modal-preview-content').html(previewQuestion(question));
+            }
+        });
+        $('#modal-preview').modal('open');
+      }

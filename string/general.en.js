@@ -16,7 +16,8 @@ module.exports = {
         done: 'Done',
         home: 'Home',
         confirm: 'Confirm',
-        save: 'Save'
+        save: 'Save',
+        preview: 'Preview'
     },
     form: {
         username: {
