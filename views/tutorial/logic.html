@@ -57,10 +57,6 @@
     var statusQuestion = false
 
     $(function () {
-        // debugger
-        //  timer('{{maxScore}}','{{minScore}}',(obj)=>{
-        //         console.log(obj)
-        // })
         startIntro()
         
         $(".boxAnswer").sortable({
@@ -266,7 +262,7 @@
         // clicking 'Done'
         .oncomplete(function(){
             playSoundEx('click');
-            timer('{{maxScore}}','{{minScore}}', (obj)=>{
+            timer(1,(obj)=>{
                 console.log(obj)
             })
         })
@@ -274,7 +270,7 @@
         // clicking 'Skip'
         .onexit(function(){
             playSoundEx('click');
-            timer('{{maxScore}}','{{minScore}}',(obj)=>{
+            timer(1,(obj)=>{
                 console.log(obj)
             })
         });

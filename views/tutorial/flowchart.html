@@ -425,7 +425,7 @@
      // clicking 'Done'
      .oncomplete(function(){
         playSoundEx('click');
-         timer('{{maxScore}}','{{minScore}}',(obj)=>{
+         timer(1,(obj)=>{
              console.log(obj)
          })
          targetAreaShow()
@@ -434,7 +434,7 @@
      // clicking 'Skip'
      .onexit(function(){
          playSoundEx('click');
-         timer('{{maxScore}}','{{minScore}}',(obj)=>{
+         timer(1,(obj)=>{
              console.log(obj)
          })
          targetAreaShow()
