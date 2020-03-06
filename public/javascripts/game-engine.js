@@ -404,7 +404,7 @@ function timer(level, callback) {
                     clearInterval(check);
                     callback(
                         {
-                            score: maxScore,
+                            score: parseInt(maxScore),
                             time: totalSeconds
                         }
                     );
