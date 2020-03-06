@@ -51,6 +51,11 @@ textarea,input, select {
         background-color: #3a5892;
     }
 
+    .add-button.green-button {
+        color: #FFFFFF;
+        background-color: #338f3b;
+    }
+
     .add-button.red-button {
         color: #FFFFFF;
         background-color: #cf4332;
