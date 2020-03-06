@@ -11,12 +11,12 @@
       <div class="panel-body">
           <div class="dia-row">
             <div class="panel panel-default dia-6">
-                <div class="panel-body" style="background-color: white;">
+                <div class="panel-body" style="background-color: #a6b1e1;">
                   <div class="dia-row" style="margin-bottom: 0;display: grid; align-items: center;">
-                    <div class="dia-4">
+                    <div class="dia-6" style="font-size: 2.5vw; font-weight: bold;">
                       {{general.score.manageScoreMax.title}} :
                     </div>
-                    <div class="dia-8 score" id="scoreMax" format="max" style="font-size: 28px; font-weight: bold;">
+                    <div class="score" id="scoreMax" format="max" style="font-size: 2.5vw; font-weight: bold;width: auto;">
                       <span>{{score.maxScore}}</span> 
                     </div>
                   </div>
@@ -24,12 +24,12 @@
                 </div>
             </div>
             <div class="panel panel-default dia-6">
-              <div class="panel-body" style="background-color: white;">
+              <div class="panel-body" style="background-color: #dcd6f7;">
                 <div class="dia-row" style="margin-bottom: 0;display: grid; align-items: center;">
-                  <div class="dia-4">
+                  <div class="dia-6" style="font-size: 2.5vw; font-weight: bold;">
                     {{general.score.manageScoreMin.title}} :
                   </div>
-                  <div class="dia-8 score" id="scoreMin" format="min"  style="font-size: 28px; font-weight: bold;">
+                  <div class="score" id="scoreMin" format="min"  style="font-size: 2.5vw; font-weight: bold;width: auto;">
                     <span>{{score.minScore}}</span> 
                   </div>
                 </div>
@@ -48,14 +48,6 @@
 </div>
 
 <script>
-  $(document).ready(()=>{
-    // $('input').keyup(function(e){
-    //     if(e.keyCode == 13)
-    //     {
-    //         console.log(this)
-    //     }
-    // });
-  })
   
   function editScore(ele){
     const element = elementThisPage(ele)
@@ -88,8 +80,8 @@
     // end display none
 
     //add input 
-    scoreMax.parent().append(newElements().input.attr({value : oldData.score.maxScore , group : "score" }).css({"font-size":"28px","text-align" : "left"}))
-    scoreMin.parent().append(newElements().input.attr({value : oldData.score.minScore , group : "score"}).css({"font-size":"28px","text-align" : "left"}))
+    scoreMax.parent().append(newElements().input.attr({value : oldData.score.maxScore , group : "score" }).css({"font-size":"2.5vw","text-align" : "left"}))
+    scoreMin.parent().append(newElements().input.attr({value : oldData.score.minScore , group : "score"}).css({"font-size":"2.5vw","text-align" : "left"}))
 
     listCard.forEach((value,index)=>{
       value.eleRight.after(newElements().input.attr({value : oldData.card[index].rateScore, group : `rate-score`,index : index}).css({"font-size":"48px","text-align" : "center"}))

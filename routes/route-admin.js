@@ -349,6 +349,12 @@ router.get('/getscroeHistory', async (req, res, next) => {
   }
 })
 
+router.get('/rateScore', async (req, res, next) => {
+  const scoreData = await score.getScore()
+  res.send(scoreData)
+  // 
+})
+
 async function getAchievement(uid) {
   var unlock = [];
   let refAchieve = firestore.collection("lessons").doc(uid).collection('achievements');
