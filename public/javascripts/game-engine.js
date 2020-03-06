@@ -347,7 +347,7 @@ function timer(level, callback) {
         url: "/admin/rateScore",
         success: function (result) {
             let resData = result.data
-            let userLevel = resData.level[level-1]
+            let userLevel = resData.level[parseInt(level)-1]
             let discountRate = parseFloat(userLevel.score / userLevel.rate).toFixed(3)
             let stopTime = false
             let width = 100;
