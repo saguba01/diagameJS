@@ -14,18 +14,17 @@ var setting = require('../public/javascripts/setting');
 router.get('/add', authen, async function (req, res, next) {
     let lang = req.cookies.lang;
     const general = await setting.getSetting(lang)
-    let lesson = configString[lang].lesson.variable;
+    let lesson = configString[lang].lesson.diagram;
     var data = {
         layout: 'default',
         navBar: true,
         slideBar: true,
         slidebar: general.slidebar,
         user: req.session.user,
-        //lesson: lesson,
-        //subLesson: lesson.subLesson.juice,
+        lesson: lesson,
+        subLesson: lesson.subLesson,
         //element: configString[lang].element.variable.juice,
-        intro: configString[lang].intro,
-        recipe: configString[lang].recipe.variable.juice,
+        addForm: configString[lang].manage.diagram,
         //required
         setting: general.setting,
         button: general.button,
@@ -72,6 +71,7 @@ router.get('/edit/:id', authen, async function (req, res, next) {
                 layout: 'default',
                 navBar: true,
                 slideBar: true,
+                slidebar: general.slidebar,
                 user: req.session.user,
                 //lesson: lesson,
                 //subLesson: lesson.subLesson.juice,
@@ -85,6 +85,7 @@ router.get('/edit/:id', authen, async function (req, res, next) {
                 level: doc.data().Level,
                 answer: arrAnswer,
                 countAnswer: keyId,
+                addForm: configString[lang].manage.diagram,
                 //required
                 diagramId: req.params.id,
                 setting: general.setting,

@@ -8,11 +8,11 @@
   <title>{{ general.site.title }}</title>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
-    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <!-- {{linklang lang}} -->
   <link href="https://fonts.googleapis.com/css?family=Mali" rel="stylesheet">
-  <link rel="stylesheet" href="/stylesheets/fonts/font.css"/>
+  <link rel="stylesheet" href="/stylesheets/fonts/font.css" />
   <link rel="stylesheet" href="/materialize-css/dist/css/materialize.min.css" />
 
   <!-- jquery -->
@@ -94,7 +94,7 @@
 
   <!-- dataTables -->
   <script src="/datatables/media/js/jquery.dataTables.js"></script>
-   <link rel="stylesheet" href="/datatables/media/css/jquery.dataTables.css">
+  <link rel="stylesheet" href="/datatables/media/css/jquery.dataTables.css">
 
   <!-- ZingChart.js-->
   <script src="/zingchart/zingchart.min.js"></script>
@@ -106,15 +106,19 @@
   <link rel="stylesheet" href="/stylesheets/diagame-modal.css">
   <link rel="stylesheet" href="/stylesheets/manage-diagram.css">
 
-    <!-- avatar -->
+  <!-- avatar -->
   <link rel="stylesheet" href="/stylesheets/style-avatar.css">
-  
+
+  <!-- include summernote css/js -->
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.js"></script>
+
   <link rel="stylesheet" href="/stylesheets/panal.css">
   <link rel="stylesheet" href="/stylesheets/card.css">
   <link rel="stylesheet" href="/stylesheets/diagame-datatables.css">
   <script src="/javascripts/slidebar.js"></script>
   {{#if diagameIntro}}
-  
+
   {{else}}
   <link rel="stylesheet" href="/stylesheets/diagame-intro.css">
   {{/if}}
@@ -145,12 +149,12 @@
 <body>
   {{> navbar }}
   {{#if slideBar }}
-    {{> slidebar }}
+  {{> slidebar }}
   {{else}}
-    {{{body}}}
+  {{{body}}}
   {{/if }}
-  
-  
+
+
   {{> modal }}
 </body>
 

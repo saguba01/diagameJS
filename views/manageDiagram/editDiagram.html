@@ -1,230 +1,110 @@
-<style>
-    #target {
-        overflow: auto;
-    }
+<div class="dia-row">
+    <div class="panel panel-default dia-12">
+        <div class="panel-heading">{{addForm.form.panel.edit.head}}</div>
+        <div class="panel-body">
+            <div class="dia-row">
+                <div class="panel panel-default dia-12">
+                    <div class="panel-heading">{{addForm.form.panel.edit.info}}</div>
+                    <div class="panel-body">
+                        <div class="content-input dia-row">
+                            <div class="dia-6" id="question1">
+                                <p class="input-name">{{addForm.form.questionNameEN.text}}</p>
+                                <input id="questionInputEng" type="text" style="width: 90%;" value="{{NameEn}}" />
+                            </div>
+                            <div class="dia-6" id="question2">
+                                <p class="input-name ">{{addForm.form.questionNameTH.text}}</p>
+                                <input id="questionInputTh" type="text" style="width: 90%;" value="{{NameTh}}" />
+                            </div>
 
-    #question1 {
-        display: inline-block;
-    }
-
-    #question2 {
-        display: inline-block;
-    }
-
-    #hint1 {
-        display: inline-block;
-    }
-
-    #hint2 {
-        display: inline-block;
-    }
-
-    textarea {
-
-        resize: vertical;
-    }
-
-    .inputC,
-    #questionInputEng,
-    #questionInputTh,
-    #processTh,
-    #processEn,
-    #type {
-        border: solid 4px #000000;
-        background-color: #FFFFFF;
-        padding-left: 5px;
-        border-radius: 10px;
-    }
-
-    .panelQuestion {
-        overflow: auto;
-        width: 95%;
-        padding-bottom: 2%;
-    }
-
-
-
-    .book-button {
-        width: 50px;
-        height: 50px;
-        font-family: 'Mali', cursive;
-        font-size: 20px;
-        border-radius: 12px;
-        box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.16);
-        border: solid 5px #000000;
-    }
-
-    .add-button {
-        width: 150px;
-        height: 50px;
-        font-family: 'Mali', cursive;
-        font-size: 20px;
-        border-radius: 12px;
-        box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.16);
-        border: solid 5px #000000;
-    }
-
-
-    .book-button.google-button {
-        color: #FFFFFF;
-        background-color: #cf4332;
-    }
-
-    .book-button.facebook-button {
-        color: #FFFFFF;
-        background-color: #3a5892;
-    }
-
-    .add-button.facebook-button {
-        color: #FFFFFF;
-        background-color: #3a5892;
-    }
-
-    .add-button.google-button {
-        color: #FFFFFF;
-        background-color: #cf4332;
-    }
-</style>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<body>
-
-
-    <!--Panel Tool-->
-    <div class="center-align panelToolAdd panelQuestion">
-        <!-- ฺBasic -->
-        <!-- Question Area -->
-        <div id="target" style="background-color: aquamarine;">
-            <div style="padding: 0px 20px 20px 20px;text-align: left;">
-                <div style="width: 48%;" id="question1">
-                    <p style="text-align: left;font-size: 18px;font-weight: bold;">Question Name (Eng)</p>
-                    <input id="questionInputEng" type="text" class="inputC" value="{{NameEn}}" />
-                </div>
-                <div style="width: 49%;padding-left: 1%;" id="question2">
-                    <p style="text-align: left;font-size: 18px;font-weight: bold;">Question Name (Thai)</p>
-                    <input id="questionInputTh" type="text" class="inputC" value="{{NameTh}}" />
-                </div>
-                <div style="width: 49%;" id="hint1">
-                    <p style="text-align: left;font-size: 18px;font-weight: bold;">Hint (Eng)</p>
-                    <textarea id="hintInputEng" class="inputC" style="height: 220px;">{{HintEn}}</textarea>
-                </div>
-                <div style="width: 49%;" id="hint2">
-                    <p style="text-align: left;font-size: 18px;font-weight: bold;">Hint (Thai)</p>
-                    <textarea id="hintInputTh" class="inputC" style="height: 220px;">{{HintTh}}</textarea>
-                </div>
-                <div style="width: 49%;" id="starLate">
-                    <p style="text-align: left;font-size: 18px;font-weight: bold;">Difficult</p>
-                    <!-- Rating Stars Box -->
-                    <section class='rating-widget'>
-                        <div class='rating-stars' style="text-align: left;">
-                            <ul id='stars'>
-                                <li class='star' title='Poor' data-value='1' id="level1">
-                                    <i class='fa fa-star fa-fw'></i>
-                                </li>
-                                <li class='star' title='Fair' data-value='2' id="level2">
-                                    <i class='fa fa-star fa-fw'></i>
-                                </li>
-                                <li class='star' title='Good' data-value='3' id="level3">
-                                    <i class='fa fa-star fa-fw'></i>
-                                </li>
-                                <li class='star' title='Excellent' data-value='4' id="level4">
-                                    <i class='fa fa-star fa-fw'></i>
-                                </li>
-                                <li class='star' title='WOW!!!' data-value='5' id="level5">
-                                    <i class='fa fa-star fa-fw'></i>
-                                </li>
-                            </ul>
                         </div>
-                        <div>
-                            <input type="text" id="ratingStar" value="{{ level }}" hidden>
+                        <div class="content-input dia-row">
+                            <div class="dia-6" id="hint1">
+                                <p class="input-name">{{addForm.form.HintEn.text}}</p>
+                                <textarea id="hintInputEng" style="height: 220px;width: 92%;"
+                                    class="inputC">{{HintEn}}</textarea>
+                            </div>
+                            <div class="dia-6" id="hint2">
+                                <p class="input-name">{{addForm.form.HintTh.text}}</p>
+                                <textarea id="hintInputTh" style="height: 220px;width: 92%;"
+                                    class="inputC">{{HintTh}}</textarea>
+                            </div>
+
                         </div>
-                    </section>
-                </div>
-
-            </div>
-            <div style="padding: 0px 20px 20px 20px;text-align: left;">
-                <p style="text-align: center;font-size: 20px;font-weight: bold;">Pseudo Code</p>
-
-                <button class="add-button facebook-button" onclick="addAnswer()">
-                    <i class="fa fa-plus"></i> Answer</button>
-
-            </div>
-            <div style="padding: 0px 20px 20px 20px;text-align: left;" id="statement">
-                <table id="answerTable_1" frame="box">
-                    <thead>
-                        <tr>
-                            <strong>
-                                <td style="width: 2%;font-size: 20px;font-weight: bold;">Step</td>
-                                <td style="text-align: center;width: 39%;font-size: 20px;font-weight: bold;">Process
-                                    (Eng)</td>
-                                <td style="text-align: center;width: 39%;font-size: 20px;font-weight: bold;">Process
-                                    (Thai)</td>
-                                <td style="text-align: center;width: 10%;font-size: 20px;font-weight: bold;">Type</td>
-                                <td style="text-align: center;width: 10%;font-size: 20px;font-weight: bold;"></td>
-                            </strong>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="sort-disabled">
-                            <td class="order">1</td>
-                            <td><input type="text" style="width: 95%;" value="Start" id="processEn" disabled>
-                            </td>
-                            <td><input type="text" style="width: 95%;" value="เริ่มต้น" id="processTh" disabled>
-                            </td>
-                            <td>
-                                <select style="display: inline;" disabled id="type">
-                                    <option value="Basic" selected>Basic</option>
-                                    <option value="Input">Input</option>
-                                    <option value="Output">Output</option>
-                                    <option value="Process">Process</option>
-                                    <option value="Decision">Decision</option>
-                                </select>
-                            </td>
-                            <td>
-                                <div style="text-align: center;">
-                                    <button class="book-button facebook-button" onclick="addProcess(this)"><i
-                                            class="fa fa-plus"></i></button>
+                        <div id="starLate">
+                            <p class="input-name">{{addForm.form.level.text}}</p>
+                            <!-- Rating Stars Box -->
+                            <section class='rating-widget'>
+                                <div class='rating-stars' style="text-align: left;">
+                                    <ul id='stars'>
+                                        <li class='star' title='Poor' data-value='1' id="level1">
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Fair' data-value='2' id="level2">
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Good' data-value='3' id="level3">
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Excellent' data-value='4' id="level4">
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='WOW!!!' data-value='5' id="level5">
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                    </ul>
                                 </div>
-
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
+                                <div>
+                                    <input type="text" id="ratingStar" value="{{ level }}" hidden>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <div class="dia-row">
+                <div class="panel panel-default dia-12">
+                    <div class="panel-heading">{{addForm.form.panel.add.answer}}</div>
+                    <div class="panel-body">
 
+
+
+                        <div style="padding: 0px 20px 20px 20px;text-align: left;" id="statement" class="dia-12">
+                            <button class="add-button blue-button" onclick="addAnswer()">
+                                <i class="fa fa-plus"></i> {{addForm.form.answer.text}}</button>
+                            {{displayTableEdit answer addForm}}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
+        <div class="panel-footer" style="text-align: right;">
+            <button class="add-button blue-button" id="saveButton"
+                style="width: 200px;">{{addForm.form.save.text}}</button>
+        </div>
     </div>
-    <!--Menu Icon-->
-    <ul class="tabs">
-        <li style="height: 80px;" class="tab">
-            <div id="saveButton" class="canClick jellyButton button-tool">
-                <div class="save-icon"></div>
-            </div>
-        </li>
-        <li style="height: 90px;" class="tab">
-            <div id="cancelButton" class="canClick jellyButton button-tool">
-                <div class="cancel-icon"></div>
-            </div>
-        </li>
+</div>
 
-    </ul>
-</body>
+
+
 
 <script>
-
-    var countTable = 1;
-    var countID = ["answerTable_1"];
+    var refQuestion = firestore.collection("Diagram");
+    var keyId = 0;
+    var countTable = "{{countAnswer}}";
+    var countID = [];
     $(document).ready(function () {
-        console.log(/^([a-z0-9])$/.test($("#questionInputEng").val())); // false
+        //console.log(/^([a-z0-9])$/.test($("#questionInputEng").val())); // false
         //set star level
-        console.log("rate", "{{level}}");
+        //console.log("count", countTable);
         for (let l = 1; l <= "{{level}}"; l++) {
             $("#level" + l).addClass('selected');
         }
+
+        for (let index = 1; index <= countTable; index++) {
+            countID.push("answerTable_" + index)
+        }
+        console.log("count", countID);
+
         $('#answerTable_1').on('click', '.btn-remove-tr', function (e) {
 
             e.preventDefault();
@@ -378,7 +258,7 @@
             var dataAnswer = [];
             let data;
             let diagramNameEn = $("#questionInputEng").val();
-            let diagramHintEn = $("#hintInputEng").val();
+            let diagramHintEn = $("#hintInputEng").html();
             let diagramNameTh = $("#questionInputTh").val();
             let diagramHintTh = $("#hintInputTh").val();
             let diagramLevel = document.getElementById("ratingStar").value;
@@ -475,8 +355,7 @@
         }
     }
 
-    let refQuestion = firestore.collection("Diagram");
-    let keyId = 0;
+
     //save data to firebase 
     function saveQuestion(dataAnswer, diagramNameEn, diagramNameTh, diagramHintEn, diagramHintTh, diagramLevel) {
         console.log("save...");
@@ -485,26 +364,25 @@
         console.log("Hint", diagramHintEn, diagramHintTh);
         console.log("Star", diagramLevel);
 
-        refQuestion.get().then(function (doc) {
-            keyId = doc.size + 1;
-            console.log("set(" + keyId + ")");
+        showLoading();
+        refQuestion.doc('{{diagramId}}').set({
+            NameEng: diagramNameEn,
+            NameTh: diagramNameTh,
+            HintEng: diagramHintEn,
+            HintTh: diagramHintTh,
+            Level: diagramLevel
         }).then(function () {
-            refQuestion.doc(keyId.toString()).set({
-                NameEng: diagramNameEn,
-                NameTh: diagramNameTh,
-                HintEng: diagramHintEn,
-                HintTh: diagramHintTh,
-                Level: diagramLevel
-            }).then(function () {
-                for (let index = 1; index <= dataAnswer.length; index++) {
-                    refQuestion.doc(keyId.toString()).collection("answer").doc(index.toString()).set({
-                        answerStep: dataAnswer[index - 1]
-                    })
-                }
-                showSaveStatus("Save Success!!");
-            }).catch(err => {
-                showSaveStatus("Error : " + err);
-            });
+            for (let index = 1; index <= dataAnswer.length; index++) {
+                refQuestion.doc(keyId.toString()).collection("answer").doc(index.toString()).set({
+                    answerStep: dataAnswer[index - 1]
+                })
+            }
+            closeLoading();
+            showSaveStatus("Edit Success!!");
+        }).catch(err => {
+            closeLoading();
+            showSaveStatus("Error : " + err);
         });
+
     }
 </script>

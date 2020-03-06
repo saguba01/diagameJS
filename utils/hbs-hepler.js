@@ -272,35 +272,35 @@ handlebars.registerHelper('allAnswer', function (obj) {
  *@since 29 Feb 2020
  *@required javascript, handlebars.
  */
-handlebars.registerHelper('displayTableEdit', function (obj) {
+handlebars.registerHelper('displayTableEdit', function (obj, addForm) {
   var html = '';
   for (let index = 1; index <= obj.length; index++) {
     if (index == 1) {
       html += "<table id='answerTable_" + index + "'>" +
         "<thead><tr><strong>" +
-        "<td style='width: 2%;font-size: 20px;font-weight: bold;'>Step</td>" +
-        "<td style='text-align: center;width: 39%;font-size: 20px;font-weight: bold;'>Process (Eng)</td>" +
-        "<td style='text-align: center;width: 39%;font-size: 20px;font-weight: bold;'>Process (Thai)</td>" +
-        "<td style='text-align: center;width: 10%;font-size: 20px;font-weight: bold;'>Type</td>" +
-        "<td style='text-align: center;width: 10%;font-size: 20px;font-weight: bold;'></td>" +
+        "<td style='width: 2%;font-size: 20px;font-weight: bold;'>" + addForm.form.table.step + "</td>" +
+        "<td style='text-align: center;width: 35%;font-size: 20px;font-weight: bold;'>" + addForm.form.table.processEn + "</td>" +
+        "<td style='text-align: center;width: 35%;font-size: 20px;font-weight: bold;'>" + addForm.form.table.processTh + "</td>" +
+        "<td style='text-align: center;width: 15%;font-size: 20px;font-weight: bold;'>" + addForm.form.table.type + "</td>" +
+        "<td style='text-align: center;width: 13%;font-size: 20px;font-weight: bold;'></td>" +
         "</strong>";
     } else {
       html += "<div><hr style='border:0px;'><button class='add-button red-button' onclick='removeAnswer(answerTable_" + index + ",this)'>" +
-      "<i class='fa fa-close'></i> Answer</button></div>" +
+        "<i class='fa fa-minus'></i> " + addForm.form.answer.text + "</button></div>" +
         "<table id='answerTable_" + index + "'>" +
         "<thead><tr><strong>" +
-        "<td style='width: 2%;font-size: 20px;font-weight: bold;'>Step</td>" +
-        "<td style='text-align: center;width: 39%;font-size: 20px;font-weight: bold;'>Process (Eng)</td>" +
-        "<td style='text-align: center;width: 39%;font-size: 20px;font-weight: bold;'>Process (Thai)</td>" +
-        "<td style='text-align: center;width: 10%;font-size: 20px;font-weight: bold;'>Type</td>" +
-        "<td style='text-align: center;width: 10%;font-size: 20px;font-weight: bold;'></td>" +
+        "<td style='width: 2%;font-size: 20px;font-weight: bold;'>" + addForm.form.table.step + "</td>" +
+        "<td style='text-align: center;width: 35%;font-size: 20px;font-weight: bold;'>" + addForm.form.table.processEn + "</td>" +
+        "<td style='text-align: center;width: 35%;font-size: 20px;font-weight: bold;'>" + addForm.form.table.processTh + "</td>" +
+        "<td style='text-align: center;width: 15%;font-size: 20px;font-weight: bold;'>" + addForm.form.table.type + "</td>" +
+        "<td style='text-align: center;width: 13%;font-size: 20px;font-weight: bold;'></td>" +
         "</strong>";
     }
     html += "</tr></thead><tbody>"
     for (let index2 = 1; index2 <= obj[index - 1].length; index2++) {
       if (index2 == 1) {
         html += "<tr class='sort-disabled'>" +
-          "<td class='order'>"+ index2 +"</td>" +
+          "<td class='order'>" + index2 + "</td>" +
           "<td><input type='text' style='width: 95%;' value='Start' id='processEn' disabled></td>" +
           "<td><input type='text' style='width: 95%;' value='Start' id='processTh' disabled></td>" +
           "<td><select style='display: inline;' disabled id='type'>" +
@@ -316,49 +316,49 @@ handlebars.registerHelper('displayTableEdit', function (obj) {
           "</tr>";
       } else {
         html += "<tr>" +
-          "<td class='order'>"+ index2 +"</td>" +
-          "<td><input type='text' style='width: 95%;' value='"+ obj[index - 1][index2 -1].processEn +"' id='processEn'></td>" +
-          "<td><input type='text' style='width: 95%;' value='"+ obj[index - 1][index2 -1].processTh +"' id='processTh'></td>" +
+          "<td class='order'>" + index2 + "</td>" +
+          "<td><input type='text' style='width: 95%;' value='" + obj[index - 1][index2 - 1].processEn + "' id='processEn'></td>" +
+          "<td><input type='text' style='width: 95%;' value='" + obj[index - 1][index2 - 1].processTh + "' id='processTh'></td>" +
           "<td><select style='display: inline;' id='type'>" +
-          "<option value='0'>--Select--</option>";
-          //console.log("type" ,obj[index - 1][index2 -1].type.toLowerCase());
-          if(obj[index - 1][index2 -1].type.toLowerCase() == "basic"){
-            html += "<option value='Basic' selected>Basic</option>";
-          }else{
-            html += "<option value='Basic'>Basic</option>";
-          }
-          if(obj[index - 1][index2 -1].type.toLowerCase() == "input"){
-            html += "<option value='Input' selected>Input</option>";
-          }else{
-            html += "<option value='Input'>Input</option>";
-          }
-          if(obj[index - 1][index2 -1].type.toLowerCase() == "output"){
-            html += "<option value='Output' selected>Output</option>";
-          }else{
-            html += "<option value='Output'>Output</option>";
-          }
-          if(obj[index - 1][index2 -1].type.toLowerCase() == "process"){
-            html += "<option value='Process' selected>Process</option>";
-          }else{
-            html += "<option value='Process'>Process</option>";
-          }
-          if(obj[index - 1][index2 -1].type.toLowerCase() == "decision"){
-            html += "<option value='Decision' selected>Decision</option>";
-          }else{
-            html += "<option value='Decision'>Decision</option>";
-          }
-          html += "</select></td>" +
+          "<option value='0'>" + addForm.form.select.text + "</option>";
+        //console.log("type" ,obj[index - 1][index2 -1].type.toLowerCase());
+        if (obj[index - 1][index2 - 1].type.toLowerCase() == "basic") {
+          html += "<option value='Basic' selected>Basic</option>";
+        } else {
+          html += "<option value='Basic'>Basic</option>";
+        }
+        if (obj[index - 1][index2 - 1].type.toLowerCase() == "input") {
+          html += "<option value='Input' selected>Input</option>";
+        } else {
+          html += "<option value='Input'>Input</option>";
+        }
+        if (obj[index - 1][index2 - 1].type.toLowerCase() == "output") {
+          html += "<option value='Output' selected>Output</option>";
+        } else {
+          html += "<option value='Output'>Output</option>";
+        }
+        if (obj[index - 1][index2 - 1].type.toLowerCase() == "process") {
+          html += "<option value='Process' selected>Process</option>";
+        } else {
+          html += "<option value='Process'>Process</option>";
+        }
+        if (obj[index - 1][index2 - 1].type.toLowerCase() == "decision") {
+          html += "<option value='Decision' selected>Decision</option>";
+        } else {
+          html += "<option value='Decision'>Decision</option>";
+        }
+        html += "</select></td>" +
           "<td><div style='text-align: center;'>" +
           "<button class='book-button blue-button' onclick='addProcess(this)'><i class='fa fa-plus'></i></button></button>" +
-          "<button class='book-button red-button' onclick='removeProcess(this)'><i class='fa fa-close'></button>" +
+          "<button class='book-button red-button' onclick='removeProcess(this)' style='margin-left:5px;'><i class='fa fa-minus'></button>" +
           "</div></td>" +
           "</tr>";
       }
     }
     html += "</tbody>" +
-    "</table>"
+      "</table>"
   }
-  
+
   return new handlebars.SafeString(html);
 });
 
@@ -618,60 +618,60 @@ handlebars.registerHelper('logicQuestion', function (question) {
  *@since 19 April 2019
  *@required javascript, handlebars.
  */
-handlebars.registerHelper('listquestion', function(question,scoreh){
+handlebars.registerHelper('listquestion', function (question, scoreh) {
   var html = '';
   var index = 0;
   var type = '';
-  var color = ["bg-red","bg-purple","bg-blue","bg-sky-blue","bg-light-green","bg-orange","bg-nude"];
-  if(typeof question === 'undefined'){
-        html += 'ggg';
-  }else{
-    question.forEach(function (qs){
-    var mark = 0;
-    var score = 0;
-    var max = 0;
-    if(qs.Type == 'logic'){
-      type = 'logic';
-    }else if(qs.Type == 'operator'){
-      type = 'operator';
-    }else{
-      type = 'diagram';
-    }
-    html += '<div target="/lesson/'+type+'/'+qs.Id+'" class="'+color[index]+' qs canClick" style="margin-left:40px; margin-bottom:-2px; padding-right:1px; padding-left:6px;  border:2px solid black">';
-    html += '<div class="list-lesson-title" id="lesson-logic">';
-    html += qs.Name;
-    scoreh.forEach(function (sc){
-      if(sc.questionId == qs.Id){
-        mark = 1;
-       if(sc.score > max){
-         score = sc.score;
-         max = score;
-       }
+  var color = ["bg-red", "bg-purple", "bg-blue", "bg-sky-blue", "bg-light-green", "bg-orange", "bg-nude"];
+  if (typeof question === 'undefined') {
+    html += 'ggg';
+  } else {
+    question.forEach(function (qs) {
+      var mark = 0;
+      var score = 0;
+      var max = 0;
+      if (qs.Type == 'logic') {
+        type = 'logic';
+      } else if (qs.Type == 'operator') {
+        type = 'operator';
+      } else {
+        type = 'diagram';
       }
-    })
-    html += '<div class="menu-block " style="float:right;">';
-    if(mark == 1){
-    html += '<span class="mark-question"></span>';
-    }
-    html += '</div>';
-    html += '<br>';
-    html += 'Level:';
-    for(var i = 0; i< qs.Level;i++){
-      html += '<i class="fa fa-star fa-fw" style="color:#FECF36;"></i>'
-    }
-    html += '</li>'
-    html += '</div>';
-    html += '<div class="list-lesson-score" id="score">';
-    html += 'Score:'
-    html += score;
-    html += '</div>';
-    html += '</div>';
-    index++;
-    if(index > 6){
-      index = 0;
-    }
-  });
-}
+      html += '<div target="/lesson/' + type + '/' + qs.Id + '" class="' + color[index] + ' qs canClick" style="margin-left:40px; margin-bottom:-2px; padding-right:1px; padding-left:6px;  border:2px solid black">';
+      html += '<div class="list-lesson-title" id="lesson-logic">';
+      html += qs.Name;
+      scoreh.forEach(function (sc) {
+        if (sc.questionId == '/Logic/' + qs.Id) {
+          mark = 1;
+          if (sc.score > max) {
+            score = sc.score;
+            max = score;
+          }
+        }
+      })
+      html += '<div class="menu-block " style="float:right;">';
+      if (mark == 1) {
+        html += '<span class="mark-question"></span>';
+      }
+      html += '</div>';
+      html += '<br>';
+      html += 'Level:';
+      for (var i = 0; i < qs.Level; i++) {
+        html += '<i class="fa fa-star fa-fw" style="color:#FECF36;"></i>'
+      }
+      html += '</li>'
+      html += '</div>';
+      html += '<div class="list-lesson-score" id="score">';
+      html += 'Score:'
+      html += score;
+      html += '</div>';
+      html += '</div>';
+      index++;
+      if (index > 6) {
+        index = 0;
+      }
+    });
+  }
   return new handlebars.SafeString(html);
 });
 
@@ -683,30 +683,30 @@ handlebars.registerHelper('listquestion', function(question,scoreh){
  *@required javascript, handlebars.
  */
 
-handlebars.registerHelper('listcomment',function(feedback){
-    var html = '';
-    feedback.forEach(function (fb){
-        if(fb.Comment != 'empty'){
-        html += '<div class="bg-light-green comment-box">';
-        html += '<b>'+fb.Name+'</b>'+' : '+fb.Comment;
-        html += '<br>';
-        for(var i = 0;i < fb.Level;i++){
-          html += '<i class="fa fa-star fa-fw feedback" style="color:#FECF36; font-size:12px;"></i>'
-        }
-        html += '</div>';
-        }
-    });
-    return new handlebars.SafeString(html);
+handlebars.registerHelper('listcomment', function (feedback) {
+  var html = '';
+  feedback.forEach(function (fb) {
+    if (fb.Comment != 'empty') {
+      html += '<div class="bg-light-green comment-box">';
+      html += fb.Name + ' : ' + fb.Comment;
+      html += '<br>';
+      for (var i = 0; i < fb.Level; i++) {
+        html += '<i class="fa fa-star fa-fw" style="color:#FECF36; font-size:12px;"></i>'
+      }
+      html += '</div>';
+    }
+  });
+  return new handlebars.SafeString(html);
 });
 
 handlebars.registerHelper('listscore', function (score) {
   var html = '';
   var index = 0;
   var no = 4;
-  var color = ["list-bg-blue","list-bg-white"]
-  score.forEach(function (sc){
-    html += '<div class="list-table-leaderboard '+color[index]+'">';
-    html += no+' '+sc.nickname;
+  var color = ["list-bg-blue", "list-bg-white"]
+  score.forEach(function (sc) {
+    html += '<div class="list-table-leaderboard ' + color[index] + '">';
+    html += no + ' ' + sc.nickname;
     html += '</div>';
     index++;
     no++;
@@ -719,42 +719,42 @@ handlebars.registerHelper('listscore', function (score) {
 
 
 
-handlebars.registerHelper('listquestionadmin', function(question){
+handlebars.registerHelper('listquestionadmin', function (question) {
   var html = '';
   var index = 0;
   var type = '';
   var score = 0;
   var max = 0;
-  var color = ["bg-red","bg-purple","bg-blue","bg-sky-blue","bg-light-green","bg-orange","bg-nude"];
-  if(Object.getOwnPropertyNames(question).length === 0){
-        html += 'ggg';
-  }else{
-    question.forEach(function (qs){
-    if(qs.Type == 'logic'){
-      type = 'logic';
-    }else if(qs.Type == 'operator'){
-      type = 'operator';
-    }
-    html += '<div target="/lesson/'+type+'/'+qs.Id+'" class="'+color[index]+' qs canClick" style="margin-left:40px; padding-right:1px; border:2px solid black">';
-    html += '<div class="list-lesson-title" id="lesson-logic">';
-    html += qs.Name;
-    html += '<div class="menu-block " style="float:right;">';
-    html += '</div>';
-    html += '<br>';
-    html += 'Level:';
-    for(var i = 0; i< qs.Level;i++){
-      html += '<i class="fa fa-star fa-fw" style="color:#FECF36;"></i>'
-    }
-    html += '</li>'
-    html += '</div>';
-    html += '</div>';
-    score = 0;
-    index++;
-    if(index > 6){
-      index = 0;
-    }
-  });
-}
+  var color = ["bg-red", "bg-purple", "bg-blue", "bg-sky-blue", "bg-light-green", "bg-orange", "bg-nude"];
+  if (Object.getOwnPropertyNames(question).length === 0) {
+    html += 'ggg';
+  } else {
+    question.forEach(function (qs) {
+      if (qs.Type == 'logic') {
+        type = 'logic';
+      } else if (qs.Type == 'operator') {
+        type = 'operator';
+      }
+      html += '<div target="/lesson/' + type + '/' + qs.Id + '" class="' + color[index] + ' qs canClick" style="margin-left:40px; padding-right:1px; border:2px solid black">';
+      html += '<div class="list-lesson-title" id="lesson-logic">';
+      html += qs.Name;
+      html += '<div class="menu-block " style="float:right;">';
+      html += '</div>';
+      html += '<br>';
+      html += 'Level:';
+      for (var i = 0; i < qs.Level; i++) {
+        html += '<i class="fa fa-star fa-fw" style="color:#FECF36;"></i>'
+      }
+      html += '</li>'
+      html += '</div>';
+      html += '</div>';
+      score = 0;
+      index++;
+      if (index > 6) {
+        index = 0;
+      }
+    });
+  }
   return new handlebars.SafeString(html);
 });
 
@@ -766,9 +766,9 @@ handlebars.registerHelper('listquestionadmin', function(question){
  *@required javascript, handlebars.
  */
 
-handlebars.registerHelper('listprogressbar',function(feedback){
+handlebars.registerHelper('listprogressbar', function (feedback) {
   var html = '';
-  var color = ['bg-blue','bg-light-green','bg-yellow','bg-orange','bg-red'];
+  var color = ['bg-blue', 'bg-light-green', 'bg-yellow', 'bg-orange', 'bg-red'];
   var index = 0;
   //Stars
   var level1 = 0;
@@ -784,41 +784,41 @@ handlebars.registerHelper('listprogressbar',function(feedback){
   var percent3 = 0;
   var percent4 = 0;
   var percent5 = 0;
-  feedback.forEach(function (fb){
-    if(fb.Level == 5){
+  feedback.forEach(function (fb) {
+    if (fb.Level == 5) {
       level5++;
       total++;
-    }else if(fb.Level == 4){
+    } else if (fb.Level == 4) {
       level4++;
       total++;
-    }else if(fb.Level == 3){
+    } else if (fb.Level == 3) {
       level3++;
       total++;
-    }else if(fb.Level == 2){
+    } else if (fb.Level == 2) {
       level2++;
       total++;
-    }else if(fb.Level == 1){
+    } else if (fb.Level == 1) {
       level1++;
       total++;
     }
   });
-  
-  //Calculate Persen for 
-  percent5 = Math.floor((level5/total)*100);
-  percent4 = Math.floor((level4/total)*100);
-  percent3 = Math.floor((level3/total)*100);
-  percent2 = Math.floor((level2/total)*100);
-  percent1 = Math.floor((level1/total)*100);
 
-  var percent = [percent5,percent4,percent3,percent2,percent1]
-  var level = [level5,level4,level3,level2,level1]
-  for(var i = 5;i > 0;i--){
+  //Calculate Persen for 
+  percent5 = Math.floor((level5 / total) * 100);
+  percent4 = Math.floor((level4 / total) * 100);
+  percent3 = Math.floor((level3 / total) * 100);
+  percent2 = Math.floor((level2 / total) * 100);
+  percent1 = Math.floor((level1 / total) * 100);
+
+  var percent = [percent5, percent4, percent3, percent2, percent1]
+  var level = [level5, level4, level3, level2, level1]
+  for (var i = 5; i > 0; i--) {
     html += '<div class="side">';
-    html += '<span>'+i+'</span><i class="fa fa-star fa-fw" style="color:#FECF36;"></i>';
+    html += '<span>' + i + '</span><i class="fa fa-star fa-fw" style="color:#FECF36;"></i>';
     html += '</div>';
-    html += '<div class="mid hint--top" aria-label="'+level[index]+'">';
+    html += '<div class="mid hint--top" aria-label="' + level[index] + '">';
     html += '<div class="progressbars">';
-    html += '<div class="'+color[index]+' stars" style="width:'+percent[index]+'%"></div>';
+    html += '<div class="' + color[index] + ' stars" style="width:' + percent[index] + '%"></div>';
     html += '</div>';
     html += '</div>';
     index++;
@@ -826,10 +826,10 @@ handlebars.registerHelper('listprogressbar',function(feedback){
   return new handlebars.SafeString(html);
 });
 
-handlebars.registerHelper('ratingstar-feedback',function(feedback){
+handlebars.registerHelper('ratingstar-feedback', function (feedback) {
   var html = '';
   var total = 0;
-  feedback.forEach(function (fb){
+  feedback.forEach(function (fb) {
     total++;
   })
   var html = total;
@@ -844,7 +844,7 @@ handlebars.registerHelper('ratingstar-feedback',function(feedback){
  *@required javascript, handlebars.
  */
 
-handlebars.registerHelper('ratingstar-feedback',function(feedback){
+handlebars.registerHelper('ratingstar-feedback', function (feedback) {
   var html = '';
   var total = 0;
   var rating = 0;
@@ -854,51 +854,51 @@ handlebars.registerHelper('ratingstar-feedback',function(feedback){
   var level2 = 0;
   var level1 = 0;
   var allstars = 0;
-  feedback.forEach(function (fb){
-    if(fb.Level == 5){
+  feedback.forEach(function (fb) {
+    if (fb.Level == 5) {
       level5++;
       total++;
-    }else if(fb.Level == 4){
+    } else if (fb.Level == 4) {
       level4++;
       total++;
-    }else if(fb.Level == 3){
+    } else if (fb.Level == 3) {
       level3++;
       total++;
-    }else if(fb.Level == 2){
+    } else if (fb.Level == 2) {
       level2++;
       total++;
-    }else if(fb.Level == 1){
+    } else if (fb.Level == 1) {
       level1++;
       total++;
     }
   })
-  allstars = (level5*5)+(level4*4)+(level3*3)+(level2*2)+(level1*1);
-  rating = allstars/total;
-  rating = Math.round(rating*10)/10;
-  if(rating >= 5){
+  allstars = (level5 * 5) + (level4 * 4) + (level3 * 3) + (level2 * 2) + (level1 * 1);
+  rating = allstars / total;
+  rating = Math.round(rating * 10) / 10;
+  if (rating >= 5) {
     rating = 5;
   }
-  html += '<div class="rating text-rating">'+rating+'</div>';
-  html +=   '<div class="rating-stars">';
-      for(var i = 0;i < 5;i++){
-        if(rating >= i+1){      
-        html += '<i class="fa fa-star fa-fw" style="color:#FECF36;"></i>';
-        }else{
-        html += '<i class="fa fa-star fa-fw" style="color:#f1f1f1;"></i>';
-        }
-      }
-  html +=   '</div>';
-  html +=   '<p style="margin-left:20px; font-weight: bold; font-size:20px;">Total : '+total+' reviews</p>';
+  html += '<div class="rating text-rating">' + rating + '</div>';
+  html += '<div class="rating-stars">';
+  for (var i = 0; i < 5; i++) {
+    if (rating >= i + 1) {
+      html += '<i class="fa fa-star fa-fw" style="color:#FECF36;"></i>';
+    } else {
+      html += '<i class="fa fa-star fa-fw" style="color:#f1f1f1;"></i>';
+    }
+  }
+  html += '</div>';
+  html += '<p style="margin-left:20px; font-weight: bold; font-size:20px;">Total : ' + total + ' reviews</p>';
   return new handlebars.SafeString(html);
 });
 
-handlebars.registerHelper('totalfeedback',function(feedback){
+handlebars.registerHelper('totalfeedback', function (feedback) {
   html = '';
   total = 0;
-  feedback.forEach(function (fb){
+  feedback.forEach(function (fb) {
     total++;
   });
-  html = "Total : "+total+" comment";
+  html = "Total : " + total + " comment";
   return new handlebars.SafeString(html);
 })
 
@@ -911,12 +911,11 @@ handlebars.registerHelper('totalfeedback',function(feedback){
  */
 handlebars.registerHelper('card-level', function (level,ganaral) {
   var html = '';
-  const color = ["#8bc3a0","#c5f8c8","#faf096","#fccb8f","#f9989f"]
-  level.forEach((value,index)=>{
-    html+= `
-    <div class="card dia-3" style="background-color: ${color[index]};">
-      <div class="card-heading" style="color: black;text-align: center; ">
-          <span>${ganaral.title} ${index+1}</span>
+  level.forEach((value, index) => {
+    html += `
+    <div class="card dia-3">
+      <div class="card-heading" style="color: black;text-align: center;">
+          <span>${ganaral.title} ${index + 1}</span>
       </div>
       <div class="card-body" style="height:70%;display: flex;">
         <div class="card-body-left card-text-center dia-6" style="display: grid; height: 100%; ">
