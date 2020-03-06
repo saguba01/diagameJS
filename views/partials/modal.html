@@ -77,7 +77,7 @@
 
 <div id="modal-wellcome" class="modal">
   <div class="modal-content">
-    <div class="button-close-custom canClick right" onclick="startTutorial();playSoundEx('click');"></div>
+  <div class="button-close-custom canClick right" onclick="closeModal('#modal-wellcome');playSoundEx('click');"></div>
     <div class="wellcome-header">{{ walcomeModal.header }}</div>
     <div class="wellcome-logo ">
       <div class="postit postit-middle-center2 bg-sky-blue {{walcomeModal.logo}}" }>
@@ -87,7 +87,7 @@
 
   </div>
   <div class="modal-footer">
-    <button style="width: 230px;" onclick="startTutorial();playSoundEx('click');"
+    <button style="width: 230px;" onclick="closeModal('#modal-wellcome')();playSoundEx('click');"
       class="canClick button-close-modal">{{walcomeModal.button.learning}}</button>
   </div>
 </div>
@@ -218,19 +218,6 @@
   </div>
 </div>
 
-<div id="modal-confirm-signout" class="modal">
-  <div class="modal-content">
-    <div class="button-close-custom canClick right" onclick="startTutorial();playSoundEx('click');"></div>
-    <div class="signout-header">{{ signOut.header }}</div>
-    <div class="signout-title">&emsp;{{ signOut.title }}</div>
-
-  </div>
-  <div class="modal-footer">
-    <button style="width: 230px;" onclick="startTutorial();playSoundEx('click');"
-      class="canClick button-close-modal">{{walcomeModal.button.learning}}</button>
-  </div>
-</div>
-
 <div id="modal-confirm-delete" class="modal">
   <div class="modal-content">
     <span>Confirm Delete?</span>
@@ -292,5 +279,15 @@
   <div class="modal-footer">
     <button onclick="closeModal('#modal-preview')" style="float: right;"
       class="canClick button-achievement">{{general.button.close}}</button>
+  </div>
+</div>
+
+<div id="modal-tutorial-logic" class="modal">
+  <div class="modal-content">
+    <div class="tutorial-logic-content"></div>
+  </div>
+  <div class="modal-footer">
+    <button onclick="nextPage('{{ nextPage }}')" class="canClick button-navigator"
+      style="float: right;">{{general.button.next}}</button>
   </div>
 </div>

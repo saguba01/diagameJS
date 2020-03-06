@@ -142,8 +142,7 @@
                 if (getResult()) {
                     playSoundEx('complete');
                     // playSoundEx('correct');
-                    showNavigator('{{general.congrat}}');
-                    
+                    showTutorialLogic('{{logicalStep.goToFlowchart}}');
                     statusQuestion = true
                 } else {
                     $('.questionBox').addClass("shake-vertical");

@@ -129,21 +129,21 @@ function replaceHome() {
         $.ajax({
             type: "POST",
             contentType: "application/json",
-            data: JSON.stringify({ uid :uid })  ,
-            url: "/admin/roleUser", 
-            success: function(result){
-              const resData = result.data 
-              if(resData.role == "admin"){
-                window.location.replace('/admin');
-              }else{
-                window.location.replace('/home');
-              }
+            data: JSON.stringify({ uid: uid }),
+            url: "/admin/roleUser",
+            success: function (result) {
+                const resData = result.data
+                if (resData.role == "admin") {
+                    window.location.replace('/admin');
+                } else {
+                    window.location.replace('/home');
+                }
             },
-            error: (e)=>{  
-              console.error(e)
+            error: (e) => {
+                console.error(e)
             }
-          });
-        
+        });
+
     }).catch(function (error) {
         showError('Oh no!', errorMsg.firebase.auth[error.code]);
     });
@@ -202,13 +202,13 @@ function signUpWithEmailAndPassword(username, email, password) {
         });
 }
 
-function newUser(user){
+function newUser(user) {
     debugger
     let refUerInfo = firestore.collection('UserInfo').doc(user.uid);
     refUerInfo.set({
-        avatar : "",
-        nickname : "",
-        playTutorial : true,
+        avatar: "",
+        nickname: "",
+        playTutorial: true,
     })
 }
 
@@ -765,14 +765,11 @@ function showWelcome() {
     $('#modal-wellcome').modal({
         'dismissible': true,
         'onOpenStart': function () {
-            // $('#modal-wellcome>.modal-content>.wellcome-title').html(title);
-            // $('#modal-wellcome>.modal-content>.wellcome-content').html(message);
         },
         'onOpenEnd': function () { },
         'onCloseStart': function () { },
         'onCloseEnd': function () {
-            // $('#modal-wellcome>.modal-content>.wellcome-title').empty();
-            // $('#modal-wellcome>.modal-content>.wellcome-content').empty();
+            startTutorial()
         },
     });
     $('#modal-wellcome').modal('open');
@@ -813,8 +810,8 @@ function showSetting(flag_thai = '', flag_eng = '') {
 
             soundMaster = localStorage.getItem("soundMaster")
             soundMusic = localStorage.getItem("soundMusic")
-            
-            th.attr('id','setting-lang-thai') 
+
+            th.attr('id', 'setting-lang-thai')
                 .html(
                     $('<span></span>').css({ 'margin-left': '27px' })
                         .html(flag_thai)
@@ -832,17 +829,21 @@ function showSetting(flag_thai = '', flag_eng = '') {
                 eng.addClass('bg-nude flag-eng canClick ' + (lang == 'en' ? 'unblur' : 'blur'));
             }
             flagSelect.append(th).append(eng)
-            
-            if(soundMaster == "false"){
+
+            if (soundMaster == "false") {
                 eleSoundMaster.html(
                     $('<div></div>').addClass('btn-close-sound').html("")
                 )
+            }else{
+                eleSoundMaster.empty()
             }
 
             if (soundMusic == "false") {
                 eleSoundMusic.html(
                     $('<div></div>').addClass('btn-close-sound').html("")
                 )
+            }else{
+                eleSoundMusic.empty()
             }
         },
         'onOpenEnd': function () { },
@@ -960,7 +961,7 @@ function saveFeedback(name) {
     console.log('savefeedback...');
     var stars = $("#ratingStar").val();
     var comment = $("#comment-feedback").val();
-    if(comment == ""){
+    if (comment == "") {
         comment = "empty";
     }
     if (stars != 0) {
@@ -978,7 +979,7 @@ function saveFeedback(name) {
             Level: stars,
             Name: name,
             Version: 1,
-            date:twoDigit(dd)+"/"+twoDigit(mm)+"/"+yyyy+"T"+twoDigit(HH)+":"+twoDigit(MM)+":"+twoDigit(SS)
+            date: twoDigit(dd) + "/" + twoDigit(mm) + "/" + yyyy + "T" + twoDigit(HH) + ":" + twoDigit(MM) + ":" + twoDigit(SS)
         }).then(ref => {
             showError('บันทึกเรียบร้อยแล้ว');
             $("#ratingStar").val('');
@@ -988,7 +989,7 @@ function saveFeedback(name) {
             location.reload();
         });
     } else {
-        showError('','กรุณาเลือกดาวเพื่อให้คะแนน Feedback');
+        showError('', 'กรุณาเลือกดาวเพื่อให้คะแนน Feedback');
     }
     //console.log(comment);
     //console.log(stars);
@@ -1051,7 +1052,7 @@ function ratingstart() {
  *@required javascript
  */
 
-function showAvatarModal(){
+function showAvatarModal() {
     $('#modal-showAvatar').modal({
         'onOpenStart': function () {
             showAvatar();
@@ -1067,7 +1068,7 @@ function showAvatarModal(){
  *@required javascript
  */
 
-function showAvatar(){
+function showAvatar() {
     var folder = "/assets/svg/avatar/";
     var avatar = new Array(
         'andy-warhol.svg',
@@ -1102,16 +1103,16 @@ function showAvatar(){
         'vladimir-lenin.svg'
     );
     $("#targetAvatar").html("");
-    for(let round=0;round<avatar.length;round){
-        var textHTML = "<div style='display: inline-flex;'><div><img src='" + folder + avatar[round] + "' class='avatar' value='"+avatar[round]+"' onclick='changeAvatar(this)'></div>"
-                        +"<div style='margin-left: 5px;'><img src='" + folder + avatar[round+1] + "' class='avatar' value='"+avatar[round+1]+"' onclick='changeAvatar(this)'></div>"
-                        +"<div style='margin-left: 5px;'><img src='" + folder + avatar[round+2] + "' class='avatar' value='"+avatar[round+2]+"' onclick='changeAvatar(this)'></div>"
-                        +"<div style='margin-left: 5px;'><img src='" + folder + avatar[round+3] + "' class='avatar' value='"+avatar[round+3]+"' onclick='changeAvatar(this)'></div>"
-                        +"<div style='margin-left: 5px;'><img src='" + folder + avatar[round+4] + "' class='avatar' value='"+avatar[round+4]+"' onclick='changeAvatar(this)'></div>"
-                        +"<div style='margin-left: 5px;'><img src='" + folder + avatar[round+5] + "' class='avatar' value='"+avatar[round+5]+"' onclick='changeAvatar(this)'></div></div><br>";
-        round = round+6;
+    for (let round = 0; round < avatar.length; round) {
+        var textHTML = "<div style='display: inline-flex;'><div><img src='" + folder + avatar[round] + "' class='avatar' value='" + avatar[round] + "' onclick='changeAvatar(this)'></div>"
+            + "<div style='margin-left: 5px;'><img src='" + folder + avatar[round + 1] + "' class='avatar' value='" + avatar[round + 1] + "' onclick='changeAvatar(this)'></div>"
+            + "<div style='margin-left: 5px;'><img src='" + folder + avatar[round + 2] + "' class='avatar' value='" + avatar[round + 2] + "' onclick='changeAvatar(this)'></div>"
+            + "<div style='margin-left: 5px;'><img src='" + folder + avatar[round + 3] + "' class='avatar' value='" + avatar[round + 3] + "' onclick='changeAvatar(this)'></div>"
+            + "<div style='margin-left: 5px;'><img src='" + folder + avatar[round + 4] + "' class='avatar' value='" + avatar[round + 4] + "' onclick='changeAvatar(this)'></div>"
+            + "<div style='margin-left: 5px;'><img src='" + folder + avatar[round + 5] + "' class='avatar' value='" + avatar[round + 5] + "' onclick='changeAvatar(this)'></div></div><br>";
+        round = round + 6;
         $("#targetAvatar").append(textHTML);
-        
+
     }
 }
 
@@ -1122,8 +1123,8 @@ function showAvatar(){
  *@since 20 Feb 2020
  *@required javascript
  */
-function changeAvatar(element){
-    document.getElementById("selectavatar").src = "/assets/svg/avatar/"+element.getAttribute("value");
+function changeAvatar(element) {
+    document.getElementById("selectavatar").src = "/assets/svg/avatar/" + element.getAttribute("value");
     document.getElementById("selectavatar").value = element.getAttribute("value");
     closeModal('#modal-showAvatar');
 }
@@ -1135,20 +1136,20 @@ function changeAvatar(element){
  *@since 20 Feb 2020
  *@required javascript
  */
-function saveUserInfo(){
+function saveUserInfo() {
     let refUserInfo = firestore.collection("UserInfo");
-    if(typeof document.getElementById("selectavatar").value == "undefined"){
+    if (typeof document.getElementById("selectavatar").value == "undefined") {
         document.getElementById("selectavatar").value = "robot-01.svg";
     }
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
-            refUserInfo.doc(user.uid).get().then(function(doc){
+            refUserInfo.doc(user.uid).get().then(function (doc) {
                 refUserInfo.doc(user.uid).set({
                     avatar: document.getElementById("selectavatar").value,
                     nickname: document.getElementById("username").value,
                     role: doc.data().role,
                     playTutorial: doc.data().playTutorial,
-                    score:0
+                    score: 0
                 });
             })
         }
@@ -1170,7 +1171,7 @@ function showConfirmSignout() {
     $('#modal-confirm-signout').modal('open');
 }
 
-function showLeaderboard(){
+function showLeaderboard() {
     $('#modal-leaderboard').modal({
         'dismissible': true,
     });
@@ -1193,7 +1194,7 @@ function showPasstutorial(photo, title, content, nextFlag = false) {
                     // `el` property is the SVG element
                     myVivus.el.setAttribute('height', '100%');
                     myVivus.el.setAttribute('width', '100%');
-                    vivus.play(animationSpeed, function () {});
+                    vivus.play(animationSpeed, function () { });
                     $('#tutorial-photo>svg').each(function (index, obj) {
                         if (index != 0) {
                             $(obj).detach();
@@ -1212,7 +1213,7 @@ function showPasstutorial(photo, title, content, nextFlag = false) {
                 showCursor: false
             });
         },
-        'onCloseStart': function () {},
+        'onCloseStart': function () { },
         'onCloseEnd': function () {
             $('#modal-pass-tutorial>.modal-content>.tutorial-photo').empty();
             $('#modal-pass-tutorial>.modal-content>.tutorial-title').empty();
@@ -1229,49 +1230,60 @@ function showPasstutorial(photo, title, content, nextFlag = false) {
   *@since 06 Mar 2020
   *@required javascript.
   */
-function passTutorial(){
+function passTutorial() {
     blockUI();
     $.ajax({
         type: "GET",
         contentType: "application/json",
-        url: "/tutorial/passTutorail", 
-        success: function(result){
-          unblockUI();
-          location.href = "/home"
+        url: "/tutorial/passTutorail",
+        success: function (result) {
+            unblockUI();
+            location.href = "/home"
         },
-        error: (e)=>{
-          unblockUI();
-          console.error(e)
+        error: (e) => {
+            unblockUI();
+            console.error(e)
         }
-      });
-    }
+    });
+}
 
-    function previewQuestion(question) {
-        var html = '';
-        var index = 0;
-        question.forEach(function (qs) {
-          var seq = 1;
-          var array = qs.equation.split('{target}');
-          html += '<div class="question' + (index == 0 ? ' active' : '') + '" question="' + (index + 1) + '">';
-          array.forEach(function (value) {
+function previewQuestion(question) {
+    var html = '';
+    var index = 0;
+    question.forEach(function (qs) {
+        var seq = 1;
+        var array = qs.equation.split('{target}');
+        html += '<div class="question' + (index == 0 ? ' active' : '') + '" question="' + (index + 1) + '">';
+        array.forEach(function (value) {
             html += '<div class="questionText" type="operand" style="margin-right: 20px;' + (seq > 1 ? 'margin-left: 60px;' : '') + '" event="' + value + '">' + value + '</div>';
             array.length != seq ? html += '<div class="boxAnswer" type = "operator" style="margin-left: -10px;margin-top: 25px;"></div>' : '';
             seq++;
-          });
-          html += '<div class="questionText" type="result" event="' + qs.answer + '"> = ' + qs.answer + '</div>'
-          html += '</div>';
-          index++;
         });
-        return html;
-      }
+        html += '<div class="questionText" type="result" event="' + qs.answer + '"> = ' + qs.answer + '</div>'
+        html += '</div>';
+        index++;
+    });
+    return html;
+}
 
-      function showPreview(question){
-        $('#modal-preview').modal({
-            'dismissible': false,
-            'onOpenStart': function () { },
-            'onOpenEnd': function () {
-                $('.modal-preview-content').html(previewQuestion(question));
-            }
-        });
-        $('#modal-preview').modal('open');
-      }
+function showPreview(question) {
+    $('#modal-preview').modal({
+        'dismissible': false,
+        'onOpenStart': function () { },
+        'onOpenEnd': function () {
+            $('.modal-preview-content').html(previewQuestion(question));
+        }
+    });
+    $('#modal-preview').modal('open');
+}
+
+function showTutorialLogic(content) {
+    $('#modal-tutorial-logic').modal({
+        'dismissible': false,
+        'onOpenStart': function () { },
+        'onOpenEnd': function () {
+            $('.tutorial-logic-content').text(content);
+        }
+    });
+    $('#modal-tutorial-logic').modal('open');
+}
