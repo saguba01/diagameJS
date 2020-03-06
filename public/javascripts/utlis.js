@@ -1176,6 +1176,7 @@ function showLeaderboard() {
         'dismissible': true,
     });
     $('#modal-leaderboard').modal('open');
+    ScoreBoard();
 }
 
 function showPasstutorial(photo, title, content, nextFlag = false) {
@@ -1244,7 +1245,122 @@ function passTutorial() {
             unblockUI();
             console.error(e)
         }
+      });
+    }
+
+function ScoreBoard(){
+    //showLoading();
+    $.ajax({
+        type: "GET",
+        contentType: "application/json",
+        url: "/api/getAllScore",
+        success: function(response){
+            var html = '';
+            var checkname = [];
+            var score = [];
+            var round = 0;
+            var index = 0;
+            response.forEach(element => {
+                    if(round == 0){
+                    checkname.push({
+                        nickname:element.nickname,
+                        score:0
+                    });
+                    round++;
+                    }else{
+                        if(checkname[index].nickname != element.nickname){
+                            checkname.push({
+                                nickname:element.nickname,
+                                score:0
+                            });
+                            index++;
+                        }
+                    }
+            });
+            var index = 0;
+            console.log(checkname);
+            console.log(response);
+            checkname.forEach(element =>{
+                response.forEach(value => {
+                    if(element.nickname == value.nickname){
+                        element.score += parseInt(value.score);
+                    }
+                })
+            })
+            checkname.sort(compareValues('score','desc'))
+            var rank = 1;
+            checkname.forEach(element =>{
+                html += '<tr>'
+                html += '<td>'+rank+'</td>'
+                html += '<td>'+element.nickname+'</td>'
+                html += '<td>'+element.score+'</td>'
+                html += '</tr>'
+                rank++;
+            })
+            $('#data-leaderboard').html(html);
+        },
+        error: function (e){
+            console.log(e);
+        },complete : function (){
+           // closeLoading();
+        }
     });
+}
+
+function compareValues(key, order = 'asc') {
+    return function innerSort(a, b) {
+      if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+        // property doesn't exist on either object
+        return 0;
+      }
+  
+      const varA = (typeof a[key] === 'string')
+        ? a[key].toUpperCase() : a[key];
+      const varB = (typeof b[key] === 'string')
+        ? b[key].toUpperCase() : b[key];
+  
+      let comparison = 0;
+      if (varA > varB) {
+        comparison = 1;
+      } else if (varA < varB) {
+        comparison = -1;
+      }
+      return (
+        (order === 'desc') ? (comparison * -1) : comparison
+      );
+    };
+  }
+
+function ChangeMonth (month,lang){
+    var allmonthEn = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var allmonthTh = ['ม.ค.','ก.พ.','มี.ค.','เม.ย','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+    var newMonth = '';
+    if(lang == 'en'){
+        for(var i = 0;i<12;i++){
+            if(i<10){
+                if(month == ('0'+(i+1))){
+                    newMonth = allmonthEn[i];
+                }
+            }else{
+                if(month == i+1){
+                    newMonth = allmonthEn[i];
+                }
+            }
+        }
+    }else if(lang == 'th'){
+        for(var i = 0;i<12;i++){
+            if(i<10){
+                if(month == ('0'+(i+1))){
+                    newMonth = allmonthTh[i];
+                }
+            }else{
+                if(month == i+1){
+                    newMonth = allmonthTh[i];
+                }
+            }
+        }
+    }
+    return newMonth;
 }
 
 function previewQuestion(question) {
