@@ -902,7 +902,13 @@ handlebars.registerHelper('totalfeedback',function(feedback){
   return new handlebars.SafeString(html);
 })
 
-
+/*
+ *Description: Genarate card of rate score 
+ *@version 1.0
+ *@author Supachai Boonying
+ *@since 06 Mar 2020
+ *@required javascript.
+ */
 handlebars.registerHelper('card-level', function (level,ganaral) {
   var html = '';
   const color = ["#8bc3a0","#c5f8c8","#faf096","#fccb8f","#f9989f"]
@@ -930,6 +936,13 @@ handlebars.registerHelper('card-level', function (level,ganaral) {
   return new handlebars.SafeString(html);
 });
 
+/*
+ *Description: Genarate option of select 
+ *@version 1.0
+ *@author Supachai Boonying
+ *@since 06 Mar 2020
+ *@required javascript.
+ */
 handlebars.registerHelper('list-option-question', function (obj) {
   var html = '';
   obj.forEach((value,index)=>{

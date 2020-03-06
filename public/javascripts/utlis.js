@@ -1203,6 +1203,13 @@ function showPasstutorial(photo, title, content, nextFlag = false) {
     $('#modal-pass-tutorial').modal('open');
 }
 
+/*
+  *Description: 
+  *@version 1.0
+  *@author Supachai Boonying
+  *@since 06 Mar 2020
+  *@required javascript.
+  */
 function passTutorial(){
     blockUI();
     $.ajax({

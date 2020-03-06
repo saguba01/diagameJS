@@ -340,6 +340,14 @@ function unlockLesson(lesson, subLesson, timestamp) {
     });
 }
 
+/*
+ *Description: Timer of play game 
+ *@version 1.0
+ *@param any
+ *@author Supachai Boonying Thanawin Poopangeon
+ *@since 6 Mar 2020
+ *@required Firebase Cloud Firestore.
+ */
 function timer(level, callback) {
     $.ajax({
         type: "GET",
@@ -347,7 +355,7 @@ function timer(level, callback) {
         url: "/admin/rateScore",
         success: function (result) {
             let resData = result.data
-            let userLevel = resData.level[parseInt(level)-1]
+            let userLevel = resData.level[parseInt(level) - 1]
             let discountRate = parseFloat(userLevel.score / userLevel.rate).toFixed(3)
             let stopTime = false
             let width = 100;
@@ -374,13 +382,13 @@ function timer(level, callback) {
                     minutesLabel.html(twoDigit(parseInt(totalSeconds / 60)))
                 }
             }
-
+            
             function frame() {
 
                 if (width == 0 || statusQuestion) {
                     clearInterval(countDown);
                 } else {
-                    width = (maxScore/topScore*100)
+                    width = (maxScore / topScore * 100)
                     elem.css({ 'width': `${width}%` })
                     elem.css({ 'border-top-right-radius': '0px', 'border-bottom-right-radius': '0px' })
                     if (width <= 70 && width >= 41) {
@@ -395,8 +403,8 @@ function timer(level, callback) {
                 if (maxScore == 0 || statusQuestion || maxScore == minScore) {
                     clearInterval(scroeBar);
                 }
-                $('#score').html(parseInt(maxScore-discountRate))
-                maxScore-=discountRate
+                $('#score').html(parseInt(maxScore - discountRate))
+                maxScore -= discountRate
             }
 
             function checkStatus() {
@@ -415,11 +423,11 @@ function timer(level, callback) {
             return {
                 status: "error",
                 data: null,
-                massage : e
+                massage: e
             }
         }
     });
-    
+
 }
 
 function twoDigit(val) {

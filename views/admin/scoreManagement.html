@@ -48,7 +48,13 @@
 </div>
 
 <script>
-  
+  /*
+  *Description: 
+  *@version 1.0
+  *@author Supachai Boonying
+  *@since 06 Mar 2020
+  *@required javascript.
+  */
   function editScore(ele){
     const element = elementThisPage(ele)
     const oldData = element.oldData
@@ -99,6 +105,13 @@
     
   }
 
+  /*
+  *Description: 
+  *@version 1.0
+  *@author Supachai Boonying
+  *@since 06 Mar 2020
+  *@required javascript.
+  */
   function clearScore(ele){
     const element = elementThisPage(ele)
     const oldData = element.oldData
@@ -144,6 +157,13 @@
     // end set btn 
   }
 
+  /*
+  *Description: 
+  *@version 1.0
+  *@author Supachai Boonying
+  *@since 06 Mar 2020
+  *@required javascript.
+  */
   function saveEditScore(ele){
     const element = elementThisPage(ele)
     const oldData = element.oldData
@@ -192,6 +212,13 @@
     
   }
 
+  /*
+  *Description: 
+  *@version 1.0
+  *@author Supachai Boonying
+  *@since 06 Mar 2020
+  *@required javascript.
+  */
   function saveScore(obj){
     blockUI();
     $.ajax({
@@ -209,6 +236,13 @@
     });
   }
 
+  /*
+  *Description: 
+  *@version 1.0
+  *@author Supachai Boonying
+  *@since 06 Mar 2020
+  *@required javascript.
+  */
   function validate(){
     const input = $(".panel ").find("input")
     let status = true
@@ -298,6 +332,13 @@
     return status
   }
 
+  /*
+  *Description: 
+  *@version 1.0
+  *@author Supachai Boonying
+  *@since 06 Mar 2020
+  *@required javascript.
+  */
   function eventEnter(ele,event){
     if(event.keyCode == 13){
       $(".btn-save-dis").click()
@@ -305,6 +346,13 @@
     }
   }
 
+  /*
+  *Description: 
+  *@version 1.0
+  *@author Supachai Boonying
+  *@since 06 Mar 2020
+  *@required javascript.
+  */
   function newElements(){
     const input = $("<input>").attr({
                           type: 'number',
@@ -344,57 +392,71 @@
     }
   }
 
-    function elementThisPage(ele){
-      const elementPanal = $(ele.parentNode.parentNode.parentNode)
-      const panalBody = elementPanal.find(".panel-body").get(0)
-      const eleScoreMax = elementPanal.find(".panel-body").get(1)  
-      const eleScoreMin = elementPanal.find(".panel-body").get(2)
+  /*
+  *Description: 
+  *@version 1.0
+  *@author Supachai Boonying
+  *@since 06 Mar 2020
+  *@required javascript.
+  */
+  function elementThisPage(ele){
+    const elementPanal = $(ele.parentNode.parentNode.parentNode)
+    const panalBody = elementPanal.find(".panel-body").get(0)
+    const eleScoreMax = elementPanal.find(".panel-body").get(1)  
+    const eleScoreMin = elementPanal.find(".panel-body").get(2)
 
-      let oldDataOfCard = []
+    let oldDataOfCard = []
 
-      for(let i = 0 ; i < $(panalBody).find(".card").length;i++){
-        const body = $($(panalBody).find(".card").get(i)).find(".card-body")
-        const score = $(body.find(".card-body-right").find("span").get(1)).html()
-        const sec = $(body.find(".card-body-left").find("span").get(1)).html()
-        oldDataOfCard.push({
-          rateScore : parseInt(score),
-          rateSec : parseInt(sec)
-        })
-      }
-      const oldData = {
-        score : {
-          maxScore : parseInt($(eleScoreMax).find(".score").find("span").html()),
+    for(let i = 0 ; i < $(panalBody).find(".card").length;i++){
+      const body = $($(panalBody).find(".card").get(i)).find(".card-body")
+      const score = $(body.find(".card-body-right").find("span").get(1)).html()
+      const sec = $(body.find(".card-body-left").find("span").get(1)).html()
+      oldDataOfCard.push({
+        rateScore : parseInt(score),
+        rateSec : parseInt(sec)
+      })
+    }
+    const oldData = {
+      score : {
+        maxScore : parseInt($(eleScoreMax).find(".score").find("span").html()),
+        minScore : parseInt($(eleScoreMin).find(".score").find("span").html())
+      },
+      card : oldDataOfCard
+    }
+    return {
+      panel : elementPanal,
+      panalBody : panalBody,
+      score : {
+        eleScoreMax : {
+          body : eleScoreMax,
+          span :  $(eleScoreMax).find(".score").find("span") ,
+          maxScore : parseInt($(eleScoreMax).find(".score").find("span").html())
+        },
+        eleScoreMin : {
+          body : eleScoreMin,
+          span :  $(eleScoreMin).find(".score").find("span") ,
           minScore : parseInt($(eleScoreMin).find(".score").find("span").html())
-        },
-        card : oldDataOfCard
-      }
-      return {
-        panel : elementPanal,
-        panalBody : panalBody,
-        score : {
-          eleScoreMax : {
-            body : eleScoreMax,
-            span :  $(eleScoreMax).find(".score").find("span") ,
-            maxScore : parseInt($(eleScoreMax).find(".score").find("span").html())
-          },
-          eleScoreMin : {
-            body : eleScoreMin,
-            span :  $(eleScoreMin).find(".score").find("span") ,
-            minScore : parseInt($(eleScoreMin).find(".score").find("span").html())
-          }
-        },
-        card : $(panalBody).find(".card"),
-        oldData : oldData
+        }
+      },
+      card : $(panalBody).find(".card"),
+      oldData : oldData
 
-      }
     }
+  }
 
-    function numberOnly(event){
-      const ASCIICode = (event.which) ? event.which : event.keyCode 
-      if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57)) 
-          return false; 
-      return true; 
-    }
+  /*
+  *Description: 
+  *@version 1.0
+  *@author Supachai Boonying
+  *@since 06 Mar 2020
+  *@required javascript.
+  */
+  function numberOnly(event){
+    const ASCIICode = (event.which) ? event.which : event.keyCode 
+    if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57)) 
+        return false; 
+    return true; 
+  }
 </script>
 <style>
 .placeholder-red::-webkit-input-placeholder {
