@@ -121,9 +121,8 @@
 </body>
 
 <script>
-    let c = "{{answerStep}}";
+    let refScore = firestore.collection("ScoreHistory");
     var statusQuestion = false;
-    console.log("Test", c[0][0].processTh);
     $(function () {
         timer('{{maxScore}}', '{{minScore}}', (obj) => {
             if (typeof obj.score != "undefined") {
@@ -196,23 +195,52 @@
 
         console.log("tempFlowchart: ", tempFlowchart);
         for (let index = 0; index < result.length; index++) {
-            check = 0;
+            var check = 0;
             for (let i = 0; i < tempFlowchart.length; i++) {
                 if (tempFlowchart[i] == result[index][i]) {
                     check += 1;
                 }
             }
+
             if (check == tempFlowchart.length && tempFlowchart.length == length) {
                 flowchartBeenEqual = true;
                 statusQuestion = true;
-                console.log("scoretime", parseInt($("#score").html())-1);
+                console.log("scoretime", parseInt($("#score").html()) - 1);
+                var score = parseInt($("#score").html()) - 1;
                 console.log("playtime", $("#seconds").html());
+                var time = parseInt($("#minutes").html() * 60) + parseInt($("#seconds").html())
                 playSoundEx('correct');
                 showNavigator('{{general.congrat}}');
+                refScore.doc("{{user.uid}}diagram{{questionId}}").get().then(function (doc) {
+                    var today = new Date();
+                    var dd = today.getDate();
+                    var mm = today.getMonth() + 1;
+                    var HH = today.getHours();
+                    var MM = today.getMinutes();
+                    var SS = today.getSeconds();
+                    var yyyy = today.getFullYear();
+                    let round = 1;
+                    let uid = "{{user.uid}}";
+                    console.log("Doc Exist", doc.exists);
+                    if (doc.exists) {
+                        round = doc.data().round + 1;
+                    }
+                    refScore.doc("{{user.uid}}diagram{{questionId}}").set({
+                        uid: uid,
+                        type: "diagram",
+                        questionId: "{{questionId}}",
+                        round: round,
+                        score: score,
+                        time: time,
+                        date: twoDigit(dd) + "/" + twoDigit(mm) + "/" + yyyy + "T" + twoDigit(HH) + ":" + twoDigit(MM) + ":" + twoDigit(SS)
+                    }).then(function () {
+                        console.log("Save Score");
+                    }).catch(err => {
+                        console.log("Error : " + err);
+                    });
+                });
             }
         }
-
-
         if (check != tempFlowchart.length && tempFlowchart.length != length) {
             flowchartBeenEqual = false;
             showSaveStatus("Flow Chart is Incorrect")
@@ -220,4 +248,8 @@
         console.log("flowchartBeenEqual: ", flowchartBeenEqual);
 
     }
+
+
+
+
 </script>
