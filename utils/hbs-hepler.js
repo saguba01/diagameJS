@@ -622,6 +622,7 @@ handlebars.registerHelper('listquestion', function (question, scoreh) {
   var html = '';
   var index = 0;
   var type = '';
+  console.log("List",question);
   var color = ["bg-red", "bg-purple", "bg-blue", "bg-sky-blue", "bg-light-green", "bg-orange", "bg-nude"];
   if (typeof question === 'undefined') {
     html += 'ggg';
@@ -637,6 +638,7 @@ handlebars.registerHelper('listquestion', function (question, scoreh) {
       } else {
         type = 'diagram';
       }
+      
       html += '<div target="/lesson/' + type + '/' + qs.Id + '" class="' + color[index] + ' qs canClick" style="margin-left:40px; margin-bottom:-2px; padding-right:1px; padding-left:6px;  border:2px solid black">';
       html += '<div class="list-lesson-title" id="lesson-logic">';
       html += qs.Name;
