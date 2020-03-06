@@ -341,7 +341,6 @@ function unlockLesson(lesson, subLesson, timestamp) {
 }
 
 function timer(max=0,min=0,callback){
-    console.log("timer")
     let stopTime = false 
     let width = 100;
     let maxScore = parseInt(max) 

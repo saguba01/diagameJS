@@ -128,7 +128,6 @@ router.get('/', authen, async (req, res, next) => {
 
 router.get('/passTutorail', async (req, res, next) => {
   
-  const postData = req.body
   const uid = req.session.user.uid;
   const user = await user_info.userInfo(uid)
   const userInfoData = user.data

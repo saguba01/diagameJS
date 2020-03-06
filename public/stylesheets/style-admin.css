@@ -595,7 +595,7 @@ body {
 }
 
 .menu-flowchart{
-    background-image: url("/assets/svg/menu/flowchart.svg");
+  background-image: url("/assets/svg/menu/flowchart.svg");
   background-size: 90% auto;
   background-repeat: no-repeat;
   background-position: center;
@@ -605,7 +605,9 @@ body {
   margin-left:40px;
   margin-right:40px;
   border:3px solid black;
+  word-wrap: break-word;
 }
+
 .menu-coaching{
   background-image: url("/assets/svg/menu/coaching.svg");
   background-size: 90% auto;

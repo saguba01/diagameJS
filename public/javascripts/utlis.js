@@ -961,6 +961,7 @@ function saveFeedback(name) {
             Version: 1,
             date:twoDigit(dd)+"/"+twoDigit(mm)+"/"+yyyy+"T"+twoDigit(HH)+":"+twoDigit(MM)+":"+twoDigit(SS)
         }).then(ref => {
+            showError('บันทึกเรียบร้อยแล้ว');
             $("#ratingStar").val('');
             $("#comment-feedback").val('');
             closeModal('#modal-feedback');
