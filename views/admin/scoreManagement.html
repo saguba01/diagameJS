@@ -366,8 +366,8 @@
                           "font-family" : "'Mali', cursive"
                       }).attr({
                         "onkeyup": "eventEnter(this,event)",
-                        // "oninput" : "numberOnly(this)"
-                        "onkeypress" : "return numberOnly(event)"
+                        "onkeypress" : "return numberOnly(event) ",
+                        "oninput" : "minNumber(this)"
                       }) 
     const btnEdit = $("<button></button>").addClass("canClick").addClass("btn-tran")
                       .attr("onclick","editScore(this)")
@@ -456,6 +456,13 @@
     if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57)) 
         return false; 
     return true; 
+  }
+
+  function minNumber(ele){
+    let input = $(ele)
+    if(parseInt(input.val())<0){
+      input.val(0)
+    }
   }
 </script>
 <style>

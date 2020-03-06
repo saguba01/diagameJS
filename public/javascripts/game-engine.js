@@ -400,7 +400,7 @@ function timer(level, callback) {
             }
 
             function score() {
-                if (maxScore == 0 || statusQuestion || maxScore == minScore) {
+                if (maxScore <= 0 || statusQuestion || maxScore == minScore) {
                     clearInterval(scroeBar);
                 }
                 $('#score').html(parseInt(maxScore - discountRate))

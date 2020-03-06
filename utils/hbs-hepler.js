@@ -911,9 +911,10 @@ handlebars.registerHelper('totalfeedback', function (feedback) {
  */
 handlebars.registerHelper('card-level', function (level,ganaral) {
   var html = '';
+  const color = ["#8bc3a0","#c5f8c8","#faf096","#fccb8f","#f9989f"]
   level.forEach((value, index) => {
     html += `
-    <div class="card dia-3">
+    <div class="card dia-3" style="background-color: ${color[index]};">
       <div class="card-heading" style="color: black;text-align: center;">
           <span>${ganaral.title} ${index + 1}</span>
       </div>
