@@ -141,6 +141,7 @@ router.get('/:id', authen,async function (req, res, next) {
       subLesson: lesson.subLesson.advance,
       question: questionData,
       questionName: doc.data().Name,
+      level: doc.data().Level,
       //required
       elementsString: configString[lang].element.general,
       general: configString[lang].general,

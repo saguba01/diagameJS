@@ -63,3 +63,7 @@ i.fa.fa-star.fa-fw.feedback{
 .rating-starsfeedback ul > li.star.selected > i.fa {
     color:#FF912C;
 }
+
+.redBorder{
+    border: solid 5px red !important;
+}

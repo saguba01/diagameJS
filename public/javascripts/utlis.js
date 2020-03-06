@@ -1246,7 +1246,13 @@ function passTutorial() {
         }
     });
 }
-
+/*
+  *Description: preview question
+  *@version 1.0
+  *@author Thanawin Poopangeon
+  *@since 06 Mar 2020
+  *@required javascript.
+  */
 function previewQuestion(question) {
     var html = '';
     var index = 0;
@@ -1265,7 +1271,13 @@ function previewQuestion(question) {
     });
     return html;
 }
-
+/*
+  *Description: preview question
+  *@version 1.0
+  *@author Thanawin Poopangeon
+  *@since 06 Mar 2020
+  *@required javascript.
+  */
 function showPreview(question) {
     $('#modal-preview').modal({
         'dismissible': false,
@@ -1286,4 +1298,21 @@ function showTutorialLogic(content) {
         }
     });
     $('#modal-tutorial-logic').modal('open');
+}
+
+/*
+ *Description: Show alert modal.
+ *@version 1.0
+ *@author Thanawin Poopangeon
+ *@since 10 March 2020
+ *@required javascript, materialize-css.
+ */
+function showScoreReult(content) {
+    $('#modal-result-score').modal({
+        'dismissible': false,
+        'onOpenEnd': function () {
+            $('.result-score-content').text(content);
+        }
+    });
+    $('#modal-result-score').modal('open');
 }

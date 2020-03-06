@@ -348,6 +348,16 @@
     text-align: center;
 }
 
+.result-score-content {
+    width: 100%;
+    height: auto;
+    padding: 5px 20px 5px 20px;
+    font-size: 36px;
+    font-weight: bold;
+    word-wrap: break-word;
+    text-align: center;
+}
+
 .button-navigator {
     margin-top: 5px;
     margin-bottom: 5px;
