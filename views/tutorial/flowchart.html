@@ -435,7 +435,7 @@
             // clicking 'Done'
             .oncomplete(function () {
                 playSoundEx('click');
-                timer(1, (obj) => {
+                timer(5, (obj) => {
                     console.log(obj)
                 })
                 targetAreaShow()
@@ -444,7 +444,7 @@
             // clicking 'Skip'
             .onexit(function () {
                 playSoundEx('click');
-                timer(1, (obj) => {
+                timer(5, (obj) => {
                     console.log(obj)
                 })
                 targetAreaShow()

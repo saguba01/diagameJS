@@ -39,7 +39,7 @@ router.get('/', authen, async (req, res, next) => {
             button: general.button,
             slidebar: general.slidebar,
             dashboard: general.dashboard,
-            months : JSON.stringify(general.months),
+            months: JSON.stringify(general.months),
             cardData: {
               total_user: allUser.length,
               total_question: parseInt(allFlowchart.length) + parseInt(allLogic.length)
@@ -352,6 +352,33 @@ router.get('/getscroeHistory', async (req, res, next) => {
 router.get('/rateScore', async (req, res, next) => {
   const scoreData = await score.getScore()
   res.send(scoreData)
+})
+
+router.post('/roleUser', async (req, res, next) => {
+  const postData = req.body
+  let user = null;
+  const refUser = firestore.collection('UserInfo').doc(postData.uid)
+  await refUser.get().then(doc => {
+    if (!doc.exists) {
+      user = {
+        status: "waring",
+        massage: "not have data"
+      }
+    } else {
+      user = {
+        status: "sucess",
+        data: doc.data()
+      }
+    }
+  })
+    .catch(err => {
+      user = {
+        status: "sucess",
+        massage: err,
+        data: null
+      }
+    });
+    res.send(user)
   // 
 })
 

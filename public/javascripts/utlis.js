@@ -122,9 +122,28 @@ function unblockUI() {
  *@required javascript,jQuery,Firebase Authentication.
  */
 function replaceHome() {
-    firebase.auth().currentUser.getIdToken(true).then(function (idToken) {
+    const user = firebase.auth().currentUser
+    const uid = user.uid
+    user.getIdToken(true).then(function (idToken) {
         document.cookie = 'idToken=' + idToken;
-        window.location.replace('/home');
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ uid :uid })  ,
+            url: "/admin/roleUser", 
+            success: function(result){
+              const resData = result.data 
+              if(resData.role == "admin"){
+                window.location.replace('/admin');
+              }else{
+                window.location.replace('/home');
+              }
+            },
+            error: (e)=>{  
+              console.error(e)
+            }
+          });
+        
     }).catch(function (error) {
         showError('Oh no!', errorMsg.firebase.auth[error.code]);
     });

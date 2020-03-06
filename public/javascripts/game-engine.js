@@ -367,10 +367,11 @@ function timer(level, callback) {
             let totalSeconds = 0;
             let elem = $('#timeBar')
 
+            let check = setInterval(checkStatus, 100);
             let timer = setInterval(setTime, 1000);
             let countDown = setInterval(frame, 1000);
             let scroeBar = setInterval(score, 1000);
-            let check = setInterval(checkStatus, 100);
+            
 
             function setTime() {
                 if (statusQuestion) {
@@ -402,9 +403,11 @@ function timer(level, callback) {
             function score() {
                 if (maxScore <= 0 || statusQuestion || maxScore == minScore) {
                     clearInterval(scroeBar);
+                }else{
+                    $('#score').html(parseInt(maxScore - discountRate))
+                    maxScore -= discountRate
                 }
-                $('#score').html(parseInt(maxScore - discountRate))
-                maxScore -= discountRate
+                
             }
 
             function checkStatus() {
