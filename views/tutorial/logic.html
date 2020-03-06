@@ -262,7 +262,7 @@
         // clicking 'Done'
         .oncomplete(function(){
             playSoundEx('click');
-            timer(5, (obj)=>{
+            timer(1,(obj)=>{
                 console.log(obj)
             })
         })
@@ -270,7 +270,7 @@
         // clicking 'Skip'
         .onexit(function(){
             playSoundEx('click');
-            timer(5,(obj)=>{
+            timer(1,(obj)=>{
                 console.log(obj)
             })
         });
