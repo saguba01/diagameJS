@@ -65,6 +65,7 @@ module.exports = {
     step: 'Step {num} - ',
     question: 'Questions',
     congrat: 'Congratulations on passing this level!',
+    result: 'Congratulations, you score is ',
     feedback:{
         title: 'Feedback',
         text: 'Type Your Comment Here...'
