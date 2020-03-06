@@ -118,7 +118,6 @@
     </div>
     <div class="modal-footer" style="border-top: 5px solid black;">
       <button onclick="playSoundEx('click');saveFeedback('{{ user.displayName }}');" class="canClick button-apply-feedback">{{ button.submit }}</button>
-      <button onclick="playSoundEx('click');closeModal('#modal-feedback');" class="canClick button-close-setting">{{button.close}}</button>
     </div>
   </div>
 
@@ -242,12 +241,7 @@
             <th>Score</th>
           </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Test</td>
-          <td>10000</td>
-        </tr>
+      <tbody id="data-leaderboard">
       </tbody>
     </table>
     </div>

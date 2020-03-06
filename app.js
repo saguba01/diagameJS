@@ -112,11 +112,9 @@ app.use('/report', require('./routes/route-report'));
 app.use('/manage/logic', require('./routes/route-logicQuestion'));
 app.use('/MDQ', require('./routes/route-diagram-question'));
 app.use('/manage/feedback', require('./routes/route-feedback'));
-app.use('/leaderboard',require('./routes/route-leaderboard'));
 app.use('/manage/diagram', require('./routes/route-diagram-question'));
 app.use('/tutorial', require('./routes/route-tutorial'));
 app.use('/report', require('./routes/route-report'));
-app.use('/manage/feedback', require('./routes/route-feedback'));
 
 app.use('/lang', function (req, res, next) {
   var lang = req.query.lang;

@@ -826,16 +826,6 @@ handlebars.registerHelper('listprogressbar',function(feedback){
   return new handlebars.SafeString(html);
 });
 
-handlebars.registerHelper('ratingstar-feedback',function(feedback){
-  var html = '';
-  var total = 0;
-  feedback.forEach(function (fb){
-    total++;
-  })
-  var html = total;
-  return new handlebars.SafeString(html);
-});
-
 /*
  *Description: Ratingstars of Feedback
  *@version 1.0
