@@ -31,18 +31,18 @@ module.exports = {
         
         await refScroeHistory.get().then(async (snapshot) => {
             await snapshot.forEach(async (doc) => {
-                console.log(`key : ${doc.id}`)
                 let result = doc.data()
                 if(result.type == "logic"){
                     const refLogic= firestore.collection('Logic').doc(result.questionId)
-                    await refLogic.get().then(subDoc => {
-                        responces.push({
+                    await refLogic.get().then(async subDoc => {
+                      await responces.push({
                             id : result.questionId,
                             type : (!doc.exists? "not flound" : subDoc.data().Type ),
                             data : {
                                 date : result.date,
                                 questionId : result.questionId,
                                 round : result.round,
+                                score : result.score,
                                 time : result.time,
                                 type :  result.type,
                                 uid : result.uid
@@ -50,7 +50,8 @@ module.exports = {
                             ref : subDoc.data()
                         })
                     }).catch(err => {
-                        console.warn(err)
+                      console.warn("err")
+                      console.warn(err)
                     });
                 }else{
                     responces.push({

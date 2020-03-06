@@ -326,7 +326,7 @@ function unlockAchievement(keyName, timestamp) {
     }
 
     function addDoc(docData) {
-        refAchieve.add(docData).then(function (docRef) {});
+        refAchieve.add(docData).then(function (docRef) { });
     }
 }
 
@@ -340,66 +340,94 @@ function unlockLesson(lesson, subLesson, timestamp) {
     });
 }
 
-function timer(max=0,min=0,callback){
-    console.log("timer")
-    let stopTime = false 
-    let width = 100;
-    let maxScore = parseInt(max) 
-    const minScore = parseInt(min) 
-    let minutesLabel = $("#minutes");
-    let secondsLabel = $("#seconds");
-    let totalSeconds = 0;
-    let elem = $('#timeBar')
+/*
+ *Description: Timer of play game 
+ *@version 1.0
+ *@param any
+ *@author Supachai Boonying Thanawin Poopangeon
+ *@since 6 Mar 2020
+ *@required Firebase Cloud Firestore.
+ */
+function timer(level, callback) {
+    $.ajax({
+        type: "GET",
+        contentType: "application/json",
+        url: "/admin/rateScore",
+        success: function (result) {
+            let resData = result.data
+            let userLevel = resData.level[parseInt(level) - 1]
+            let discountRate = parseFloat(userLevel.score / userLevel.rate).toFixed(3)
+            let stopTime = false
+            let width = 100;
+            let maxScore = parseInt(resData.maxScore)
+            let topScore = maxScore
+            const minScore = parseInt(resData.minScore)
+            let minutesLabel = $("#minutes");
+            let secondsLabel = $("#seconds");
+            let totalSeconds = 0;
+            let elem = $('#timeBar')
 
-    let timer = setInterval(setTime, 1000);
-    let countDown = setInterval(frame, 1000);
-    let scroeBar = setInterval(score, 100);
-    let check = setInterval(checkStatus, 100);
+            let timer = setInterval(setTime, 1000);
+            let countDown = setInterval(frame, 1000);
+            let scroeBar = setInterval(score, 1000);
+            let check = setInterval(checkStatus, 100);
 
-    function setTime() {
-        if(statusQuestion){
-            clearInterval(timer);
-            callback(totalSeconds);
-        }else{
-            ++totalSeconds;
-            secondsLabel.html(twoDigit(totalSeconds % 60))
-            minutesLabel.html(twoDigit(parseInt(totalSeconds / 60)))
-        }
-    }
+            function setTime() {
+                if (statusQuestion) {
+                    clearInterval(timer);
+                    callback(totalSeconds);
+                } else {
+                    ++totalSeconds;
+                    secondsLabel.html(twoDigit(totalSeconds % 60))
+                    minutesLabel.html(twoDigit(parseInt(totalSeconds / 60)))
+                }
+            }
+            
+            function frame() {
 
-    function frame() {
-        if (width == 0 || statusQuestion) {
-            clearInterval(countDown);
-        } else {
-            width--;
-            elem.css({'width': `${width}%`})
-            elem.css({'border-top-right-radius': '0px','border-bottom-right-radius':'0px'})
-            if(width <= 70 && width >= 41){
-                elem.css({'background-color': '#F4D03F'})
-            }else if(width <= 40 ){
-                elem.css({'background-color': '#E74C3C'})
+                if (width == 0 || statusQuestion) {
+                    clearInterval(countDown);
+                } else {
+                    width = (maxScore / topScore * 100)
+                    elem.css({ 'width': `${width}%` })
+                    elem.css({ 'border-top-right-radius': '0px', 'border-bottom-right-radius': '0px' })
+                    if (width <= 70 && width >= 41) {
+                        elem.css({ 'background-color': '#F4D03F' })
+                    } else if (width <= 40) {
+                        elem.css({ 'background-color': '#E74C3C' })
+                    }
+                }
+            }
+
+            function score() {
+                if (maxScore == 0 || statusQuestion || maxScore == minScore) {
+                    clearInterval(scroeBar);
+                }
+                $('#score').html(parseInt(maxScore - discountRate))
+                maxScore -= discountRate
+            }
+
+            function checkStatus() {
+                if (statusQuestion) {
+                    clearInterval(check);
+                    callback(
+                        {
+                            score: parseInt(maxScore),
+                            time: totalSeconds
+                        }
+                    );
+                }
+            }
+        },
+        error: (e) => {
+            return {
+                status: "error",
+                data: null,
+                massage: e
             }
         }
-    }
+    });
 
-    function score(){
-        if (maxScore == 0 || statusQuestion || maxScore == minScore) {
-            clearInterval(scroeBar);
-        }
-        $('#score').html(maxScore--)
-    }
-    
-    function checkStatus() {
-        if(statusQuestion){
-            clearInterval(check);
-            callback(
-                {
-                    score : maxScore,
-                    time : totalSeconds
-                }
-            );
-        }
-    }
 }
 
 function twoDigit(val) {
@@ -410,3 +438,4 @@ function twoDigit(val) {
         return valString;
     }
 }
+

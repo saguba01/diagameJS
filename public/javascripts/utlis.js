@@ -961,6 +961,7 @@ function saveFeedback(name) {
             Version: 1,
             date:twoDigit(dd)+"/"+twoDigit(mm)+"/"+yyyy+"T"+twoDigit(HH)+":"+twoDigit(MM)+":"+twoDigit(SS)
         }).then(ref => {
+            showError('บันทึกเรียบร้อยแล้ว');
             $("#ratingStar").val('');
             $("#comment-feedback").val('');
             closeModal('#modal-feedback');
@@ -1202,6 +1203,13 @@ function showPasstutorial(photo, title, content, nextFlag = false) {
     $('#modal-pass-tutorial').modal('open');
 }
 
+/*
+  *Description: 
+  *@version 1.0
+  *@author Supachai Boonying
+  *@since 06 Mar 2020
+  *@required javascript.
+  */
 function passTutorial(){
     blockUI();
     $.ajax({

@@ -21,7 +21,6 @@ router.get('/', authen, async (req, res, next) => {
   const general = await genaral.getGanaral(lang)
   const uid = req.session.user.uid;
   const user = await user_info.userInfo(uid)
-  console.warn("come to home page")
   try{
     switch(user.status) {
       case 'success':

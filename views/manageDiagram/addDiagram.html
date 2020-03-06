@@ -1,37 +1,39 @@
 
-
+<!-- include summernote css/js -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.js"></script>
 <div class="dia-row">
     <div class="panel panel-default dia-12">
-        <div class="panel-heading">เพิ่มโจทย์</div>
+        <div class="panel-heading">{{addForm.form.panel.add.head}}</div>
         <div class="panel-body">
             <div class="dia-row">
                 <div class="panel panel-default dia-12">
-                    <div class="panel-heading">เพิ่มโจทย์</div>
+                    <div class="panel-heading">{{addForm.form.panel.add.info}}</div>
                     <div class="panel-body">
                         <div class="content-input dia-row">
                             <div class="dia-6" id="question1">
-                                <p class="input-name">Question Name (Eng)</p>
+                                <p class="input-name">{{addForm.form.questionNameEN.text}}</p>
                                 <input id="questionInputEng" type="text" style="width: 90%;" />
                             </div>
                             <div class="dia-6" id="question2">
-                                <p class="input-name ">Question Name (Thai)</p>
+                                <p class="input-name ">{{addForm.form.questionNameTH.text}}</p>
                                 <input id="questionInputTh" type="text" style="width: 90%;" />
                             </div>
 
                         </div>
                         <div class="content-input dia-row">
                             <div class="dia-6" id="hint1">
-                                <p class="input-name">Hint (Eng)</p>
-                                <textarea id="hintInputEng" style="height: 220px;width: 92%;" class="inputC"></textarea>
+                                <p class="input-name">{{addForm.form.HintEn.text}}</p>
+                                <textarea class="inputC" id="hintInputEng" style="height: 220px;width: 92%;"></textarea>
                             </div>
                             <div class="dia-6" id="hint2">
-                                <p class="input-name">Hint (Thai)</p>
+                                <p class="input-name">{{addForm.form.HintTh.text}}</p>
                                 <textarea id="hintInputTh" style="height: 220px;width: 92%;" class="inputC"></textarea>
                             </div>
 
                         </div>
                         <div id="starLate">
-                            <p class="input-name">Difficult</p>
+                            <p class="input-name">{{addForm.form.level.text}}</p>
                             <!-- Rating Stars Box -->
                             <section class='rating-widget'>
                                 <div class='rating-stars' style="text-align: left;">
@@ -68,34 +70,29 @@
             </div>
             <div class="dia-row">
                 <div class="panel panel-default dia-12">
-                    <div class="panel-heading">Pseudo Code</div>
+                    <div class="panel-heading">{{addForm.form.panel.add.answer}}</div>
                     <div class="panel-body">
-                        
-                        <div class="content-input">
-                            
 
+
+
+                        <div style="padding: 0px 20px 20px 20px;text-align: left;" id="statement" class="dia-12">
                             <button class="add-button blue-button" onclick="addAnswer()">
-                                <i class="fa fa-plus"></i> Answer</button>
-
-                        </div>
-                        <div style="padding: 0px 20px 20px 20px;text-align: left;" id="statement">
+                                <i class="fa fa-plus"></i> {{addForm.form.answer.text}}</button>
                             <table id="answerTable_1">
                                 <thead>
                                     <tr>
                                         <strong>
-                                            <td style="width: 2%;font-size: 20px;font-weight: bold;">Step</td>
+                                            <td style="width: 2%;font-size: 20px;font-weight: bold;">{{addForm.form.table.step}}</td>
                                             <td
-                                                style="text-align: center;width: 37%;font-size: 20px;font-weight: bold;">
-                                                Process
-                                                (Eng)</td>
+                                                style="text-align: center;width: 35%;font-size: 20px;font-weight: bold;">
+                                                {{addForm.form.table.processEn}}</td>
                                             <td
-                                                style="text-align: center;width: 37%;font-size: 20px;font-weight: bold;">
-                                                Process
-                                                (Thai)</td>
-                                            <td style="text-align: center;width: 14;font-size: 20px;font-weight: bold;">
-                                                Type</td>
+                                                style="text-align: center;width: 35%;font-size: 20px;font-weight: bold;">
+                                                {{addForm.form.table.processTh}}</td>
+                                            <td style="text-align: center;width: 15;font-size: 20px;font-weight: bold;">
+                                                {{addForm.form.table.type}}</td>
                                             <td
-                                                style="text-align: center;width: 10%;font-size: 20px;font-weight: bold;">
+                                                style="text-align: center;width: 13%;font-size: 20px;font-weight: bold;">
                                             </td>
                                         </strong>
                                     </tr>
@@ -135,31 +132,15 @@
             </div>
         </div>
         <div class="panel-footer" style="text-align: right;">
-            <button class="add-button blue-button" id="saveButton" >Save Answer</button>
+            <button class="add-button blue-button" id="saveButton" style="width: 200px;">{{addForm.form.save.text}}</button>
         </div>
     </div>
 </div>
-<!--Menu Icon
-    <ul class="tabs">
-        <li style="height: 80px;" class="tab">
-            <div id="saveButton" class="canClick jellyButton button-tool">
-                <div class="save-icon"></div>
-            </div>
-        </li>
-        <li style="height: 90px;" class="tab">
-            <div id="cancelButton" class="canClick jellyButton button-tool">
-                <div class="cancel-icon"></div>
-            </div>
-        </li>
-
-    </ul>-->
-
-
 <script>
-
     var countTable = 1;
     var countID = ["answerTable_1"];
     $(document).ready(function () {
+        $('#summernote').summernote();
         console.log(/^([a-z0-9])$/.test($("#questionInputEng").val())); // false
         $('#answerTable_1').on('click', '.btn-remove-tr', function (e) {
 
@@ -245,7 +226,7 @@
         cell2.innerHTML = "<input type='text' style='width: 95%;' id='processEn'>";
         cell3.innerHTML = "<input type='text' style='width: 95%;' id='processTh'>";
         cell4.innerHTML = "<select style='display: inline;' id='type'>" +
-            "<option value='0' selected>-- Select --</option>" +
+            "<option value='0' selected>{{addForm.form.select.text}}</option>" +
             "<option value='Basic'>Basic</option>" +
             "<option value='Input'>Input</option>" +
             "<option value='Output'>Output</option>" +
@@ -253,7 +234,7 @@
             "<option value='Decision' disabled>Decision</option>" +
             "</select>";
         cell5.innerHTML = "<div style='overflow:inline;text-align:center;'><button style='padding:5px;' class='book-button blue-button' onclick='addProcess(this)'><i class='fa fa-plus'></i>" +
-            "</button><button class='book-button red-button' onclick='removeProcess(this)'><i class='fa fa-minus'></button></div>";
+            "</button><button class='book-button red-button' onclick='removeProcess(this)' style='margin-left:5px;'><i class='fa fa-minus'></button></div>";
 
         $('#' + tableID + ' td.order').text(function (i) {
             return i + 1;
@@ -281,7 +262,7 @@
     function addAnswer() {
         myTable = document.getElementsByTagName("table")[0];
         myHeadClone = "<div><hr style='border:0px;'><button class='add-button red-button' onclick='removeAnswer(answerTable_" + ++countTable + ",this)'>" +
-            "<i class='fa fa-close'></i> Answer</button></div>";
+            "<i class='fa fa-minus'></i> {{addForm.form.answer.text}}</button></div>";
         myTableClone = myTable.cloneNode(true);
         myTableClone.id = "answerTable_" + countTable;
         countID.push("answerTable_" + countTable)
@@ -307,6 +288,7 @@
     }
 
     $('#saveButton').click(function () {
+        
         if (validateQuestion()) {
             console.log("Count", countTable);
             var dataProcessEn = [];
@@ -315,7 +297,7 @@
             var dataAnswer = [];
             let data;
             let diagramNameEn = $("#questionInputEng").val();
-            let diagramHintEn = $("#hintInputEng").val();
+            let diagramHintEn = $("#hintInputEng").html();
             let diagramNameTh = $("#questionInputTh").val();
             let diagramHintTh = $("#hintInputTh").val();
             let diagramLevel = document.getElementById("ratingStar").value;
