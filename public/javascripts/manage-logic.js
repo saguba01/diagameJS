@@ -56,13 +56,20 @@ $(document).ready(function () {
     //preview question
     $('#preview').click(function () {
         let previewQuestion = document.getElementById("question_part1").value;
+        if (previewQuestion == "") {
+            previewQuestion = "?";
+        }
         let previewAnswer = document.getElementById("answer").value;
+        if (previewAnswer == "") {
+            previewAnswer = "?";
+        }
         for (let x = 2; x <= question_partcount; x++) {
             if (document.getElementById("question_part" + x) != null) {
                 let q_part = document.getElementById("question_part" + x).value;
-                if (q_part != "") {
-                    previewQuestion = previewQuestion + " {target} " + q_part;
+                if (q_part == "") {
+                    q_part = "?";
                 }
+                previewQuestion = previewQuestion + " {target} " + q_part;
             }
         }
         var questionData = [{
