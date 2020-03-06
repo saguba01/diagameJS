@@ -21,6 +21,8 @@ router.get('/add', authen,async function (req, res, next) {
       user: req.session.user,
       //navbar
       navBar: true,
+      slideBar: true,
+      slidebar: setting.slidebar,
       elementDefault: configString[lang].element.general,
       general: configString[lang].general,
       addForm: configString[lang].manage.logic,
@@ -53,6 +55,8 @@ router.get('/edit/:id', authen,async function (req, res, next) {
       user: req.session.user,
       //navbar
       navBar: true,
+      slideBar: true,
+      slidebar: setting.slidebar,
       elementDefault: configString[lang].element.general,
       general: configString[lang].general,
       lesson: lesson,

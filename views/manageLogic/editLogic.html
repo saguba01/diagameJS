@@ -1,158 +1,133 @@
-<style>
-    #target{
-        overflow: auto;
-        width: 100% !important;
-        padding: 0px 125px 20px 20px !important;
-    }
-    .targetPanel{
-        left: 90px;
-    }
-</style>
 <body>
-    <!-- Question Area -->
-    <div class="targetPanel-bg"></div>
-    <div id="target" class="connectedSource noselect targetPanel ui-widget-content">
-        <div>
-            <div style="display: inline-flex;width: 100%;">
-                <div style="width: 50%;">
-                    <p class="textLabel" >{{addForm.form.questionNameEN.text}}</p>
-                    <input id="questionInputEN" type="text" class="textBox" value="{{nameEN}}"/>
-                    <p id="validate_nameEN" style="text-align: left;" class="textValidate"></p>
+    <div class="dia-row">
+        <div class="panel panel-default dia-12">
+            <div class="panel-heading">เพิ่มโจทย์</div>
+            <div class="panel-body">
+                <!-- Question Area -->
+                <div style="display: inline-flex;width: 95%;">
+                    <div style="width: 50%;">
+                        <p class="textLabel">{{addForm.form.questionNameEN.text}}</p>
+                        <input id="questionInputEN" type="text" class="textBox" value="{{nameEN}}" />
+                        <p id="validate_nameEN" style="text-align: left;" class="textValidate"></p>
+                    </div>
+                    <div style="width: 50%;padding-left: 3%;">
+                        <p class="textLabel">{{addForm.form.questionNameTH.text}}</p>
+                        <input id="questionInputTH" type="text" class="textBox" value="{{nameTH}}" />
+                        <p id="validate_nameTH" style="text-align: left;" class="textValidate"></p>
+                    </div>
                 </div>
-                <div style="width: 50%;padding-left: 2%;">
-                    <p class="textLabel" >{{addForm.form.questionNameTH.text}}</p>
-                    <input id="questionInputTH" type="text" class="textBox" value="{{nameTH}}"/>
-                    <p id="validate_nameTH" style="text-align: left;" class="textValidate"></p>
+                <p class="textLabel">{{addForm.form.equation.text}}
+                    <button id="q_increase" class="book-button blue-button"><i class="fa fa-plus"></i></button>
+                </p>
+                <div id="question_text" style="overflow: hidden;text-align: center;">
+                    <div style="display: inline-flex;">
+                        <input id="question_part1" type="text" class="textBox-150" />
+                        &nbsp;<input type="text" class="ans-box" value="Answer" disabled />&nbsp;
+                        <input id="question_part2" type="text" class="textBox-150" />
+                    </div>
                 </div>
+                <p id="validate_question" class="textValidate" style="text-align: center;"></p>
+                <p class="textLabel">
+                    {{addForm.form.answer.text}}
+                </p>
+                <button id="ansTrue" class="ans-button nonselect-button">{{addForm.form.answer.trueText}}</button>
+                <button id="ansFalse" class="ans-button nonselect-button">{{addForm.form.answer.falseText}}</button>
+                <button id="ansNum" class="ans-button nonselect-button">{{addForm.form.answer.number}}</button>
+                <input id="answer" type="text" class="textBox-150" hidden />
+                <p id="validate_ans" class="textValidate"></p>
+                <p class="textLabel">{{addForm.form.level.text}}</p>
+                <!-- Rating Stars Box -->
+                <section class='rating-widget'>
+                    <div class='rating-stars' style="text-align: left;">
+                        <ul id='stars'>
+                            <li class='star' title='Poor' data-value='1' id="level1">
+                                <i class='fa fa-star fa-fw'></i>
+                            </li>
+                            <li class='star' title='Fair' data-value='2' id="level2">
+                                <i class='fa fa-star fa-fw'></i>
+                            </li>
+                            <li class='star' title='Good' data-value='3' id="level3">
+                                <i class='fa fa-star fa-fw'></i>
+                            </li>
+                            <li class='star' title='Excellent' data-value='4' id="level4">
+                                <i class='fa fa-star fa-fw'></i>
+                            </li>
+                            <li class='star' title='WOW!!!' data-value='5' id="level5">
+                                <i class='fa fa-star fa-fw'></i>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <input type="text" id="ratingStar" value="{{ level }}" hidden>
+                    </div>
+                </section>
             </div>
-            <p class="textLabel" >{{addForm.form.equation.text}}
-            <button id="q_increase" class="book-button blue-button"><i class="fa fa-plus"></i></button>
-            </p>
-            <div id="question_text" style="overflow: hidden;text-align: center;">
+            <!--Menu Icon-->
+            <div class="panel-footer">
                 <div style="display: inline-flex;">
-                    <input id="question_part1" type="text" class="textBox-150"/>
-                    &nbsp;<input type="text" class="ans-box" value="Answer" disabled/>&nbsp;
-                    <input id="question_part2" type="text" class="textBox-150"/>
+                    <button class="add-button blue-button">{{general.button.save}}</button>
                 </div>
             </div>
-            <p id="validate_question" class="textValidate" style="text-align: center;"></p>
-            <p class="textLabel" >
-                {{addForm.form.answer.text}}
-            </p>
-            <button id="ansTrue" class="ans-button nonselect-button">{{addForm.form.answer.trueText}}</button>
-            <button id="ansFalse" class="ans-button nonselect-button">{{addForm.form.answer.falseText}}</button>
-            <button id="ansNum" class="ans-button nonselect-button">{{addForm.form.answer.number}}</button>
-            <input id="answer" type="text" class="textBox-150" hidden/>
-            <p id="validate_ans" class="textValidate"></p>
-            <p class="textLabel" >{{addForm.form.level.text}}</p>
-            <!-- Rating Stars Box -->
-            <section class='rating-widget'>
-                <div class='rating-stars' style="text-align: left;">
-                  <ul id='stars'>
-                    <li class='star' title='Poor' data-value='1' id="level1">
-                      <i class='fa fa-star fa-fw'></i>
-                    </li>
-                    <li class='star' title='Fair' data-value='2' id="level2">
-                      <i class='fa fa-star fa-fw'></i>
-                    </li>
-                    <li class='star' title='Good' data-value='3' id="level3">
-                      <i class='fa fa-star fa-fw'></i>
-                    </li>
-                    <li class='star' title='Excellent' data-value='4' id="level4">
-                      <i class='fa fa-star fa-fw'></i>
-                    </li>
-                    <li class='star' title='WOW!!!' data-value='5' id="level5">
-                      <i class='fa fa-star fa-fw'></i>
-                    </li>
-                  </ul>
-                </div>
-                
-                <div>
-                  <input type="text" id="ratingStar" value="{{ level }}" hidden>
-                </div>
-            </section>    
         </div>
     </div>
-<!--Menu Icon-->
-<ul class="tabs">
-    <li style="height: 80px;" class="tab">
-        <div id="saveButton" class="canClick jellyButton button-tool">
-            <div class="save-icon"></div>
-        </div>
-    </li>
-    <li style="height: 90px;" class="tab">
-        <div id="cancelButton" class="canClick jellyButton button-tool">
-            <div class="cancel-icon"></div>
-        </div>
-    </li>
-
-</ul>
 </body>
 
 <script>
-
-
-$(document).ready(function(){
-    //set star level
-    for(let l=1;l<="{{level}}";l++){
-        $("#level"+l).addClass('selected');
-    }
-    //set question part
-    var str = "{{question}}";
-    var questionArray = str.split("{target}");
-    // let question_partcount = 2; //question amount
-    // let target_count = 1;
-    // let targetAnswer = "&nbsp;&nbsp;<input type='text' class='ans-box' value='Answer' disabled/>&nbsp;&nbsp;";
-    for(question_partcount;question_partcount < questionArray.length;question_partcount){
-        question_partcount++;
-        target_count++;
-        var q_text = targetAnswer+"<input id='question_part"+(question_partcount)+"' type='text' class='textBox-150'/>";
-        var deleteButton = "&nbsp;&nbsp;<button class='book-button red-button' id='btn"+question_partcount+"' onclick='removeQuestion(this);'><i class='fa fa-times'></i></button>";
-        var divElement = "<div id='div"+question_partcount+"' style='display:inline-block'>"+q_text+deleteButton+"</div>";        
-        document.getElementById("question_text").innerHTML += divElement; 
-    }
-    for(let qp=1;qp<=question_partcount;qp++){
-        document.getElementById("question_part"+qp).value = questionArray[qp-1];
-    }
-    //set answer
-    let ansCheck = "{{answer}}"
-    if(ansCheck.toLowerCase()=="true"){
-        document.getElementById("answer").value = "true";
-        selectButton("ansTrue");
-    }else if(ansCheck.toLowerCase()=="false"){
-        document.getElementById("answer").value = "false";
-        selectButton("ansFalse");
-    }else{
-        document.getElementById("answer").removeAttribute("hidden");
-        document.getElementById("answer").value = "{{answer}}";
-        selectButton("ansNum");
-    }
-
-    
-});
-
-function saveQuestion(logicQuestion, logicLevel, logicNameEN,logicNameTH, logicAnswer) {
-    console.log("save...");
-    let type = "operator";
-    if(logicAnswer.toLowerCase()=="true"||logicAnswer.toLowerCase()=="false"){
-        type = "logic";
-    }
-    refQuestion.doc("{{logicId}}").get().then(function(){
-        showLoading();
-        refQuestion.doc("{{logicId}}").set({
-            Question: logicQuestion,
-            NameTH: logicNameTH,
-            NameEN: logicNameEN,
-            Answer: logicAnswer,
-            Level : logicLevel,
-            Type : type
-        }).then(function(){
-            closeLoading();
-            showSaveStatus("Save Success!!");
-        }).catch(err => {
-            closeLoading();
-            showSaveStatus("Error : "+err);
-        });
+    $(document).ready(function () {
+        //set star level
+        for (let l = 1; l <= "{{level}}"; l++) {
+            $("#level" + l).addClass('selected');
+        }
+        //set question part
+        var str = "{{question}}";
+        var questionArray = str.split("{target}");
+        for (question_partcount; question_partcount < questionArray.length; question_partcount) {
+            question_partcount++;
+            target_count++;
+            var q_text = targetAnswer + "<input id='question_part" + (question_partcount) + "' type='text' class='textBox-150'/>";
+            var deleteButton = "&nbsp;&nbsp;<button class='book-button red-button' id='btn" + question_partcount + "' onclick='removeQuestion(this);'><i class='fa fa-times'></i></button>";
+            var divElement = "<div id='div" + question_partcount + "' style='display:inline-block'>" + q_text + deleteButton + "</div>";
+            document.getElementById("question_text").innerHTML += divElement;
+        }
+        for (let qp = 1; qp <= question_partcount; qp++) {
+            document.getElementById("question_part" + qp).value = questionArray[qp - 1];
+        }
+        //set answer
+        let ansCheck = "{{answer}}"
+        if (ansCheck.toLowerCase() == "true") {
+            document.getElementById("answer").value = "true";
+            selectButton("ansTrue");
+        } else if (ansCheck.toLowerCase() == "false") {
+            document.getElementById("answer").value = "false";
+            selectButton("ansFalse");
+        } else {
+            document.getElementById("answer").removeAttribute("hidden");
+            document.getElementById("answer").value = "{{answer}}";
+            selectButton("ansNum");
+        }
     });
-}
+    function saveQuestion(logicQuestion, logicLevel, logicNameEN, logicNameTH, logicAnswer) {
+        console.log("save...");
+        let type = "operator";
+        if (logicAnswer.toLowerCase() == "true" || logicAnswer.toLowerCase() == "false") {
+            type = "logic";
+        }
+        refQuestion.doc("{{logicId}}").get().then(function () {
+            showLoading();
+            refQuestion.doc("{{logicId}}").set({
+                Question: logicQuestion,
+                NameTH: logicNameTH,
+                NameEN: logicNameEN,
+                Answer: logicAnswer,
+                Level: logicLevel,
+                Type: type
+            }).then(function () {
+                closeLoading();
+                showSaveStatus("Save Success!!");
+            }).catch(err => {
+                closeLoading();
+                showSaveStatus("Error : " + err);
+            });
+        });
+    }
 </script>
