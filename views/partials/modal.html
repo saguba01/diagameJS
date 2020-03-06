@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/stylesheets/style-loading.css"/>
+<link rel="stylesheet" href="/stylesheets/style-loading.css" />
 
 <div id="modal-alert" class="modal">
   <div class="modal-content">
@@ -18,8 +18,10 @@
     <div class="achievement-content"></div>
   </div>
   <div class="modal-footer">
-    <button onclick="closeModal('#modal-achievement')" style="float: left;" class="canClick button-achievement">{{general.button.done}}</button>
-    <button id="nextPage" onclick="nextPage('{{ nextPage }}');" class="canClick button-achievement" style="float: right;">{{general.button.next}}</button>
+    <button onclick="closeModal('#modal-achievement')" style="float: left;"
+      class="canClick button-achievement">{{general.button.done}}</button>
+    <button id="nextPage" onclick="nextPage('{{ nextPage }}');" class="canClick button-achievement"
+      style="float: right;">{{general.button.next}}</button>
   </div>
 </div>
 
@@ -28,8 +30,10 @@
     <div class="navigator-content"></div>
   </div>
   <div class="modal-footer">
-    <button onclick="window.location.replace('/home')" style="float: left;" class="canClick button-navigator">{{general.button.home}}</button>
-    <button onclick="nextPage('{{ nextPage }}')" class="canClick button-navigator" style="float: right;">{{general.button.next}}</button>
+    <button onclick="window.location.replace('/home')" style="float: left;"
+      class="canClick button-navigator">{{general.button.home}}</button>
+    <button onclick="nextPage('{{ nextPage }}')" class="canClick button-navigator"
+      style="float: right;">{{general.button.next}}</button>
   </div>
 </div>
 
@@ -40,32 +44,31 @@
     <br>
   </div>
   <div class="modal-footer">
-    <button onclick="window.location.replace('/admin')" class="canClick button-navigator">{{general.button.home}}</button>
+    <button onclick="window.location.replace('/admin')"
+      class="canClick button-navigator">{{general.button.home}}</button>
   </div>
 </div>
 
 <div id="modal-saving" class="modal">
   <div class="navigator-content"></div>
-    <br>
-    <div style="height: 150px;padding-bottom: 0px;">
-      <div class="loader"></div>
-    </div>
-    <br>
+  <br>
+  <div style="height: 150px;padding-bottom: 0px;">
+    <div class="loader"></div>
   </div>
+  <br>
+</div>
 </div>
 
 <div id="modal-language" class="modal">
   <div class="modal-content">
     <div class="language-header noselect">
-        {{ language.header }}
+      {{ language.header }}
     </div>
-    
+
     <div class="language-title">
-        <div id="changeLangThai" value="th"
-                class="flag-right bg-sky-blue flag-thai canClick">
-                </div>
-        <div id="changeLangEng" value="en"
-              class="flag-left bg-nude flag-eng canClick"></div>
+      <div id="changeLangThai" value="th" class="flag-right bg-sky-blue flag-thai canClick">
+      </div>
+      <div id="changeLangEng" value="en" class="flag-left bg-nude flag-eng canClick"></div>
     </div>
     <div class="language-content"></div>
   </div>
@@ -74,45 +77,47 @@
 
 <div id="modal-wellcome" class="modal">
   <div class="modal-content">
-    <div class="button-close-custom canClick right" onclick="startTutorial();playSoundEx('click');"></div>
+  <div class="button-close-custom canClick right" onclick="closeModal('#modal-wellcome');playSoundEx('click');"></div>
     <div class="wellcome-header">{{ walcomeModal.header }}</div>
     <div class="wellcome-logo ">
-      <div class="postit postit-middle-center2 bg-sky-blue {{walcomeModal.logo}}"}>
+      <div class="postit postit-middle-center2 bg-sky-blue {{walcomeModal.logo}}" }>
       </div>
     </div>
     <div class="wellcome-title">&emsp;{{ walcomeModal.title }}</div>
-    
+
   </div>
   <div class="modal-footer">
-    <button style="width: 230px;" onclick="startTutorial();playSoundEx('click');" class="canClick button-close-modal">{{walcomeModal.button.learning}}</button>
+    <button style="width: 230px;" onclick="closeModal('#modal-wellcome')();playSoundEx('click');"
+      class="canClick button-close-modal">{{walcomeModal.button.learning}}</button>
   </div>
 </div>
 
 <div id="modal-feedback" class="modal">
-    <div class="modal-content" style="background-color: #64cc45;">
-      <div class="button-close-custom canClick right" onclick="closeModal('#modal-feedback');playSoundEx('click');"></div>
-      <div class="" style="text-align:center; font-size:50px; font-weight: bold;">{{ general.feedback.title }}</div>
-      <div class=""><textarea style="border:5px solid black; height:100px; background-color: white;" placeholder="{{ general.feedback.text }}" id="comment-feedback"></textarea></div>
-        <!-- Rating Stars Box -->
-        <section class='rating-widget'>
-         <div class='rating-starsfeedback' style="text-align: center;">
-           <ul id='stars'>
-             <li class='star' title='Poor' data-value='1'>
-               <i class='fa fa-star fa-fw lvl'></i>
-             </li>
-             <li class='star' title='Fair' data-value='2'>
-               <i class='fa fa-star fa-fw lvl'></i>
-             </li>
-             <li class='star' title='Good' data-value='3'>
-               <i class='fa fa-star fa-fw lvl'></i>
-             </li>
-             <li class='star' title='Excellent' data-value='4'>
-               <i class='fa fa-star fa-fw lvl'></i>
-             </li>
-             <li class='star' title='WOW!!!' data-value='5'>
-               <i class='fa fa-star fa-fw lvl'></i>
-             </li>
-           </ul>
+  <div class="modal-content" style="background-color: #64cc45;">
+    <div class="button-close-custom canClick right" onclick="closeModal('#modal-feedback');playSoundEx('click');"></div>
+    <div class="" style="text-align:center; font-size:50px; font-weight: bold;">{{ general.feedback.title }}</div>
+    <div class=""><textarea style="border:5px solid black; height:100px; background-color: white;"
+        placeholder="{{ general.feedback.text }}" id="comment-feedback"></textarea></div>
+    <!-- Rating Stars Box -->
+    <section class='rating-widget'>
+      <div class='rating-starsfeedback' style="text-align: center;">
+        <ul id='stars'>
+          <li class='star' title='Poor' data-value='1'>
+            <i class='fa fa-star fa-fw lvl'></i>
+          </li>
+          <li class='star' title='Fair' data-value='2'>
+            <i class='fa fa-star fa-fw lvl'></i>
+          </li>
+          <li class='star' title='Good' data-value='3'>
+            <i class='fa fa-star fa-fw lvl'></i>
+          </li>
+          <li class='star' title='Excellent' data-value='4'>
+            <i class='fa fa-star fa-fw lvl'></i>
+          </li>
+          <li class='star' title='WOW!!!' data-value='5'>
+            <i class='fa fa-star fa-fw lvl'></i>
+          </li>
+        </ul>
       </div>
       <input type="hidden" id="ratingStar">
     </div>
@@ -121,44 +126,46 @@
     </div>
   </div>
 
-  
+
 <div id="modal-setting" class="modal">
   <div class="modal-content">
     <div class="button-close-custom canClick right" onclick="closeModal('#modal-setting');playSoundEx('click');"></div>
     <div class="setting-header"> {{setting.header}} </div>
     <div class="setting-title ">
       <div class="language-title" style="height: 200px;">
-        <div style="width: 100%;height:200px; font-size: 24px;" >
-          <div style="display: block;"> 
+        <div style="width: 100%;height:200px; font-size: 24px;">
+          <div style="display: block;">
             <div style="text-align: center;">
-              <B >{{setting.titleLanguage}}</B>
+              <B>{{setting.titleLanguage}}</B>
             </div>
             <div style="margin-top: 10px;" class="flag-select-setting">
-           
+
             </div>
-            <input type="hidden" id="setting-language" >
+            <input type="hidden" id="setting-language">
           </div>
-        
-          <div  >
+
+          <div>
             <div style="display: block;">
               <div style="text-align: center;">
-                <B >{{setting.titleSound}}</B>
+                <B>{{setting.titleSound}}</B>
               </div>
-              
+
               <div style="position: absolute; width: 100%;">
-                <div class="canClick typeButton btn-main-sound" style="display: inline-flex;" onclick="editsoundMaster()">
+                <div class="canClick typeButton btn-main-sound" style="display: inline-flex;"
+                  onclick="editsoundMaster()">
                 </div>
-                <span  style="position: absolute; margin-left: 10px;width: 100%;margin-top: 15px;" >
+                <span style="position: absolute; margin-left: 10px;width: 100%;margin-top: 15px;">
                   {{ setting.soundMaster }}
-                </span >
+                </span>
               </div>
               <div style="position: absolute; margin-top:70px; width: 100%;">
-                <div class="canClick typeButton btn-main-music" style="display: inline-flex;position: relative;" onclick="editsoundMusic()">
-                 
+                <div class="canClick typeButton btn-main-music" style="display: inline-flex;position: relative;"
+                  onclick="editsoundMusic()">
+
                 </div>
-                <span  style="position: absolute; margin-left: 10px; width: 100%;margin-top: 15px;">
+                <span style="position: absolute; margin-left: 10px; width: 100%;margin-top: 15px;">
                   {{ setting.soundMusic }}
-                </span >
+                </span>
               </div>
             </div>
           </div>
@@ -167,8 +174,10 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button onclick="playSoundEx('click');applySetting()" class="canClick button-close-modal">{{ button.apply }}</button>
-    <button onclick="playSoundEx('click');closeModal('#modal-setting');" class="canClick button-close-setting">{{button.close}}</button>
+    <button onclick="playSoundEx('click');applySetting()"
+      class="canClick button-close-modal">{{ button.apply }}</button>
+    <button onclick="playSoundEx('click');closeModal('#modal-setting');"
+      class="canClick button-close-setting">{{button.close}}</button>
   </div>
 </div>
 
@@ -186,33 +195,23 @@
       </div>
       <div style="width: 70%;align-self: center;position: fixed;right: 0%;padding: 30px;">
         <span style="font-size: 28px;font-weight: bold;">What is your name?</span>
-        <input type="text" id="username" style="border: solid 3px #000000;text-align:center;font-size: 20px;font-weight: bold;">
+        <input type="text" id="username"
+          style="border: solid 3px #000000;text-align:center;font-size: 20px;font-weight: bold;">
       </div>
     </div>
-    <div class="button-close-custom canClick right" onclick="closeModal('#modal-firstPlay');playSoundEx('click');"></div>   
+    <div class="button-close-custom canClick right" onclick="closeModal('#modal-firstPlay');playSoundEx('click');">
+    </div>
   </div>
   <div class="modal-footer">
     <button onclick="playSoundEx('click');saveUserInfo();" class="canClick button-close-modal">Save</button>
   </div>
 </div>
 
-<div id="modal-showAvatar" class="modal modal_avatar" >
+<div id="modal-showAvatar" class="modal modal_avatar">
   <div class="modal-content" id="targetAvatar">
-       
-  </div>
-  <div class="modal-footer">
-  </div>
-</div>
 
-<div id="modal-confirm-signout" class="modal">
-  <div class="modal-content">
-    <div class="button-close-custom canClick right" onclick="startTutorial();playSoundEx('click');"></div>
-    <div class="signout-header">{{ signOut.header }}</div>
-    <div class="signout-title">&emsp;{{ signOut.title }}</div>
-    
   </div>
   <div class="modal-footer">
-    <button style="width: 230px;" onclick="startTutorial();playSoundEx('click');" class="canClick button-close-modal">{{walcomeModal.button.learning}}</button>
   </div>
 </div>
 
@@ -222,32 +221,35 @@
     <input type="text" id="deleteId" value="" hidden>
   </div>
   <div class="modal-footer">
-    <button onclick="playSoundEx('click');deleteQuestion();" class="canClick button-close-modal">{{ button.confirm }}</button>
-    <button onclick="playSoundEx('click');closeModal('#modal-confirm-delete');" class="canClick button-close-setting">{{button.close}}</button>
+    <button onclick="playSoundEx('click');deleteQuestion();"
+      class="canClick button-close-modal">{{ button.confirm }}</button>
+    <button onclick="playSoundEx('click');closeModal('#modal-confirm-delete');"
+      class="canClick button-close-setting">{{button.close}}</button>
   </div>
 </div>
 
 <div id="modal-leaderboard" class="modal">
   <div class="modal-content">
-    <div class="button-close-custom canClick right" onclick="closeModal('#modal-leaderboard');playSoundEx('click');"></div>
+    <div class="button-close-custom canClick right" onclick="closeModal('#modal-leaderboard');playSoundEx('click');">
+    </div>
     <br>
     <div style="text-align: center; font-size: 30px;">Leaderboard</div>
     <br>
     <table>
       <thead style="text-align: center;">
-          <tr>
-            <th>Rank</th>
-            <th>Name</th>
-            <th>Score</th>
-          </tr>
+        <tr>
+          <th>Rank</th>
+          <th>Name</th>
+          <th>Score</th>
+        </tr>
       </thead>
       <tbody id="data-leaderboard">
       </tbody>
     </table>
-    </div>
   </div>
-  <div class="modal-footer">
-  </div>
+</div>
+<div class="modal-footer">
+</div>
 </div>
 
 
@@ -258,6 +260,26 @@
     <div class="tutorial-content"></div>
   </div>
   <div class="modal-footer">
-    <button onclick="passTutorial();closeModal('#modal-pass-tutorial')" style="float: right;" class="canClick button-achievement">{{general.button.done}}</button>
+    <button onclick="passTutorial();closeModal('#modal-pass-tutorial')" style="float: right;"
+      class="canClick button-achievement">{{general.button.done}}</button>
+  </div>
+</div>
+
+<div id="modal-preview" class="modal">
+  <div class="modal-preview-content questionArea">
+  </div>
+  <div class="modal-footer">
+    <button onclick="closeModal('#modal-preview')" style="float: right;"
+      class="canClick button-achievement">{{general.button.close}}</button>
+  </div>
+</div>
+
+<div id="modal-tutorial-logic" class="modal">
+  <div class="modal-content">
+    <div class="tutorial-logic-content"></div>
+  </div>
+  <div class="modal-footer">
+    <button onclick="nextPage('{{ nextPage }}')" class="canClick button-navigator"
+      style="float: right;">{{general.button.next}}</button>
   </div>
 </div>

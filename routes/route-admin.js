@@ -9,23 +9,24 @@ var user_info = require('../public/javascripts/userInfo');
 var questionFlowchart = require('../public/javascripts/question-flowchart');
 var questionLogic = require('../public/javascripts/question-logic');
 var dashboard = require('../public/javascripts/dashboard');
+var sortId = require('../public/javascripts/sortId')
 
 router.get('/', authen, async (req, res, next) => {
   let lang = req.cookies.lang;
   const uid = req.session.user.uid;
   const general = await genaral.getGanaral(lang)
   const user = await user_info.userInfo(uid)
-  try{
-    switch(user.status) {
+  try {
+    switch (user.status) {
       case 'success':
-        if( user.data.role == "admin"){
+        if (user.data.role == "admin") {
           const allUser = await dashboard.getNumOfUser()
           const allFlowchart = await questionFlowchart.getAllFlowchart()
           const allLogic = await questionLogic.getAllLogic()
           var data = {
             layout: 'default',
-            navBar : true,
-            slideBar : true,
+            navBar: true,
+            slideBar: true,
             user: req.session.user,
             element: configString[lang].element.general,
             intro: configString[lang].intro,
@@ -34,32 +35,33 @@ router.get('/', authen, async (req, res, next) => {
             passed: await getPassed(req.session.user.uid),
             lesson: configString[lang].lesson,
             general: general,
-            setting : general.setting,
-            button : general.button,
+            setting: general.setting,
+            button: general.button,
             slidebar: general.slidebar,
-            dashboard : general.dashboard,
-            cardData : {
-              total_user : allUser.length,
-              total_question : parseInt(allFlowchart.length) +  parseInt(allLogic.length)
+            dashboard: general.dashboard,
+            months: JSON.stringify(general.months),
+            cardData: {
+              total_user: allUser.length,
+              total_question: parseInt(allFlowchart.length) + parseInt(allLogic.length)
             },
             achievementList: configString[lang].achievement,
             errorMsg: configString[lang].error,
           };
           res.render('admin/index', data);
-        }else{
+        } else {
           res.render('shared/page_404');
         }
         break;
       default:
         res.render('shared/page_404');
         console.error({
-          status : user.status,
-          massage : user.massage
+          status: user.status,
+          massage: user.massage
         })
         break;
     }
-    
-  }catch(e){
+
+  } catch (e) {
     // res.redirect('/');
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -76,12 +78,12 @@ router.get('/flowchart', authen, async (req, res, next) => {
   const allFlowchart = await questionFlowchart.getAllFlowchart(lang)
   const uid = req.session.user.uid;
   const user = await user_info.userInfo(uid)
-  try{
-    if(user.status == "success" && user.data.role == "admin"){
+  try {
+    if (user.status == "success" && user.data.role == "admin") {
       var data = {
         layout: 'default',
-        navBar : true,
-        slideBar : true,
+        navBar: true,
+        slideBar: true,
         user: req.session.user,
         element: configString[lang].element.general,
         intro: configString[lang].intro,
@@ -90,18 +92,18 @@ router.get('/flowchart', authen, async (req, res, next) => {
         passed: await getPassed(req.session.user.uid),
         lesson: configString[lang].lesson,
         general: general,
-        setting : general.setting,
-        button : general.button,
+        setting: general.setting,
+        button: general.button,
         slidebar: general.slidebar,
         achievementList: configString[lang].achievement,
         errorMsg: configString[lang].error,
-        allFlowchart : JSON.stringify(allFlowchart)
+        allFlowchart: JSON.stringify(allFlowchart)
       };
       res.render('admin/flowchartManagent', data);
-    }else{
+    } else {
       res.render('shared/page_404');
     }
-  }catch(e){
+  } catch (e) {
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
 
@@ -109,23 +111,23 @@ router.get('/flowchart', authen, async (req, res, next) => {
     res.status(err.status || 500);
     res.render('shared/error');
   }
-  
+
 });
 
 router.get('/logic', authen, async (req, res, next) => {
-  
+
   let lang = req.cookies.lang;
   const general = await genaral.getGanaral(lang)
   const uid = req.session.user.uid;
   const user = await user_info.userInfo(uid)
   const allLogic = await questionLogic.getAllLogic(lang)
 
-  try{
-    if(user.status == "success" && user.data.role == "admin"){
+  try {
+    if (user.status == "success" && user.data.role == "admin") {
       var data = {
         layout: 'default',
-        navBar : true,
-        slideBar : true,
+        navBar: true,
+        slideBar: true,
         user: req.session.user,
         element: configString[lang].element.general,
         intro: configString[lang].intro,
@@ -134,18 +136,18 @@ router.get('/logic', authen, async (req, res, next) => {
         passed: await getPassed(req.session.user.uid),
         lesson: configString[lang].lesson,
         general: general,
-        setting : general.setting,
-        button : general.button,
+        setting: general.setting,
+        button: general.button,
         slidebar: general.slidebar,
         achievementList: configString[lang].achievement,
         errorMsg: configString[lang].error,
-        allLogic : JSON.stringify(allLogic)
+        allLogic: JSON.stringify(allLogic)
       };
       res.render('admin/LogicManagement', data);
-    }else{
+    } else {
       res.render('shared/page_404');
     }
-  }catch(e){
+  } catch (e) {
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
 
@@ -153,7 +155,7 @@ router.get('/logic', authen, async (req, res, next) => {
     res.status(err.status || 500);
     res.render('shared/error');
   }
-  
+
 });
 
 router.get('/score', authen, async (req, res, next) => {
@@ -163,12 +165,12 @@ router.get('/score', authen, async (req, res, next) => {
   const uid = req.session.user.uid;
   const user = await user_info.userInfo(uid)
   const allLogic = await questionLogic.getAllLogic(lang)
-  try{
-    if(user.status == "success" && user.data.role == "admin"){
+  try {
+    if (user.status == "success" && user.data.role == "admin") {
       var data = {
         layout: 'default',
-        navBar : true,
-        slideBar : true,
+        navBar: true,
+        slideBar: true,
         user: req.session.user,
         element: configString[lang].element.general,
         intro: configString[lang].intro,
@@ -177,20 +179,20 @@ router.get('/score', authen, async (req, res, next) => {
         passed: await getPassed(req.session.user.uid),
         lesson: configString[lang].lesson,
         general: general,
-        setting : general.setting,
-        score : scoreData.data,
-        button : general.button,
+        setting: general.setting,
+        score: scoreData.data,
+        button: general.button,
         slidebar: general.slidebar,
         achievementList: configString[lang].achievement,
         errorMsg: configString[lang].error,
-        allLogic : JSON.stringify(allLogic),
-        test : JSON.stringify(scoreData.data),
+        allLogic: JSON.stringify(allLogic),
+        test: JSON.stringify(scoreData.data),
       };
       res.render('admin/scoreManagement', data);
-    }else{
+    } else {
       res.render('shared/page_404');
     }
-  }catch(e){
+  } catch (e) {
     res.locals.message = e.message;
     res.locals.error = req.app.get('env') === 'development' ? e : {};
 
@@ -198,25 +200,25 @@ router.get('/score', authen, async (req, res, next) => {
     res.status(e.status || 500);
     res.render('shared/error');
   }
-  
+
 });
 
 router.post('/saveScore', (req, res, next) => {
   const postData = req.body
-  let refScore = firestore.collection("System").doc("Score") 
+  let refScore = firestore.collection("System").doc("Score")
   let respones = {
-    status : "",
-    massage : ""
+    status: "",
+    massage: ""
   }
 
   refScore.set({
-      maxScore : postData.maxScore,
-      minScore : postData.minScore,
-      level : postData.level
-  }).then(()=>{
+    maxScore: postData.maxScore,
+    minScore: postData.minScore,
+    level: postData.level
+  }).then(() => {
     respones.status = "success"
     res.send(respones);
-  }).catch((e)=>{
+  }).catch((e) => {
     respones.status = "error"
     respones.massage = e
     res.send(respones);
@@ -225,7 +227,7 @@ router.post('/saveScore', (req, res, next) => {
 })
 
 router.get('/getAllLogicPie', async (req, res, next) => {
-  try{
+  try {
     let lang = req.cookies.lang;
     const general = await genaral.getGanaral(lang)
     const allFlowchart = await questionFlowchart.getAllFlowchart(lang)
@@ -233,7 +235,7 @@ router.get('/getAllLogicPie', async (req, res, next) => {
     let logic = []
     let operator = []
     let other = []
-    allLogic.forEach((value)=>{
+    allLogic.forEach((value) => {
       switch (value.type) {
         case "operator":
           operator.push(value)
@@ -248,91 +250,136 @@ router.get('/getAllLogicPie', async (req, res, next) => {
     })
     let compareTitle = general.dashboard.report.pie.compare_questions.compare
     res.send([
-       {
-        title : compareTitle.flowchart,
+      {
+        title: compareTitle.flowchart,
         type: "flowchart",
-        data : allFlowchart
+        data: allFlowchart
       },
       {
-        title : compareTitle.logic,
+        title: compareTitle.logic,
         type: "logic",
-        data : logic
-      },
-       {
-        title : compareTitle.operator,
-        type: "operator",
-        data : operator
+        data: logic
       },
       {
-        title : compareTitle.other,
+        title: compareTitle.operator,
+        type: "operator",
+        data: operator
+      },
+      {
+        title: compareTitle.other,
         type: "other",
-        data : other
+        data: other
       }
     ]);
-  }catch(e){
+  } catch (e) {
     console.warn(e)
     res.send({
-      status : "error",
-      massage : e
+      status: "error",
+      massage: e
     });
   }
 })
 
 router.get('/getscroeHistory', async (req, res, next) => {
-  try{
+  try {
     let lang = req.cookies.lang;
     const scroeHistory = await dashboard.getscroeHistory()
-    const general = await genaral.getGanaral(lang)
+    const genaralList = await genaral.getGanaral(lang)
     let flowchart = []
     let logic = []
     let operator = []
     let other = []
-    scroeHistory.forEach((value)=>{
+    scroeHistory.forEach((value) => {
       switch (value.type) {
         case "flowchart":
           flowchart.push(value)
+          if (flowchart.length > 0) {
+            flowchart.sort(sortId.compareValues("id"))
+          }
           break;
         case "operator":
           operator.push(value)
+          if (operator.length > 0) {
+            operator.sort(sortId.compareValues("id"))
+          }
           break;
         case "logic":
           logic.push(value)
+          if (logic.length > 0) {
+            logic.sort(sortId.compareValues("id"))
+          }
           break;
         default:
           other.push(value)
+          if (other.length > 0) {
+            other.sort(sortId.compareValues("id"))
+          }
           break;
       }
     })
-    let compareTitle = general.dashboard.report.pie.compare_questions.compare
+    let compareTitle = genaralList.dashboard.report.pie.compare_questions.compare
     res.send([
-       {
-        title : compareTitle.flowchart,
+      {
+        title: compareTitle.flowchart,
         type: "flowchart",
-        data : flowchart
+        data: flowchart
       },
       {
-        title : compareTitle.logic,
+        title: compareTitle.logic,
         type: "logic",
-        data : logic
-      },
-       {
-        title : compareTitle.operator,
-        type: "operator",
-        data : operator
+        data: logic
       },
       {
-        title : compareTitle.other,
+        title: compareTitle.operator,
+        type: "operator",
+        data: operator
+      },
+      {
+        title: compareTitle.other,
         type: "other",
-        data : other
+        data: other
       }
     ]);
-  }catch(e){
+  } catch (e) {
     console.warn(e)
     res.send({
-      status : "error",
-      massage : e
+      status: "error",
+      massage: e
     });
   }
+})
+
+router.get('/rateScore', async (req, res, next) => {
+  const scoreData = await score.getScore()
+  res.send(scoreData)
+})
+
+router.post('/roleUser', async (req, res, next) => {
+  const postData = req.body
+  let user = null;
+  const refUser = firestore.collection('UserInfo').doc(postData.uid)
+  await refUser.get().then(doc => {
+    if (!doc.exists) {
+      user = {
+        status: "waring",
+        massage: "not have data"
+      }
+    } else {
+      user = {
+        status: "sucess",
+        data: doc.data()
+      }
+    }
+  })
+    .catch(err => {
+      user = {
+        status: "sucess",
+        massage: err,
+        data: null
+      }
+    });
+    res.send(user)
+  // 
 })
 
 async function getAchievement(uid) {
@@ -363,4 +410,4 @@ async function getPassed(uid) {
   return passed;
 }
 
-  module.exports = router;
+module.exports = router;

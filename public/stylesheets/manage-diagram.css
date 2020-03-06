@@ -1,42 +1,12 @@
-
-    #target {
-        overflow: auto;
-
-    }
-
-    #question1 {
-        display: inline-block;
-
-    }
-
-    #question2 {
-        display: inline-block;
-    }
-
-    #hint1 {
-        display: inline-block;
-    }
-
-    #hint2 {
-        display: inline-block;
-    }
-
-    textarea {
-
+textarea,input, select {
+        font-size: 18px;
         resize: vertical;
-    }
-
-    .inputC,
-    #questionInputEng,
-    #questionInputTh,
-    #processTh,
-    #processEn,
-    #type {
-        border: solid 4px #000000;
-        background-color: #FFFFFF;
-        padding-left: 5px;
-        border-radius: 10px;
-    }
+        font-family: "Mali", cursive;
+        text-indent: 3px;
+        border: solid 4px #000000 !important;
+        background-color: #FFFFFF !important;
+        border-radius: 10px!important;
+    }    
 
     .panelQuestion {
         overflow: auto;
@@ -79,6 +49,11 @@
     .add-button.blue-button {
         color: #FFFFFF;
         background-color: #3a5892;
+    }
+
+    .add-button.green-button {
+        color: #FFFFFF;
+        background-color: #338f3b;
     }
 
     .add-button.red-button {

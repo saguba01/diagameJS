@@ -57,10 +57,6 @@
     var statusQuestion = false
 
     $(function () {
-        // debugger
-        //  timer('{{maxScore}}','{{minScore}}',(obj)=>{
-        //         console.log(obj)
-        // })
         startIntro()
         
         $(".boxAnswer").sortable({
@@ -146,8 +142,7 @@
                 if (getResult()) {
                     playSoundEx('complete');
                     // playSoundEx('correct');
-                    showNavigator('{{general.congrat}}');
-                    
+                    showTutorialLogic('{{logicalStep.goToFlowchart}}');
                     statusQuestion = true
                 } else {
                     $('.questionBox').addClass("shake-vertical");
@@ -177,6 +172,13 @@
             }, 500);
         }
     }
+    /*
+    *Description: 
+    *@version 1.0
+    *@author Supachai Boonying
+    *@since 06 Mar 2020
+    *@required javascript.
+    */
     function startIntro(){
      
         introJs().setOptions({
@@ -266,7 +268,7 @@
         // clicking 'Done'
         .oncomplete(function(){
             playSoundEx('click');
-            timer('{{maxScore}}','{{minScore}}', (obj)=>{
+            timer(1,(obj)=>{
                 console.log(obj)
             })
         })
@@ -274,7 +276,7 @@
         // clicking 'Skip'
         .onexit(function(){
             playSoundEx('click');
-            timer('{{maxScore}}','{{minScore}}',(obj)=>{
+            timer(1,(obj)=>{
                 console.log(obj)
             })
         });

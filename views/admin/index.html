@@ -1,8 +1,16 @@
+<style>
+    select.typeQuestions {
+        border: solid 4px #000000;
+        background-color: #FFFFFF;
+        padding-left: 5px;
+        border-radius: 10px;
+    }
+</style>
 <div class="dia-row">
-    <div class="card dia-6 bg-light-green" >
+    <div class="card dia-6 bg-light-green">
         <div class="card-heading" style="color: black;">
             <span>{{ dashboard.card.total_user.title}}</span>
-            
+
         </div>
         <div class="card-body">
             <div class="card-body-icon card-icon-user">
@@ -16,11 +24,11 @@
         </div>
     </div>
 
-    <div class="card dia-6 bg-orange" >
-        
+    <div class="card dia-6 bg-orange">
+
         <div class="card-heading" style="color: black;">
             <span>{{ dashboard.card.total_question.title}}</span>
-            
+
         </div>
         <div class="card-body">
             <div class="card-body-icon card-icon-question"></div>
@@ -32,34 +40,80 @@
             <span class="text-danger">{{ dashboard.card.total_question.unit}}</span>
         </div>
     </div>
-    
+
 </div>
-<div class="dia-row">
+<div class="dia-row chart-compares">
     <div class="panel panel-default dia-12">
-        <div class="panel-heading">{{dashboard.report.line.play_questions.title}}</div>
-        <div class="panel-body">
-            <div id="play_question" style="min-width: 310px; height: 400px; max-width: 100%; margin: 0 auto"></div>
+        <div class="panel-heading" style="display: inline-block;width: 100%;">
+            <span class="dia-8">{{dashboard.panal.compare.title}}</span>
+            <div class="dia-4" style="display: inline-block; float:right;">
+                <select style="display: inline-block;" class="typeQuestions" onchange="selectAllCompare(this.value)">
+                    {{list-option-question dashboard.type}}
+                </select>
+            </div>
+        </div>
+        <div class="panel-body chart-compares-body">
+            <div class="dia-row">
+                <div class="panel panel-default dia-12">
+                    <div class="panel-heading" style="display: inline-block;width: 100%;">
+                        <span class="dia-8">{{dashboard.report.line.play_questions.title}}</span>
+                        <div class="dia-4" style="display: inline-block; float:right;">
+                            <select style="display: inline-block;" class="typeQuestions"
+                                onchange="play_question(this.value)">
+                                {{list-option-question dashboard.type}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div id="play_question"
+                            style="min-width: 310px; height: 400px; max-width: 100%; margin: 0 auto"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dia-row">
+                <div class="panel panel-default dia-12">
+                    <div class="panel-heading" style="display: inline-block;width: 100%;">
+                        <span class="dia-8">{{dashboard.report.line.playtime_summary.title}}</span>
+                        <div class="dia-4" style="display: inline-block; float:right;">
+                            <select style="display: inline-block;" class="typeQuestions"
+                                onchange="playtime_summary(this.value)">
+                                {{list-option-question dashboard.type}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div id="playtime_summary"
+                            style="min-width: 310px; height: 400px; max-width: 100%; margin: 0 auto"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dia-row">
+                <div class="panel panel-default dia-12">
+                    <div class="panel-heading" style="display: inline-block;width: 100%;">
+                        <span class="dia-8">{{dashboard.report.line.score_summary.title}}</span>
+                        <div class="dia-4" style="display: inline-block; float:right;">
+                            <select style="display: inline-block;" class="typeQuestions"
+                                onchange="score_summary(this.value)">
+                                {{list-option-question dashboard.type}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div id="score_summary"
+                            style="min-width: 310px; height: 400px; max-width: 100%; margin: 0 auto"></div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
+
+
+
 </div>
 
-<div class="dia-row">
-    <div class="panel panel-default dia-12">
-        <div class="panel-heading">{{dashboard.report.line.playtime_summary.title}}</div>
-        <div class="panel-body">
-            <div id="playtime_summary" style="min-width: 310px; height: 400px; max-width: 100%; margin: 0 auto"></div>
-        </div>
-    </div>
-</div>
-
-<div class="dia-row">
-    <div class="panel panel-default dia-12">
-        <div class="panel-heading">{{dashboard.report.line.score_summary.title}}</div>
-        <div class="panel-body">
-            <div id="score_summary" style="min-width: 310px; height: 400px; max-width: 100%; margin: 0 auto"></div>
-        </div>
-    </div>
-</div>
 
 <div class="dia-row">
     <div class="panel panel-default dia-6">
@@ -71,8 +125,8 @@
     <div class="panel panel-default dia-6">
         <div class="panel-heading">{{dashboard.report.line.use_system_back7day.title}}</div>
         <div class="panel-body">
-            <div id="line" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
-            
+            <div id="back7days" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
         </div>
     </div>
 </div>
@@ -81,173 +135,125 @@
 
 <script type="text/javascript">
 
-    $(document).ready(()=>{
+    $(document).ready(() => {
         genanrateChart()
-        test()
+        back7days()
         play_question()
         score_summary()
         playtime_summary()
     })
 
-    function genanrateChart(){
-        $.ajax({
-        type: "GET",
-        contentType: "application/json",
-        url: "/admin/getAllLogicPie", 
-        success: function(response){
-            let seriesData = []
-            response.forEach((value)=>{
-                if(value.type != "other"){
-                    seriesData.push({
-                        name : value.title,
-                        y : parseInt(value.data.length)
-                    })
-                }
-                
-            })
-            Highcharts.chart('compareQuestions', {
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                type: 'pie',
-                backgroundColor: null
-            },
-            title: {
-                text: null
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            plotOptions: {
-                pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-                }
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: '{{general.dashboard.report.pie.compare_questions.series_name}}',
-                colorByPoint: true,
-                data: seriesData
-            }]
-            });
-        },
-        error: (e)=>{
-          unblockUI();
-          console.error(e)
+    function selectAllCompare(value) {
+        const ele = $(".chart-compares-body").find("select")
+        play_question(value)
+        score_summary(value)
+        playtime_summary(value)
+        for (let i = 0; i < ele.length; i++) {
+            $(ele.get(i)).val(value)
         }
-      });
-        
     }
-
-    function test(){
-        Highcharts.chart('line', {
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                backgroundColor: null
-            },
-            credits: {
-                enabled: false
-            },
-            title: {
-                text: null
-            },
-
-            subtitle: {
-                text: null
-            },
-            xAxis: {
-                type: 'datetime'
-            },
-            yAxis: {
-                title: {
-                    text: 'Number of Employees'
-                }
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle'
-            },
-
-            plotOptions: {
-                series: {
-                    pointStart: Date.UTC(2010, 0, 1),
-                    pointInterval: 24 * 3600 * 1000 // one day
-                }
-            },
-
-            series: [{
-                name: 'Installation',
-                data: [43934, 52503, 57177, 69658, ]
-            }, {
-                name: 'Manufacturing',
-                data: [24916, 24064, 29742, 29851, 32490]
-            }, {
-                name: 'Sales & Distribution',
-                data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
-            }],
-
-            responsive: {
-                rules: [{
-                    condition: {
-                        maxWidth: 500
-                    },
-                    chartOptions: {
-                        legend: {
-                            layout: 'horizontal',
-                            align: 'center',
-                            verticalAlign: 'bottom'
-                        }
-                    }
-                }]
-            }
-            });
-    }
-
-    function play_question(){
+    function genanrateChart() {
         $.ajax({
             type: "GET",
             contentType: "application/json",
-            url: "/admin/getscroeHistory", 
-            success: function(response){
-                let type = "operator"
-                let chart 
-                response.forEach((value)=>{
-                    if(value.type == type){
+            url: "/admin/getAllLogicPie",
+            success: function (response) {
+                let seriesData = []
+                response.forEach((value) => {
+                    if (value.type != "other") {
+                        seriesData.push({
+                            name: value.title,
+                            y: parseInt(value.data.length)
+                        })
+                    }
+
+                })
+                Highcharts.chart('compareQuestions', {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        type: 'pie',
+                        backgroundColor: null
+                    },
+                    title: {
+                        text: null
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                            }
+                        }
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    series: [{
+                        name: '{{general.dashboard.report.pie.compare_questions.series_name}}',
+                        colorByPoint: true,
+                        data: seriesData
+                    }]
+                });
+            },
+            error: (e) => {
+                unblockUI();
+                console.error(e)
+            }
+        });
+
+    }
+
+
+
+    function play_question(byType = "flowchart") {
+        $.ajax({
+            type: "GET",
+            contentType: "application/json",
+            url: "/admin/getscroeHistory",
+            success: function (response) {
+                let type = byType
+                let chart
+                response.forEach((value) => {
+                    if (value.type == type) {
                         chart = value
                         return
                     }
                 })
-                console.log(chart)
+
+                let oldId = ""
                 let listXAxis = []
-                chart.data.forEach((value)=>{
-                    switch(Cookies.get('lang')){
-                        case "en":
-                            listXAxis.push(value.ref.NameEN)
-                            break;
-                        case "th":
-                            listXAxis.push(value.ref.NameTH)
-                            break;
+                let listRound = []
+                let index = 0
+                let lang = Cookies.get('lang')
+
+                chart.data.forEach((value) => {
+                    if (listXAxis.length == 0) {
+                        oldId = value.id
+                        listRound.push(value.data.round)
+                        listXAxis.push((lang == "en" || typeof lang == "undefined" ? value.ref.NameEN : value.ref.NameTH))
+                    } else {
+                        if (oldId == value.id) {
+                            listRound[index] += parseInt(value.data.round)
+                        } else {
+                            index++
+                            oldId == value.id
+                            listRound.push(value.data.round)
+                            listXAxis.push((lang == "en" || typeof lang == "undefined" ? value.ref.NameEN : value.ref.NameTH))
+                        }
+
                     }
-                    
                 })
-                console.log(listXAxis)
                 Highcharts.chart('play_question', {
                     chart: {
                         plotBackgroundColor: null,
                         plotBorderWidth: null,
                         backgroundColor: null
-                    },
-                    credits: {
-                        enabled: false
                     },
                     title: {
                         text: null
@@ -257,7 +263,6 @@
                         text: null
                     },
                     xAxis: {
-                        // allowDecimals: false,
                         categories: listXAxis,
                         title: {
                             text: '{{dashboard.report.line.play_questions.xUnit}}'
@@ -269,9 +274,7 @@
                         }
                     },
                     legend: {
-                        accessibility : {
-                            enabled : false
-                        }
+                        enabled: false
                     },
 
                     plotOptions: {
@@ -284,7 +287,7 @@
                     },
 
                     series: [{
-                        data: [43934, 52503, 57177 ]
+                        data: listRound
                     }],
 
                     responsive: {
@@ -301,145 +304,370 @@
                             }
                         }]
                     }
-                    });
-                    }
+                });
+            }
         })
-        
+
     }
 
-    function playtime_summary(){
-        Highcharts.chart('playtime_summary', {
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                backgroundColor: null
-            },
-            credits: {
-                enabled: false
-            },
-            title: {
-                text: null
-            },
+    function playtime_summary(byType = "flowchart") {
+        $.ajax({
+            type: "GET",
+            contentType: "application/json",
+            url: "/admin/getscroeHistory",
+            success: function (response) {
+                let type = byType
+                let chart
+                response.forEach((value) => {
+                    if (value.type == type) {
+                        chart = value
+                        return
+                    }
+                })
 
-            subtitle: {
-                text: null
-            },
-            xAxis: {
-                allowDecimals: false,
-                title: {
-                    text: 'ข้อ'
-                }
-            },
-            yAxis: {
-                title: {
-                    text: 'คะแนนเฉลี่ย'
-                }
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle'
-            },
+                let oldId = ""
+                let listXAxis = []
+                let listTime = []
+                let maxTime = []
+                let minTime = []
+                let index = 0
+                let lang = Cookies.get('lang')
+                let round
+                chart.data.forEach((value) => {
+                    if (listXAxis.length == 0) {
+                        round = 1
+                        oldId = value.id
+                        maxTime.push(parseInt(value.data.time))
+                        minTime.push(parseInt(value.data.time))
+                        listTime.push(parseInt(value.data.time))
+                        listXAxis.push((lang == "en" || typeof lang == "undefined" ? value.ref.NameEN : value.ref.NameTH))
+                    } else {
+                        if (oldId == value.id) {
+                            round++
+                            listTime[index] += parseInt(value.data.time)
+                            if (maxTime[index] < parseInt(value.data.time)) {
+                                maxTime[index] = parseInt(value.data.time)
+                            }
+                            if (minTime[index] > parseInt(value.data.time)) {
+                                minTime[index] = parseInt(value.data.time)
+                            }
+                        } else {
+                            listTime[index] = parseFloat(parseFloat(listTime[index] / round).toFixed(3))
+                            round = 1
+                            index++
+                            oldId == value.id
+                            listTime.push(parseInt(value.data.time))
+                            maxTime.push(parseInt(value.data.time))
+                            minTime.push(parseInt(value.data.time))
+                            listXAxis.push((lang == "en" || typeof lang == "undefined" ? value.ref.NameEN : value.ref.NameTH))
+                        }
 
-            plotOptions: {
-                series: {
-                    pointStart: 1
-                }
-            },
+                    }
+                })
 
-            series: [{
-                name: 'Installation',
-                data: [43934, 52503, 57177, 69658, ]
-            }, {
-                name: 'Manufacturing',
-                data: [24916, 24064, 29742, 29851, 32490]
-            }, {
-                name: 'Sales & Distribution',
-                data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387,11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
-            }],
-
-            responsive: {
-                rules: [{
-                    condition: {
-                        maxWidth: 500
+                Highcharts.chart('playtime_summary', {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        backgroundColor: null
                     },
-                    chartOptions: {
-                        legend: {
-                            layout: 'horizontal',
-                            align: 'center',
-                            verticalAlign: 'bottom'
+                    title: {
+                        text: null
+                    },
+
+                    subtitle: {
+                        text: null
+                    },
+                    xAxis: {
+                        allowDecimals: false,
+                        categories: listXAxis,
+                        title: {
+                            text: '{{dashboard.report.line.playtime_summary.xUnit}}'
+                        }
+                    },
+                    yAxis: {
+                        title: {
+                            text: '{{dashboard.report.line.playtime_summary.xUnit}}'
+                        }
+                    },
+                    legend: {
+                        layout: 'vertical',
+                        align: 'right',
+                        verticalAlign: 'middle'
+                    },
+
+                    plotOptions: {
+                        line: {
+                            dataLabels: {
+                                enabled: true
+                            },
+                            enableMouseTracking: false
+                        }
+                    },
+
+                    series: [{
+                        name: '{{dashboard.report.line.playtime_summary.max}}',
+                        data: maxTime
+                    }, {
+                        name: '{{dashboard.report.line.playtime_summary.avg}}',
+                        data: listTime
+                    }, {
+                        name: '{{dashboard.report.line.playtime_summary.min}}',
+                        data: minTime
+                    }],
+                    responsive: {
+                        rules: [{
+                            condition: {
+                                maxWidth: 500
+                            },
+                            chartOptions: {
+                                legend: {
+                                    layout: 'horizontal',
+                                    align: 'center',
+                                    verticalAlign: 'bottom'
+                                }
+                            }
+                        }]
+                    }
+                });
+            }
+        })
+
+    }
+
+    function score_summary(byType = "flowchart") {
+        $.ajax({
+            type: "GET",
+            contentType: "application/json",
+            url: "/admin/getscroeHistory",
+            success: function (response) {
+                let type = byType
+                let chart
+                response.forEach((value) => {
+                    if (value.type == type) {
+                        chart = value
+                        return
+                    }
+                })
+
+                let oldId = ""
+                let listXAxis = []
+                let listScore = []
+
+                let maxScore = []
+                let minScore = []
+                let index = 0
+                let lang = Cookies.get('lang')
+                let round
+                chart.data.forEach((value) => {
+                    if (listXAxis.length == 0) {
+                        round = 1
+                        oldId = value.id
+                        maxScore.push(parseInt(value.data.score))
+                        minScore.push(parseInt(value.data.score))
+                        listScore.push(parseInt(value.data.score))
+                        listXAxis.push((lang == "en" || typeof lang == "undefined" ? value.ref.NameEN : value.ref.NameTH))
+                    } else {
+                        if (oldId == value.id) {
+                            round++
+                            listScore[index] += parseInt(value.data.score)
+                            if (maxScore[index] < parseInt(value.data.score)) {
+                                maxScore[index] = parseInt(value.data.score)
+                            }
+                            if (minScore[index] > parseInt(value.data.score)) {
+                                minScore[index] = parseInt(value.data.score)
+                            }
+                        } else {
+                            listScore[index] = parseFloat(parseFloat(listScore[index] / round).toFixed(3))
+                            round = 1
+                            index++
+                            oldId == value.id
+                            listScore.push(parseInt(value.data.score))
+                            maxScore.push(parseInt(value.data.score))
+                            minScore.push(parseInt(value.data.score))
+                            listXAxis.push((lang == "en" || typeof lang == "undefined" ? value.ref.NameEN : value.ref.NameTH))
                         }
                     }
-                }]
-            }
-            });
-    }
-    
-    function score_summary(){
-        Highcharts.chart('score_summary', {
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                backgroundColor: null
-            },
-            credits: {
-                enabled: false
-            },
-            title: {
-                text: null
-            },
+                })
 
-            subtitle: {
-                text: null
-            },
-            xAxis: {
-                allowDecimals: false,
-                title: {
-                    text: 'ข้อ'
-                }
-            },
-            yAxis: {
-                title: {
-                    text: 'คะแนนเฉลี่ย'
-                }
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle'
-            },
-
-            plotOptions: {
-                series: {
-                    pointStart: 1
-                }
-            },
-
-            series: [{
-                name: 'Installation',
-                data: [43934, 52503, 57177, 69658, ]
-            }, {
-                name: 'Manufacturing',
-                data: [24916, 24064, 29742, 29851, 32490]
-            }, {
-                name: 'Sales & Distribution',
-                data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387,11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
-            }],
-
-            responsive: {
-                rules: [{
-                    condition: {
-                        maxWidth: 500
+                Highcharts.chart('score_summary', {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        backgroundColor: null
                     },
-                    chartOptions: {
-                        legend: {
-                            layout: 'horizontal',
-                            align: 'center',
-                            verticalAlign: 'bottom'
+                    title: {
+                        text: null
+                    },
+
+                    subtitle: {
+                        text: null
+                    },
+                    xAxis: {
+                        allowDecimals: false,
+                        categories: listXAxis,
+                        title: {
+                            text: '{{dashboard.report.line.score_summary.xUnit}}'
                         }
+                    },
+                    yAxis: {
+                        title: {
+                            text: '{{dashboard.report.line.score_summary.yUnit}}'
+                        }
+                    },
+                    legend: {
+                        layout: 'vertical',
+                        align: 'right',
+                        verticalAlign: 'middle'
+                    },
+
+                    plotOptions: {
+                        line: {
+                            dataLabels: {
+                                enabled: true
+                            },
+                            enableMouseTracking: false
+                        }
+                    },
+
+                    series: [{
+                        name: '{{dashboard.report.line.score_summary.max}}',
+                        data: maxScore
+                    }, {
+                        name: '{{dashboard.report.line.score_summary.avg}}',
+                        data: listScore
+                    }, {
+                        name: '{{dashboard.report.line.score_summary.min}}',
+                        data: minScore
+                    }],
+
+                    responsive: {
+                        rules: [{
+                            condition: {
+                                maxWidth: 500
+                            },
+                            chartOptions: {
+                                legend: {
+                                    layout: 'horizontal',
+                                    align: 'center',
+                                    verticalAlign: 'bottom'
+                                }
+                            }
+                        }]
                     }
-                }]
+                });
+
             }
-            });
+        })
+
     }
+
+    function back7days() {
+        let listDay = []
+        let listXAxis = []
+        const months = JSON.parse("{{months}}".replace(/&quot;/g, '\"'))
+
+        for (let i = 6; i >= 0; i--) {
+            let tmp = new Date();
+
+            tmp.setDate(tmp.getDate() - i);
+            let date = tmp.toISOString().split('T')[0].split('-')
+            listXAxis.push(`${date[2]} ${months[parseInt(date[1]) - 1]} ${parseInt(date[0]) + 543}`)
+            listDay.push(
+                `${date[2]}/${date[1]}/${date[0]}`
+            )
+        }
+        $.ajax({
+            type: "GET",
+            contentType: "application/json",
+            url: "/admin/getscroeHistory",
+            success: function (response) {
+                let flowchart
+                let logic
+                let operator
+                let listQuestion = []
+                response.forEach((value) => {
+                    if (value.type != "other") {
+                        let listPlay = []
+                        listDay.forEach((date) => {
+                            let round = 0
+                            value.data.forEach((item) => {
+                                let playDate = item.data.date.split('T')[0]
+                                if (date == playDate) {
+                                    round++
+                                }
+                            })
+                            listPlay.push(round)
+                        })
+
+                        listQuestion.push({
+                            name: value.title,
+                            data: listPlay
+                        })
+                    }
+
+                })
+
+                Highcharts.chart('back7days', {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        backgroundColor: null
+                    },
+                    title: {
+                        text: null
+                    },
+
+                    subtitle: {
+                        text: null
+                    },
+                    xAxis: {
+                        allowDecimals: false,
+                        categories: listXAxis,
+                        title: {
+                            text: '{{dashboard.report.line.use_system_back7day.xUnit}}'
+                        }
+                    },
+                    yAxis: {
+                        title: {
+                            text: '{{dashboard.report.line.use_system_back7day.yUnit}}'
+                        }
+                    },
+                    legend: {
+                        layout: 'vertical',
+                        align: 'center',
+                        verticalAlign: 'bottom',
+                    },
+
+                    plotOptions: {
+                        line: {
+                            dataLabels: {
+                                enabled: true
+                            },
+                            enableMouseTracking: false
+                        }
+                    },
+
+                    series: listQuestion,
+
+                    responsive: {
+                        rules: [{
+                            condition: {
+                                maxWidth: 500
+                            },
+                            chartOptions: {
+                                legend: {
+                                    layout: 'horizontal',
+                                    align: 'center',
+                                    verticalAlign: 'bottom'
+                                }
+                            }
+                        }]
+                    }
+                });
+            }
+        })
+
+    }
+
 </script>

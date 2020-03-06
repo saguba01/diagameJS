@@ -21,6 +21,10 @@ module.exports = {
     diagram:{
         text: 'Diagram',
         url: 'diagram',
+        subLesson: {
+            text: 'Add Question',
+            url: 'add/diagram'
+        }
     },
     io: {
         text: 'Input & Output',

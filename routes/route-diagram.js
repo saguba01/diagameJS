@@ -45,6 +45,7 @@ router.get('/:id', authen, async function (req, res, next) {
                 length: doc3.data().answerStep.length,
                 maxScore: score.maxScore,
                 minScore: score.minScore,
+                questionId: req.params.id,
                 setting: general.setting,
                 button: general.button,
                 elementsString: configString[lang].element.general,

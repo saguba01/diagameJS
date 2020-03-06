@@ -171,9 +171,8 @@
         
         <div class="panelright">
             <div class="innerpage">
-                <p class="lesson-title noselect" guide="lesson">{{lesson.listMenu.flowchart.text}} </p>
-                <div guide="lesson" target="{{lesson.listMenu.flowchart.path}}" onclick="blockUI();playSoundEx('click');"
-                    class="postit postit-middle-center bg-sky-blue canClick menu-flowchart">
+                <p class="lesson-title noselect" >{{lesson.listMenu.flowchart.text}} </p>
+                <div guide="lesson" class="postit-middle-center bg-sky-blue canClick menu-flowchart">
                 </div>
             </div>
         </div>
@@ -192,15 +191,11 @@
 <script type="text/javascript">
 const lang = '{{langInUsing}}'
     $(document).ready(function () {
-        
         if(!localStorage.getItem("langSelected")){
             showLanguage()
         }else{
             showWelcome()
         }
-
-        // introJs().start()
-      // console.log(JSON.parse($('#ListMenu').val()))
         
         $(".panelindex").hide();
         // $(".indexone").css("opacity","1");
@@ -358,11 +353,9 @@ const lang = '{{langInUsing}}'
         }, 2000);
     }
     function startTutorial(){
-        closeModal('#modal-wellcome')
         setTimeout(function(){ 
             startIntro()
         }, 500);
-        
     }
 
     function startIntro(){
@@ -375,6 +368,14 @@ const lang = '{{langInUsing}}'
                 {
                     intro : '{{introStep.step_back_to_home}}',
                     element : '.brand-logo'
+                },
+                {
+                    intro : '{{introStep.step_leaderboard}}',
+                    element : '.diagame-leaderboard'
+                },
+                {
+                    intro : '{{introStep.step_feedback}}',
+                    element : '.diagame-feedback'
                 },
                 {
                     intro : '{{introStep.step_setting}}',
@@ -395,6 +396,9 @@ const lang = '{{langInUsing}}'
                 {
                     intro : '  {{introStep.step_flowchart}}',
                     element : '.menu-flowchart'
+                },
+                {
+                    intro : 'click go to question logic',
                 }
               
             ]
@@ -402,14 +406,11 @@ const lang = '{{langInUsing}}'
         .onchange((targetElement)=>{
             playSoundEx('click');
         })
-        // clicking 'Done'
-        .oncomplete(function(){
+        
+        .onbeforeexit(function() {
             playSoundEx('click');
-        })
-
-        // clicking 'Skip'
-        .onexit(function(){
-            playSoundEx('click');
+            $(".menu-flowchart").css({"opacity" : "0.2"}).removeClass("canClick")
         });
+
     }
 </script>

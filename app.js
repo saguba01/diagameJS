@@ -30,7 +30,8 @@ var configString = {
       logic: require('./string/question-logic.en')
     },
     manage:{
-      logic: require('./string/manage-logic.en')
+      logic: require('./string/manage-logic.en'),
+      diagram: require('./string/manage-diagram.en')
     },
     error: require('./string/error-message.en'),
     lesson: require('./string/lesson.en'),
@@ -51,7 +52,8 @@ var configString = {
       logic: require('./string/question-logic.th')
     },
     manage:{
-      logic: require('./string/manage-logic.th')
+      logic: require('./string/manage-logic.th'),
+      diagram: require('./string/manage-diagram.th')
     },
     error: require('./string/error-message.th'),
     lesson: require('./string/lesson.th'),

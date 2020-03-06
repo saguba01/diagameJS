@@ -161,7 +161,7 @@
                             refScore.doc("{{user.uid}}logic{{questionId}}").get().then(function(doc){
                                 var today = new Date();
                                 var dd = today.getDate();
-                                var mm = today.getMonth();
+                                var mm = today.getMonth()+1;
                                 var HH = today.getHours();
                                 var MM = today.getMinutes();
                                 var SS = today.getSeconds();
