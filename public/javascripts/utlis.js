@@ -786,6 +786,9 @@ function showLanguage() {
     localStorage.removeItem("langSelected");
     $('#modal-language').modal({
         'dismissible': true,
+        'onCloseEnd': function () {
+            showWelcome()
+        },
     });
     $('#modal-language').modal('open');
 }
