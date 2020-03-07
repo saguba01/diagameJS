@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="/stylesheets/style-admin.css">
     <link rel="stylesheet" href="/stylesheets/style-navbar.css">
     <link rel="stylesheet" href="/stylesheets/style-feedback.css">
-    <link rel="stylesheet" href="/stylesheets/hint/hint.css"/>
+    <link rel="stylesheet" href="/stylesheets/hint/hint.css" />
 </header>
 <div id="book" style="display: table;margin: auto;margin-top: 40px;">
     <div class="book">
@@ -140,10 +140,11 @@
     <div class="panelleft" style="width:500px;height: 650px;position: absolute;">
         <div class="innerpage">
             <p class="lesson-title noselect" guide="lesson">{{ lesson.text }}</p>
-            {{ ratingstar-feedback feedback }}
+            <div class="rating text-rating" id="ratingdiagame"></div>
+            <div class="rating-stars" id="starsrating"></div>
+            <p style="margin-left:20px; font-weight: bold; font-size:20px;" id="totalreview"></p>
             <!-- Start Progress Bar -->
-            <div id="list-progressbars"> 
-                {{ listprogressbar feedback }}
+            <div id="list-progressbars">
             </div>
             <!-- End Progress Bar -->
         </div>
@@ -155,18 +156,17 @@
             <div class="innerpage">
                 <p class="lesson-title noselect" guide="lesson">{{ general.comment }}</p>
                 <div class="sort-version" style="padding-left:300px;">
-                <select class="bg-blue sort-select" id="sort-comment" onchange="newComment()">
-                        <option value="1" selected>Version  1</option>
-                        <option value="2" >Version 2</option>
-                </select>
+                    <select class="bg-blue sort-select" id="sort-comment" onchange="newFeedback()">
+                        <option value="2020" selected>2563</option>
+                        <option value="2021">2564</option>
+                    </select>
                 </div>
                 <br>
                 <div class="list-question" id="listlogic">
-                    {{ listcomment feedback }}
                 </div>
             </div>
         </div>
-        
+
     </div>
 </div>
 
@@ -175,9 +175,8 @@
 
     $(document).ready(function () {
 
-        
-      // console.log(JSON.parse($('#ListMenu').val()))
-        
+
+        // console.log(JSON.parse($('#ListMenu').val()))
         $(".panelindex").hide();
         // $(".indexone").css("opacity","1");
         var page = '{{page}}';
@@ -186,6 +185,8 @@
         $('.postit.canClick:not(.postit-disable)').click(function () {
             window.location.replace($(this).attr('target'));
         });
+        newFeedback();
+        
 
         // introLesson();
     });
@@ -261,7 +262,7 @@
                 // `el` property is the SVG element
                 myVivus.el.setAttribute('height', '100%');
                 myVivus.el.setAttribute('width', '100%');
-                vivus.play(animationSpeed, function () {});
+                vivus.play(animationSpeed, function () { });
                 $('#menu-photo>svg').each(function (index, obj) {
                     if (index != 0) {
                         $(obj).detach();
@@ -276,16 +277,16 @@
     function introLesson() {
         $("#flipbook").turn("disable", true);
         var intro = introInstant([{
-                intro: '{{intro.welcome}}'
-            },
-            {
-                element: $('[guide="lesson"]')[0],
-                intro: '{{intro.lesson}}'
-            },
-            {
-                element: $('[guide="lesson"]')[1],
-                intro: '{{breaklines intro.subLesson}}'
-            }
+            intro: '{{intro.welcome}}'
+        },
+        {
+            element: $('[guide="lesson"]')[0],
+            intro: '{{intro.lesson}}'
+        },
+        {
+            element: $('[guide="lesson"]')[1],
+            intro: '{{breaklines intro.subLesson}}'
+        }
         ]);
         intro.start()
             .oncomplete(function () {
@@ -300,29 +301,29 @@
     function introProfile() {
         changePage(10);
         var intro = introInstant([{
-                element: $('[guide="profile"]')[0],
-                intro: '{{intro.profile}}'
-            },
-            {
-                element: $('[guide="profile"]')[1],
-                intro: '{{intro.language}}'
-            },
-            {
-                element: $('[guide="profile"]')[2],
-                intro: '{{intro.signout}}'
-            },
-            {
-                element: $('[guide="achievement"]')[0],
-                intro: '{{intro.photo}}'
-            },
-            {
-                element: $('[guide="achievement"]')[1],
-                intro: '{{intro.menuInfo}}'
-            },
-            {
-                element: $('[guide="achievement"]')[2],
-                intro: '{{intro.achievement}}'
-            }
+            element: $('[guide="profile"]')[0],
+            intro: '{{intro.profile}}'
+        },
+        {
+            element: $('[guide="profile"]')[1],
+            intro: '{{intro.language}}'
+        },
+        {
+            element: $('[guide="profile"]')[2],
+            intro: '{{intro.signout}}'
+        },
+        {
+            element: $('[guide="achievement"]')[0],
+            intro: '{{intro.photo}}'
+        },
+        {
+            element: $('[guide="achievement"]')[1],
+            intro: '{{intro.menuInfo}}'
+        },
+        {
+            element: $('[guide="achievement"]')[2],
+            intro: '{{intro.achievement}}'
+        }
         ]);
         setTimeout(function () {
             $("#flipbook").turn("disable", true);
@@ -335,8 +336,120 @@
 </script>
 
 <script>
-    function newComment(){
-        //var ver = $('#sort-comment').val();
-        alert('Coming Soon!!');
+    function newFeedback() {
+        var year = $('#sort-comment').val();
+        var html = '';
+        showLoading();
+        $.ajax({
+            type: 'GET',
+            contentType: "application/json",
+            url: '/manage/feedback/getAllfeedback',
+            success: function (response) {
+                var level1 = 0;
+                var level2 = 0;
+                var level3 = 0;
+                var level4 = 0;
+                var level5 = 0;
+
+                // Persen Progressbar
+                var percent1 = 0;
+                var percent2 = 0;
+                var percent3 = 0;
+                var percent4 = 0;
+                var percent5 = 0;
+
+                var total = 0; // all feedback
+
+                var rating = 0;
+                var allstars = 0;
+                response.forEach(element => {
+                    var subdate = element.date.split('T');
+                    var date = subdate[0].split('/');
+                    if(year == date[2]){
+                    if (element.Level == 5) {
+                        level5++;
+                        total++;
+                    } else if (element.Level == 4) {
+                        level4++;
+                        total++;
+                    } else if (element.Level == 3) {
+                        level3++;
+                        total++;
+                    } else if (element.Level == 2) {
+                        level2++;
+                        total++;
+                    } else if (element.Level == 1) {
+                        level1++;
+                        total++;
+                    }
+                    var newdate = element.date.split('T');
+                    var cutdate = element.date.split('/');
+                    var cuttime = newdate[1].split(':');
+                    if (element.Comment != 'empty') {
+                        html += '<div class="bg-light-green comment-box">';
+                        html += '<b>' + element.Name + '</b>' + ' : ' + element.Comment;
+                        html += '<br>';
+                        html += cutdate[0]+' '+ChangeMonth(cutdate[1],Cookies.get('lang'))+' | '+newdate[1]+' ';
+                        for (var i = 0; i < element.Level; i++) {
+                            html += '<i class="fa fa-star fa-fw feedback" style="color:#FECF36; font-size:12px;"></i>'
+                        }
+                        html += '</div>';
+                    }
+                 }
+                });
+                percent5 = Math.floor((level5 / total) * 100);
+                percent4 = Math.floor((level4 / total) * 100);
+                percent3 = Math.floor((level3 / total) * 100);
+                percent2 = Math.floor((level2 / total) * 100);
+                percent1 = Math.floor((level1 / total) * 100);
+                var color = ['bg-blue', 'bg-light-green', 'bg-yellow', 'bg-orange', 'bg-red'];
+                var percent = [percent5, percent4, percent3, percent2, percent1]
+                var level = [level5, level4, level3, level2, level1]
+                console.log(percent);
+                var progressbar = ''
+                var index = 0;
+                for (var i = 5; i > 0; i--) {
+                    progressbar += '<div class="side">';
+                    progressbar += '<span>' + i + '</span><i class="fa fa-star fa-fw" style="color:#FECF36;"></i>';
+                    progressbar += '</div>';
+                    progressbar += '<div class="mid hint--top" aria-label="' + level[index] + '">';
+                    progressbar += '<div class="progressbars">';
+                    if(!isNaN(percent[index])){
+                    progressbar += '<div class="' + color[index] + ' stars" style="width:' + percent[index] + '%"></div>';
+                    }else{
+                    progressbar += '<div class="' + color[index] + ' stars" style="width:0px"></div>';
+                    }
+                    progressbar += '</div>';
+                    progressbar += '</div>';
+                    index++;
+                }
+
+                allstars = (level5*5)+(level4*4)+(level3*3)+(level2*2)+(level1*1);
+                rating = allstars/total;
+                rating = Math.round(rating*10)/10;
+                if(rating >= 5){
+                    rating = 5;
+                }
+
+                var ratingstar = '';
+                for(var i = 0;i < 5;i++){
+                    if(rating >= i+1){      
+                    ratingstar += '<i class="fa fa-star fa-fw" style="color:#FECF36;"></i>';
+                    }else{
+                    ratingstar += '<i class="fa fa-star fa-fw" style="color:#f1f1f1;"></i>';
+                    }
+                }
+                $('#listlogic').html(html);
+                $('#list-progressbars').html(progressbar);
+                $('#ratingdiagame').text(rating);
+                $('#starsrating').html(ratingstar);
+                $('#totalreview').text('Total : '+total+" Reviews");
+                
+            },
+            complete : function(){
+                closeLoading();
+            }
+        })
+
     }
 </script>

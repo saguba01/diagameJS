@@ -77,7 +77,7 @@
 
 <div id="modal-wellcome" class="modal">
   <div class="modal-content">
-  <div class="button-close-custom canClick right" onclick="closeModal('#modal-wellcome');playSoundEx('click');"></div>
+    <div class="button-close-custom canClick right" onclick="closeModal('#modal-wellcome');playSoundEx('click');"></div>
     <div class="wellcome-header">{{ walcomeModal.header }}</div>
     <div class="wellcome-logo ">
       <div class="postit postit-middle-center2 bg-sky-blue {{walcomeModal.logo}}" }>
@@ -120,14 +120,12 @@
         </ul>
       </div>
       <input type="hidden" id="ratingStar">
+    </div>
+    <div class="modal-footer" style="border-top: 5px solid black;">
+      <button onclick="playSoundEx('click');saveFeedback('{{ user.displayName }}');" class="canClick button-apply-feedback">{{ button.submit }}</button>
+    </div>
   </div>
-  <div class="modal-footer" style="border-top: 5px solid black;">
-    <button onclick="playSoundEx('click');saveFeedback('{{ user.displayName }}');"
-      class="canClick button-apply-feedback">{{ button.submit }}</button>
-    <button onclick="playSoundEx('click');closeModal('#modal-feedback');"
-      class="canClick button-close-setting">{{button.close}}</button>
-  </div>
-</div>
+  
 
 
 <div id="modal-setting" class="modal">
@@ -246,12 +244,7 @@
           <th>Score</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Test</td>
-          <td>10000</td>
-        </tr>
+      <tbody id="data-leaderboard">
       </tbody>
     </table>
   </div>
@@ -289,5 +282,16 @@
   <div class="modal-footer">
     <button onclick="nextPage('{{ nextPage }}')" class="canClick button-navigator"
       style="float: right;">{{general.button.next}}</button>
+  </div>
+</div>
+
+<div id="modal-result-score" class="modal">
+  <div class="modal-content">
+    <div class="result-score-content"></div>
+  </div>
+  <div class="modal-footer">
+    <button onclick="window.location.replace('/home')" style="float: left;"
+      class="canClick button-navigator">{{general.button.home}}</button>
+    <button onclick="" class="canClick button-navigator" style="float: right;">{{general.button.next}}</button>
   </div>
 </div>

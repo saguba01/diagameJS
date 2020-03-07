@@ -15,7 +15,6 @@ router.get('/', authen, async (req, res, next) => {
     user: req.session.user,
     element: configString[lang].element.general,
     intro: configString[lang].intro,
-    score:await getScore(),
     //required
     lesson: {
       text: "Leaderboard"
@@ -28,15 +27,5 @@ router.get('/', authen, async (req, res, next) => {
   res.render('leaderboard/index', data);
 });
 
-async function getScore(){
-  var score = [];
-  let refscore = firestore.collection('UserInfo').orderBy('score');
-  refscore.get().then(doc=>{
-    doc.forEach(element => {
-      score.push(element.data());
-    })
-  })
-  return score;
-}
 
   module.exports = router;
