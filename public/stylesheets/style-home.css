@@ -76,14 +76,6 @@
     position: absolute;
 }
 
-body {
-    background-position-x: 10%;
-    background-position-y: 10%;
-    background-size: 110% auto;
-    background-image: url('../assets/svg/wood-background.svg');
-    overflow: hidden;
-}
-
 .site-name {
     width: 100%;
     height: 119px;
