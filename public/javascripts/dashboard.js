@@ -43,20 +43,28 @@ module.exports = {
         if (result.type == "logic") {
           const refLogic = firestore.collection('Logic').doc(result.questionId)
           await refLogic.get().then(async subDoc => {
-            await responces.push({
-              id: result.questionId,
-              type: (!doc.exists ? "not flound" : subDoc.data().Type),
-              data: {
-                date: result.date,
-                questionId: result.questionId,
-                round: result.round,
-                score: result.score,
-                time: result.time,
-                type: result.type,
-                uid: result.uid
-              },
-              ref: (!subDoc.exists ? null : subDoc.data())
-            })
+            try{
+              if(subDoc.exists) {
+                await responces.push({
+                  id: result.questionId,
+                  type: (!doc.exists ? "not flound" : subDoc.data().Type),
+                  data: {
+                    date: result.date,
+                    questionId: result.questionId,
+                    round: result.round,
+                    score: result.score,
+                    time: result.time,
+                    type: result.type,
+                    uid: result.uid
+                  },
+                  ref: (!subDoc.exists ? null : subDoc.data())
+                })
+              }
+            }catch(e){
+              console.warn("sub err")
+              console.warn(e)
+            }
+            
           }).catch(err => {
             console.warn("err")
             console.warn(err)
@@ -64,22 +72,24 @@ module.exports = {
         } else if("diagram"){
           const refLogic = firestore.collection('Diagram').doc(result.questionId)
           await refLogic.get().then(async doc => {
-            responces.push({
-              id: result.questionId,
-              type: result.type,
-              data: {
-                date: result.date,
-                questionId: result.questionId,
-                round: result.round,
-                time: result.time,
+            if( doc.exists ) {
+              console.log(`diagram ${doc.exists}`)
+              responces.push({
+                id: result.questionId,
                 type: result.type,
-                uid: result.uid
-              },
-              ref: ( doc.exists ? doc.data() : null )
-            })
+                data: {
+                  date: result.date,
+                  questionId: result.questionId,
+                  round: result.round,
+                  time: result.time,
+                  type: result.type,
+                  uid: result.uid,
+                  score: result.score,
+                },
+                ref: ( doc.exists ? doc.data() : null )
+              })
+            }
           })
-          
-          
         }else{
           responces.push({
             id: result.questionId,
@@ -90,6 +100,7 @@ module.exports = {
               round: result.round,
               time: result.time,
               type: result.type,
+              score: result.score,
               uid: result.uid
             }
           })
