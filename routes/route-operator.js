@@ -125,6 +125,7 @@ router.get('/:id', authen,async function (req, res, next) {
   let lesson = configString[lang].lesson.logic;
   let refQuestion = firestore.collection("Logic");
   let questionData;
+  let questionName;
   const score = await getScore();
   const general = await getSetting(lang);
 
@@ -134,6 +135,11 @@ router.get('/:id', authen,async function (req, res, next) {
       answerText: doc.data().Answer,
       answer: doc.data().Answer.toLowerCase()
     }];
+    if(lang == "th"){
+      questionName = doc.data().NameTH;
+    }else{
+      questionName = doc.data().NameEN;
+    }
     var data = {
       layout: 'default',
       navBar: true,
@@ -141,7 +147,7 @@ router.get('/:id', authen,async function (req, res, next) {
       lesson: lesson,
       subLesson: lesson.subLesson.advance,
       question: questionData,
-      questionName: doc.data().Name,
+      questionName: questionName,
       level: doc.data().Level,
       //required
       elementsString: configString[lang].element.general,
