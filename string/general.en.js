@@ -69,6 +69,7 @@ module.exports = {
     question: 'Questions',
     congrat: 'Congratulations on passing this level!',
     result: 'Congratulations, you score is ',
+    saveResult: 'Save Complete!!',
     feedback:{
         title: 'Feedback',
         text: 'Type Your Comment Here...'
