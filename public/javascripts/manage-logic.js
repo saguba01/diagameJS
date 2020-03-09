@@ -18,7 +18,7 @@ function saveQuestion(logicQuestion, logicLevel, logicNameEN, logicNameTH, logic
         type = "logic";
     }
     refQuestion.get().then(function (doc) {
-        keyId = parseInt(doc.docs[doc.size-1].id) + 1;
+        keyId = parseInt(doc.docs[doc.size - 1].id) + 1;
     }).then(function () {
         showLoading();
         refQuestion.doc(keyId.toString()).set({
@@ -188,4 +188,43 @@ function removeQuestion(element) {
     let str = element.id;
     element.remove();
     $("#div" + str.substring(3, str.length)).remove();
+}
+
+/*
+ *Description: next question
+ *@version 1.0
+ *@author Thanawin Poopangeon
+ *@since 5 Feb 2020
+ *@required javascript, materialize-css.
+*/
+function nextQuestion(type, id) {
+    let i = 0;
+    if (type == "logic") {
+        refQuestion.where("Type", "==", "logic").get().then(function (doc) {
+            doc.forEach(element => {
+                i++;
+                if (element.id == id) {
+                    if (typeof doc.docs[i] == "undefined") {
+                        window.location.href = "/home";
+                    } else {
+                        window.location.href = "/lesson/logic/" + doc.docs[i].id;
+                    }
+                }
+            });
+        });
+    } else {
+        // type = operator
+        refQuestion.where("Type", "==", "operator").get().then(function (doc) {
+            doc.forEach(element => {
+                i++;
+                if (element.id == id) {
+                    if (typeof doc.docs[i] == "undefined") {
+                        window.location.href = "/home";
+                    } else {
+                        window.location.href = "/lesson/operator/" + doc.docs[i].id;
+                    }
+                }
+            });
+        });
+    }
 }
