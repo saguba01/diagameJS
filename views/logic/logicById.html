@@ -211,6 +211,9 @@
                 console.log("time:" + $("#timePlay").val());
             }
         });
+        $("#nextQuestion").click(function(){
+            nextQuestion("logic","{{questionId}}")
+        });
     });
 
 

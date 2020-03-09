@@ -43,6 +43,7 @@ module.exports = {
         if (result.type == "logic") {
           const refLogic = firestore.collection('Logic').doc(result.questionId)
           await refLogic.get().then(async subDoc => {
+            console.log(subDoc.data());
             await responces.push({
               id: result.questionId,
               type: (!doc.exists ? "not flound" : subDoc.data().Type),
