@@ -133,11 +133,16 @@ function replaceHome() {
             url: "/admin/roleUser",
             success: function (result) {
                 const resData = result.data
-                if (resData.role == "admin") {
-                    window.location.replace('/admin');
-                } else {
+                try{
+                    if ( resData.role == "admin") {
+                        window.location.replace('/admin');
+                    } else {
+                        window.location.replace('/home');
+                    }
+                }catch(e){
                     window.location.replace('/home');
                 }
+                
             },
             error: (e) => {
                 console.error(e)

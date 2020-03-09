@@ -124,9 +124,14 @@ router.get('/passTutorail', async (req, res, next) => {
     playTutorial : false,
     role : "user"
   }
-  if(typeof userInfoData.role !="undefined" && userInfoData.role == "admin"){
-    userInfo.role = "admin"
+  try{
+    if(typeof userInfoData.role !="undefined" && userInfoData.role == "admin"){
+      userInfo.role = "admin"
+    }
+  }catch(e){
+    console.warn("404 document")
   }
+ 
 
   userInfo.playTutorial = false
   res.send(await user_info.passTutorail(uid,userInfo));
