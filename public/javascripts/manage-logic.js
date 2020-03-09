@@ -30,7 +30,7 @@ function saveQuestion(logicQuestion, logicLevel, logicNameEN, logicNameTH, logic
             Type: type
         }).then(function () {
             closeLoading();
-            showSaveStatus("Save Success!!");
+            showSaveStatus();
         }).catch(err => {
             closeLoading();
             showSaveStatus("Error : " + err);
