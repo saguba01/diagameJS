@@ -10,8 +10,8 @@ module.exports = {
                 const result = doc.data()
                 responces.push({id:doc.id,
                     data: {
-                        hint : (lang == "en" ? result.HintEng :result.HintTh ),
-                        name : (lang == "en" ? result.NameEng :result.NameTh ),
+                        hint : (lang == "en" ? result.HintEN :result.HintTH ),
+                        name : (lang == "en" ? result.NameEN :result.NameTH ),
                         level : result.Level
                     }
                 })
