@@ -1438,3 +1438,37 @@ function showScoreReult(content) {
     });
     $('#modal-result-score').modal('open');
 }
+
+/*
+ *Description: Show alert modal diagram.
+ *@version 1.0
+ *@author Thongthorn Karapakdee
+ *@since 10 March 2020
+ *@required javascript, materialize-css.
+ */
+function showScoreReultDiagram(content) {
+    $('#modal-result-score-diagram').modal({
+        'dismissible': false,
+        'onOpenEnd': function () {
+            $('.result-score-content').text(content);
+        }
+    });
+    $('#modal-result-score-diagram').modal('open');
+}
+
+/*
+ *Description: Show alert modal diagram.
+ *@version 1.0
+ *@author Thongthorn Karapakdee
+ *@since 10 March 2020
+ *@required javascript, materialize-css.
+ */
+function showScoreReultFail(content) {
+    $('#modal-fail-diagram').modal({
+        'dismissible': false,
+        'onOpenEnd': function () {
+            $('.result-score-content').text(content);
+        }
+    });
+    $('#modal-fail-diagram').modal('open');
+}

@@ -1,4 +1,3 @@
-
 <!-- include summernote css/js -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.js"></script>
@@ -82,7 +81,8 @@
                                 <thead>
                                     <tr>
                                         <strong>
-                                            <td style="width: 2%;font-size: 20px;font-weight: bold;">{{addForm.form.table.step}}</td>
+                                            <td style="width: 2%;font-size: 20px;font-weight: bold;">
+                                                {{addForm.form.table.step}}</td>
                                             <td
                                                 style="text-align: center;width: 35%;font-size: 20px;font-weight: bold;">
                                                 {{addForm.form.table.processEn}}</td>
@@ -132,7 +132,7 @@
             </div>
         </div>
         <div class="panel-footer" style="text-align: right;">
-            <button class="add-button blue-button" id="saveButton" style="width: 200px;">{{addForm.form.save.text}}</button>
+            <button id="saveButton" class="add-button green-button">{{general.button.save}}</button>
         </div>
     </div>
 </div>
@@ -288,7 +288,7 @@
     }
 
     $('#saveButton').click(function () {
-        
+
         if (validateQuestion()) {
             console.log("Count", countTable);
             var dataProcessEn = [];
@@ -297,7 +297,7 @@
             var dataAnswer = [];
             let data;
             let diagramNameEn = $("#questionInputEng").val();
-            let diagramHintEn = $("#hintInputEng").html();
+            let diagramHintEn = $("#hintInputEng").val();
             let diagramNameTh = $("#questionInputTh").val();
             let diagramHintTh = $("#hintInputTh").val();
             let diagramLevel = document.getElementById("ratingStar").value;
@@ -396,23 +396,24 @@
 
     var refQuestion = firestore.collection("Diagram");
     var keyId = 0;
-    //save data to firebase 
+    //save data to firebase
+    
     function saveQuestion(dataAnswer, diagramNameEn, diagramNameTh, diagramHintEn, diagramHintTh, diagramLevel) {
         console.log("save...");
         console.log("Diagram", dataAnswer);
         console.log("Name", diagramNameEn, diagramNameTh);
         console.log("Hint", diagramHintEn, diagramHintTh);
         console.log("Star", diagramLevel);
-
+        showLoading(); 
         refQuestion.get().then(function (doc) {
-            keyId = doc.size + 1;
+            keyId = parseInt(doc.docs[doc.size-1].id) + 1;
             console.log("set(" + keyId + ")");
         }).then(function () {
             refQuestion.doc(keyId.toString()).set({
-                NameEng: diagramNameEn,
-                NameTh: diagramNameTh,
-                HintEng: diagramHintEn,
-                HintTh: diagramHintTh,
+                NameEN: diagramNameEn,
+                NameTH: diagramNameTh,
+                HintEN: diagramHintEn,
+                HintTH: diagramHintTh,
                 Level: diagramLevel
             }).then(function () {
                 for (let index = 1; index <= dataAnswer.length; index++) {
@@ -420,9 +421,10 @@
                         answerStep: dataAnswer[index - 1]
                     })
                 }
-                showSaveStatus("Save Success!!");
+                closeLoading();
+                showSaveStatus();
             }).catch(err => {
-                showSaveStatus("Error : " + err);
+                closeLoading();
             });
         });
     }

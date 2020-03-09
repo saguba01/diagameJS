@@ -9,11 +9,11 @@
                         <div class="content-input dia-row">
                             <div class="dia-6" id="question1">
                                 <p class="input-name">{{addForm.form.questionNameEN.text}}</p>
-                                <input id="questionInputEng" type="text" style="width: 90%;" value="{{NameEn}}" />
+                                <input id="questionInputEng" type="text" style="width: 90%;" value="{{NameEN}}" />
                             </div>
                             <div class="dia-6" id="question2">
                                 <p class="input-name ">{{addForm.form.questionNameTH.text}}</p>
-                                <input id="questionInputTh" type="text" style="width: 90%;" value="{{NameTh}}" />
+                                <input id="questionInputTh" type="text" style="width: 90%;" value="{{NameTH}}" />
                             </div>
 
                         </div>
@@ -21,12 +21,12 @@
                             <div class="dia-6" id="hint1">
                                 <p class="input-name">{{addForm.form.HintEn.text}}</p>
                                 <textarea id="hintInputEng" style="height: 220px;width: 92%;"
-                                    class="inputC">{{HintEn}}</textarea>
+                                    class="inputC">{{HintEN}}</textarea>
                             </div>
                             <div class="dia-6" id="hint2">
                                 <p class="input-name">{{addForm.form.HintTh.text}}</p>
                                 <textarea id="hintInputTh" style="height: 220px;width: 92%;"
-                                    class="inputC">{{HintTh}}</textarea>
+                                    class="inputC">{{HintTH}}</textarea>
                             </div>
 
                         </div>
@@ -78,8 +78,7 @@
             </div>
         </div>
         <div class="panel-footer" style="text-align: right;">
-            <button class="add-button blue-button" id="saveButton"
-                style="width: 200px;">{{addForm.form.save.text}}</button>
+            <button id="saveButton" class="add-button green-button">{{general.button.save}}</button>
         </div>
     </div>
 </div>
@@ -258,7 +257,7 @@
             var dataAnswer = [];
             let data;
             let diagramNameEn = $("#questionInputEng").val();
-            let diagramHintEn = $("#hintInputEng").html();
+            let diagramHintEn = $("#hintInputEng").val();
             let diagramNameTh = $("#questionInputTh").val();
             let diagramHintTh = $("#hintInputTh").val();
             let diagramLevel = document.getElementById("ratingStar").value;
@@ -366,10 +365,10 @@
 
         showLoading();
         refQuestion.doc('{{diagramId}}').set({
-            NameEng: diagramNameEn,
-            NameTh: diagramNameTh,
-            HintEng: diagramHintEn,
-            HintTh: diagramHintTh,
+            NameEN: diagramNameEn,
+            NameTH: diagramNameTh,
+            HintEN: diagramHintEn,
+            HintTH: diagramHintTh,
             Level: diagramLevel
         }).then(function () {
             for (let index = 1; index <= dataAnswer.length; index++) {

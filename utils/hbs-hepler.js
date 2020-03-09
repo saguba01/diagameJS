@@ -224,13 +224,13 @@ handlebars.registerHelper('displayRecipe', function (label, object) {
  *@since 3 April 2019
  *@required javascript, handlebars.
  */
-handlebars.registerHelper('displayRecipeNew', function (lang, HintEn, HintTh) {
+handlebars.registerHelper('displayRecipeNew', function (lang, HintTH, HintEN) {
   var html = '';
   //var oldLang = Cookies.get('lang')
   if (lang == 'th') {
-    html += HintTh + '<br>';
+    html += HintTH + '<br>';
   } else {
-    html += HintEn + '<br>';
+    html += HintEN + '<br>';
   }
 
   return new handlebars.SafeString(html);
@@ -393,18 +393,27 @@ handlebars.registerHelper('svgProcess', function (object) {
  *@since 20/02/2020
  *@required javascript, handlebars.
  */
-handlebars.registerHelper('svgProcessNew', function (object) {
+handlebars.registerHelper('svgProcessNew', function (lang, object) {
   var html = '';
   var arraySVG = shuffle(object);
   arraySVG.forEach(function (svg) {
     if (svg.type.toLowerCase() == "process") {
-      html += '<div type="element" event="' + svg.sequence + '" photo="" source="process">';
-      html += '<svg width="210" height="90">';
-      html += '<rect class="svgStroke" x="5" y="5" width="200" height="80" rx="10" style="fill:#FECF36"></rect>';
+      if (lang == 'th') {
+        html += '<div type="element" event="' + svg.sequence + '" photo="" source="process">';
+        html += '<svg width="210" height="90">';
+        html += '<rect class="svgStroke" x="5" y="5" width="200" height="80" rx="10" style="fill:#FECF36"></rect>';
+        html += '<text text-anchor="middle" x="105" y="45" alignment-baseline="central" style="font-size:25px;">' + svg.processTh + '</text>';
+        html += '</svg>';
+        html += '</div>';
+      } else {
+        html += '<div type="element" event="' + svg.sequence + '" photo="" source="process">';
+        html += '<svg width="210" height="90">';
+        html += '<rect class="svgStroke" x="5" y="5" width="200" height="80" rx="10" style="fill:#FECF36"></rect>';
+        html += '<text text-anchor="middle" x="105" y="45" alignment-baseline="central" style="font-size:25px;">' + svg.processEn + '</text>';
+        html += '</svg>';
+        html += '</div>';
+      }
 
-      html += '<text text-anchor="middle" x="105" y="45" alignment-baseline="central" style="font-size:25px;">' + svg.processTh + '</text>';
-      html += '</svg>';
-      html += '</div>';
     }
 
   });
@@ -444,19 +453,31 @@ handlebars.registerHelper('svgInput', function (object) {
  *@since 20/02/2020
  *@required javascript, handlebars.
  */
-handlebars.registerHelper('svgInputNew', function (object) {
+handlebars.registerHelper('svgInputNew', function (lang, object) {
   var html = '';
   var arraySVG = shuffle(object);
   arraySVG.forEach(function (svg) {
     if (svg.type.toLowerCase() == "input") {
-      html += '<div type="element" event="' + svg.sequence + '" photo="" source="io" sub="input" data="">';
-      html += '<svg width="210" height="105">';
-      html += '<g style="fill:#b668fc" transform="translate(0 26.58)">';
-      html += '<path class="svgStroke" d="M 194.525390625 71.80303955078125 L 15.47463893890381 71.80303955078125 C 8.320388793945312 71.80303955078125 2.5 66.32384490966797 2.5 59.58900833129883 L 2.5 12.57773113250732 C 2.5 5.842869758605957 8.320388793945312 0.3636751472949982 15.47463893890381 0.3636751472949982 L 15.64449977874756 0.3636751472949982 L 15.81280517578125 0.3407029211521149 L 194.6898498535156 -24.0793342590332 C 198.2745513916016 -24.04719161987305 201.5287780761719 -22.96221351623535 203.8690490722656 -21.0159912109375 C 206.2444458007812 -19.04054641723633 207.5 -16.33832550048828 207.5 -13.20146369934082 L 207.5 59.58900833129883 C 207.5 66.32384490966797 201.6796112060547 71.80303955078125 194.525390625 71.80303955078125 Z"/>';
-      html += '</g>';
-      html += '<text text-anchor="middle" x="105" y="57" alignment-baseline="central" style="font-size:25px;">' + svg.processTh + '</text>';
-      html += '</svg>';
-      html += '</div>';
+      if (lang == 'th') {
+        html += '<div type="element" event="' + svg.sequence + '" photo="" source="io" sub="input" data="">';
+        html += '<svg width="210" height="105">';
+        html += '<g style="fill:#b668fc" transform="translate(0 26.58)">';
+        html += '<path class="svgStroke" d="M 194.525390625 71.80303955078125 L 15.47463893890381 71.80303955078125 C 8.320388793945312 71.80303955078125 2.5 66.32384490966797 2.5 59.58900833129883 L 2.5 12.57773113250732 C 2.5 5.842869758605957 8.320388793945312 0.3636751472949982 15.47463893890381 0.3636751472949982 L 15.64449977874756 0.3636751472949982 L 15.81280517578125 0.3407029211521149 L 194.6898498535156 -24.0793342590332 C 198.2745513916016 -24.04719161987305 201.5287780761719 -22.96221351623535 203.8690490722656 -21.0159912109375 C 206.2444458007812 -19.04054641723633 207.5 -16.33832550048828 207.5 -13.20146369934082 L 207.5 59.58900833129883 C 207.5 66.32384490966797 201.6796112060547 71.80303955078125 194.525390625 71.80303955078125 Z"/>';
+        html += '</g>';
+        html += '<text text-anchor="middle" x="105" y="57" alignment-baseline="central" style="font-size:25px;">' + svg.processTh + '</text>';
+        html += '</svg>';
+        html += '</div>';
+      } else {
+        html += '<div type="element" event="' + svg.sequence + '" photo="" source="io" sub="input" data="">';
+        html += '<svg width="210" height="105">';
+        html += '<g style="fill:#b668fc" transform="translate(0 26.58)">';
+        html += '<path class="svgStroke" d="M 194.525390625 71.80303955078125 L 15.47463893890381 71.80303955078125 C 8.320388793945312 71.80303955078125 2.5 66.32384490966797 2.5 59.58900833129883 L 2.5 12.57773113250732 C 2.5 5.842869758605957 8.320388793945312 0.3636751472949982 15.47463893890381 0.3636751472949982 L 15.64449977874756 0.3636751472949982 L 15.81280517578125 0.3407029211521149 L 194.6898498535156 -24.0793342590332 C 198.2745513916016 -24.04719161987305 201.5287780761719 -22.96221351623535 203.8690490722656 -21.0159912109375 C 206.2444458007812 -19.04054641723633 207.5 -16.33832550048828 207.5 -13.20146369934082 L 207.5 59.58900833129883 C 207.5 66.32384490966797 201.6796112060547 71.80303955078125 194.525390625 71.80303955078125 Z"/>';
+        html += '</g>';
+        html += '<text text-anchor="middle" x="105" y="57" alignment-baseline="central" style="font-size:25px;">' + svg.processEn + '</text>';
+        html += '</svg>';
+        html += '</div>';
+      }
+
     }
   });
   return new handlebars.SafeString(html);
@@ -495,20 +516,33 @@ handlebars.registerHelper('svgOutput', function (object) {
  *@since 20/02/2020
  *@required javascript, handlebars.
  */
-handlebars.registerHelper('svgOutputNew', function (object) {
+handlebars.registerHelper('svgOutputNew', function (lang, object) {
   var html = '';
   var arraySVG = shuffle(object);
   arraySVG.forEach(function (svg) {
     if (svg.type.toLowerCase() == "output") {
-      html += '<div type="element" event="' + svg.sequence + '" photo="" source="io" sub="output">';
-      html += '<svg width="210" height="90">';
-      html += '<g style="fill:#56e3c4">';
-      html += '<path class="svgStroke" d="M 167.8278961181641 80.61994171142578 L 43.19696044921875 80.61994171142578 L 3.561671495437622 41.55996704101562 L 43.19696044921875 2.49999475479126 L 167.8278961181641 2.49999475479126 C 173.1891937255859 2.49999475479126 178.3884735107422 3.534078121185303 183.2813262939453 5.573550224304199 C 188.0061645507812 7.542966842651367 192.2494506835938 10.36232852935791 195.8932800292969 13.95327281951904 C 199.5345764160156 17.54171752929688 202.3928070068359 21.71896743774414 204.3885498046875 26.36896705627441 C 206.4531707763672 31.17935562133789 207.5 36.29035568237305 207.5 41.55996704101562 C 207.5 46.8295783996582 206.4531707763672 51.94057846069336 204.3885498046875 56.75096893310547 C 202.3928070068359 61.40096664428711 199.5345764160156 65.57821655273438 195.8932800292969 69.16666412353516 C 192.2494506835938 72.75760650634766 188.0061645507812 75.57696533203125 183.2813262939453 77.54638671875 C 178.3884735107422 79.58585357666016 173.1891937255859 80.61994171142578 167.8278961181641 80.61994171142578 Z"/>';
-      html += '</g>';
-      html += '<text text-anchor="middle" x="105" y="40" alignment-baseline="central" style="font-size:25px;">' + svg.processTh + '</text>';
+      if (lang == 'th') {
+        html += '<div type="element" event="' + svg.sequence + '" photo="" source="io" sub="output">';
+        html += '<svg width="210" height="90">';
+        html += '<g style="fill:#56e3c4">';
+        html += '<path class="svgStroke" d="M 167.8278961181641 80.61994171142578 L 43.19696044921875 80.61994171142578 L 3.561671495437622 41.55996704101562 L 43.19696044921875 2.49999475479126 L 167.8278961181641 2.49999475479126 C 173.1891937255859 2.49999475479126 178.3884735107422 3.534078121185303 183.2813262939453 5.573550224304199 C 188.0061645507812 7.542966842651367 192.2494506835938 10.36232852935791 195.8932800292969 13.95327281951904 C 199.5345764160156 17.54171752929688 202.3928070068359 21.71896743774414 204.3885498046875 26.36896705627441 C 206.4531707763672 31.17935562133789 207.5 36.29035568237305 207.5 41.55996704101562 C 207.5 46.8295783996582 206.4531707763672 51.94057846069336 204.3885498046875 56.75096893310547 C 202.3928070068359 61.40096664428711 199.5345764160156 65.57821655273438 195.8932800292969 69.16666412353516 C 192.2494506835938 72.75760650634766 188.0061645507812 75.57696533203125 183.2813262939453 77.54638671875 C 178.3884735107422 79.58585357666016 173.1891937255859 80.61994171142578 167.8278961181641 80.61994171142578 Z"/>';
+        html += '</g>';
+        html += '<text text-anchor="middle" x="105" y="40" alignment-baseline="central" style="font-size:25px;">' + svg.processTh + '</text>';
 
-      html += '</svg>';
-      html += '</div>';
+        html += '</svg>';
+        html += '</div>';
+      } else {
+        html += '<div type="element" event="' + svg.sequence + '" photo="" source="io" sub="output">';
+        html += '<svg width="210" height="90">';
+        html += '<g style="fill:#56e3c4">';
+        html += '<path class="svgStroke" d="M 167.8278961181641 80.61994171142578 L 43.19696044921875 80.61994171142578 L 3.561671495437622 41.55996704101562 L 43.19696044921875 2.49999475479126 L 167.8278961181641 2.49999475479126 C 173.1891937255859 2.49999475479126 178.3884735107422 3.534078121185303 183.2813262939453 5.573550224304199 C 188.0061645507812 7.542966842651367 192.2494506835938 10.36232852935791 195.8932800292969 13.95327281951904 C 199.5345764160156 17.54171752929688 202.3928070068359 21.71896743774414 204.3885498046875 26.36896705627441 C 206.4531707763672 31.17935562133789 207.5 36.29035568237305 207.5 41.55996704101562 C 207.5 46.8295783996582 206.4531707763672 51.94057846069336 204.3885498046875 56.75096893310547 C 202.3928070068359 61.40096664428711 199.5345764160156 65.57821655273438 195.8932800292969 69.16666412353516 C 192.2494506835938 72.75760650634766 188.0061645507812 75.57696533203125 183.2813262939453 77.54638671875 C 178.3884735107422 79.58585357666016 173.1891937255859 80.61994171142578 167.8278961181641 80.61994171142578 Z"/>';
+        html += '</g>';
+        html += '<text text-anchor="middle" x="105" y="40" alignment-baseline="central" style="font-size:25px;">' + svg.processEn + '</text>';
+
+        html += '</svg>';
+        html += '</div>';
+      }
+
     }
   });
   return new handlebars.SafeString(html);
@@ -622,7 +656,7 @@ handlebars.registerHelper('listquestion', function (question, scoreh) {
   var html = '';
   var index = 0;
   var type = '';
-  console.log("List",question);
+  console.log("List", question);
   var color = ["bg-red", "bg-purple", "bg-blue", "bg-sky-blue", "bg-light-green", "bg-orange", "bg-nude"];
   if (typeof question === 'undefined') {
     html += 'ggg';
@@ -638,7 +672,7 @@ handlebars.registerHelper('listquestion', function (question, scoreh) {
       } else {
         type = 'diagram';
       }
-      
+
       html += '<div target="/lesson/' + type + '/' + qs.Id + '" class="' + color[index] + ' qs canClick" style="margin-left:40px; margin-bottom:-2px; padding-right:1px; padding-left:6px;  border:2px solid black">';
       html += '<div class="list-lesson-title" id="lesson-logic">';
       html += qs.Name;
@@ -901,9 +935,9 @@ handlebars.registerHelper('totalfeedback', function (feedback) {
  *@since 06 Mar 2020
  *@required javascript.
  */
-handlebars.registerHelper('card-level', function (level,ganaral) {
+handlebars.registerHelper('card-level', function (level, ganaral) {
   var html = '';
-  const color = ["#8bc3a0","#c5f8c8","#faf096","#fccb8f","#f9989f"]
+  const color = ["#8bc3a0", "#c5f8c8", "#faf096", "#fccb8f", "#f9989f"]
   level.forEach((value, index) => {
     html += `
     <div class="card dia-3" style="background-color: ${color[index]};">
@@ -937,8 +971,8 @@ handlebars.registerHelper('card-level', function (level,ganaral) {
  */
 handlebars.registerHelper('list-option-question', function (obj) {
   var html = '';
-  obj.forEach((value,index)=>{
-    html+= ` <option value="${value.value}" ${( index == 0 ? "selected" :"" )}>${value.title}</option>`
+  obj.forEach((value, index) => {
+    html += ` <option value="${value.value}" ${(index == 0 ? "selected" : "")}>${value.title}</option>`
   })
   return new handlebars.SafeString(html);
 });
