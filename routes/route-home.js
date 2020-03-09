@@ -216,13 +216,15 @@ async function getDiagram(lang) {
     doc.forEach(element => {
       if (lang == 'en') {
         diagram.push({
-          Name: element.data().NameEng,
-          Level: element.data().Level
+          Name: element.data().NameEN,
+          Level: element.data().Level,
+          Id: element.id
         });
       } else if (lang == 'th') {
         diagram.push({
-          Name: element.data().NameTh,
-          Level: element.data().Level
+          Name: element.data().NameTH,
+          Level: element.data().Level,
+          Id: element.id
         });
       }
     })

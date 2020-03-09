@@ -264,7 +264,7 @@
     <div class="tutorial-content"></div>
   </div>
   <div class="modal-footer">
-    <button onclick="passTutorial();closeModal('#modal-pass-tutorial')" style="float: right;"
+    <button onclick="closeModal('#modal-pass-tutorial')" style="float: right;"
       class="canClick button-achievement">{{general.button.done}}</button>
   </div>
 </div>
@@ -296,5 +296,25 @@
     <button onclick="window.location.replace('/home')" style="float: left;"
       class="canClick button-navigator">{{general.button.home}}</button>
     <button id="nextQuestion" class="canClick button-navigator" style="float: right;">{{general.button.next}}</button>
+  </div>
+</div>
+
+<div id="modal-result-score-diagram" class="modal">
+  <div class="modal-content">
+    <div class="result-score-content"></div>
+  </div>
+  <div class="modal-footer">
+    <button onclick="window.location.replace('/home')" style="float: right;"
+      class="canClick button-navigator">{{general.button.home}}</button>
+  </div>
+</div>
+
+<div id="modal-fail-diagram" class="modal">
+  <div class="modal-content">
+    <div class="result-score-content"></div>
+  </div>
+  <div class="modal-footer">
+    <button onclick="window.location.reload();" style="float: right;"
+      class="canClick button-navigator">{{general.button.restart}}</button>
   </div>
 </div>

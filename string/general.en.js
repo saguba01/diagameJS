@@ -20,7 +20,8 @@ module.exports = {
         preview: 'Preview',
         apply: 'Apply',
         add_flowchart: 'New flowchart questions',
-        add_logic: 'New logical questions'
+        add_logic: 'New logical questions',
+        restart: 'Restart'
     },
     form: {
         username: {
@@ -71,6 +72,7 @@ module.exports = {
     deleteResult : 'Delete Complete!',
     deleteConfirm: 'Confirm Delete?',
     result: 'Congratulations, you score is ',
+    fail: 'Wrong flowchart',
     saveResult: 'Save Complete!!',
     feedback:{
         title: 'Feedback',

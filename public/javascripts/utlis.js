@@ -133,11 +133,16 @@ function replaceHome() {
             url: "/admin/roleUser",
             success: function (result) {
                 const resData = result.data
-                if (resData.role == "admin") {
-                    window.location.replace('/admin');
-                } else {
+                try{
+                    if ( resData.role == "admin") {
+                        window.location.replace('/admin');
+                    } else {
+                        window.location.replace('/home');
+                    }
+                }catch(e){
                     window.location.replace('/home');
                 }
+                
             },
             error: (e) => {
                 console.error(e)
@@ -1432,4 +1437,38 @@ function showScoreReult(content) {
         }
     });
     $('#modal-result-score').modal('open');
+}
+
+/*
+ *Description: Show alert modal diagram.
+ *@version 1.0
+ *@author Thongthorn Karapakdee
+ *@since 10 March 2020
+ *@required javascript, materialize-css.
+ */
+function showScoreReultDiagram(content) {
+    $('#modal-result-score-diagram').modal({
+        'dismissible': false,
+        'onOpenEnd': function () {
+            $('.result-score-content').text(content);
+        }
+    });
+    $('#modal-result-score-diagram').modal('open');
+}
+
+/*
+ *Description: Show alert modal diagram.
+ *@version 1.0
+ *@author Thongthorn Karapakdee
+ *@since 10 March 2020
+ *@required javascript, materialize-css.
+ */
+function showScoreReultFail(content) {
+    $('#modal-fail-diagram').modal({
+        'dismissible': false,
+        'onOpenEnd': function () {
+            $('.result-score-content').text(content);
+        }
+    });
+    $('#modal-fail-diagram').modal('open');
 }

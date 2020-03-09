@@ -20,7 +20,8 @@ module.exports = {
         preview: 'ตัวอย่าง',
         add_flowchart: 'เพิ่มคำถามแผนผังลำดับงาน',
         add_logic: 'เพิ่มคำถามเชิงตรรกะ',
-        apply: 'ใช้งาน'
+        apply: 'ใช้งาน',
+        restart: 'เล่นอีกครั้ง'
     },
     form: {
         username: {
@@ -71,6 +72,7 @@ module.exports = {
     deleteResult : 'ลบสำเร็จ!',
     deleteConfirm: 'ยืนยันการลบ?',
     result: 'ยินดีด้วย คุณทำคะแนนได้ ',
+    fail: 'แผนผังลำดับการทำงานไม่ถูกต้อง',
     saveResult: 'บันทึกสำเร็จ!!',
     feedback:{
         title: 'ข้อเสนอแนะ',
