@@ -216,6 +216,7 @@
             success: function (response) {
                 let type = byType
                 let chart
+                
                 response.forEach((value) => {
                     if (value.type == type) {
                         chart = value
@@ -246,7 +247,7 @@
 
                     }
                 })
-                console.log(listXAxis)
+
                 Highcharts.chart('play_question', {
                     chart: {
                         plotBackgroundColor: null,
@@ -461,6 +462,7 @@
                     if (listXAxis.length == 0) {
                         round = 1
                         oldId = value.id
+                        console.log(value)
                         maxScore.push(parseInt(value.data.score))
                         minScore.push(parseInt(value.data.score))
                         listScore.push(parseInt(value.data.score))
@@ -487,7 +489,9 @@
                         }
                     }
                 })
-
+                console.log(maxScore)
+                console.log(listScore)
+                console.log(minScore)
                 Highcharts.chart('score_summary', {
                     chart: {
                         plotBackgroundColor: null,

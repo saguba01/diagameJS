@@ -311,5 +311,11 @@ module.exports = {
         logic : {
             title : 'Management of logic questions s'
         }
+    },
+    validated: {
+        input : {
+            empty : 'Plaese enter all informations.',
+            level_order : 'Please enter points correctly at each level. (Leading ascending)'
+        }
     }
 };
