@@ -68,6 +68,8 @@ module.exports = {
     step: 'Step {num} - ',
     question: 'Questions',
     congrat: 'Congratulations on passing this level!',
+    deleteResult : 'Delete Complete!',
+    deleteConfirm: 'Confirm Delete?',
     result: 'Congratulations, you score is ',
     saveResult: 'Save Complete!!',
     feedback:{

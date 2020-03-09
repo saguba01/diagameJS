@@ -68,6 +68,8 @@ module.exports = {
     step: 'ขั้นตอนที่ {num} - ',
     question: 'คำถาม',
     congrat: 'ขอแสดงความยินดีที่ผ่านระดับนี้!',
+    deleteResult : 'ลบสำเร็จ!',
+    deleteConfirm: 'ยืนยันการลบ?',
     result: 'ยินดีด้วย คุณทำคะแนนได้ ',
     saveResult: 'บันทึกสำเร็จ!!',
     feedback:{

@@ -150,13 +150,13 @@ $(document).ready(function () {
  *@since 29 Feb 2020
  *@required javascript
  */
-function deleteQuestion() {
+function deleteQuestion(str) {
     let id = document.getElementById("deleteId").value;
     refQuestion.doc(id.toString()).delete().then(function () {
         $('#modal-addQuestion').modal({
             'dismissible': false,
             'onOpenEnd': function () {
-                $('.addQuestion-content').text('Delete Question Complete!');
+                $('.addQuestion-content').text(str);
             }
         });
         $('#modal-addQuestion').modal('open');
