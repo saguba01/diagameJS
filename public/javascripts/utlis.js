@@ -1537,4 +1537,13 @@ function showListQuestion(header,obj) {
         }
     });
     $('#modal-list-question').modal('open');
+} 
+
+ function goToProfile(){
+    try{
+        window.location.href = '/home?page=8'
+    }catch(e){
+        console.warn(e)
+    }
+    
 }
