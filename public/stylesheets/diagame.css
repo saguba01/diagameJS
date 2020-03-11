@@ -13,6 +13,7 @@
     /* Non-prefixed version, currently supported by Chrome and Opera */
 }
 
+
 body {
 
     background-position-x: 10%;
@@ -128,4 +129,12 @@ background-position: center;
 .rating-stars{
     text-align:center;
     font-size:30px;
+}
+
+select{
+    cursor: url('../assets/cursor-pointer.png'), default;
+}
+
+.card{
+    
 }

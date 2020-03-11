@@ -83,10 +83,12 @@ module.exports = {
         card: {
             total_question: {
                 title: 'จำนวนคำถามทั้งหมดภายในระบบ',
+                table : 'รายละเอียดคำถามทั้งหมดภายในระบบ',
                 unit: 'ข้อ'
             },
             total_user: {
                 title: 'จำนวนผู้ใช้งานทั้งหมดภายในระบบ',
+                table : 'รายละเอียดผู้ใช้งานทั้งหมดภายในระบบ',
                 unit: 'คน'
             }
         },
@@ -239,6 +241,10 @@ module.exports = {
             previous: 'ย้อนกลับ'
         },
         questions: 'คำถาม',
+        username : 'ชื่อผู้เล่น',
+        nickname : 'ชื่อเล่น',
+        role : 'บทบาท',
+        lesson : 'บทเรียน',
         search_placeholder: 'ค้นหา ...'
     },
     tutorial:{
@@ -319,7 +325,7 @@ module.exports = {
     validated: {
         input : {
             empty : 'กรุณากรอกข้อมูลให้ครบถ้วน',
-            level_order : 'กรุณากรอกคะแนนแต่ละเลเวลให้ถูกต้อง (เลียงจากน้อยไปมาก)'
+            level_order : 'กรุณากรอกคะแนนแต่ละเลเวลให้ถูกต้อง (เรียงจากน้อยไปมาก)'
         }
     }
 };

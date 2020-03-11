@@ -83,10 +83,12 @@ module.exports = {
         card: {
             total_question: {
                 title: 'Total number of questions within the system.',
+                table : 'Details of all questions within the system',
                 unit: 'questions'
             },
             total_user: {
                 title: 'Total number of users within the system.',
+                table : 'Details of all users within the system',
                 unit: 'people'
             }
         },
@@ -191,7 +193,7 @@ module.exports = {
     },
     setting: {
         eng: 'English',
-        thai: 'ไทย',
+        thai: 'Thai',
         header: 'Setting',
         soundMaster: 'Master',
         soundMusic: 'Music',
@@ -221,7 +223,7 @@ module.exports = {
     },
     table: {
         actions: 'Actions',
-        index: 'Index',
+        index: 'No',
         info: {
             entries: 'entries',
             of: 'of',
@@ -238,7 +240,11 @@ module.exports = {
             next: 'Next',
             previous: 'Previous'
         },
+        username : 'Username',
+        nickname : 'Nickname',
+        role : 'Role',
         questions: 'Questions',
+        lesson : 'Lesson',
         search_placeholder: 'Search ...'
     },
     tutorial:{
