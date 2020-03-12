@@ -170,7 +170,7 @@
     height: 80px;
 }
 
-#modal-navigator>.modal-footer {
+#modal-preview>.modal-footer {
     text-align: center;
     background-color: #b2bbff;
     padding-left: 24px;
