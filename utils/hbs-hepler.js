@@ -224,7 +224,7 @@ handlebars.registerHelper('displayRecipe', function (label, object) {
  *@since 3 April 2019
  *@required javascript, handlebars.
  */
-handlebars.registerHelper('displayRecipeNew', function (lang, HintTH, HintEN) {
+handlebars.registerHelper('displayRecipeNew', function (lang, HintEN, HintTH) {
   var html = '';
   //var oldLang = Cookies.get('lang')
   if (lang == 'th') {
