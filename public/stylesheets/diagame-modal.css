@@ -6,6 +6,9 @@
     background-color: #FFFFFF;
 }
 
+.modal-content {
+    background: #f9da89;
+}
 .modal .modal-footer {
     height: auto;
     vertical-align: middle;
