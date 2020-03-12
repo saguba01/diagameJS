@@ -18,6 +18,7 @@
     border: solid 3px #000000;
   }
   
+  
   .middle {
     position: absolute;
     opacity: 0;
@@ -51,4 +52,12 @@
   .modal_avatar{
     width:1000px;
     overflow-y: auto;
+  }
+
+  .avatar-leaderboard{
+    opacity: 1;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: solid 3px #000000;
   }

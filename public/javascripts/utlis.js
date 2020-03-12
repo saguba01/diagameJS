@@ -193,7 +193,7 @@ function signUpWithEmailAndPassword(username, email, password) {
                 displayName: username
             })
                 .then(function () {
-                    // newUser(user,username)
+                    checkUser(user.uid)
                     signInWithEmailAndPassword(email, password);
                 }).catch(function (error) {
                     console.log(error)
@@ -207,14 +207,19 @@ function signUpWithEmailAndPassword(username, email, password) {
         });
 }
 
-function newUser(user) {
-    debugger
-    let refUerInfo = firestore.collection('UserInfo').doc(user.uid);
-    refUerInfo.set({
-        avatar: "",
-        nickname: "",
-        playTutorial: true,
-    })
+function checkUser(uid) {
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({ uid: uid }),
+        url: "/admin/checkUser",
+        success: function (result) {
+            replaceHome();
+        },
+        error: (e) => {
+            console.error(e)
+        }
+    });
 }
 
 /*
@@ -228,7 +233,8 @@ function signInWithEmailAndPassword(email, password) {
     blockUI();
     firebase.auth().signInWithEmailAndPassword(email, password)
         .then(function (result) {
-            replaceHome();
+            var user = firebase.auth().currentUser;
+            checkUser(user.uid)
         }).catch(function (error) {
             unblockUI();
             showError('Oh no!', errorMsg.firebase.auth[error.code]);
@@ -268,7 +274,7 @@ function signInWithFacebook() {
         .then(function (result) {
             var token = result.credential.accessToken; // Use it to access the Facebook API
             var user = result.user;
-            replaceHome();
+            checkUser(user.uid)
         }).catch(function (error) {
             showError('Oh no!', errorMsg.firebase.auth[error.code]);
         });
@@ -282,17 +288,18 @@ function signInWithFacebook() {
  *@required javascript,jQuery,Firebase Authentication.
  */
 function signInWithGoogle() {
-    console.log("signInWithGoogle")
+    blockUI();
     firebase.auth().signInWithPopup(googleProvider)
         .then(function (result) {
             var token = result.credential.accessToken; // Use it to access the Google API
             var user = result.user;
             console.log("signInWithGoogle success")
-            replaceHome();
+            checkUser(user.uid)
         }).catch(function (error) {
             showError('Oh no!', errorMsg.firebase.auth[error.code]);
-        });
+        })
 }
+
 
 function playSoundEx(type, loop = false) {
     var pop_sound = new Audio(baseUrl + '/assets/sound/pop.mp3');
@@ -995,7 +1002,7 @@ function saveFeedback(name) {
             location.reload();
         });
     } else {
-        showError('', 'กรุณาเลือกดาวเพื่อให้คะแนน Feedback');
+        showError('','กรุณาเลือกดาวเพื่อให้คะแนน Feedback');
     }
     //console.log(comment);
     //console.log(stars);
@@ -1177,12 +1184,12 @@ function showConfirmSignout() {
     $('#modal-confirm-signout').modal('open');
 }
 
-function showLeaderboard() {
+function showLeaderboard(uid) {
     $('#modal-leaderboard').modal({
         'dismissible': true,
     });
     $('#modal-leaderboard').modal('open');
-    ScoreBoard();
+    ScoreBoard(uid);
 }
 
 function showPasstutorial(photo, title, content, nextFlag = false) {
@@ -1254,7 +1261,7 @@ function passTutorial() {
     });
 }
 
-function ScoreBoard() {
+function ScoreBoard(uid){
     //showLoading();
     $.ajax({
         type: "GET",
@@ -1262,53 +1269,96 @@ function ScoreBoard() {
         url: "/api/getAllScore",
         success: function (response) {
             var html = '';
+            var test = '';
             var checkname = [];
-            var score = [];
             var round = 0;
             var index = 0;
-            response.forEach(element => {
-                if (round == 0) {
+            var medal = '';
+            //console.log(response.user);
+            response.user.forEach(element => {
+                    if(round == 0){
                     checkname.push({
-                        nickname: element.nickname,
-                        score: 0
+                        nickname:element.data.nickname,
+                        score:0,
+                        avatar:element.data.avatar,
+                        uid:element.id
                     });
                     round++;
-                } else {
-                    if (checkname[index].nickname != element.nickname) {
-                        checkname.push({
-                            nickname: element.nickname,
-                            score: 0
-                        });
-                        index++;
+                    }else{
+                        if(checkname[index].nickname != element.nickname){
+                            checkname.push({
+                                nickname:element.data.nickname,
+                                score:0,
+                                avatar:element.data.avatar,
+                                uid:element.id
+                            });
+                            index++;
+                        }
                     }
-                }
             });
             var index = 0;
-            console.log(checkname);
-            console.log(response);
-            checkname.forEach(element => {
-                response.forEach(value => {
-                    if (element.nickname == value.nickname) {
+            //console.log(checkname);
+            //console.log(response);
+            checkname.forEach(element =>{
+                response.score.forEach(value => {
+                    if(element.uid == value.uid){
                         element.score += parseInt(value.score);
+                    }else{
+                        element.score += 0;
                     }
                 })
             })
             checkname.sort(compareValues('score', 'desc'))
             var rank = 1;
-            checkname.forEach(element => {
+            var urank = {rank:0,avatar:'',nickname:'',score:0,medal:''}
+            checkname.forEach(element =>{
+                if(rank <= 4){
                 html += '<tr>'
-                html += '<td>' + rank + '</td>'
-                html += '<td>' + element.nickname + '</td>'
-                html += '<td>' + element.score + '</td>'
+                html += '<td style="text-align:center;">'+rank+'</td>'
+                html += '<td style="text-align:center;"><img src="/assets/svg/avatar/'+element.avatar+'" style="float:left;" alt="Avatar" class="avatar-leaderboard"><p style="top:auto;">'+element.nickname+'</p></td>'
+                html += '<td style="text-align:center;">'+element.score+'</td>'
+                if(rank == 1){
+                    medal = '<div style="width:60px; height:60px;"><img src="/assets/svg/reward/first.svg" class="medal"></div>'
+                }else if(rank == 2){
+                    medal = '<div style="width:60px; height:60px;"><img src="/assets/svg/reward/silver.svg" class="medal"></div>'
+                }else if(rank == 3){
+                    medal = '<div style="width:60px; height:60px;"><img src="/assets/svg/reward/medal.svg" class="medal"></div>'
+                }else if(rank > 3){
+                    medal = '';
+                }
+                html += '<td><center>'+medal+'</center></td>'
                 html += '</tr>'
+                }
+                if(uid == element.uid){
+                    urank.rank = rank
+                    urank.avatar = element.avatar
+                    urank.nickname = element.nickname
+                    urank.score = element.score
+                    urank.medal = medal
+                }
                 rank++;
             })
+            if(urank.rank >4){
+            html += '<tr>'
+            html += '<td colspan="4" style="font-size:30px; text-align:center;">......</td>'
+            html += '</tr>'
+            }
+            html += '<tr>'
+            html += '<td colspan="4" style="font-size:30px; text-align:center;">My Rank</td>'
+            html += '</tr>'
+
+            html += '<tr>'
+            html += '<td style="text-align:center;">'+urank.rank+'</td>'
+            html += '<td style="text-align:center;"><img src="/assets/svg/avatar/'+urank.avatar+'" style="float:left;" alt="Avatar" class="avatar-leaderboard"><p style="top:auto;">'+urank.nickname+'</p></td>'
+            html += '<td style="text-align:center;">'+urank.score+'</td>'
+            html += '<td><center>'+urank.medal+'</center></td>'
+            html += '</tr>'
+
             $('#data-leaderboard').html(html);
+            
         },
         error: function (e) {
             console.log(e);
-        }, complete: function () {
-            // closeLoading();
         }
     });
 }
@@ -1422,6 +1472,8 @@ function showTutorialLogic(content) {
     $('#modal-tutorial-logic').modal('open');
 }
 
+function setZoom(percent){
+    document.body.style.zoom = percent;
 /*
  *Description: Show alert modal.
  *@version 1.0
@@ -1471,4 +1523,72 @@ function showScoreReultFail(content) {
         }
     });
     $('#modal-fail-diagram').modal('open');
+}
+
+
+function showAllUser(header,obj,not_found) {
+    $('#modal-list-user').modal({
+        'dismissible': false,
+        'onOpenStart': function () {
+            $('#modal-list-user>.modal-content>.list-header').html(header)
+
+            let table = $("#tableListUser").DataTable()
+            
+            obj.forEach((value,index)=>{
+                table.row.add( [
+                    `<center>${index+1}</center>`,
+                    (value.data.nickname.trim() != '' ? value.data.nickname.trim() : not_found ),
+                    `<center>${value.data.role}</center>`
+                ])
+            })
+            table.draw();
+        },
+        'onCloseEnd': function () {
+            let table = $("#tableListUser").DataTable()
+            table.clear().draw();
+        }
+    });
+    $('#modal-list-user').modal('open');
+}
+
+function showListQuestion(header,obj) {
+    $('#modal-list-question').modal({
+        'dismissible': false,
+        'onOpenStart': function () {
+            $('#modal-list-question>.modal-content>.list-header').html(header)
+
+            let table = $("#tableListQuestion").DataTable()
+            
+            obj.forEach((value,index)=>{
+                let name = ''
+
+                if(typeof value.data.name == 'undefined'){
+                    name = value.data.Name
+                }else{
+                    name = value.data.name
+                }
+
+                table.row.add( [
+                    `<center>${index+1}</center>`,
+                    name,
+                    `<center>${value.type}</center>`
+                ])
+            })
+            table.draw();
+        },
+        'onCloseEnd': function () {
+            let table = $("#tableListQuestion").DataTable()
+            table.clear().draw();
+        }
+    });
+    $('#modal-list-question').modal('open');
+} 
+
+ function goToProfile(){
+    try{
+        window.location.href = '/home?page=8'
+    }catch(e){
+        console.warn(e)
+    }
+    
 }

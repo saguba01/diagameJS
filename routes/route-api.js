@@ -7,29 +7,26 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-router.get('/getAllScore',authen, async (req,res,next) =>{
+router.get('/getAllScore', async (req,res,next) =>{
     const allscore = await leaderboard.getLeaderboard();
     const alluserinfo = await leaderboard.getUserInfo();
+    var scorearr = [];
+    var userinfo = [];
     var arr = [];
 
-    allscore.forEach((element) =>{
-      alluserinfo.forEach((value) =>{
-        if(element.uid == value.id){
-          arr.push({
-            date:element.date,
-            qid:element.questionId,
-            round:element.round,
-            score:element.score,
-            time:element.time,
-            type:element.type,
-            nickname:value.data.nickname,
-            avatar:value.data.avatar
-          })
-        }
-      })
+    alluserinfo.forEach((value) => {
+      userinfo.push(value)
     });
-    
-    res.send(arr);
+
+    allscore.forEach((value) => {
+      scorearr.push(value)
+    });
+
+
+    res.send({
+      user:userinfo,
+      score:scorearr
+    });
 });
 
 module.exports = router;

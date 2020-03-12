@@ -492,3 +492,41 @@
     border-top: 5px solid #000000;
     height: 80px;
 }
+
+#modal-leaderboard>.modal-content{
+    max-height: 100%;
+}
+
+#modal-list-user>.modal-content>.list-header{
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#modal-list-user>.modal-footer {
+    border-top: 5px solid #000000;
+    background-color: #56e3c4;
+    display: inline-block;
+}
+
+#modal-list-user{
+    max-height: 100% !important;
+    overflow-y: scroll;
+}
+
+#modal-list-question>.modal-content>.list-header{
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#modal-list-question>.modal-footer {
+    border-top: 5px solid #000000;
+    background-color: #56e3c4;
+    display: inline-block;
+}
+
+#modal-list-question{
+    max-height: 100% !important;
+    overflow-y: scroll;
+}

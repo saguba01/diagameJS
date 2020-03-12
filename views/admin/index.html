@@ -5,12 +5,17 @@
         padding-left: 5px;
         border-radius: 10px;
     }
+    .card-user-all:hover{
+        background-color: #9cd4c8;
+    }
+    .card-question-all:hover{
+        background-color: #ffdba1;
+    }
 </style>
 <div class="dia-row">
-    <div class="card dia-6 bg-light-green">
+    <div class="card dia-6 bg-light-green card-user-all card-click-cursor">
         <div class="card-heading" style="color: black;">
             <span>{{ dashboard.card.total_user.title}}</span>
-
         </div>
         <div class="card-body">
             <div class="card-body-icon card-icon-user">
@@ -24,11 +29,9 @@
         </div>
     </div>
 
-    <div class="card dia-6 bg-orange">
-
+    <div class="card dia-6 bg-orange card-question-all card-click-cursor">
         <div class="card-heading" style="color: black;">
             <span>{{ dashboard.card.total_question.title}}</span>
-
         </div>
         <div class="card-body">
             <div class="card-body-icon card-icon-question"></div>
@@ -131,8 +134,50 @@
     </div>
 </div>
 <script type="text/javascript">
+    var listUser = JSON.parse("{{cardData.listUser}}".replace(/&quot;/g, '\"'))
+    var listQuestion = JSON.parse("{{cardData.listQuestion}}".replace(/&quot;/g, '\"'))
+
+  
 
     $(document).ready(() => {
+        $(".card-user-all").click(()=>{
+            showAllUser("{{dashboard.card.total_user.table}}",listUser,'{{errorMsg.data.not_found}}')
+        })
+        $(".card-question-all").click(()=>{
+            showListQuestion("{{dashboard.card.total_question.table}}",listQuestion)
+        })
+
+        
+        $('#tableListUser').DataTable({
+            language: {
+            search: "",
+            searchPlaceholder: "{{general.table.search_placeholder}}",
+            sLengthMenu : "{{general.table.length_menu.display}} _MENU_ {{general.table.length_menu.records}}",
+            info : "{{general.table.info.showing}} _START_ {{general.table.info.to}} _END_ {{general.table.info.of}} _TOTAL_ {{general.table.info.entries}}",
+            oPaginate : {
+                sFirst: "{{general.table.paginate.first}}", // This is the link to the first page
+                sPrevious: "{{general.table.paginate.previous}}", // This is the link to the previous page
+                sNext: "{{general.table.paginate.next}}", // This is the link to the next page
+                sLast: "{{general.table.paginate.last}}" // This is the link to the last page
+            }
+            }
+        });
+
+        $('#tableListQuestion').DataTable({
+            language: {
+            search: "",
+            searchPlaceholder: "{{general.table.search_placeholder}}",
+            sLengthMenu : "{{general.table.length_menu.display}} _MENU_ {{general.table.length_menu.records}}",
+            info : "{{general.table.info.showing}} _START_ {{general.table.info.to}} _END_ {{general.table.info.of}} _TOTAL_ {{general.table.info.entries}}",
+            oPaginate : {
+                sFirst: "{{general.table.paginate.first}}", // This is the link to the first page
+                sPrevious: "{{general.table.paginate.previous}}", // This is the link to the previous page
+                sNext: "{{general.table.paginate.next}}", // This is the link to the next page
+                sLast: "{{general.table.paginate.last}}" // This is the link to the last page
+            }
+            }
+        });
+
         genanrateChart()
         back7days()
         play_question()
@@ -216,7 +261,7 @@
             success: function (response) {
                 let type = byType
                 let chart
-                
+
                 response.forEach((value) => {
                     if (value.type == type) {
                         chart = value
@@ -386,7 +431,7 @@
                     },
                     yAxis: {
                         title: {
-                            text: '{{dashboard.report.line.playtime_summary.xUnit}}'
+                            text: '{{dashboard.report.line.playtime_summary.yUnit}}'
                         }
                     },
                     legend: {
@@ -462,7 +507,6 @@
                     if (listXAxis.length == 0) {
                         round = 1
                         oldId = value.id
-                        console.log(value)
                         maxScore.push(parseInt(value.data.score))
                         minScore.push(parseInt(value.data.score))
                         listScore.push(parseInt(value.data.score))
@@ -489,9 +533,6 @@
                         }
                     }
                 })
-                console.log(maxScore)
-                console.log(listScore)
-                console.log(minScore)
                 Highcharts.chart('score_summary', {
                     chart: {
                         plotBackgroundColor: null,

@@ -86,3 +86,7 @@
     text-align: center;
     
 }
+
+.card-click-cursor{
+    cursor: url('../assets/cursor-pointer.png'), default;
+}

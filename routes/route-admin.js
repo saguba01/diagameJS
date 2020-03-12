@@ -22,8 +22,17 @@ router.get('/', authen, async (req, res, next) => {
       case 'success':
         if (user.data.role == "admin") {
           const allUser = await dashboard.getNumOfUser()
-          const allFlowchart = await questionFlowchart.getAllFlowchart()
-          const allLogic = await questionLogic.getAllLogic()
+          const allFlowchart = await questionFlowchart.getAllFlowchart(lang)
+          const allLogic = await questionLogic.getAllLogic(lang)
+          let allQuestion = []
+
+          allFlowchart.forEach((value)=>{
+            allQuestion.push(value)
+          })
+
+          allLogic.forEach((value)=>{
+            allQuestion.push(value)
+          })
           var data = {
             layout: 'default',
             navBar: true,
@@ -40,7 +49,9 @@ router.get('/', authen, async (req, res, next) => {
             months: JSON.stringify(stringConfig.general.months),
             cardData: {
               total_user: allUser.length,
-              total_question: parseInt(allFlowchart.length) + parseInt(allLogic.length)
+              total_question: parseInt(allFlowchart.length) + parseInt(allLogic.length),
+              listUser : JSON.stringify(allUser),
+              listQuestion : JSON.stringify(allQuestion)
             },
             achievementList: configString[lang].achievement,
             errorMsg: configString[lang].error,
@@ -158,7 +169,7 @@ router.get('/score', authen, async (req, res, next) => {
   const scoreData = await score.getScore()
   const uid = req.session.user.uid;
   const user = await user_info.userInfo(uid)
-  const allLogic = await questionLogic.getAllLogic(lang)
+  // const allLogic = await questionLogic.getAllLogic(lang)
   const stringConfig = configString[lang]
   try {
     if (user.status == "success" && user.data.role == "admin") {
@@ -177,7 +188,7 @@ router.get('/score', authen, async (req, res, next) => {
         slidebar: stringConfig.general.slidebar,
         achievementList: configString[lang].achievement,
         errorMsg: configString[lang].error,
-        allLogic: JSON.stringify(allLogic),
+        // allLogic: JSON.stringify(allLogic),
       };
       res.render('admin/scoreManagement', data);
     } else {
@@ -345,6 +356,23 @@ router.get('/rateScore', async (req, res, next) => {
   res.send(scoreData)
 })
 
+router.get('/listUserAll', async (req, res, next) => {
+  const user = await user_info.allUser((obj)=>{
+    res.status(200).send(obj)
+  })
+})
+
+router.get('/updateAllUser', async (req, res, next) => {
+  const user = await user_info.updateUser()
+  res.status(200).send('OK')
+})
+router.post('/checkUser', async (req, res, next) => {
+  const postData = req.body
+  const uid = postData.uid
+  const user = await user_info.checkUser(uid)
+  res.status(200).send('OK')
+})
+
 router.post('/roleUser', async (req, res, next) => {
   const postData = req.body
   let user = null;
@@ -372,33 +400,4 @@ router.post('/roleUser', async (req, res, next) => {
     res.send(user)
   // 
 })
-
-async function getAchievement(uid) {
-  var unlock = [];
-  let refAchieve = firestore.collection("lessons").doc(uid).collection('achievements');
-  await refAchieve.get().then(function (querySnapshot) {
-    querySnapshot.forEach(function (doc) {
-      unlock.push(doc.data());
-    });
-  }).catch(function (error) {
-    console.log(error);
-    unlock = [];
-  });
-  return unlock;
-}
-
-async function getPassed(uid) {
-  var passed = [];
-  let refAchieve = firestore.collection("lessons").doc(uid).collection('passed');
-  await refAchieve.get().then(function (querySnapshot) {
-    querySnapshot.forEach(function (doc) {
-      passed.push(doc.id);
-    });
-  }).catch(function (error) {
-    console.log(error);
-    passed = [];
-  });
-  return passed;
-}
-
 module.exports = router;
