@@ -98,8 +98,6 @@ router.get('/flowchart', authen, async (req, res, next) => {
         element: configString[lang].element.general,
         intro: configString[lang].intro,
         //required
-        unlock: await getAchievement(req.session.user.uid),
-        passed: await getPassed(req.session.user.uid),
         lesson: configString[lang].lesson,
         general: general,
         setting: stringConfig.general.setting,
@@ -114,11 +112,7 @@ router.get('/flowchart', authen, async (req, res, next) => {
       res.render('shared/page_404');
     }
   } catch (e) {
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-    // render the error page
-    res.status(err.status || 500);
+    console.error(e)
     res.render('shared/error');
   }
 
