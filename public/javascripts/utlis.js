@@ -1474,6 +1474,7 @@ function showTutorialLogic(content) {
 
 function setZoom(percent){
     document.body.style.zoom = percent;
+}
 /*
  *Description: Show alert modal.
  *@version 1.0
