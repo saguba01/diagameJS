@@ -170,7 +170,7 @@
     height: 80px;
 }
 
-#modal-navigator>.modal-footer {
+#modal-preview>.modal-footer {
     text-align: center;
     background-color: #b2bbff;
     padding-left: 24px;
@@ -493,6 +493,9 @@
     height: 80px;
 }
 
+#modal-leaderboard>.modal-content{
+    max-height: 100%;
+}
 
 #modal-list-user>.modal-content>.list-header{
     font-size: 32px;
@@ -508,6 +511,7 @@
 
 #modal-list-user{
     max-height: 100% !important;
+    overflow-y: scroll;
 }
 
 #modal-list-question>.modal-content>.list-header{
@@ -524,4 +528,5 @@
 
 #modal-list-question{
     max-height: 100% !important;
+    overflow-y: scroll;
 }

@@ -677,7 +677,7 @@ handlebars.registerHelper('listquestion', function (question, scoreh) {
       html += '<div class="list-lesson-title" id="lesson-logic">';
       html += qs.Name;
       scoreh.forEach(function (sc) {
-        if (sc.questionId == '/Logic/' + qs.Id) {
+        if (sc.questionId == qs.Id) {
           mark = 1;
           if (sc.score > max) {
             score = sc.score;

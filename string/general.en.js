@@ -76,7 +76,8 @@ module.exports = {
     saveResult: 'Save Complete!!',
     feedback:{
         title: 'Feedback',
-        text: 'Type Your Comment Here...'
+        text: 'Type Your Comment Here...',
+        alert: 'Please Choose Stars For Levels Feedback'
     },
     comment:'Comment',
     dashboard: {
@@ -89,7 +90,7 @@ module.exports = {
             total_user: {
                 title: 'Total number of users within the system.',
                 table : 'Details of all users within the system',
-                unit: 'people'
+                unit: 'peoples'
             }
         },
         panal: {

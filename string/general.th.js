@@ -76,7 +76,8 @@ module.exports = {
     saveResult: 'บันทึกสำเร็จ!!',
     feedback:{
         title: 'ข้อเสนอแนะ',
-        text: 'พิมพ์ข้อเสนอแนะลงตรงนี้...'
+        text: 'พิมพ์ข้อเสนอแนะลงตรงนี้...',
+        alert: 'กรุณาเลือกดาวเพื่อให้คะแนน Feedback'
     },
     comment: 'ความคิดเห็น',
     dashboard: {
