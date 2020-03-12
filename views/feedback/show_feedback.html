@@ -339,7 +339,7 @@
     function newFeedback() {
         var year = $('#sort-comment').val();
         var html = '';
-        showLoading();
+        blockUI();
         $.ajax({
             type: 'GET',
             contentType: "application/json",
@@ -447,7 +447,7 @@
                 
             },
             complete : function(){
-                closeLoading();
+                unblockUI();
             }
         })
 

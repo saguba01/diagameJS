@@ -134,9 +134,9 @@ background-position: center;
 .sticky{
     position:sticky;
     top:0;
-    background-color: #015a92;
     text-align:center;
-    font-size:18px;
+    background-color: #f55e5e;
+    font-size:22px;
     color:white;
 }
 
@@ -145,17 +145,24 @@ background-position: center;
     height:60px;
 }
 
+.medal-leaderboard{
+    width:100px;
+    height:100px;
+    margin:auto;
+}
+
 .table-leaderboard{
     padding: 5px 5px 5px;
 }
 
 #data-leaderboard{
-    background-color: #82b6dd;
+    background-color: #f8db73;
 }
 
 #data-leaderboard>tr:hover{
-    background-color: #01728b;
+    background-color: #f8db73;
     color:white;
+
     transition: 250ms;
 }
 

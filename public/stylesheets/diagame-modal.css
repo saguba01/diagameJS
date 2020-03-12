@@ -496,7 +496,7 @@
     height: 80px;
 }
 
-#modal-leaderboard>.modal-content{
+#modal-leaderboard{
     max-height: 100%;
 }
 

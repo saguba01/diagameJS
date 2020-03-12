@@ -18,19 +18,15 @@
         }
         .gold{
             background-color:#FFD700;
-            height: 200px;
             border:black 5px solid; 
         }
         .silver{
             background-color:#DCDCDC;
-            height: 100px; 
-            border:black 4px solid;
-            margin-right:1px;    
+            border:black 4px solid; 
         }
         .gold-red{
             background-color:#A52A2A;
             border:black 4px solid; 
-            margin-left:1px;
         }
         #table-score{
             background-color:green;
@@ -44,20 +40,134 @@
     </style>
 </header>
 
-<div id="book" style="display: table;margin: auto;margin-top: 80px;">
-</div>
-<div id="trophy">
-    <div id="container">
-        <div class="stadium silver all-font">2</div>
-        <div class="stadium gold all-font">1</div>
-        <div class="stadium gold-red all-font">3</div>
+<div id="trophy" style="width:50%; margin:auto;">
+
+    <div class="dia-row">
+    <div class="card dia-4 gold" style="background-color:">
+      <div class="card-heading" style="color: black;text-align: center;">
+          <div id="gold"></div>
+      </div>
+      <div class="card-body" style="height:70%;display: flex;">
+        <span></span>
+      </div>
     </div>
-    <div id="table-score">
-      {{ listscore score }}
+
+    <div class="card dia-4 silver" style="background-color:">
+      <div class="card-heading" style="color: black;text-align: center;">
+        <div id="silver"></div>
+      </div>
+      <div class="card-body" style="height:70%;display: flex;">
+        <span></span>
+      </div>
     </div>
-</div>
+
+    <div class="card dia-4 gold-red" style="background-color: ">
+      <div class="card-heading" style="color: black;text-align: center;">
+        <div id="gold-red"></div>
+      </div>
+      <div class="card-body" style="height:70%;display: flex;">
+        <span></span>
+      </div>
+    </div>
+  </div>
+    
+    
+    <div class="list-leaderboard" id="list-leaderboard">
+    </div>
+
 
 <script>
-    
+$(document).ready(function (){
+    ScoreBoard1();
+})
+
+function ScoreBoard1(uid){
+    $.ajax({
+        type: "GET",
+        contentType: "application/json",
+        url: "/api/getAllScore",
+        success: function (response) {
+            var html = '';
+            var test = '';
+            var checkname = [];
+            var round = 0;
+            var index = 0;
+            var medal = '';
+            //console.log(response.user);
+            response.user.forEach(element => {
+                    if(round == 0){
+                    checkname.push({
+                        nickname:element.data.nickname,
+                        score:0,
+                        avatar:element.data.avatar,
+                        uid:element.id
+                    });
+                    round++;
+                    }else{
+                        if(checkname[index].nickname != element.nickname){
+                            checkname.push({
+                                nickname:element.data.nickname,
+                                score:0,
+                                avatar:element.data.avatar,
+                                uid:element.id
+                            });
+                            index++;
+                        }
+                    }
+            });
+            var index = 0;
+            //console.log(checkname);
+            //console.log(response);
+            checkname.forEach(element =>{
+                response.score.forEach(value => {
+                    if(element.uid == value.uid){
+                        element.score += parseInt(value.score);
+                    }else{
+                        element.score += 0;
+                    }
+                })
+            })
+            checkname.sort(compareValues('score', 'desc'))
+            var rank = 1;
+            var urank = [];
+            checkname.forEach(value =>{
+                if(rank < 4){
+                    if(rank == 1){
+                        medal = '<div style="width:200px; height:200px;"><img src="/assets/svg/reward/first.svg" class="medal-leaderboard"></div>';
+                    }else if(rank == 2){
+                        medal = '<div style="width:200px; height:200px;"><img src="/assets/svg/reward/silver.svg" class="medal-leaderboard"></div>'
+                    }else if(rank == 3){
+                        medal = '<div style="width:200px; height:200px;"><img src="/assets/svg/reward/medal.svg" class="medal-leaderboard"></div>'
+                    }
+                    
+                    urank.push({
+                        rank:medal,
+                        name:value.nickname,
+                        avatar:value.avatar,
+                        score:value.score
+                    })
+                }
+                rank++;
+            })
+            console.log(urank);
+            var i = 1;
+           /* urank.forEach(element => {
+                if(i == 1){
+                    $('#gold').html(element.rank);
+                }else if(i == 2){
+                    $('#silver').html(element.rank);
+                }else if(i == 3){
+                    $('#gold-red').html(element.rank);
+                }
+                i++;
+            })*/
+            
+            
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
+}
 </script>
 
