@@ -377,12 +377,13 @@
         !isNaN(parseInt(page)) ? changePage(parseInt(page)) : '';
 
         $('.postit.canClick:not(.postit-disable)').click(function () {
+            console.log('test');
             window.location.replace($(this).attr('target'));
         });
 
-        $('.qs.canClick').click(function (){
-            window.location.replace($(this).attr('target'));
-        })
+        // $('.qs.canClick').click(function (){
+        //     window.location.replace($(this).attr('target'));
+        // })
 
         // introLesson();
     });

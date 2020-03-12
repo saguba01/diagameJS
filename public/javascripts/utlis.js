@@ -1262,7 +1262,6 @@ function passTutorial() {
 }
 
 function ScoreBoard(uid){
-    //showLoading();
     $.ajax({
         type: "GET",
         contentType: "application/json",
@@ -1312,21 +1311,22 @@ function ScoreBoard(uid){
             var rank = 1;
             var urank = {rank:0,avatar:'',nickname:'',score:0,medal:''}
             checkname.forEach(element =>{
-                if(rank <= 4){
+                if(rank <= 10){
                 html += '<tr>'
-                html += '<td style="text-align:center;">'+rank+'</td>'
-                html += '<td style="text-align:center;"><img src="/assets/svg/avatar/'+element.avatar+'" style="float:left;" alt="Avatar" class="avatar-leaderboard"><p style="top:auto;">'+element.nickname+'</p></td>'
-                html += '<td style="text-align:center;">'+element.score+'</td>'
                 if(rank == 1){
                     medal = '<div style="width:60px; height:60px;"><img src="/assets/svg/reward/first.svg" class="medal"></div>'
+                    html += '<td><center>'+medal+'</center></td>'
                 }else if(rank == 2){
                     medal = '<div style="width:60px; height:60px;"><img src="/assets/svg/reward/silver.svg" class="medal"></div>'
+                    html += '<td><center>'+medal+'</center></td>'
                 }else if(rank == 3){
                     medal = '<div style="width:60px; height:60px;"><img src="/assets/svg/reward/medal.svg" class="medal"></div>'
-                }else if(rank > 3){
-                    medal = '';
+                    html += '<td><center>'+medal+'</center></td>'
+                }else{
+                    html += '<td style="text-align:center">'+rank+'</td>'
                 }
-                html += '<td><center>'+medal+'</center></td>'
+                html += '<td style="text-align:center;"><img src="/assets/svg/avatar/'+element.avatar+'" style="float:left;" alt="Avatar" class="avatar-leaderboard"><p style="top:auto;">'+element.nickname+'</p></td>'
+                html += '<td style="text-align:center;">'+element.score+'</td>'
                 html += '</tr>'
                 }
                 if(uid == element.uid){
@@ -1338,23 +1338,21 @@ function ScoreBoard(uid){
                 }
                 rank++;
             })
-            if(urank.rank >4){
+            if(rank > 10){
             html += '<tr>'
             html += '<td colspan="4" style="font-size:30px; text-align:center;">......</td>'
             html += '</tr>'
             }
-            html += '<tr>'
-            html += '<td colspan="4" style="font-size:30px; text-align:center;">My Rank</td>'
-            html += '</tr>'
 
-            html += '<tr>'
-            html += '<td style="text-align:center;">'+urank.rank+'</td>'
-            html += '<td style="text-align:center;"><img src="/assets/svg/avatar/'+urank.avatar+'" style="float:left;" alt="Avatar" class="avatar-leaderboard"><p style="top:auto;">'+urank.nickname+'</p></td>'
-            html += '<td style="text-align:center;">'+urank.score+'</td>'
-            html += '<td><center>'+urank.medal+'</center></td>'
-            html += '</tr>'
+            test += '<tr>'
+            test += '<td style="text-align:center; width:20%;">'+urank.rank+'</td>'
+            test += '<td style="text-align:center; width:30%;"><img src="/assets/svg/avatar/'+urank.avatar+'" style="float:left;" alt="Avatar" class="avatar-leaderboard"><p style="top:auto;">'+urank.nickname+'</p></td>'
+            test += '<td style="text-align:center; width:20%;">'+urank.score+'</td>'
+            test += '<td style="width:20%"><center>'+urank.medal+'</center></td>'
+            test += '</tr>'
 
             $('#data-leaderboard').html(html);
+            $('#data-mine').html(test);
             
         },
         error: function (e) {

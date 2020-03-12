@@ -93,7 +93,7 @@
 </div>
 
 <div id="modal-feedback" class="modal">
-  <div class="modal-content" style="background-color: #64cc45;">
+  <div class="modal-content" style="background-color: #fadb42;">
     <div class="button-close-custom canClick right" onclick="closeModal('#modal-feedback');playSoundEx('click');"></div>
     <div class="" style="text-align:center; font-size:50px; font-weight: bold;">{{ general.feedback.title }}</div>
     <div class=""><textarea style="border:5px solid black; height:100px; background-color: white;"
@@ -233,25 +233,31 @@
 </div>
 
 <div id="modal-leaderboard" class="modal">
-  <div class="modal-content" style="padding:15px; background-color: #7eb7aa;">
+  <div class="modal-content" style="padding:15px; background-color: #87e9d7;">
     <div class="button-close-custom canClick right" onclick="closeModal('#modal-leaderboard');playSoundEx('click');">
     </div>
     <br>
-    <div style="text-align: center; font-size: 30px; font-weight:bold;">Leaderboard</div>
+    <div style="text-align: center; font-size: 30px; font-weight:bold; ">Leaderboard</div>
     <br>
     <div style="overflow-y: auto; height:500px;">
     <table style="position: relative;" class="table-leaderboard">
-      <thead>
+      <thead style="background-color: #f55e5e;">
         <tr>
-          <th class="sticky" style="text-align:center;">Rank</th>
-          <th class="sticky" style="text-align:center;">Name</th>
-          <th class="sticky" style="text-align:center;">Score</th>
-          <th class="sticky" width="20%"></th>
+          <th class="sticky" style="text-align:center; width:20%">Rank</th>
+          <th class="sticky" style="text-align:center; width:25%">Name</th>
+          <th class="sticky" style="text-align:center; width:20%">Score</th>
         </tr>
       </thead>
       <tbody id="data-leaderboard" style="font-size:16px;">
       </tbody>
     </table>
+  </div>
+</div>
+<div class="modal-footer" style="background-color: #ecfa9c; padding:15px 15px 15px 15px;">
+  <table style="position: relative;" class="table-leaderboard">
+    <tbody id="data-mine" style="font-size:16px; ">
+    </tbody>
+  </table>
 </div>
 </div>
 
