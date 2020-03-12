@@ -18,7 +18,12 @@ function saveQuestion(logicQuestion, logicLevel, logicNameEN, logicNameTH, logic
         type = "logic";
     }
     refQuestion.get().then(function (doc) {
-        keyId = parseInt(doc.docs[doc.size - 1].id) + 1;
+        doc.forEach(element => {
+            if(element.id > keyId){
+                keyId = parseInt(element.id);
+            }
+        });
+        keyId++;
     }).then(function () {
         showLoading();
         refQuestion.doc(keyId.toString()).set({
