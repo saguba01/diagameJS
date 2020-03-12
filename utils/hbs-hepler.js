@@ -673,7 +673,7 @@ handlebars.registerHelper('listquestion', function (question, scoreh) {
         type = 'diagram';
       }
 
-      html += '<div target="/lesson/' + type + '/' + qs.Id + '" class="' + color[index] + ' qs canClick" style="margin-left:40px; margin-bottom:-2px; padding-right:1px; padding-left:6px;  border:2px solid black">';
+      html += '<div onclick="window.location.replace(\'/lesson/' + type + '/' + qs.Id + '\');" class="' + color[index] + ' qs canClick" style="margin-left:40px; margin-bottom:-2px; padding-right:1px; padding-left:6px;  border:2px solid black">';
       html += '<div class="list-lesson-title" id="lesson-logic">';
       html += qs.Name;
       scoreh.forEach(function (sc) {
