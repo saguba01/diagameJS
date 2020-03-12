@@ -90,7 +90,7 @@ module.exports = {
             total_user: {
                 title: 'Total number of users within the system.',
                 table : 'Details of all users within the system',
-                unit: 'people'
+                unit: 'peoples'
             }
         },
         panal: {
