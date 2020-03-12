@@ -47,7 +47,8 @@ router.get('/', authen, async (req, res, next) => {
               ListMenu : JSON.stringify(await getMenu()),
               ListMenu: JSON.stringify(await getMenu()),
               setting:general.setting,
-              button:general.button
+              button:general.button,
+              name:userInfo.nickname
             };
             res.render('home/index', data);
           }else{

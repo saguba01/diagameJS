@@ -67,7 +67,8 @@ module.exports = {
     congrat: 'Congratulations on passing this level!',
     feedback:{
         title: 'Feedback',
-        text: 'Type Your Comment Here...'
+        text: 'Type Your Comment Here...',
+        alert: 'Please Choose Stars For Levels Feedback'
     },
     comment:'Comment',
 };

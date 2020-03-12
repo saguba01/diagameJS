@@ -129,3 +129,41 @@ background-position: center;
     text-align:center;
     font-size:30px;
 }
+
+.sticky{
+    position:sticky;
+    top:0;
+    background-color: #015a92;
+    text-align:center;
+    font-size:18px;
+    color:white;
+}
+
+.medal{
+    width:60px;
+    height:60px;
+}
+
+.table-leaderboard{
+    padding: 5px 5px 5px;
+}
+
+#data-leaderboard{
+    background-color: #82b6dd;
+}
+
+#data-leaderboard>tr:hover{
+    background-color: #01728b;
+    color:white;
+    transition: 250ms;
+}
+
+#data-mine{
+    background-color: #82b6dd;
+}
+
+#data-mine>tr:hover{
+    background-color: #01728b;
+    color:white;
+    transition: 250ms;
+}

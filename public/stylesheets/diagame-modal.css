@@ -424,3 +424,7 @@
     border-top: 5px solid #000000;
     height: 80px;
 }
+
+#modal-leaderboard>.modal-content{
+    max-height: 100%;
+}
