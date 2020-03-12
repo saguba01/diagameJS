@@ -493,6 +493,9 @@
     height: 80px;
 }
 
+#modal-leaderboard>.modal-content{
+    max-height: 100%;
+}
 
 #modal-list-user>.modal-content>.list-header{
     font-size: 32px;
