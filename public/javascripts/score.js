@@ -14,13 +14,16 @@ module.exports = {
            } else {
             score ={ 
                 status : "sucess" , 
-                massage : "",
                 data : doc.data() 
             }
            }
          })
          .catch(err => {
-            score.push(false)
+            scorescore ={ 
+                status : "error" , 
+                massage : err,
+                data : null
+            }
          });
          return score
     } 

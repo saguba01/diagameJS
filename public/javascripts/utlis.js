@@ -133,11 +133,16 @@ function replaceHome() {
             url: "/admin/roleUser",
             success: function (result) {
                 const resData = result.data
-                if (resData.role == "admin") {
-                    window.location.replace('/admin');
-                } else {
+                try{
+                    if ( resData.role == "admin") {
+                        window.location.replace('/admin');
+                    } else {
+                        window.location.replace('/home');
+                    }
+                }catch(e){
                     window.location.replace('/home');
                 }
+                
             },
             error: (e) => {
                 console.error(e)
@@ -188,7 +193,7 @@ function signUpWithEmailAndPassword(username, email, password) {
                 displayName: username
             })
                 .then(function () {
-                    // newUser(user,username)
+                    checkUser(user.uid)
                     signInWithEmailAndPassword(email, password);
                 }).catch(function (error) {
                     console.log(error)
@@ -202,14 +207,19 @@ function signUpWithEmailAndPassword(username, email, password) {
         });
 }
 
-function newUser(user) {
-    debugger
-    let refUerInfo = firestore.collection('UserInfo').doc(user.uid);
-    refUerInfo.set({
-        avatar: "",
-        nickname: "",
-        playTutorial: true,
-    })
+function checkUser(uid) {
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({ uid: uid }),
+        url: "/admin/checkUser",
+        success: function (result) {
+            replaceHome();
+        },
+        error: (e) => {
+            console.error(e)
+        }
+    });
 }
 
 /*
@@ -223,7 +233,8 @@ function signInWithEmailAndPassword(email, password) {
     blockUI();
     firebase.auth().signInWithEmailAndPassword(email, password)
         .then(function (result) {
-            replaceHome();
+            var user = firebase.auth().currentUser;
+            checkUser(user.uid)
         }).catch(function (error) {
             unblockUI();
             showError('Oh no!', errorMsg.firebase.auth[error.code]);
@@ -263,7 +274,7 @@ function signInWithFacebook() {
         .then(function (result) {
             var token = result.credential.accessToken; // Use it to access the Facebook API
             var user = result.user;
-            replaceHome();
+            checkUser(user.uid)
         }).catch(function (error) {
             showError('Oh no!', errorMsg.firebase.auth[error.code]);
         });
@@ -277,17 +288,18 @@ function signInWithFacebook() {
  *@required javascript,jQuery,Firebase Authentication.
  */
 function signInWithGoogle() {
-    console.log("signInWithGoogle")
+    blockUI();
     firebase.auth().signInWithPopup(googleProvider)
         .then(function (result) {
             var token = result.credential.accessToken; // Use it to access the Google API
             var user = result.user;
             console.log("signInWithGoogle success")
-            replaceHome();
+            checkUser(user.uid)
         }).catch(function (error) {
             showError('Oh no!', errorMsg.firebase.auth[error.code]);
-        });
+        })
 }
+
 
 function playSoundEx(type, loop = false) {
     var pop_sound = new Audio(baseUrl + '/assets/sound/pop.mp3');
@@ -699,13 +711,11 @@ function showNavigator(content) {
  *@since 5 Feb 2020
  *@required javascript, materialize-css.
  */
-function showSaveStatus(content) {
+function showSaveStatus() {
     $('#modal-addQuestion').modal({
         'dismissible': false,
         'onOpenStart': function () { },
-        'onOpenEnd': function () {
-            $('.addQuestion-content').text(content);
-        }
+        'onOpenEnd': function () { }
     });
     $('#modal-addQuestion').modal('open');
 }
@@ -786,6 +796,9 @@ function showLanguage() {
     localStorage.removeItem("langSelected");
     $('#modal-language').modal({
         'dismissible': true,
+        'onCloseEnd': function () {
+            showWelcome()
+        },
     });
     $('#modal-language').modal('open');
 }
@@ -834,7 +847,7 @@ function showSetting(flag_thai = '', flag_eng = '') {
                 eleSoundMaster.html(
                     $('<div></div>').addClass('btn-close-sound').html("")
                 )
-            }else{
+            } else {
                 eleSoundMaster.empty()
             }
 
@@ -842,7 +855,7 @@ function showSetting(flag_thai = '', flag_eng = '') {
                 eleSoundMusic.html(
                     $('<div></div>').addClass('btn-close-sound').html("")
                 )
-            }else{
+            } else {
                 eleSoundMusic.empty()
             }
         },
@@ -1245,8 +1258,8 @@ function passTutorial() {
             unblockUI();
             console.error(e)
         }
-      });
-    }
+    });
+}
 
 function ScoreBoard(uid){
     //showLoading();
@@ -1254,7 +1267,7 @@ function ScoreBoard(uid){
         type: "GET",
         contentType: "application/json",
         url: "/api/getAllScore",
-        success: function(response){
+        success: function (response) {
             var html = '';
             var test = '';
             var checkname = [];
@@ -1295,7 +1308,7 @@ function ScoreBoard(uid){
                     }
                 })
             })
-            checkname.sort(compareValues('score','desc'))
+            checkname.sort(compareValues('score', 'desc'))
             var rank = 1;
             var urank = {rank:0,avatar:'',nickname:'',score:0,medal:''}
             checkname.forEach(element =>{
@@ -1344,7 +1357,7 @@ function ScoreBoard(uid){
             $('#data-leaderboard').html(html);
             
         },
-        error: function (e){
+        error: function (e) {
             console.log(e);
         }
     });
@@ -1352,52 +1365,52 @@ function ScoreBoard(uid){
 
 function compareValues(key, order = 'asc') {
     return function innerSort(a, b) {
-      if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
-        // property doesn't exist on either object
-        return 0;
-      }
-  
-      const varA = (typeof a[key] === 'string')
-        ? a[key].toUpperCase() : a[key];
-      const varB = (typeof b[key] === 'string')
-        ? b[key].toUpperCase() : b[key];
-  
-      let comparison = 0;
-      if (varA > varB) {
-        comparison = 1;
-      } else if (varA < varB) {
-        comparison = -1;
-      }
-      return (
-        (order === 'desc') ? (comparison * -1) : comparison
-      );
-    };
-  }
+        if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+            // property doesn't exist on either object
+            return 0;
+        }
 
-function ChangeMonth (month,lang){
-    var allmonthEn = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    var allmonthTh = ['ม.ค.','ก.พ.','มี.ค.','เม.ย','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+        const varA = (typeof a[key] === 'string')
+            ? a[key].toUpperCase() : a[key];
+        const varB = (typeof b[key] === 'string')
+            ? b[key].toUpperCase() : b[key];
+
+        let comparison = 0;
+        if (varA > varB) {
+            comparison = 1;
+        } else if (varA < varB) {
+            comparison = -1;
+        }
+        return (
+            (order === 'desc') ? (comparison * -1) : comparison
+        );
+    };
+}
+
+function ChangeMonth(month, lang) {
+    var allmonthEn = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var allmonthTh = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
     var newMonth = '';
-    if(lang == 'en'){
-        for(var i = 0;i<12;i++){
-            if(i<10){
-                if(month == ('0'+(i+1))){
+    if (lang == 'en') {
+        for (var i = 0; i < 12; i++) {
+            if (i < 10) {
+                if (month == ('0' + (i + 1))) {
                     newMonth = allmonthEn[i];
                 }
-            }else{
-                if(month == i+1){
+            } else {
+                if (month == i + 1) {
                     newMonth = allmonthEn[i];
                 }
             }
         }
-    }else if(lang == 'th'){
-        for(var i = 0;i<12;i++){
-            if(i<10){
-                if(month == ('0'+(i+1))){
+    } else if (lang == 'th') {
+        for (var i = 0; i < 12; i++) {
+            if (i < 10) {
+                if (month == ('0' + (i + 1))) {
                     newMonth = allmonthTh[i];
                 }
-            }else{
-                if(month == i+1){
+            } else {
+                if (month == i + 1) {
                     newMonth = allmonthTh[i];
                 }
             }
@@ -1405,7 +1418,13 @@ function ChangeMonth (month,lang){
     }
     return newMonth;
 }
-
+/*
+  *Description: preview question
+  *@version 1.0
+  *@author Thanawin Poopangeon
+  *@since 06 Mar 2020
+  *@required javascript.
+  */
 function previewQuestion(question) {
     var html = '';
     var index = 0;
@@ -1424,7 +1443,13 @@ function previewQuestion(question) {
     });
     return html;
 }
-
+/*
+  *Description: preview question
+  *@version 1.0
+  *@author Thanawin Poopangeon
+  *@since 06 Mar 2020
+  *@required javascript.
+  */
 function showPreview(question) {
     $('#modal-preview').modal({
         'dismissible': false,
@@ -1449,4 +1474,121 @@ function showTutorialLogic(content) {
 
 function setZoom(percent){
     document.body.style.zoom = percent;
+/*
+ *Description: Show alert modal.
+ *@version 1.0
+ *@author Thanawin Poopangeon
+ *@since 10 March 2020
+ *@required javascript, materialize-css.
+ */
+function showScoreReult(content) {
+    $('#modal-result-score').modal({
+        'dismissible': false,
+        'onOpenEnd': function () {
+            $('.result-score-content').text(content);
+        }
+    });
+    $('#modal-result-score').modal('open');
+}
+
+/*
+ *Description: Show alert modal diagram.
+ *@version 1.0
+ *@author Thongthorn Karapakdee
+ *@since 10 March 2020
+ *@required javascript, materialize-css.
+ */
+function showScoreReultDiagram(content) {
+    $('#modal-result-score-diagram').modal({
+        'dismissible': false,
+        'onOpenEnd': function () {
+            $('.result-score-content').text(content);
+        }
+    });
+    $('#modal-result-score-diagram').modal('open');
+}
+
+/*
+ *Description: Show alert modal diagram.
+ *@version 1.0
+ *@author Thongthorn Karapakdee
+ *@since 10 March 2020
+ *@required javascript, materialize-css.
+ */
+function showScoreReultFail(content) {
+    $('#modal-fail-diagram').modal({
+        'dismissible': false,
+        'onOpenEnd': function () {
+            $('.result-score-content').text(content);
+        }
+    });
+    $('#modal-fail-diagram').modal('open');
+}
+
+
+function showAllUser(header,obj,not_found) {
+    $('#modal-list-user').modal({
+        'dismissible': false,
+        'onOpenStart': function () {
+            $('#modal-list-user>.modal-content>.list-header').html(header)
+
+            let table = $("#tableListUser").DataTable()
+            
+            obj.forEach((value,index)=>{
+                table.row.add( [
+                    `<center>${index+1}</center>`,
+                    (value.data.nickname.trim() != '' ? value.data.nickname.trim() : not_found ),
+                    `<center>${value.data.role}</center>`
+                ])
+            })
+            table.draw();
+        },
+        'onCloseEnd': function () {
+            let table = $("#tableListUser").DataTable()
+            table.clear().draw();
+        }
+    });
+    $('#modal-list-user').modal('open');
+}
+
+function showListQuestion(header,obj) {
+    $('#modal-list-question').modal({
+        'dismissible': false,
+        'onOpenStart': function () {
+            $('#modal-list-question>.modal-content>.list-header').html(header)
+
+            let table = $("#tableListQuestion").DataTable()
+            
+            obj.forEach((value,index)=>{
+                let name = ''
+
+                if(typeof value.data.name == 'undefined'){
+                    name = value.data.Name
+                }else{
+                    name = value.data.name
+                }
+
+                table.row.add( [
+                    `<center>${index+1}</center>`,
+                    name,
+                    `<center>${value.type}</center>`
+                ])
+            })
+            table.draw();
+        },
+        'onCloseEnd': function () {
+            let table = $("#tableListQuestion").DataTable()
+            table.clear().draw();
+        }
+    });
+    $('#modal-list-question').modal('open');
+} 
+
+ function goToProfile(){
+    try{
+        window.location.href = '/home?page=8'
+    }catch(e){
+        console.warn(e)
+    }
+    
 }

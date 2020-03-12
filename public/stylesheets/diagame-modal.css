@@ -170,6 +170,64 @@
     height: 80px;
 }
 
+#modal-navigator>.modal-footer {
+    text-align: center;
+    background-color: #b2bbff;
+    padding-left: 24px;
+    padding-right: 24px;
+    border-top: 5px solid #000000;
+    height: 80px;
+}
+
+#modal-addQuestion>.modal-footer {
+    text-align: right;
+    background-color: #b2bbff;
+    padding-left: 24px;
+    padding-right: 24px;
+    border-top: 5px solid #000000;
+    height: 80px;
+}
+#modal-confirm-delete{
+    width: 600px !important;
+}
+
+
+#modal-confirm-delete>.modal-footer {
+    text-align: right;
+    background-color: #b2bbff;
+    padding-left: 24px;
+    padding-right: 24px;
+    border-top: 5px solid #000000;
+    height: 80px;
+}
+
+#modal-result-score>.modal-footer {
+    text-align: center;
+    background-color: #b2bbff;
+    padding-left: 24px;
+    padding-right: 24px;
+    border-top: 5px solid #000000;
+    height: 80px;
+}
+
+#modal-result-score-diagram>.modal-footer {
+    text-align: center;
+    background-color: #b2bbff;
+    padding-left: 24px;
+    padding-right: 24px;
+    border-top: 5px solid #000000;
+    height: 80px;
+}
+
+#modal-fail-diagram>.modal-footer {
+    text-align: center;
+    background-color: #b2bbff;
+    padding-left: 24px;
+    padding-right: 24px;
+    border-top: 5px solid #000000;
+    height: 80px;
+}
+
 #modal-tutorial-logic.modal {
     width: 600px;
     max-height: 100%;
@@ -285,7 +343,7 @@
     position: fixed;
 }
 
-.achievement-photo {
+.achievement-photo,.tutorial-photo {
     width: 400px;
     height: 250px;
     box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.2);
@@ -295,7 +353,7 @@
     margin: auto;
 }
 
-.achievement-title {
+.achievement-title ,.tutorial-title{
     width: 100%;
     height: 40px;
     padding: 0px 20px 5px 20px;
@@ -306,7 +364,7 @@
     margin-top: 20px;
 }
 
-.achievement-content {
+.achievement-content ,.tutorial-content{
     width: 100%;
     height: auto;
     padding: 5px 20px 5px 20px;
@@ -343,6 +401,16 @@
     height: auto;
     padding: 5px 20px 5px 20px;
     font-size: 24px;
+    font-weight: bold;
+    word-wrap: break-word;
+    text-align: center;
+}
+
+.result-score-content {
+    width: 100%;
+    height: auto;
+    padding: 5px 20px 5px 20px;
+    font-size: 36px;
     font-weight: bold;
     word-wrap: break-word;
     text-align: center;
@@ -427,4 +495,36 @@
 
 #modal-leaderboard>.modal-content{
     max-height: 100%;
+}
+
+#modal-list-user>.modal-content>.list-header{
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#modal-list-user>.modal-footer {
+    border-top: 5px solid #000000;
+    background-color: #56e3c4;
+    display: inline-block;
+}
+
+#modal-list-user{
+    max-height: 100% !important;
+}
+
+#modal-list-question>.modal-content>.list-header{
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#modal-list-question>.modal-footer {
+    border-top: 5px solid #000000;
+    background-color: #56e3c4;
+    display: inline-block;
+}
+
+#modal-list-question{
+    max-height: 100% !important;
 }

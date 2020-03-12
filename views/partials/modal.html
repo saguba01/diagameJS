@@ -37,10 +37,10 @@
   </div>
 </div>
 
-<div id="modal-addQuestion" class="modal">
+<div id="modal-addQuestion" class="modal" style="width: 40% !important;">
   <div class="navigator-content">
     <br>
-    <div class="addQuestion-content"></div>
+    <div class="addQuestion-content">{{general.saveResult}}</div>
     <br>
   </div>
   <div class="modal-footer">
@@ -49,7 +49,7 @@
   </div>
 </div>
 
-<div id="modal-saving" class="modal">
+<div id="modal-saving" class="modal" style="width: 40% !important;">
   <div class="navigator-content"></div>
   <br>
   <div style="height: 150px;padding-bottom: 0px;">
@@ -77,7 +77,7 @@
 
 <div id="modal-wellcome" class="modal">
   <div class="modal-content">
-  <div class="button-close-custom canClick right" onclick="closeModal('#modal-wellcome');playSoundEx('click');"></div>
+    <div class="button-close-custom canClick right" onclick="closeModal('#modal-wellcome');playSoundEx('click');"></div>
     <div class="wellcome-header">{{ walcomeModal.header }}</div>
     <div class="wellcome-logo ">
       <div class="postit postit-middle-center2 bg-sky-blue {{walcomeModal.logo}}" }>
@@ -87,7 +87,7 @@
 
   </div>
   <div class="modal-footer">
-    <button style="width: 230px;" onclick="closeModal('#modal-wellcome')();playSoundEx('click');"
+    <button style="width: 230px;" onclick="closeModal('#modal-wellcome');playSoundEx('click');"
       class="canClick button-close-modal">{{walcomeModal.button.learning}}</button>
   </div>
 </div>
@@ -217,12 +217,15 @@
 </div>
 
 <div id="modal-confirm-delete" class="modal">
-  <div class="modal-content">
-    <span>Confirm Delete?</span>
+  <div class="navigator-content">
+    <br>
+    {{ general.deleteConfirm }}
     <input type="text" id="deleteId" value="" hidden>
+    <br>
+    <br>
   </div>
   <div class="modal-footer">
-    <button onclick="playSoundEx('click');deleteQuestion();"
+    <button onclick="playSoundEx('click');deleteQuestion('{{general.deleteResult}}');"
       class="canClick button-close-modal">{{ button.confirm }}</button>
     <button onclick="playSoundEx('click');closeModal('#modal-confirm-delete');"
       class="canClick button-close-setting">{{button.close}}</button>
@@ -260,7 +263,7 @@
     <div class="tutorial-content"></div>
   </div>
   <div class="modal-footer">
-    <button onclick="passTutorial();closeModal('#modal-pass-tutorial')" style="float: right;"
+    <button onclick="closeModal('#modal-pass-tutorial')" style="float: right;"
       class="canClick button-achievement">{{general.button.done}}</button>
   </div>
 </div>
@@ -283,3 +286,83 @@
       style="float: right;">{{general.button.next}}</button>
   </div>
 </div>
+
+<div id="modal-result-score" class="modal">
+  <div class="modal-content">
+    <div class="result-score-content"></div>
+  </div>
+  <div class="modal-footer">
+    <button onclick="window.location.replace('/home')" style="float: left;"
+      class="canClick button-navigator">{{general.button.home}}</button>
+    <button id="nextQuestion" class="canClick button-navigator" style="float: right;">{{general.button.next}}</button>
+  </div>
+</div>
+
+<div id="modal-result-score-diagram" class="modal">
+  <div class="modal-content">
+    <div class="result-score-content"></div>
+  </div>
+  <div class="modal-footer">
+    <button onclick="window.location.replace('/home')" style="float: right;"
+      class="canClick button-navigator">{{general.button.home}}</button>
+  </div>
+</div>
+
+<div id="modal-fail-diagram" class="modal">
+  <div class="modal-content">
+    <div class="result-score-content"></div>
+  </div>
+  <div class="modal-footer">
+    <button onclick="window.location.reload();" style="float: right;"
+      class="canClick button-navigator">{{general.button.restart}}</button>
+  </div>
+</div>
+
+<div id="modal-list-user" class="modal" >
+  <div class="button-close-custom canClick right" onclick="closeModal('#modal-list-user');playSoundEx('click');"></div>
+  <div class="modal-content">
+    <div class="list-header">  </div>
+    <div class="list-body">
+      <table id="tableListUser" class="table table-striped" cellspacing="0" width="100%">
+        <thead>
+          <tr>
+            <th class="th-sm" style="width: 20%;">{{general.table.index}}</th>
+            <th class="th-sm" style="width: 60%;">{{general.table.nickname}}</th>
+            <th class="th-sm" style="width: 20%;">{{general.table.role}}</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button onclick="closeModal('#modal-list-user');playSoundEx('click');" style="float: right;"
+      class="canClick button-navigator">{{general.button.close}}</button>
+  </div>
+</div>
+
+<div id="modal-list-question" class="modal">
+  <div class="button-close-custom canClick right" onclick="closeModal('#modal-list-question');playSoundEx('click');"></div>
+  <div class="modal-content">
+    <div class="list-header">  </div>
+    <div class="list-body">
+      <table id="tableListQuestion" class="table table-striped" cellspacing="0" width="100%">
+        <thead>
+          <tr>
+            <th class="th-sm" style="width: 20%;">{{general.table.index}}</th>
+            <th class="th-sm" style="width: 60%;">{{general.table.questions}}</th>
+            <th class="th-sm" style="width: 20%;">{{general.table.lesson}}</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button onclick="closeModal('#modal-list-question');playSoundEx('click');" style="float: right;"
+      class="canClick button-navigator">{{general.button.close}}</button>
+  </div>
+</div>
+

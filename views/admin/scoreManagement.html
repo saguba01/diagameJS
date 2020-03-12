@@ -13,10 +13,10 @@
             <div class="panel panel-default dia-6">
                 <div class="panel-body" style="background-color: #a6b1e1;">
                   <div class="dia-row" style="margin-bottom: 0;display: grid; align-items: center;">
-                    <div class="dia-6" style="font-size: 2.5vw; font-weight: bold;">
+                    <div class="dia-6" style="font-size: 2vw; font-weight: bold;">
                       {{general.score.manageScoreMax.title}} :
                     </div>
-                    <div class="score" id="scoreMax" format="max" style="font-size: 2.5vw; font-weight: bold;width: auto;">
+                    <div class="score" id="scoreMax" format="max" style="font-size: 2vw; font-weight: bold;width: auto;">
                       <span>{{score.maxScore}}</span> 
                     </div>
                   </div>
@@ -26,10 +26,10 @@
             <div class="panel panel-default dia-6">
               <div class="panel-body" style="background-color: #dcd6f7;">
                 <div class="dia-row" style="margin-bottom: 0;display: grid; align-items: center;">
-                  <div class="dia-6" style="font-size: 2.5vw; font-weight: bold;">
+                  <div class="dia-6" style="font-size: 2vw; font-weight: bold;">
                     {{general.score.manageScoreMin.title}} :
                   </div>
-                  <div class="score" id="scoreMin" format="min"  style="font-size: 2.5vw; font-weight: bold;width: auto;">
+                  <div class="score" id="scoreMin" format="min"  style="font-size: 2vw; font-weight: bold;width: auto;">
                     <span>{{score.minScore}}</span> 
                   </div>
                 </div>
@@ -40,7 +40,7 @@
           <div class="dia-row">
             {{card-level score.level general.score}}
           </div>
-          <div class="dia-row massage-error" >
+          <div class="dia-row massage-error" style="display: block !important;">
             
           </div>
       </div>
@@ -155,6 +155,10 @@
     const btnAction = $(element.panel).find(".panel-btn-action")
     btnAction.empty().html(newElements().btnEdit)
     // end set btn 
+
+    // clear error massage
+    $('.massage-error').empty()
+    
   }
 
   /*
@@ -245,8 +249,8 @@
   */
   function validate(){
     const input = $(".panel ").find("input")
-    let status = true
-    
+    let status_empty = true
+    let status_order = true
     // let
     let listRateScore = []
     let rateScore = []
@@ -285,7 +289,7 @@
         oldRate = value
       }else{
         if(oldRate.rate >= value.rate){
-          status = false
+          status_order = false
           oldRate.ele.rateSec.addClass("redBorder").addClass("placeholder-red")
           oldRate.ele.rateScore.addClass("redBorder").addClass("placeholder-red")
 
@@ -307,7 +311,7 @@
       let newInput = $(input.get(i)).val()
       if(newInput == ""){
         $(input.get(i)).addClass("redBorder").addClass("placeholder-red")
-        status = false
+        status_empty = false
       }else{
         if($(input.get(i)).attr("group") == "score"){
           $(input.get(i)).removeClass("redBorder").removeClass("placeholder-red")
@@ -323,13 +327,23 @@
       status = false
     }
 
-
-    if(!status){
-      $(".massage-error").html("{{general.input.empty}}").css({"color":"red","font-size":"28px"})
+    const error = $(".massage-error")
+    error.empty()
+    .css({"color":"red","font-size":"28px","display":"block !important;"})
+    if(!status_empty){
+      let tmp = $('<span></span>').css({'display':'block'}).html("{{general.validated.input.empty}}").attr({"type":"empty"})
+      error.append(tmp)
     }else{
-      $(".massage-error").empty()
+      $(".massage-error>span[type=empty]").remove()
     }
-    return status
+
+    if(!status_order){
+      let tmp = $('<span></span>').css({'display':'block'}).html("{{general.validated.input.level_order}}").attr({"type":"level"})
+      error.append(tmp)
+    }else{
+      $(".massage-error>span[type=level]").remove()
+    }
+    return (status_order && status_empty)
   }
 
   /*

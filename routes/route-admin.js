@@ -14,6 +14,7 @@ var sortId = require('../public/javascripts/sortId')
 router.get('/', authen, async (req, res, next) => {
   let lang = req.cookies.lang;
   const uid = req.session.user.uid;
+  const stringConfig = configString[lang]
   const general = await genaral.getGanaral(lang)
   const user = await user_info.userInfo(uid)
   try {
@@ -21,28 +22,36 @@ router.get('/', authen, async (req, res, next) => {
       case 'success':
         if (user.data.role == "admin") {
           const allUser = await dashboard.getNumOfUser()
-          const allFlowchart = await questionFlowchart.getAllFlowchart()
-          const allLogic = await questionLogic.getAllLogic()
+          const allFlowchart = await questionFlowchart.getAllFlowchart(lang)
+          const allLogic = await questionLogic.getAllLogic(lang)
+          let allQuestion = []
+
+          allFlowchart.forEach((value)=>{
+            allQuestion.push(value)
+          })
+
+          allLogic.forEach((value)=>{
+            allQuestion.push(value)
+          })
           var data = {
             layout: 'default',
             navBar: true,
             slideBar: true,
             user: req.session.user,
             element: configString[lang].element.general,
-            intro: configString[lang].intro,
-            //required
-            unlock: await getAchievement(req.session.user.uid),
-            passed: await getPassed(req.session.user.uid),
+            intro: configString[lang].intro,  
             lesson: configString[lang].lesson,
-            general: general,
-            setting: general.setting,
-            button: general.button,
-            slidebar: general.slidebar,
-            dashboard: general.dashboard,
-            months: JSON.stringify(general.months),
+            general: stringConfig.general,
+            setting: stringConfig.general.setting,
+            button: stringConfig.general.button,
+            slidebar: stringConfig.general.slidebar,
+            dashboard: stringConfig.general.dashboard,
+            months: JSON.stringify(stringConfig.general.months),
             cardData: {
               total_user: allUser.length,
-              total_question: parseInt(allFlowchart.length) + parseInt(allLogic.length)
+              total_question: parseInt(allFlowchart.length) + parseInt(allLogic.length),
+              listUser : JSON.stringify(allUser),
+              listQuestion : JSON.stringify(allQuestion)
             },
             achievementList: configString[lang].achievement,
             errorMsg: configString[lang].error,
@@ -78,6 +87,7 @@ router.get('/flowchart', authen, async (req, res, next) => {
   const allFlowchart = await questionFlowchart.getAllFlowchart(lang)
   const uid = req.session.user.uid;
   const user = await user_info.userInfo(uid)
+  const stringConfig = configString[lang]
   try {
     if (user.status == "success" && user.data.role == "admin") {
       var data = {
@@ -92,8 +102,8 @@ router.get('/flowchart', authen, async (req, res, next) => {
         passed: await getPassed(req.session.user.uid),
         lesson: configString[lang].lesson,
         general: general,
-        setting: general.setting,
-        button: general.button,
+        setting: stringConfig.general.setting,
+        button: stringConfig.general.button,
         slidebar: general.slidebar,
         achievementList: configString[lang].achievement,
         errorMsg: configString[lang].error,
@@ -117,11 +127,10 @@ router.get('/flowchart', authen, async (req, res, next) => {
 router.get('/logic', authen, async (req, res, next) => {
 
   let lang = req.cookies.lang;
-  const general = await genaral.getGanaral(lang)
   const uid = req.session.user.uid;
   const user = await user_info.userInfo(uid)
   const allLogic = await questionLogic.getAllLogic(lang)
-
+  const stringConfig = configString[lang]
   try {
     if (user.status == "success" && user.data.role == "admin") {
       var data = {
@@ -131,14 +140,11 @@ router.get('/logic', authen, async (req, res, next) => {
         user: req.session.user,
         element: configString[lang].element.general,
         intro: configString[lang].intro,
-        //required
-        unlock: await getAchievement(req.session.user.uid),
-        passed: await getPassed(req.session.user.uid),
         lesson: configString[lang].lesson,
-        general: general,
-        setting: general.setting,
-        button: general.button,
-        slidebar: general.slidebar,
+        general: stringConfig.general,
+        setting: stringConfig.general.setting,
+        button: stringConfig.general.button,
+        slidebar: stringConfig.general.slidebar,
         achievementList: configString[lang].achievement,
         errorMsg: configString[lang].error,
         allLogic: JSON.stringify(allLogic)
@@ -160,11 +166,11 @@ router.get('/logic', authen, async (req, res, next) => {
 
 router.get('/score', authen, async (req, res, next) => {
   let lang = req.cookies.lang;
-  const general = await genaral.getGanaral(lang)
   const scoreData = await score.getScore()
   const uid = req.session.user.uid;
   const user = await user_info.userInfo(uid)
-  const allLogic = await questionLogic.getAllLogic(lang)
+  // const allLogic = await questionLogic.getAllLogic(lang)
+  const stringConfig = configString[lang]
   try {
     if (user.status == "success" && user.data.role == "admin") {
       var data = {
@@ -174,19 +180,15 @@ router.get('/score', authen, async (req, res, next) => {
         user: req.session.user,
         element: configString[lang].element.general,
         intro: configString[lang].intro,
-        //required
-        unlock: await getAchievement(req.session.user.uid),
-        passed: await getPassed(req.session.user.uid),
         lesson: configString[lang].lesson,
-        general: general,
-        setting: general.setting,
+        general: stringConfig.general,
+        setting: stringConfig.general.setting,
+        button: stringConfig.general.button,
         score: scoreData.data,
-        button: general.button,
-        slidebar: general.slidebar,
+        slidebar: stringConfig.general.slidebar,
         achievementList: configString[lang].achievement,
         errorMsg: configString[lang].error,
-        allLogic: JSON.stringify(allLogic),
-        test: JSON.stringify(scoreData.data),
+        // allLogic: JSON.stringify(allLogic),
       };
       res.render('admin/scoreManagement', data);
     } else {
@@ -291,7 +293,7 @@ router.get('/getscroeHistory', async (req, res, next) => {
     let other = []
     scroeHistory.forEach((value) => {
       switch (value.type) {
-        case "flowchart":
+        case "diagram":
           flowchart.push(value)
           if (flowchart.length > 0) {
             flowchart.sort(sortId.compareValues("id"))
@@ -354,6 +356,23 @@ router.get('/rateScore', async (req, res, next) => {
   res.send(scoreData)
 })
 
+router.get('/listUserAll', async (req, res, next) => {
+  const user = await user_info.allUser((obj)=>{
+    res.status(200).send(obj)
+  })
+})
+
+router.get('/updateAllUser', async (req, res, next) => {
+  const user = await user_info.updateUser()
+  res.status(200).send('OK')
+})
+router.post('/checkUser', async (req, res, next) => {
+  const postData = req.body
+  const uid = postData.uid
+  const user = await user_info.checkUser(uid)
+  res.status(200).send('OK')
+})
+
 router.post('/roleUser', async (req, res, next) => {
   const postData = req.body
   let user = null;
@@ -381,33 +400,4 @@ router.post('/roleUser', async (req, res, next) => {
     res.send(user)
   // 
 })
-
-async function getAchievement(uid) {
-  var unlock = [];
-  let refAchieve = firestore.collection("lessons").doc(uid).collection('achievements');
-  await refAchieve.get().then(function (querySnapshot) {
-    querySnapshot.forEach(function (doc) {
-      unlock.push(doc.data());
-    });
-  }).catch(function (error) {
-    console.log(error);
-    unlock = [];
-  });
-  return unlock;
-}
-
-async function getPassed(uid) {
-  var passed = [];
-  let refAchieve = firestore.collection("lessons").doc(uid).collection('passed');
-  await refAchieve.get().then(function (querySnapshot) {
-    querySnapshot.forEach(function (doc) {
-      passed.push(doc.id);
-    });
-  }).catch(function (error) {
-    console.log(error);
-    passed = [];
-  });
-  return passed;
-}
-
 module.exports = router;

@@ -1,12 +1,14 @@
-<div class="timer timer-top-rigth noselect bg-nude" >
-    <div id="timeBar" style="background-color: #4CAF50; height:100%;width: 100%; position:absolute;border-radius:5px;" ></div>
+<div class="timer timer-top-rigth noselect bg-nude">
+    <div id="timeBar" style="background-color: #4CAF50; height:100%;width: 100%; position:absolute;border-radius:5px;">
+    </div>
     <span style="font-size: 55px; position: relative;z-index: 15;">
-        <div class="icon-clock" ></div> <span id="minutes">00</span>:<span id="seconds">00</span></span>
-        <input type="text" id="timePlay" value="0" hidden>
+        <div class="icon-clock"></div> <span id="minutes">00</span>:<span id="seconds">00</span>
+    </span>
+    <input type="text" id="timePlay" value="0" hidden>
 </div>
 
-<div class="scoreBar scoreBar-top-left noselect bg-purple" >
-    <div class="icon-award" ></div>
+<div class="scoreBar scoreBar-top-left noselect bg-purple">
+    <div class="icon-award"></div>
     <div style="font-size: 48px;">
         <span id="score">{{maxScore}}</span>
         <input type="text" id="scorePlay" value="0" hidden>
@@ -22,12 +24,6 @@
 
 <div class="sourceBottom noselect" style="width: 800px;margin-left:-367.5px;">
     <div class="tab-horizontal" style="padding-left: 15px;">
-        <div class="tab valign-wrapper"
-            style="padding-top: 15px;padding-right: 15px;">
-            <div id="backButton" class="canClick jellyButton button-tool" style="margin:0px;">
-                <div class="back-icon"></div>
-            </div>
-        </div>
         <div class="tab valign-wrapper"
             style="height: 90px;border-right: 5px solid;padding-top: 15px;padding-right: 15px;">
             <div id="playMinigame" class="canClick jellyButton button-tool" style="margin:0px;">
@@ -74,7 +70,7 @@
     let refScore = firestore.collection("ScoreHistory");
     let round = 0;
 
-    $('#backButton').click(function(){
+    $('#backButton').click(function () {
         nextPage('/home');
     });
     $(function () {
@@ -155,36 +151,37 @@
                 answer = element.attr('event');
                 if (getResult()) {
                     playSoundEx('correct');
-                    showNavigator('{{general.congrat}}');
-                            //save score history
-                            statusQuestion = true;
-                            refScore.doc("{{user.uid}}logic{{questionId}}").get().then(function(doc){
-                                var today = new Date();
-                                var dd = today.getDate();
-                                var mm = today.getMonth()+1;
-                                var HH = today.getHours();
-                                var MM = today.getMinutes();
-                                var SS = today.getSeconds();
-                                var yyyy = today.getFullYear();
-                                let round = 1;
-                                let uid = "{{user.uid}}";
-                                if(doc.exists){
-                                    round = doc.data().round;
-                                }
-                                refScore.doc("{{user.uid}}logic{{questionId}}").set({
-                                    uid: uid,
-                                    type: "logic",
-                                    questionId: "{{ questionId }}",
-                                    round: round,
-                                    score: $("#scorePlay").val(),
-                                    time : $("#timePlay").val(),
-                                    date : twoDigit(dd)+"/"+twoDigit(mm)+"/"+yyyy+"T"+twoDigit(HH)+":"+twoDigit(MM)+":"+twoDigit(SS)
-                                }).then(function(){
-                                    console.log("Save Score");
-                                }).catch(err => {
-                                    console.log("Error : "+err);
-                                });
-                            });
+                    //showNavigator('{{general.congrat}}');
+                    //save score history
+                    statusQuestion = true;
+                    refScore.doc("{{user.uid}}logic{{questionId}}").get().then(function (doc) {
+                        var today = new Date();
+                        var dd = today.getDate();
+                        var mm = today.getMonth() + 1;
+                        var HH = today.getHours();
+                        var MM = today.getMinutes();
+                        var SS = today.getSeconds();
+                        var yyyy = today.getFullYear();
+                        let round = 1;
+                        let uid = "{{user.uid}}";
+                        if (doc.exists) {
+                            round = doc.data().round;
+                        }
+                        showScoreReult('{{general.result}}'+$("#scorePlay").val());
+                        refScore.doc("{{user.uid}}logic{{questionId}}").set({
+                            uid: uid,
+                            type: "logic",
+                            questionId: "{{ questionId }}",
+                            round: round,
+                            score: $("#scorePlay").val(),
+                            time: $("#timePlay").val(),
+                            date: twoDigit(dd) + "/" + twoDigit(mm) + "/" + yyyy + "T" + twoDigit(HH) + ":" + twoDigit(MM) + ":" + twoDigit(SS)
+                        }).then(function () {
+                            console.log("Save Score");
+                        }).catch(err => {
+                            console.log("Error : " + err);
+                        });
+                    });
                 } else {
                     $('.questionBox').addClass("shake-vertical");
                     playSoundEx('error');
@@ -203,18 +200,21 @@
         }
     }
     var statusQuestion = false;
-    $(document).ready(function(){
-        timer('{{maxScore}}','{{minScore}}',(obj)=>{
-            if(typeof obj.score != "undefined"){
+    $(document).ready(function () {
+        timer('{{level}}', (obj) => {
+            if (typeof obj.score != "undefined") {
                 $("#scorePlay").val(obj.score);
-                console.log("score:"+ $("#scorePlay").val());
+                console.log("score:" + $("#scorePlay").val());
             }
-            if(typeof obj.time != "undefined"){
+            if (typeof obj.time != "undefined") {
                 $("#timePlay").val(obj.time);
-                console.log("time:"+ $("#timePlay").val());
+                console.log("time:" + $("#timePlay").val());
             }
+        });
+        $("#nextQuestion").click(function(){
+            nextQuestion("logic","{{questionId}}")
         });
     });
 
-    
+
 </script>

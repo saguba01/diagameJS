@@ -28,15 +28,15 @@
             <div class="noselect source sourceHeader" type="process" style="display: none;background-color:#FF9D00;">
                 Process</div>
             <div id="source" class="connectedSource source noselect sourcePanel" type="process" style="display: none;">
-                {{svgProcessNew question}}
+                {{svgProcessNew lang question}}
             </div>
 
             <!-- Type io -->
             <div class="noselect source sourceHeader" type="io" style="display: none;background-color:#FF9D00;">
                 Input & Output</div>
             <div id="source" class="connectedSource source noselect sourcePanel" type="io" style="display: none;">
-                {{svgInputNew question}}
-                {{svgOutputNew question}}
+                {{svgInputNew lang question}}
+                {{svgOutputNew lang question}}
             </div>
 
             <!-- Type Decision -->
@@ -48,7 +48,8 @@
 
             <!-- Target -->
             <div class="targetPanel-bg">
-                <div id="target" class="center-align connectedSource noselect targetPanel ui-widget-content">
+                <div id="target" class="center-align connectedSource noselect targetPanel ui-widget-content"
+                    style="overflow: auto;">
 
                 </div>
 
@@ -56,7 +57,7 @@
                 <!-- Recipe -->
                 <div class="recipe bg-nude">
                     <div class="recipe-header" id="headHint"></div>
-                    {{displayRecipeNew lang questionHintEng questionHintTh}}
+                    {{displayRecipeNew lang questionHintEN questionHintTH}}
                 </div>
             </div>
             <div id="display" class="display"></div>
@@ -94,22 +95,35 @@
             </li>
             <li class="tab valign-wrapper" style="height: 80px">
                 <div class="canClick jellyButton typeButton selected" type="basic">
-                    <div class="basic-icon"></div>
+                    <div class="flowchart-basic"></div>
+
+                </div>
+                <div style="font-size: 12px;">
+                    {{flowchartStep.step2.basic}}
                 </div>
             </li>
             <li class="tab valign-wrapper" style="height: 80px">
                 <div class="canClick jellyButton typeButton" type="process">
-                    <div class="process-icon"></div>
+                    <div class="flowchart-process"></div>
+                </div>
+                <div style="font-size: 12px;">
+                    {{flowchartStep.step2.process}}
                 </div>
             </li>
             <li class="tab valign-wrapper" style="height: 80px">
                 <div class="canClick jellyButton typeButton" type="io">
-                    <div class="io-icon"></div>
+                    <div class="flowchart-io"></div>
+                </div>
+                <div style="font-size: 12px;">
+                    {{flowchartStep.step2.io}}
                 </div>
             </li>
             <li class="tab valign-wrapper" style="height: 80px">
                 <div class="canClick jellyButton typeButton" type="decision">
-                    <div class="decision-icon"></div>
+                    <div class="flowchart-decision"></div>
+                </div>
+                <div style="font-size: 12px;">
+                    {{flowchartStep.step2.decision}}
                 </div>
             </li>
         </ul>
@@ -123,8 +137,10 @@
 <script>
     let refScore = firestore.collection("ScoreHistory");
     var statusQuestion = false;
+    var level = '{{level}}';
+    console.log("level", level);
     $(function () {
-        timer('{{maxScore}}', '{{minScore}}', (obj) => {
+        timer('{{level}}', (obj) => {
             if (typeof obj.score != "undefined") {
                 $("#scorePlay").val(obj.score);
                 console.log("score:" + $("#scorePlay").val());
@@ -206,11 +222,11 @@
                 flowchartBeenEqual = true;
                 statusQuestion = true;
                 console.log("scoretime", parseInt($("#score").html()) - 1);
-                var score = parseInt($("#score").html()) - 1;
+                var score = parseInt($("#score").html());
                 console.log("playtime", $("#seconds").html());
                 var time = parseInt($("#minutes").html() * 60) + parseInt($("#seconds").html())
                 playSoundEx('correct');
-                showNavigator('{{general.congrat}}');
+                showScoreReultDiagram('{{general.result}}' + score);
                 refScore.doc("{{user.uid}}diagram{{questionId}}").get().then(function (doc) {
                     var today = new Date();
                     var dd = today.getDate();
@@ -243,7 +259,7 @@
         }
         if (check != tempFlowchart.length && tempFlowchart.length != length) {
             flowchartBeenEqual = false;
-            showSaveStatus("Flow Chart is Incorrect")
+            showScoreReultFail('{{general.fail}}')
         }
         console.log("flowchartBeenEqual: ", flowchartBeenEqual);
 

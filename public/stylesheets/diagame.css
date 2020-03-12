@@ -13,11 +13,12 @@
     /* Non-prefixed version, currently supported by Chrome and Opera */
 }
 
+
 body {
 
     background-position-x: 10%;
     background-position-y: 10%;
-    background-size: 110% auto;
+    background-size: 200% auto;
     background-image: url('../assets/svg/wood-background.svg');
 }
 
@@ -166,4 +167,12 @@ background-position: center;
     background-color: #01728b;
     color:white;
     transition: 250ms;
+}
+
+select{
+    cursor: url('../assets/cursor-pointer.png'), default;
+}
+
+.card{
+    
 }

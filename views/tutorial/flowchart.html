@@ -287,7 +287,7 @@
                 statusQuestion = true
                 unlockLesson('{{lesson.url}}', '{{subLesson.url}}', timestamp);
                 playSoundEx('complete');
-
+                passTutorial();
             } else if (achievementList.glass.unlock.indexOf(result.join('-')) > -1) {
                 ahievement = achievementList.glass;
                 keyName = 'glass';
@@ -435,7 +435,7 @@
             // clicking 'Done'
             .oncomplete(function () {
                 playSoundEx('click');
-                timer(5, (obj) => {
+                timer(1, (obj) => {
                     console.log(obj)
                 })
                 targetAreaShow()
@@ -444,7 +444,7 @@
             // clicking 'Skip'
             .onexit(function () {
                 playSoundEx('click');
-                timer(5, (obj) => {
+                timer(1, (obj) => {
                     console.log(obj)
                 })
                 targetAreaShow()

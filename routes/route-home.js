@@ -5,7 +5,7 @@ var configString = require('../app').configString;
 var firestore = require('../configs/firebase-config').firestore;
 var user_info = require('../public/javascripts/userInfo');
 var genaral = require('../public/javascripts/genaral');
-
+var sortid = require('../public/javascripts/sortId');
 /* 
  * name: homePage
  * description: open home page
@@ -145,7 +145,7 @@ async function getMenu() {
 
 async function getLogic(lang) {
   var question = [];
-  let refquestion = firestore.collection('Logic').orderBy('Level');
+  let refquestion = firestore.collection('Logic');
   await refquestion.get().then((doc) => {
     doc.forEach(element => {
       if (element.data().Type == "logic") {
@@ -167,12 +167,12 @@ async function getLogic(lang) {
       }
     })
   });
-  return question;
+  return question.sort(sortid.compareValues('Id'));
 }
 
 async function getOperator(lang) {
   var question = [];
-  let refquestion = firestore.collection('Logic').orderBy('Level');
+  let refquestion = firestore.collection('Logic');
   refquestion.get().then((doc) => {
     doc.forEach(element => {
       if (element.data().Type == "operator") {
@@ -194,7 +194,7 @@ async function getOperator(lang) {
       }
     })
   });
-  return question;
+  return question.sort(sortid.compareValues('Id'));
 }
 
 async function getScore(uid) {
@@ -217,13 +217,15 @@ async function getDiagram(lang) {
     doc.forEach(element => {
       if (lang == 'en') {
         diagram.push({
-          Name: element.data().NameEng,
-          Level: element.data().Level
+          Name: element.data().NameEN,
+          Level: element.data().Level,
+          Id: element.id
         });
       } else if (lang == 'th') {
         diagram.push({
-          Name: element.data().NameTh,
-          Level: element.data().Level
+          Name: element.data().NameTH,
+          Level: element.data().Level,
+          Id: element.id
         });
       }
     })
