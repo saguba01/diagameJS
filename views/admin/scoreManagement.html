@@ -49,7 +49,7 @@
 
 <script>
   /*
-  *Description: 
+  *Description: Edit score
   *@version 1.0
   *@author Supachai Boonying
   *@since 06 Mar 2020
@@ -106,7 +106,7 @@
   }
 
   /*
-  *Description: 
+  *Description: Clear element input for edit
   *@version 1.0
   *@author Supachai Boonying
   *@since 06 Mar 2020
@@ -162,7 +162,7 @@
   }
 
   /*
-  *Description: 
+  *Description: Save edit score
   *@version 1.0
   *@author Supachai Boonying
   *@since 06 Mar 2020
@@ -217,7 +217,7 @@
   }
 
   /*
-  *Description: 
+  *Description: Save score to firestore
   *@version 1.0
   *@author Supachai Boonying
   *@since 06 Mar 2020
@@ -241,7 +241,7 @@
   }
 
   /*
-  *Description: 
+  *Description: valid input data
   *@version 1.0
   *@author Supachai Boonying
   *@since 06 Mar 2020
@@ -251,7 +251,6 @@
     const input = $(".panel ").find("input")
     let status_empty = true
     let status_order = true
-    // let
     let listRateScore = []
     let rateScore = []
     let rateSec = []
@@ -347,7 +346,7 @@
   }
 
   /*
-  *Description: 
+  *Description: event enter to save score
   *@version 1.0
   *@author Supachai Boonying
   *@since 06 Mar 2020
@@ -361,7 +360,7 @@
   }
 
   /*
-  *Description: 
+  *Description: new element for edit score
   *@version 1.0
   *@author Supachai Boonying
   *@since 06 Mar 2020
@@ -459,7 +458,7 @@
   }
 
   /*
-  *Description: 
+  *Description: valid input number
   *@version 1.0
   *@author Supachai Boonying
   *@since 06 Mar 2020
@@ -472,6 +471,13 @@
     return true; 
   }
 
+  /*
+  *Description: valid input min number input
+  *@version 1.0
+  *@author Supachai Boonying
+  *@since 06 Mar 2020
+  *@required javascript.
+  */
   function minNumber(ele){
     let input = $(ele)
     if(parseInt(input.val())<0){

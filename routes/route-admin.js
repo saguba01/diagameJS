@@ -11,6 +11,13 @@ var questionLogic = require('../public/javascripts/question-logic');
 var dashboard = require('../public/javascripts/dashboard');
 var sortId = require('../public/javascripts/sortId')
 
+/* 
+ * name: index page dmin
+ * description: show dashboead screen
+ * author: Supachai Boonying
+ * create date: 02/03/2020
+ * modify date: 13/03/2020
+ */
 router.get('/', authen, async (req, res, next) => {
   let lang = req.cookies.lang;
   const uid = req.session.user.uid;
@@ -71,16 +78,20 @@ router.get('/', authen, async (req, res, next) => {
     }
 
   } catch (e) {
-    // res.redirect('/');
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
-
+    console.error(e)
     // render the error page
     res.status(err.status || 500);
     res.render('shared/error');
   }
 });
 
+/* 
+ * name: flowchart management
+ * description: show flowchart management screen
+ * author: Supachai Boonying
+ * create date: 02/03/2020
+ * modify date: 13/03/2020
+ */
 router.get('/flowchart', authen, async (req, res, next) => {
   let lang = req.cookies.lang;
   const general = await genaral.getGanaral(lang)
@@ -118,8 +129,14 @@ router.get('/flowchart', authen, async (req, res, next) => {
 
 });
 
+/* 
+ * name: logic management
+ * description: show logic management screen
+ * author: Supachai Boonying
+ * create date: 02/03/2020
+ * modify date: 13/03/2020
+ */
 router.get('/logic', authen, async (req, res, next) => {
-
   let lang = req.cookies.lang;
   const uid = req.session.user.uid;
   const user = await user_info.userInfo(uid)
@@ -148,9 +165,7 @@ router.get('/logic', authen, async (req, res, next) => {
       res.render('shared/page_404');
     }
   } catch (e) {
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
-
+    console.error(e)
     // render the error page
     res.status(err.status || 500);
     res.render('shared/error');
@@ -158,12 +173,18 @@ router.get('/logic', authen, async (req, res, next) => {
 
 });
 
+/* 
+ * name: score management
+ * description: show score management screen
+ * author: Supachai Boonying
+ * create date: 02/03/2020
+ * modify date: 13/03/2020
+ */
 router.get('/score', authen, async (req, res, next) => {
   let lang = req.cookies.lang;
   const scoreData = await score.getScore()
   const uid = req.session.user.uid;
   const user = await user_info.userInfo(uid)
-  // const allLogic = await questionLogic.getAllLogic(lang)
   const stringConfig = configString[lang]
   try {
     if (user.status == "success" && user.data.role == "admin") {
@@ -182,15 +203,13 @@ router.get('/score', authen, async (req, res, next) => {
         slidebar: stringConfig.general.slidebar,
         achievementList: configString[lang].achievement,
         errorMsg: configString[lang].error,
-        // allLogic: JSON.stringify(allLogic),
       };
       res.render('admin/scoreManagement', data);
     } else {
       res.render('shared/page_404');
     }
   } catch (e) {
-    res.locals.message = e.message;
-    res.locals.error = req.app.get('env') === 'development' ? e : {};
+    console.error(e)
 
     // render the error page
     res.status(e.status || 500);
@@ -199,6 +218,13 @@ router.get('/score', authen, async (req, res, next) => {
 
 });
 
+/* 
+ * name: saveScore
+ * description: save score for admin submit
+ * author: Supachai Boonying
+ * create date: 02/03/2020
+ * modify date: 13/03/2020
+ */
 router.post('/saveScore', (req, res, next) => {
   const postData = req.body
   let refScore = firestore.collection("System").doc("Score")
@@ -222,6 +248,13 @@ router.post('/saveScore', (req, res, next) => {
   // 
 })
 
+/* 
+ * name: getAllLogicPie
+ * description: Extract data for creating pie graphs.
+ * author: Supachai Boonying
+ * create date: 02/03/2020
+ * modify date: 13/03/2020
+ */
 router.get('/getAllLogicPie', async (req, res, next) => {
   try {
     let lang = req.cookies.lang;
@@ -276,6 +309,13 @@ router.get('/getAllLogicPie', async (req, res, next) => {
   }
 })
 
+/* 
+ * name: getscroeHistory
+ * description: Retrieves all play history by dividing into 3 types: logical operators, flowchart
+ * author: Supachai Boonying
+ * create date: 02/03/2020
+ * modify date: 13/03/2020
+ */
 router.get('/getscroeHistory', async (req, res, next) => {
   try {
     let lang = req.cookies.lang;
@@ -345,21 +385,50 @@ router.get('/getscroeHistory', async (req, res, next) => {
   }
 })
 
+/* 
+ * name: rateScore
+ * description: Retrieve score reduction rate data
+ * author: Supachai Boonying
+ * create date: 02/03/2020
+ * modify date: 13/03/2020
+ */
 router.get('/rateScore', async (req, res, next) => {
   const scoreData = await score.getScore()
   res.send(scoreData)
 })
 
+/* 
+ * name: listUserAll
+ * description: list all user 
+ * author: Supachai Boonying
+ * create date: 02/03/2020
+ * modify date: 13/03/2020
+ */
 router.get('/listUserAll', async (req, res, next) => {
   const user = await user_info.allUser((obj)=>{
     res.status(200).send(obj)
   })
 })
 
+/* 
+ * name: updateAllUser
+ * description: Update profile of users
+ * author: Supachai Boonying
+ * create date: 02/03/2020
+ * modify date: 13/03/2020
+ */
 router.get('/updateAllUser', async (req, res, next) => {
   const user = await user_info.updateUser()
   res.status(200).send('OK')
 })
+
+/* 
+ * name: checkUser
+ * description: Check the status of users
+ * author: Supachai Boonying
+ * create date: 02/03/2020
+ * modify date: 13/03/2020
+ */
 router.post('/checkUser', async (req, res, next) => {
   const postData = req.body
   const uid = postData.uid
@@ -367,6 +436,13 @@ router.post('/checkUser', async (req, res, next) => {
   res.status(200).send('OK')
 })
 
+/* 
+ * name: roleUser
+ * description: get role of user
+ * author: Supachai Boonying
+ * create date: 02/03/2020
+ * modify date: 13/03/2020
+ */
 router.post('/roleUser', async (req, res, next) => {
   const postData = req.body
   let user = null;
@@ -392,6 +468,5 @@ router.post('/roleUser', async (req, res, next) => {
       }
     });
     res.send(user)
-  // 
 })
 module.exports = router;

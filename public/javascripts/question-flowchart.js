@@ -1,6 +1,13 @@
 var firestore = require('../../configs/firebase-config').firestore; //test firebase
 
 module.exports = {
+/*
+*Description: Retrieve all information for Flowchart questions.
+*@version 1.0
+*@author Supachai Boonying
+*@since 10 March 2020
+*@required javascript, firestore
+*/
   getAllFlowchart: async function(lang ="en")
     {
         let responces = [];
