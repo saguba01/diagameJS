@@ -38,7 +38,6 @@ async function newUser(uid) {
             displayName: user.displayName,
             email: user.email,
             nickname: '',
-            photoURL: (user.photoURL == undefined ? null : user.photoURL),
             playTutorial: true,
             role: 'user'
         }
@@ -194,5 +193,46 @@ module.exports = {
         }).catch((error) => {
             callback("error" + error.message)
         });
-    }
+    },
+
+    changeUser: async function () {
+        await auth.listUsers().then(async (userRecords) => {
+            await userRecords.users.forEach(async (user) => {
+                let refUserInfo = firestore.collection('UserInfo').doc(user.uid)
+                try {
+                    await refUserInfo.get().then(doc => {
+                        if (doc.exists) {
+                            console.log(doc.data())
+                            let oldData = doc.data()
+                            let newData = {
+                                avatar: oldData.avatar,
+                                nickname: (oldData.nickname == "" ? user.displayName : oldData.nickname),
+                                playTutorial: (oldData.playTutorial == undefined ? true : oldData.playTutorial),
+                                role: oldData.role,
+                                email: user.email,
+                                displayName: user.displayName,
+                            }
+                            refUserInfo.set(newData)
+                        } else {
+                            let newData = {
+                                avatar: 'robot-01.svg',
+                                nickname: user.displayName,
+                                playTutorial: true,
+                                role: 'user',
+                                email: user.email,
+                                displayName: user.displayName,
+                            }
+                            refUserInfo.set(newData)
+                        }
+                    })
+                } catch (e) {
+                    console.warn(user.uid)
+                    console.warn(e)
+                }
+
+            });
+        }).catch((error) => {
+            console.warn(error.message)
+        });
+    },
 }
