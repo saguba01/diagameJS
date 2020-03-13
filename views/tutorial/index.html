@@ -250,6 +250,13 @@ const lang = '{{langInUsing}}'
         });
     });
 
+    /*  
+    *Description: change page
+    *@version 1.0
+    *@author Supachai Boonying
+    *@since 06 Mar 2020
+    *@required javascript.
+    */
     function changePage(index) {
         $("#flipbook").turn("page", index);
     };
@@ -292,65 +299,13 @@ const lang = '{{langInUsing}}'
         new Typed('.menu-content', menuContent);
     }
 
-    function introLesson() {
-        $("#flipbook").turn("disable", true);
-        var intro = introInstant([{
-                intro: '{{intro.welcome}}'
-            },
-            {
-                element: $('[guide="lesson"]')[0],
-                intro: '{{intro.lesson}}'
-            },
-            {
-                element: $('[guide="lesson"]')[1],
-                intro: '{{breaklines intro.subLesson}}'
-            }
-        ]);
-        intro.start()
-            .oncomplete(function () {
-                $("#flipbook").turn("disable", false);
-                introProfile();
-            })
-            .onexit(function () {
-                $("#flipbook").turn("disable", false);
-            });
-    }
-
-    function introProfile() {
-        changePage(10);
-        var intro = introInstant([{
-                element: $('[guide="profile"]')[0],
-                intro: '{{intro.profile}}'
-            },
-            {
-                element: $('[guide="profile"]')[1],
-                intro: '{{intro.language}}'
-            },
-            {
-                element: $('[guide="profile"]')[2],
-                intro: '{{intro.signout}}'
-            },
-            {
-                element: $('[guide="achievement"]')[0],
-                intro: '{{intro.photo}}'
-            },
-            {
-                element: $('[guide="achievement"]')[1],
-                intro: '{{intro.menuInfo}}'
-            },
-            {
-                element: $('[guide="achievement"]')[2],
-                intro: '{{intro.achievement}}'
-            }
-        ])
-        setTimeout(function () {
-            $("#flipbook").turn("disable", true);
-            intro.start()
-                .onexit(function () {
-                    $("#flipbook").turn("disable", false);
-                });
-        }, 2000);
-    }
+    /*  
+    *Description: start tutorial
+    *@version 1.0
+    *@author Supachai Boonying
+    *@since 06 Mar 2020
+    *@required javascript.
+    */
     function startTutorial(){
         setTimeout(function(){ 
             startIntro()

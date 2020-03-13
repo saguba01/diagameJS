@@ -1,79 +1,112 @@
 var firestore = require('../../configs/firebase-config').firestore; //test firebase
 const admin = require('../../configs/firebase-config').admin;
 const auth = admin.auth();
-
-async function updateByUser(uid){
-    await auth.getUser(uid).then(async (user)=>{
+/*
+*Description: Update user by id
+*@version 1.0
+*@author Supachai Boonying
+*@since 10 March 2020
+*@required javascript , admin
+*/
+async function updateByUser(uid) {
+    await auth.getUser(uid).then(async (user) => {
         const refUserInfo = firestore.collection('UserInfo').doc(uid)
-        await refUserInfo.get().then((doc)=>{
+        await refUserInfo.get().then((doc) => {
             let old = doc.data()
             old.displayName = user.displayName
             old.email = user.email
             old.photoURL = (user.photoURL == undefined ? null : user.photoURL)
             refUserInfo.set(old)
-        }).catch((err)=>{
+        }).catch((err) => {
             console.warn(err.message)
         })
     })
 }
 
-async function newUser(uid){
-    await auth.getUser(uid).then(async (user)=>{
+/*
+*Description: Create profile for new user
+*@version 1.0
+*@author Supachai Boonying
+*@since 10 March 2020
+*@required javascript, admin
+*/
+async function newUser(uid) {
+    await auth.getUser(uid).then(async (user) => {
         const refUserInfo = firestore.collection('UserInfo').doc(uid)
         const newData = {
-            avatar : 'robot-01.svg',
-            displayName : user.displayName,
-            email : user.email,
-            nickname : '',
-            photoURL : (user.photoURL == undefined ? null : user.photoURL),
-            playTutorial : true ,
-            role : 'user'
+            avatar: 'robot-01.svg',
+            displayName: user.displayName,
+            email: user.email,
+            nickname: '',
+            photoURL: (user.photoURL == undefined ? null : user.photoURL),
+            playTutorial: true,
+            role: 'user'
         }
         refUserInfo.set(newData)
     })
-} 
+}
 module.exports = {
-    userInfo: async function(id)
-    {
-         let user = null;
-         const refUserInfo = firestore.collection('UserInfo').doc(id)
-         await refUserInfo.get().then(doc => {
-           if (!doc.exists) {
-            user = { 
-                status : "waring" , 
-                massage : "404"
+    /*
+    *Description: Retrieve all user data.
+    *@version 1.0
+    *@author Supachai Boonying
+    *@since 10 March 2020
+    *@required javascript, admin
+    */
+    userInfo: async function (id) {
+        let user = null;
+        const refUserInfo = firestore.collection('UserInfo').doc(id)
+        await refUserInfo.get().then(doc => {
+            if (!doc.exists) {
+                user = {
+                    status: "waring",
+                    massage: "404"
+                }
+            } else {
+                user = {
+                    status: "success",
+                    massage: "",
+                    data: doc.data()
+                }
             }
-           } else {
-            user ={ 
-                status : "success" , 
-                massage : "",
-                data : doc.data() 
-            }
-           }
-         })
-         .catch(err => {
-            user={ 
-                status : "error" , 
-                massage : err
-            }
-         });
-         return user
+        })
+            .catch(err => {
+                user = {
+                    status: "error",
+                    massage: err
+                }
+            });
+        return user
     },
-    passTutorail: async function(uid,newData){
-        let refUserInfo = firestore.collection("UserInfo").doc(uid) 
-        refUserInfo.set(newData).then(()=>{
-          return {
-            status : "success"
-          }
-        }).catch((e)=>{
+    /*
+    *Description: Through system introduction
+    *@version 1.0
+    *@author Supachai Boonying
+    *@since 10 March 2020
+    *@required javascript, admin
+    */
+    passTutorail: async function (uid, newData) {
+        let refUserInfo = firestore.collection("UserInfo").doc(uid)
+        refUserInfo.set(newData).then(() => {
             return {
-                status : "error",
-                massage : e
+                status: "success"
+            }
+        }).catch((e) => {
+            return {
+                status: "error",
+                massage: e
             }
         })
     },
-    allUser : async function(callback){
-        await auth.listUsers().then( async (userRecords) => {
+    /*
+    *Description: Retrieve all user data.
+    *@version 1.0
+    *@author Supachai Boonying
+    *@since 10 March 2020
+    *@required javascript, admin
+    */
+    allUser: async function (callback) {
+        await auth.listUsers().then(async (userRecords) => {
             let listuser = []
             await userRecords.users.forEach((user) => {
                 listuser.push(user)
@@ -83,45 +116,51 @@ module.exports = {
             callback(error)
         });
     },
-
-    updateUser : async function(callback){
-        await auth.listUsers().then( async (userRecords) => {
-            await userRecords.users.forEach( async (user) => {
+    /*
+    *Description: Update profile all user
+    *@version 1.0
+    *@author Supachai Boonying
+    *@since 10 March 2020
+    *@required javascript, admin
+    */
+    updateUser: async function (callback) {
+        await auth.listUsers().then(async (userRecords) => {
+            await userRecords.users.forEach(async (user) => {
                 let refUserInfo = firestore.collection('UserInfo').doc(user.uid)
                 console.log(user.uid)
-                try{
+                try {
                     await refUserInfo.get().then(doc => {
-                        if(doc.exists){
+                        if (doc.exists) {
                             console.log(doc.data())
                             let oldData = doc.data()
                             let newData = {
-                                avatar : oldData.avatar,
-                                nickname : (oldData.nickname == "" ? user.displayName : oldData.nickname ),
-                                playTutorial : (oldData.playTutorial == undefined ? true : oldData.playTutorial),
-                                role : oldData.role,
-                                email : user.email,
-                                displayName : user.displayName,
-                                photoURL : (user.photoURL == null ? null :user.photoURL )
+                                avatar: oldData.avatar,
+                                nickname: (oldData.nickname == "" ? user.displayName : oldData.nickname),
+                                playTutorial: (oldData.playTutorial == undefined ? true : oldData.playTutorial),
+                                role: oldData.role,
+                                email: user.email,
+                                displayName: user.displayName,
+                                photoURL: (user.photoURL == null ? null : user.photoURL)
                             }
                             refUserInfo.set(newData)
-                        }else{
+                        } else {
                             let newData = {
-                                avatar : 'robot-01.svg',
-                                nickname : user.displayName,
-                                playTutorial : true,
-                                role : 'user',
-                                email : user.email,
-                                displayName : user.displayName,
-                                photoURL : (user.photoURL == null ? null :user.photoURL )
+                                avatar: 'robot-01.svg',
+                                nickname: user.displayName,
+                                playTutorial: true,
+                                role: 'user',
+                                email: user.email,
+                                displayName: user.displayName,
+                                photoURL: (user.photoURL == null ? null : user.photoURL)
                             }
                             refUserInfo.set(newData)
                         }
                     })
-                }catch(e){
+                } catch (e) {
                     console.warn(user.uid)
                     console.warn(e)
                 }
-                
+
             });
             callback("success")
         }).catch((error) => {
@@ -129,15 +168,28 @@ module.exports = {
             console.warn('error.message')
         });
     },
+    /*
+    *Description: Update user by id
+    *@version 1.0
+    *@author Supachai Boonying
+    *@since 10 March 2020
+    *@required javascript, admin
+    */
     updateByUser: uid => updateByUser(uid),
-
-    checkUser: async (uid)=>{
+    /*
+    *Description: check profile of user.
+    *@version 1.0
+    *@author Supachai Boonying
+    *@since 10 March 2020
+    *@required javascript, admin
+    */
+    checkUser: async (uid) => {
         const refUserInfo = firestore.collection('UserInfo').doc(uid)
         await refUserInfo.get().then(doc => {
-            if(doc.exists){
-                updateByUser(uid) 
-            }else{
-                newUser(uid) 
+            if (doc.exists) {
+                updateByUser(uid)
+            } else {
+                newUser(uid)
             }
         }).catch((error) => {
             callback("error" + error.message)

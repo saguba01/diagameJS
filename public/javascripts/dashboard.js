@@ -1,13 +1,27 @@
 var firestore = require('../../configs/firebase-config').firestore; //test firebase
 
-async function getFlowchart(id){
+/*
+*Description: Retrieve all flowchart
+*@version 1.0
+*@author Supachai Boonying
+*@since 10 March 2020
+*@required javascript, firestore
+*/
+async function getFlowchart(id) {
   const refLogic = firestore.collection('Diagram').doc(id)
   await refLogic.get().then(async doc => {
-    return ( doc.exists ? doc.data() : null )
+    return (doc.exists ? doc.data() : null)
   })
 }
 
 module.exports = {
+  /*
+  *Description: Retrieve all players
+  *@version 1.0
+  *@author Supachai Boonying
+  *@since 10 March 2020
+  *@required javascript, firestore
+  */
   getNumOfUser: async function () {
     let responces = [];
     const refUserInfo = firestore.collection('UserInfo')
@@ -21,7 +35,7 @@ module.exports = {
             nickname: resBack.nickname,
             playTutorial: resBack.playTutorial,
             score: resBack.score,
-            role : (resBack.role == undefined || resBack.role == null ? 'user' : resBack.role )
+            role: (resBack.role == undefined || resBack.role == null ? 'user' : resBack.role)
           }
         })
       });
@@ -32,6 +46,13 @@ module.exports = {
       });
     return responces
   },
+  /*
+  *Description: Retrieves all playback data. It is divided into the following topics: flowchart operators and logic.
+  *@version 1.0
+  *@author Supachai Boonying
+  *@since 10 March 2020
+  *@required javascript, firestore
+  */
   getscroeHistory: async function () {
     let responces = [];
     const refScroeHistory = firestore.collection('ScoreHistory')
@@ -41,8 +62,8 @@ module.exports = {
         if (result.type == "logic") {
           const refLogic = firestore.collection('Logic').doc(result.questionId)
           await refLogic.get().then(async subDoc => {
-            try{
-              if(subDoc.exists) {
+            try {
+              if (subDoc.exists) {
                 await responces.push({
                   id: result.questionId,
                   type: (!doc.exists ? "not flound" : subDoc.data().Type),
@@ -58,19 +79,19 @@ module.exports = {
                   ref: (!subDoc.exists ? null : subDoc.data())
                 })
               }
-            }catch(e){
+            } catch (e) {
               console.warn("sub err")
               console.warn(e)
             }
-            
+
           }).catch(err => {
             console.warn("err")
             console.warn(err)
           });
-        } else if("diagram"){
+        } else if ("diagram") {
           const refLogic = firestore.collection('Diagram').doc(result.questionId)
           await refLogic.get().then(async doc => {
-            if( doc.exists ) {
+            if (doc.exists) {
               responces.push({
                 id: result.questionId,
                 type: result.type,
@@ -83,11 +104,11 @@ module.exports = {
                   uid: result.uid,
                   score: result.score,
                 },
-                ref: ( doc.exists ? doc.data() : null )
+                ref: (doc.exists ? doc.data() : null)
               })
             }
           })
-        }else{
+        } else {
           responces.push({
             id: result.questionId,
             type: result.type,

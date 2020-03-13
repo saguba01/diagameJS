@@ -167,8 +167,6 @@
         var element = start;
         var timestamp = Date.now();
         var flowchartBeenEqual = false;
-        // console.log("tempFlowchart: ",tempFlowchart);
-        // console.log("currentFlowchart: ",currentFlowchart);
         var result = [];
 
         if (JSON.stringify(tempFlowchart) != JSON.stringify(currentFlowchart)) {
@@ -240,14 +238,19 @@
             }
         }
 
+        /*  
+        *Description: run event
+        *@version 1.0
+        *@author Supachai Boonying
+        *@since 06 Mar 2020
+        *@required javascript.
+        */
         function runEvent() {
 
             var obj = element.children().children()[1];
-
             console.log('runEvent', $(element).attr('event'), $(obj).text());
             if ($(element).attr('event') == "pc1") {
                 var url = "/assets/svg/variable/juice/" + $(element).attr('photo');
-                // console.log(url);
                 var orangeGlass = "<div id = 'glass' class = 'play_jelly ' style = 'position: absolute;;width: 600px;height: 100%;background-size: 60% auto;background-repeat: no-repeat;background-position: center;'></div>";
                 $('#display').append(orangeGlass);
                 $('#glass').css('background-image', 'url("' + url + '")');
@@ -255,7 +258,7 @@
             if ($(element).attr('event') == "pc2") {
                 var orangeGlass = "";
                 var svgName = baseUrl + '/assets/svg/variable/juice/';
-                // console.log($('div#display').find('g#grass').length);
+
                 if ($('div#display').find('#glass').length == 0) {
                     orangeGlass = "<div id = 'orange' class = 'scale-in-center' style = 'position: absolute;margin-left: -160px;width: 900px;height: 100%;background-size: 60% auto;background-repeat: no-repeat;background-position: center;'></div>";
                     svgName += 'out.svg';
@@ -263,8 +266,7 @@
                     orangeGlass = "<div id = 'orange' class = 'scale-in-center' style = 'position: absolute;width: 560px;height: 100%;background-size: 60% auto;background-repeat: no-repeat;background-position: center;margin-left: 20px;'></div>";
                     svgName += 'in.svg';
                 }
-                // var url = "/assets/svg/variable/juice/" + $(element).attr('photo');
-                // console.log(url);
+
                 $('#display').append(orangeGlass);
                 $('#orange').css('background-image', 'url("' + svgName + '")');
             }
@@ -275,7 +277,13 @@
                 resultFlowchart(result);
             }
         }
-
+        /*  
+        *Description: result flowchart
+        *@version 1.0
+        *@author Supachai Boonying
+        *@since 06 Mar 2020
+        *@required javascript.
+        */
         function resultFlowchart(result) {
             console.log('result')
             console.log(result)
@@ -304,33 +312,8 @@
         }
     }
 
-    function introLesson() {
-        var intro = introInstant([{
-            element: $('div[type="element"][event="start"]')[0],
-            intro: '{{intro.element.start}}'
-        }, {
-            element: $('div[type="element"][event="end"]')[0],
-            intro: '{{intro.element.end}}'
-        }, {
-            element: '#guideTool',
-            intro: '{{intro.element.tool}}'
-        }, {
-            element: '#playButton',
-            intro: '{{intro.element.play}}'
-        }]);
-        $('.panelTool').css('position', 'absolute');
-        $('.tabs').css('position', 'absolute');
-        intro.start()
-            .onexit(function () {
-                $('.panelTool').css('position', 'fixed');
-                $('.tabs').css('position', 'fixed');
-            }).onbeforechange(function (targetElement) {
-                console.log($(targetElement).hasClass('targetPanel'));
-
-            });
-    }
     /*
-    *Description: 
+    *Description: Start tutorial for flowchart
     *@version 1.0
     *@author Supachai Boonying
     *@since 06 Mar 2020
