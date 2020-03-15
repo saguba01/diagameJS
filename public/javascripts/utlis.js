@@ -1251,8 +1251,7 @@ function passTutorial() {
         contentType: "application/json",
         url: "/tutorial/passTutorail",
         success: function (result) {
-            unblockUI();
-            location.href = "/home"
+            unblockUI();  
         },
         error: (e) => {
             unblockUI();
