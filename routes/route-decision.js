@@ -26,7 +26,8 @@ router.get('/coffee', authen, function (req, res, next) {
     general: configString[lang].general,
     achievementList: configString[lang].achievement,
     errorMsg: configString[lang].error,
-    nextPage: '/lesson/decision/steak'
+    nextPage: '/lesson/decision/steak',
+    button:general.button
   };
   res.render('decision/coffee', data);
 });
