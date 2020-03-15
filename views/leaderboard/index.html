@@ -248,7 +248,7 @@
                             html += '<span>' + value.nickname + '</span>'
                             html += '</div>'
                             html += '<div style="font-size: 20px; font-weight: bold; width: 30%;">'
-                            html += '<span>' + value.score + '</span>'
+                            html += '<span>' + numberWithCommas(value.score) + '</span>'
                             html += '</div>'
                             html += '</div>'
                             html += '</div>'
@@ -274,17 +274,17 @@
                             $('#gold').html(element.rank);
                             $('#gold-avatar').html(element.avatar)
                             $('#gold-name').html(element.name)
-                            $('#gold-score').html(element.score)
+                            $('#gold-score').html(numberWithCommas(element.score))
                         } else if (i == 2) {
                             $('#silver').html(element.rank);
                             $('#silver-avatar').html(element.avatar)
                             $('#silver-name').html(element.name)
-                            $('#silver-score').html(element.score)
+                            $('#silver-score').html(numberWithCommas(element.score))
                         } else if (i == 3) {
                             $('#gold-red').html(element.rank);
                             $('#gold-red-avatar').html(element.avatar)
                             $('#gold-red-name').html(element.name)
-                            $('#gold-red-score').html(element.score)
+                            $('#gold-red-score').html(numberWithCommas(element.score))
                         }
                         i++;
                     })
@@ -330,7 +330,7 @@
                         $("#my-rank").html(myrank);
                         $("#my-avatar").html(myavatar);
                         $("#my-name").html(myname);
-                        $("#my-score").html(myscore);
+                        $("#my-score").html(numberWithCommas(myscore));
 
                 },
                 error: function (e) {

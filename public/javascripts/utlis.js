@@ -1356,7 +1356,7 @@ function ScoreBoard(uid){
                         html += '<span>' + element.nickname + '</span>'
                         html += '</div>'
                         html += '<div style="font-size: 18px; font-weight: bold; width: 30%;">'
-                        html += '<span>' + element.score + '</span>'
+                        html += '<span>' + numberWithCommas(element.score) + '</span>'
                         html += '</div>'
                         html += '</div>'
                         html += '</div>'
@@ -1389,7 +1389,7 @@ function ScoreBoard(uid){
                 test += '<span>' + urank.nickname + '</span>'
                 test += '</div>'
                 test += '<div style="font-size: 20px; font-weight: bold; width: 30%;">'
-                test += '<span>' + urank.score + '</span>'
+                test += '<span>' + numberWithCommas(urank.score) + '</span>'
                 test += '</div>'
                 test += '</div>'
                 test += '</div>'
@@ -1637,4 +1637,8 @@ function showListQuestion(header,obj) {
         console.warn(e)
     }
     
+}
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
