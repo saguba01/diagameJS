@@ -137,18 +137,24 @@ background-position: center;
     text-align:center;
     background-color: #f55e5e;
     font-size:22px;
-    color:white;
 }
 
 .medal{
-    width:60px;
-    height:60px;
+    width:40px;
+    height:40px;
+}
+
+.rank-medal{
+    width:70px;
+    height:70px;
 }
 
 .medal-leaderboard{
-    width:100px;
-    height:100px;
-    margin:auto;
+    background-color: rgb(202, 202, 202);
+    border-radius: 50%;
+    width:80px;
+    height:80px;
+    border:solid 3px black;
 }
 
 .table-leaderboard{
@@ -162,7 +168,6 @@ background-position: center;
 #data-leaderboard>tr:hover{
     background-color: #f8db73;
     color:white;
-
     transition: 250ms;
 }
 
@@ -180,6 +185,6 @@ select{
     cursor: url('../assets/cursor-pointer.png'), default;
 }
 
-.card{
-    
+.border-white-board{
+    border:5px solid white !important;
 }

@@ -40,6 +40,7 @@ router.get('/', authen, async (req, res, next) => {
           allLogic.forEach((value)=>{
             allQuestion.push(value)
           })
+          const userInfo = user.data
           var data = {
             layout: 'default',
             navBar: true,
@@ -51,9 +52,10 @@ router.get('/', authen, async (req, res, next) => {
             general: stringConfig.general,
             setting: stringConfig.general.setting,
             button: stringConfig.general.button,
-            slidebar: stringConfig.general.slidebar,
+            slidebar: general.slidebar,
             dashboard: stringConfig.general.dashboard,
             months: JSON.stringify(stringConfig.general.months),
+            // test : JSON.stringify(general.dashboard),
             cardData: {
               total_user: allUser.length,
               total_question: parseInt(allFlowchart.length) + parseInt(allLogic.length),
@@ -62,6 +64,7 @@ router.get('/', authen, async (req, res, next) => {
             },
             achievementList: configString[lang].achievement,
             errorMsg: configString[lang].error,
+            name:userInfo.nickname
           };
           res.render('admin/index', data);
         } else {
@@ -101,6 +104,7 @@ router.get('/flowchart', authen, async (req, res, next) => {
   const stringConfig = configString[lang]
   try {
     if (user.status == "success" && user.data.role == "admin") {
+      const userInfo = user.data
       var data = {
         layout: 'default',
         navBar: true,
@@ -111,19 +115,24 @@ router.get('/flowchart', authen, async (req, res, next) => {
         //required
         lesson: configString[lang].lesson,
         general: general,
-        setting: stringConfig.general.setting,
-        button: stringConfig.general.button,
+        setting: general.setting,
+        button: general.button,
         slidebar: general.slidebar,
         achievementList: configString[lang].achievement,
         errorMsg: configString[lang].error,
-        allFlowchart: JSON.stringify(allFlowchart)
+        allFlowchart: JSON.stringify(allFlowchart),
+        name:userInfo.nickname
       };
       res.render('admin/flowchartManagent', data);
     } else {
       res.render('shared/page_404');
     }
   } catch (e) {
-    console.error(e)
+    res.locals.message = e.message;
+    res.locals.error = req.app.get('env') === 'development' ? e : {};
+
+    // render the error page
+    res.status(e.status || 500);
     res.render('shared/error');
   }
 
@@ -141,9 +150,11 @@ router.get('/logic', authen, async (req, res, next) => {
   const uid = req.session.user.uid;
   const user = await user_info.userInfo(uid)
   const allLogic = await questionLogic.getAllLogic(lang)
+  const general = await genaral.getGanaral(lang)
   const stringConfig = configString[lang]
   try {
     if (user.status == "success" && user.data.role == "admin") {
+      const userInfo = user.data
       var data = {
         layout: 'default',
         navBar: true,
@@ -152,22 +163,25 @@ router.get('/logic', authen, async (req, res, next) => {
         element: configString[lang].element.general,
         intro: configString[lang].intro,
         lesson: configString[lang].lesson,
-        general: stringConfig.general,
-        setting: stringConfig.general.setting,
-        button: stringConfig.general.button,
-        slidebar: stringConfig.general.slidebar,
+        general: general,
+        setting: general.setting,
+        button: general.button,
+        slidebar: general.slidebar,
         achievementList: configString[lang].achievement,
         errorMsg: configString[lang].error,
-        allLogic: JSON.stringify(allLogic)
+        allLogic: JSON.stringify(allLogic),
+        name:userInfo.nickname
       };
       res.render('admin/LogicManagement', data);
     } else {
       res.render('shared/page_404');
     }
   } catch (e) {
-    console.error(e)
+    res.locals.message = e.message;
+    res.locals.error = req.app.get('env') === 'development' ? e : {};
+
     // render the error page
-    res.status(err.status || 500);
+    res.status(e.status || 500);
     res.render('shared/error');
   }
 
@@ -182,12 +196,14 @@ router.get('/logic', authen, async (req, res, next) => {
  */
 router.get('/score', authen, async (req, res, next) => {
   let lang = req.cookies.lang;
+  const general = await genaral.getGanaral(lang)
   const scoreData = await score.getScore()
   const uid = req.session.user.uid;
   const user = await user_info.userInfo(uid)
   const stringConfig = configString[lang]
   try {
     if (user.status == "success" && user.data.role == "admin") {
+      const userInfo = user.data
       var data = {
         layout: 'default',
         navBar: true,
@@ -196,13 +212,15 @@ router.get('/score', authen, async (req, res, next) => {
         element: configString[lang].element.general,
         intro: configString[lang].intro,
         lesson: configString[lang].lesson,
-        general: stringConfig.general,
-        setting: stringConfig.general.setting,
-        button: stringConfig.general.button,
+        general: general,
+        setting: general.setting,
+        button: general.button,
         score: scoreData.data,
-        slidebar: stringConfig.general.slidebar,
+        slidebar: general.slidebar,
         achievementList: configString[lang].achievement,
         errorMsg: configString[lang].error,
+        name:userInfo.nickname
+        // allLogic: JSON.stringify(allLogic),
       };
       res.render('admin/scoreManagement', data);
     } else {

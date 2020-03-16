@@ -55,6 +55,14 @@
   }
 
   .avatar-leaderboard{
+    background-color: rgb(202, 202, 202);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: solid 3px #000000;
+  }
+
+  .avatar-listboard{
     opacity: 1;
     width: 45px;
     height: 45px;
