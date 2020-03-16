@@ -1,4 +1,5 @@
 module.exports = {
+    header: 'เพิ่มโจทย์',
     form: {
         questionNameEN: {
             text: 'ชื่อคำถาม : EN',

@@ -1,4 +1,5 @@
 module.exports = {
+    header: 'Add Question',
     form: {
         questionNameEN: {
             text: 'Question Name : EN',
