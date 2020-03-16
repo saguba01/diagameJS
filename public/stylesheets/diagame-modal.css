@@ -500,7 +500,7 @@
 }
 
 #modal-list-user{
-    max-height: 100% !important;
+    max-height: 80% !important;
     overflow-y: scroll;
 }
 
@@ -511,7 +511,7 @@
 }
 
 #modal-list-question{
-    max-height: 100% !important;
+    max-height: 80% !important;
     overflow-y: scroll;
 }
 

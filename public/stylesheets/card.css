@@ -36,6 +36,7 @@
     height: 60%;
     position: absolute;
     margin-top: 20px;
+    bottom: 0;
 }
 
 .card-body>.card-body-title{

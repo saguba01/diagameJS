@@ -52,7 +52,7 @@ router.get('/', authen, async (req, res, next) => {
             general: stringConfig.general,
             setting: stringConfig.general.setting,
             button: stringConfig.general.button,
-            slidebar: general.slidebar,
+            slidebar: stringConfig.general.slidebar,
             dashboard: stringConfig.general.dashboard,
             months: JSON.stringify(stringConfig.general.months),
             // test : JSON.stringify(general.dashboard),
