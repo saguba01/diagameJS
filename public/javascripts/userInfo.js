@@ -15,7 +15,6 @@ async function updateByUser(uid) {
             let old = doc.data()
             old.displayName = user.displayName
             old.email = user.email
-            old.photoURL = (user.photoURL == undefined ? null : user.photoURL)
             refUserInfo.set(old)
         }).catch((err) => {
             console.warn(err.message)
@@ -139,7 +138,6 @@ module.exports = {
                                 role: oldData.role,
                                 email: user.email,
                                 displayName: user.displayName,
-                                photoURL: (user.photoURL == null ? null : user.photoURL)
                             }
                             refUserInfo.set(newData)
                         } else {
@@ -150,7 +148,6 @@ module.exports = {
                                 role: 'user',
                                 email: user.email,
                                 displayName: user.displayName,
-                                photoURL: (user.photoURL == null ? null : user.photoURL)
                             }
                             refUserInfo.set(newData)
                         }
