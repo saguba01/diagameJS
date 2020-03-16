@@ -267,10 +267,8 @@
 
 #modal-wallcome>.modal-footer {
     text-align: center;
-    background-color: #b2bbff;
     padding-left: 24px;
     padding-right: 24px;
-    border-top: 5px solid #000000;
     height: 80px;
 }
 
@@ -486,10 +484,8 @@
 
 #modal-pass-tutorial>.modal-footer {
     text-align: center;
-    background-color: #b2bbff;
     padding-left: 24px;
     padding-right: 24px;
-    border-top: 5px solid #000000;
     height: 80px;
 }
 
@@ -503,12 +499,6 @@
     text-align: center;
 }
 
-#modal-list-user>.modal-footer {
-    border-top: 5px solid #000000;
-    background-color: #56e3c4;
-    display: inline-block;
-}
-
 #modal-list-user{
     max-height: 100% !important;
     overflow-y: scroll;
@@ -520,13 +510,17 @@
     text-align: center;
 }
 
-#modal-list-question>.modal-footer {
-    border-top: 5px solid #000000;
-    background-color: #56e3c4;
-    display: inline-block;
-}
-
 #modal-list-question{
     max-height: 100% !important;
     overflow-y: scroll;
+}
+
+.modal>.modal-content{
+    background-color: #f9da89;
+}
+
+.modal>.modal-footer{
+    border-top: 5px solid #000000;
+    display: inline-block;
+    background-color: #add0de;
 }

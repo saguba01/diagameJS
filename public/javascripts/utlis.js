@@ -1602,9 +1602,7 @@ function showListQuestion(header,obj) {
         'dismissible': false,
         'onOpenStart': function () {
             $('#modal-list-question>.modal-content>.list-header').html(header)
-
             let table = $("#tableListQuestion").DataTable()
-            
             obj.forEach((value,index)=>{
                 let name = ''
 
