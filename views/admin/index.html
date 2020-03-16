@@ -61,16 +61,16 @@
             <div class="dia-row">
                 <div class="panel panel-default dia-12">
                     <div class="panel-heading" style="display: inline-block;width: 100%;">
-                        <span class="dia-8">{{dashboard.report.line.play_questions.title}}</span>
+                        <span class="dia-8">{{dashboard.report.line.score_summary.title}}</span>
                         <div class="dia-4" style="display: inline-block; float:right;">
                             <select style="display: inline-block;" class="typeQuestions"
-                                onchange="play_question(this.value)">
+                                onchange="score_summary(this.value)">
                                 {{list-option-question dashboard.type}}
                             </select>
                         </div>
                     </div>
                     <div class="panel-body">
-                        <div id="play_question"
+                        <div id="score_summary"
                             style="min-width: 310px; height: 400px; max-width: 100%; margin: 0 auto"></div>
                     </div>
                 </div>
@@ -95,16 +95,16 @@
             <div class="dia-row">
                 <div class="panel panel-default dia-12">
                     <div class="panel-heading" style="display: inline-block;width: 100%;">
-                        <span class="dia-8">{{dashboard.report.line.score_summary.title}}</span>
+                        <span class="dia-8">{{dashboard.report.line.play_questions.title}}</span>
                         <div class="dia-4" style="display: inline-block; float:right;">
                             <select style="display: inline-block;" class="typeQuestions"
-                                onchange="score_summary(this.value)">
+                                onchange="play_question(this.value)">
                                 {{list-option-question dashboard.type}}
                             </select>
                         </div>
                     </div>
                     <div class="panel-body">
-                        <div id="score_summary"
+                        <div id="play_question"
                             style="min-width: 310px; height: 400px; max-width: 100%; margin: 0 auto"></div>
                     </div>
                 </div>
@@ -130,8 +130,13 @@
 <script type="text/javascript">
     var listUser = JSON.parse("{{cardData.listUser}}".replace(/&quot;/g, '\"')) // Object of listUser
     var listQuestion = JSON.parse("{{cardData.listQuestion}}".replace(/&quot;/g, '\"')) // Object of listQuestion
+    var fontSize_chart = '20px'
+    var fontSize_x = '20px'
+    var fontSize_y = '20px'
+    var fontSize_plot = '18px'
 
     $(document).ready(() => {
+        console.log("{{dashboard.card.total_user.table}}")
         $(".card-user-all").click(() => {
             showAllUser("{{dashboard.card.total_user.table}}", listUser, '{{errorMsg.data.not_found}}')
         })
@@ -230,14 +235,31 @@
                     tooltip: {
                         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
                     },
+                    xAxis : {
+                        labels : {
+                            style : {
+                                fontSize : fontSize_x
+                            }
+                        }
+                    },
+                    yAxis : {
+                        labels : {
+                            style : {
+                                fontSize : fontSize_y
+                            }
+                        }
+                    },
                     plotOptions: {
                         pie: {
                             allowPointSelect: true,
                             cursor: 'pointer',
                             dataLabels: {
                                 enabled: true,
-                                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-                            }
+                                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                style : {
+                                    fontSize : fontSize_plot,
+                                }
+                            },
                         }
                     },
                     credits: {
@@ -273,7 +295,7 @@
             success: function (response) {
                 let type = byType
                 let chart
-
+               
                 response.forEach((value) => {
                     if (value.type == type) {
                         chart = value
@@ -297,14 +319,17 @@
                             listRound[index] += parseInt(value.data.round)
                         } else {
                             index++
-                            oldId == value.id
+                            oldId = value.id
                             listRound.push(value.data.round)
                             listXAxis.push((lang == "en" || typeof lang == "undefined" ? value.ref.NameEN : value.ref.NameTH))
                         }
 
                     }
                 })
-
+                console.log({
+                    listXAxis : listXAxis,
+                    listRound : listRound
+                })
                 Highcharts.chart('play_question', {
                     chart: {
                         plotBackgroundColor: null,
@@ -322,11 +347,21 @@
                         categories: listXAxis,
                         title: {
                             text: '{{dashboard.report.line.play_questions.xUnit}}'
+                        },
+                        labels : {
+                            style : {
+                                fontSize : fontSize_x
+                            }
                         }
                     },
                     yAxis: {
                         title: {
                             text: '{{dashboard.report.line.play_questions.yUnit}}'
+                        },
+                        labels : {
+                            style : {
+                                fontSize : fontSize_y
+                            }
                         }
                     },
                     legend: {
@@ -336,7 +371,10 @@
                     plotOptions: {
                         line: {
                             dataLabels: {
-                                enabled: true
+                                enabled: true,
+                                style : {
+                                    fontSize : fontSize_plot,
+                                }
                             },
                             enableMouseTracking: false
                         }
@@ -396,7 +434,7 @@
                 let index = 0
                 let lang = Cookies.get('lang')
                 let round
-                chart.data.forEach((value) => {
+                chart.data.forEach((value,i) => {
                     if (listXAxis.length == 0) {
                         round = 1
                         oldId = value.id
@@ -418,7 +456,7 @@
                             listTime[index] = parseFloat(parseFloat(listTime[index] / round).toFixed(3))
                             round = 1
                             index++
-                            oldId == value.id
+                            oldId = value.id
                             listTime.push(parseInt(value.data.time))
                             maxTime.push(parseInt(value.data.time))
                             minTime.push(parseInt(value.data.time))
@@ -427,7 +465,7 @@
 
                     }
                 })
-
+                listTime[index] = parseFloat(parseFloat(listTime[index] / round).toFixed(3))
                 Highcharts.chart('playtime_summary', {
                     chart: {
                         plotBackgroundColor: null,
@@ -446,23 +484,36 @@
                         categories: listXAxis,
                         title: {
                             text: '{{dashboard.report.line.playtime_summary.xUnit}}'
+                        },
+                        labels : {
+                            style : {
+                                fontSize : fontSize_x
+                            }
                         }
                     },
                     yAxis: {
                         title: {
                             text: '{{dashboard.report.line.playtime_summary.yUnit}}'
+                        },
+                        labels : {
+                            style : {
+                                fontSize : fontSize_y
+                            }
                         }
                     },
                     legend: {
                         layout: 'vertical',
-                        align: 'right',
-                        verticalAlign: 'middle'
+                        align: 'center',
+                        verticalAlign: 'bottom'
                     },
 
                     plotOptions: {
                         line: {
                             dataLabels: {
-                                enabled: true
+                                enabled: true,
+                                style : {
+                                    fontSize : fontSize_plot
+                                }
                             },
                             enableMouseTracking: false
                         }
@@ -548,10 +599,12 @@
                                 minScore[index] = parseInt(value.data.score)
                             }
                         } else {
+                            console.log(`listScore : ${listScore[index]}`)
+                            console.log(`round : ${round}`)
                             listScore[index] = parseFloat(parseFloat(listScore[index] / round).toFixed(3))
                             round = 1
                             index++
-                            oldId == value.id
+                            oldId = value.id
                             listScore.push(parseInt(value.data.score))
                             maxScore.push(parseInt(value.data.score))
                             minScore.push(parseInt(value.data.score))
@@ -559,6 +612,7 @@
                         }
                     }
                 })
+                listScore[index] = parseFloat(parseFloat(listScore[index] / round).toFixed(3))
                 Highcharts.chart('score_summary', {
                     chart: {
                         plotBackgroundColor: null,
@@ -577,23 +631,36 @@
                         categories: listXAxis,
                         title: {
                             text: '{{dashboard.report.line.score_summary.xUnit}}'
+                        },
+                        labels : {
+                            style : {
+                                fontSize : fontSize_x
+                            }
                         }
                     },
                     yAxis: {
                         title: {
                             text: '{{dashboard.report.line.score_summary.yUnit}}'
+                        },
+                        labels : {
+                            style : {
+                                fontSize : fontSize_y
+                            }
                         }
                     },
                     legend: {
                         layout: 'vertical',
-                        align: 'right',
-                        verticalAlign: 'middle'
+                        align: 'center',
+                        verticalAlign: 'bottom'
                     },
 
                     plotOptions: {
                         line: {
                             dataLabels: {
-                                enabled: true
+                                enabled: true,
+                                style : {
+                                    fontSize : fontSize_plot
+                                }
                             },
                             enableMouseTracking: false
                         }
@@ -702,11 +769,21 @@
                         categories: listXAxis,
                         title: {
                             text: '{{dashboard.report.line.use_system_back7day.xUnit}}'
+                        },
+                        labels : {
+                            style : {
+                                fontSize : fontSize_x
+                            }
                         }
                     },
                     yAxis: {
                         title: {
                             text: '{{dashboard.report.line.use_system_back7day.yUnit}}'
+                        },
+                        labels : {
+                            style : {
+                                fontSize : fontSize_y
+                            }
                         }
                     },
                     legend: {
@@ -718,7 +795,10 @@
                     plotOptions: {
                         line: {
                             dataLabels: {
-                                enabled: true
+                                enabled: true,
+                                style : {
+                                    fontSize : fontSize_plot
+                                }
                             },
                             enableMouseTracking: false
                         }

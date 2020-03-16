@@ -49,12 +49,13 @@ router.get('/', authen, async (req, res, next) => {
             element: configString[lang].element.general,
             intro: configString[lang].intro,  
             lesson: configString[lang].lesson,
-            general: general,
-            setting: general.setting,
-            button: general.button,
-            slidebar: general.slidebar,
-            dashboard: general.dashboard,
+            general: stringConfig.general,
+            setting: stringConfig.general.setting,
+            button: stringConfig.general.button,
+            slidebar: stringConfig.general.slidebar,
+            dashboard: stringConfig.general.dashboard,
             months: JSON.stringify(stringConfig.general.months),
+            // test : JSON.stringify(general.dashboard),
             cardData: {
               total_user: allUser.length,
               total_question: parseInt(allFlowchart.length) + parseInt(allLogic.length),
@@ -435,7 +436,7 @@ router.get('/listUserAll', async (req, res, next) => {
  * modify date: 13/03/2020
  */
 router.get('/updateAllUser', async (req, res, next) => {
-  const user = await user_info.updateUser()
+  const user = await user_info.updateByUser()
   res.status(200).send('OK')
 })
 

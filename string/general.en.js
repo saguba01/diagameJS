@@ -83,12 +83,12 @@ module.exports = {
     dashboard: {
         card: {
             total_question: {
-                title: 'Total number of questions within the system.',
+                title: 'Total number of questions within the system',
                 table : 'Details of all questions within the system',
                 unit: 'questions'
             },
             total_user: {
-                title: 'Total number of users within the system.',
+                title: 'Total number of users within the system',
                 table : 'Details of all users within the system',
                 unit: 'peoples'
             }
@@ -101,12 +101,12 @@ module.exports = {
         report: {
             line: {
                 play_questions: {
-                    title: 'The report compares the number of games played in each learning chapter.',
+                    title: 'Statistics of the number of times the game is played by stages',
                     xUnit: 'List questions',
                     yUnit: 'Amount play'
                 },
                 playtime_summary: {
-                    title: 'Report of comparing game duration in each lesson.',
+                    title: 'Gaming duration statistics by level',
                     xUnit: 'List questions',
                     yUnit: 'Time (second)',
                     max: 'Maximum time',
@@ -114,7 +114,7 @@ module.exports = {
                     avg: 'Average time'
                 },
                 score_summary: {
-                    title: 'Report comparing the scores of each lesson that must be learned.',
+                    title: 'Statistics of highest, lowest and average scores by stage',
                     xUnit: 'List questions',
                     yUnit: 'Scores',
                     max: 'Maximum score',
@@ -122,7 +122,7 @@ module.exports = {
                     avg: 'Average score'
                 },
                 use_system_back7day: {
-                    title: 'Report playing in the past 7 days',
+                    title: 'Gaming user statistics for the past 7 days',
                     xUnit: 'Date',
                     yUnit: 'Amount of players'
                 }
@@ -136,7 +136,7 @@ module.exports = {
                         other: 'Other'
                     },
                     series_name: 'amount',
-                    title: 'The report compares the number of questions in each learning chapter.'
+                    title: 'The proportion of questions in each checkpoint'
                 },
 
             }
