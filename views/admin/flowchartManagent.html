@@ -3,10 +3,10 @@
     <div class="panel-heading">{{general.management.flowchart.title}}</div>
     <div class="panel-body">
       <div class="dia-row" style="margin-bottom: 10px;">
-        <div class="canClick btn-add" onclick="location.href='/manage/diagram/add'">+ {{button.add_flowchart}}</div>
+        <div class="canClick btn btn-add" onclick="location.href='/manage/diagram/add'" style="width: auto;">+ {{button.add_flowchart}}</div>
       </div>
       <div class="dia-row">
-        <table id="dtMaterialDesignExample" class="table table-striped" cellspacing="0" width="100%">
+        <table id="tableFlowchartManagement" class="table table-striped" cellspacing="0" width="100%">
           <thead>
             <tr>
               <th class="th-sm" style="width: 20%;">{{general.table.index}}</th>
@@ -22,7 +22,7 @@
   </div>
 </div>
 <script>
-  $('#dtMaterialDesignExample').DataTable({
+  $('#tableFlowchartManagement').DataTable({
     language: {
       search: "",
       searchPlaceholder: "{{general.table.search_placeholder}}",
@@ -38,15 +38,24 @@
   });
 
   $(function () {
-
-    const flowchartResponces = JSON.parse("{{allFlowchart}}".replace(/&quot;/g, '\"'))
-    const table = $('#dtMaterialDesignExample').DataTable()
+  /*
+ *Description: Add row for table flowchart
+ *@version 1.0
+ *@author Supachai Boonying
+ *@since 10 March 2020
+ *@required javascript, materialize-css.
+ */
+    const flowchartResponces = JSON.parse("{{allFlowchart}}".replace(/&quot;/g, '\"')) // Object of allFlowchart
+    const table = $('#tableFlowchartManagement').DataTable()
     table.clear().draw()
     let count = 1
     flowchartResponces.forEach((item, index) => {
       table.row.add([
+        // index
         `<center>${count++}</center>`,
+        // name of question
         item.data.name,
+        // action
         ` 
             <div class="table-action">
               <button class="canClick btn-edit" onclick="location.href='/manage/diagram/edit/${item.id}'">

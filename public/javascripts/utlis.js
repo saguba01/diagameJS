@@ -978,7 +978,7 @@ function saveFeedback(name) {
         comment = "empty";
     }
     if (stars != 0) {
-        showLoading();
+        blockUI();
         let refFeedback = firestore.collection('Feedback');
         var today = new Date();
         var dd = today.getDate();
@@ -998,7 +998,7 @@ function saveFeedback(name) {
             $("#ratingStar").val('');
             $("#comment-feedback").val('');
             closeModal('#modal-feedback');
-            closeLoading();
+            unblockUI();
             location.reload();
         });
     } else {
@@ -1251,8 +1251,7 @@ function passTutorial() {
         contentType: "application/json",
         url: "/tutorial/passTutorail",
         success: function (result) {
-            unblockUI();
-            location.href = "/home"
+            unblockUI();  
         },
         error: (e) => {
             unblockUI();
@@ -1310,25 +1309,61 @@ function ScoreBoard(uid){
             checkname.sort(compareValues('score', 'desc'))
             var rank = 1;
             var urank = {rank:0,avatar:'',nickname:'',score:0,medal:''}
+            html += '<div class="panel panel-default sticky">'
+            html += '<div class="panel-body" style="background-color: #ce5672;">'
+            html += '<div class="dia-row" style="margin-bottom: 0;display: grid; align-items: center;">'
+            html += '<div style="font-size: 20px; font-weight: bold; margin-left:30px; text-align:center; width:10%">'
+            html += '<span>Rank</span>'
+            html += '</div>'
+            html += '<div style="width:10%">'
+            html += '</div>'
+            html += '<div style="font-size: 20px; font-weight: bold; width: 40%;">'
+            html += '<span>Name</span>'
+            html += '</div>'
+            html += '<div style="font-size: 20px; font-weight: bold; width: 20%;">'
+            html += '<span>Score</span>'
+            html += '</div>'
+            html += '</div>'
+            html += '</div>'
+            html += '</div>'
+            html += '</div>'
             checkname.forEach(element =>{
                 if(rank <= 10){
-                html += '<tr>'
-                if(rank == 1){
-                    medal = '<div style="width:60px; height:60px;"><img src="/assets/svg/reward/first.svg" class="medal"></div>'
-                    html += '<td><center>'+medal+'</center></td>'
-                }else if(rank == 2){
-                    medal = '<div style="width:60px; height:60px;"><img src="/assets/svg/reward/silver.svg" class="medal"></div>'
-                    html += '<td><center>'+medal+'</center></td>'
-                }else if(rank == 3){
-                    medal = '<div style="width:60px; height:60px;"><img src="/assets/svg/reward/medal.svg" class="medal"></div>'
-                    html += '<td><center>'+medal+'</center></td>'
-                }else{
-                    html += '<td style="text-align:center">'+rank+'</td>'
+                        var check = '';
+                        if(uid == element.uid){
+                            check = 'border-white-board'
+                        }
+                        //Get My ranking
+
+                        html += '<div class="panel panel-default board '+check+'">'
+                        html += '<div class="panel-body" style="background-color: #ffe670;">'
+                        html += '<div class="dia-row" style="margin-bottom: 0;display: grid; align-items: center;">'
+                        html += '<div style="font-size: 18px; font-weight: bold; margin-left:30px; text-align:center; width:10%">'
+                        if(rank == 1){
+                            html +='<img src="/assets/svg/reward/crown.svg" class="medal">'
+                        }else if(rank == 2){
+                            html +='<img src="/assets/svg/reward/silver.svg" class="medal">'
+                        }else if(rank == 3){
+                            html +='<img src="/assets/svg/reward/medal.svg" class="medal">'
+                        }else{
+                        html += '<span>' + rank + '</span>'
+                        }
+                        html += '</div>'
+                        html += '<div style="width: 20%;">'
+                        html += '<center><img src="/assets/svg/avatar/' + element.avatar + '" alt="Avatar" class="avatar-leaderboard"></center>'
+                        html += '</div>'
+                        html += '<div style="font-size: 18px; font-weight: bold; width: 40%;">'
+                        html += '<span>' + element.nickname + '</span>'
+                        html += '</div>'
+                        html += '<div style="font-size: 18px; font-weight: bold; width: 30%;">'
+                        html += '<span>' + numberWithCommas(element.score) + '</span>'
+                        html += '</div>'
+                        html += '</div>'
+                        html += '</div>'
+                        html += '</div>'
+                        html += '</div>'
                 }
-                html += '<td style="text-align:center;"><img src="/assets/svg/avatar/'+element.avatar+'" style="float:left;" alt="Avatar" class="avatar-leaderboard"><p style="top:auto;">'+element.nickname+'</p></td>'
-                html += '<td style="text-align:center;">'+element.score+'</td>'
-                html += '</tr>'
-                }
+                
                 if(uid == element.uid){
                     urank.rank = rank
                     urank.avatar = element.avatar
@@ -1336,23 +1371,35 @@ function ScoreBoard(uid){
                     urank.score = element.score
                     urank.medal = medal
                 }
+                medal = '';
                 rank++;
             })
-            if(rank > 10){
-            html += '<tr>'
-            html += '<td colspan="4" style="font-size:30px; text-align:center;">......</td>'
-            html += '</tr>'
+
+            if(urank.rank > 10){
+                test += '<div class="panel panel-default board">'
+                test += '<div class="panel-body" style="background-color: #ffe670;">'
+                test += '<div class="dia-row" style="margin-bottom: 0;display: grid; align-items: center;">'
+                test += '<div style="font-size: 20px; font-weight: bold; margin-left:30px; text-align:center; width:10%">'
+                test += '<span>' + urank.rank + '</span>'
+                test += '</div>'
+                test += '<div style="width: 20%;">'
+                test += '<center><img src="/assets/svg/avatar/' + urank.avatar + '" alt="Avatar" class="avatar-leaderboard"></center>'
+                test += '</div>'
+                test += '<div style="font-size: 20px; font-weight: bold; width: 40%;">'
+                test += '<span>' + urank.nickname + '</span>'
+                test += '</div>'
+                test += '<div style="font-size: 20px; font-weight: bold; width: 30%;">'
+                test += '<span>' + numberWithCommas(urank.score) + '</span>'
+                test += '</div>'
+                test += '</div>'
+                test += '</div>'
+                test += '</div>'
+                test += '</div>'
             }
+            console.log(test);
 
-            test += '<tr>'
-            test += '<td style="text-align:center; width:20%;">'+urank.rank+'</td>'
-            test += '<td style="text-align:center; width:30%;"><img src="/assets/svg/avatar/'+urank.avatar+'" style="float:left;" alt="Avatar" class="avatar-leaderboard"><p style="top:auto;">'+urank.nickname+'</p></td>'
-            test += '<td style="text-align:center; width:20%;">'+urank.score+'</td>'
-            test += '<td style="width:20%"><center>'+urank.medal+'</center></td>'
-            test += '</tr>'
-
-            $('#data-leaderboard').html(html);
-            $('#data-mine').html(test);
+            $('#scoreboard').html(html);
+            $('#myboard').html(test);
             
         },
         error: function (e) {
@@ -1555,9 +1602,7 @@ function showListQuestion(header,obj) {
         'dismissible': false,
         'onOpenStart': function () {
             $('#modal-list-question>.modal-content>.list-header').html(header)
-
             let table = $("#tableListQuestion").DataTable()
-            
             obj.forEach((value,index)=>{
                 let name = ''
 
@@ -1590,4 +1635,8 @@ function showListQuestion(header,obj) {
         console.warn(e)
     }
     
+}
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }

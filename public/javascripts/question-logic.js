@@ -1,6 +1,13 @@
 var firestore = require('../../configs/firebase-config').firestore; //test firebase
 var sortId = require('./sortId')
 module.exports = {
+/*
+*Description: Retrieve all logic
+*@version 1.0
+*@author Supachai Boonying
+*@since 10 March 2020
+*@required javascript, firestore
+*/
   getAllLogic: async function(lang ="en",sortByKey="id")
     {
       console.log(`sortByKey : ${sortByKey}`)

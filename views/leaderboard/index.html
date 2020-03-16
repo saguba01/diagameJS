@@ -3,171 +3,342 @@
     <link rel="stylesheet" href="/stylesheets/style-navbar.css">
     <link rel="stylesheet" href="/stylesheets/style-leaderboard.css">
     <style>
-        #container{
+        #container {
             display: flex;
             justify-content: center;
             align-items: flex-end;
         }
-        .all-font{
-            font-size:40px;
-            text-align:center;
+
+        .all-font {
+            font-size: 40px;
+            text-align: center;
         }
-        .stadium{
-            width:250px;
-            float:left;
+
+        .stadium {
+            width: 250px;
+            float: left;
         }
-        .gold{
-            background-color:#FFD700;
-            border:black 5px solid; 
+
+        .gold {
+            background-color: #b590ca;
+            border: black 5px solid;
         }
-        .silver{
-            background-color:#DCDCDC;
-            border:black 4px solid; 
+
+        .silver {
+            background-color: #a8d3da;
+            border: black 4px solid;
         }
-        .gold-red{
-            background-color:#A52A2A;
-            border:black 4px solid; 
+
+        .gold-red {
+            background-color: #f5cab3;
+            border: black 4px solid;
         }
-        #table-score{
-            background-color:green;
-            height:400px;
-            width:600px;
-            margin-top:30px;
-            position:relative;
-            left:32%;
-            border:black 4px solid;
+
+        .no-medal{
+            background-color: #ffe670;
+            border: black 4px solid;
+        }
+
+        #table-score {
+            background-color: green;
+            height: 400px;
+            width: 600px;
+            margin-top: 30px;
+            position: relative;
+            left: 32%;
+            border: black 4px solid;
+        }
+
+       
+
+        .rank {
+            font-size: 40px;
+            display: block;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .name {
+            font-size: 25px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .score {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .border-white{
+            border:5px solid white;
         }
     </style>
 </header>
-
-<div id="trophy" style="width:50%; margin:auto;">
-
-    <div class="dia-row">
-    <div class="card dia-4 gold" style="background-color:">
-      <div class="card-heading" style="color: black;text-align: center;">
-          <div id="gold"></div>
-      </div>
-      <div class="card-body" style="height:70%;display: flex;">
-        <span></span>
-      </div>
+<body>
+<div class='dia-row'>
+    <div style="width:15%;" id="mycard">
+        <div id="colormy" class="card" style="width:100%; height:auto;">
+            <div class="card-body" style="height:100%;">
+                <div class="rank">My Ranking</div>
+                <div id="my-rank" class="rank"></div>
+                <div id="my-avatar"></div>
+                <div id="my-name" class="name"></div>
+                <div id="my-score" class="score"></div>
+            </div>
+        </div>
     </div>
 
-    <div class="card dia-4 silver" style="background-color:">
-      <div class="card-heading" style="color: black;text-align: center;">
-        <div id="silver"></div>
-      </div>
-      <div class="card-body" style="height:70%;display: flex;">
-        <span></span>
-      </div>
+    <div id="trophy" style="width:80%; margin:auto;">
+
+        <div class="dia-row">
+            <div class="card dia-4 gold">
+                <div class="card-body" style="height:70%;">
+                    <div id="gold"></div>
+                    <div id="gold-avatar"></div>
+                    <div id="gold-name" class="name"></div>
+                    <div id="gold-score" class="score"></div>
+                </div>
+            </div>
+
+            <div class="card dia-4 silver">
+                <div class="card-body" style="height:70%;">
+                    <div id="silver"></div>
+                    <div id="silver-avatar"></div>
+                    <div id="silver-name" class="name"></div>
+                    <div id="silver-score" class="score"></div>
+                </div>
+            </div>
+
+            <div class="card dia-4 gold-red">
+                <div class="card-body" style="height:70%;">
+                    <div id="gold-red"></div>
+                    <div id="gold-red-avatar"></div>
+                    <div id="gold-red-name" class="name"></div>
+                    <div id="gold-red-score" class="score"></div>
+                </div>
+            </div>
+        </div>
+        <div style="background-color: #4baea0; padding:5px 5px 5px; border:5px solid black;">
+            <div class="list-leaderboard" id="list-leaderboard" style="overflow-y: auto; height:540px;">
+
+            </div>
+        </div>
     </div>
+</body>
 
-    <div class="card dia-4 gold-red" style="background-color: ">
-      <div class="card-heading" style="color: black;text-align: center;">
-        <div id="gold-red"></div>
-      </div>
-      <div class="card-body" style="height:70%;display: flex;">
-        <span></span>
-      </div>
-    </div>
-  </div>
-    
-    
-    <div class="list-leaderboard" id="list-leaderboard">
-    </div>
+    <script>
+        $(document).ready(function () {
+            ScoreBoard1('{{ uid }}');
+        })
 
-
-<script>
-$(document).ready(function (){
-    ScoreBoard1();
-})
-
-function ScoreBoard1(uid){
-    $.ajax({
-        type: "GET",
-        contentType: "application/json",
-        url: "/api/getAllScore",
-        success: function (response) {
-            var html = '';
-            var test = '';
-            var checkname = [];
-            var round = 0;
-            var index = 0;
-            var medal = '';
-            //console.log(response.user);
-            response.user.forEach(element => {
-                    if(round == 0){
-                    checkname.push({
-                        nickname:element.data.nickname,
-                        score:0,
-                        avatar:element.data.avatar,
-                        uid:element.id
-                    });
-                    round++;
-                    }else{
-                        if(checkname[index].nickname != element.nickname){
+        function ScoreBoard1(uid) {
+            blockUI();
+            $.ajax({
+                type: "GET",
+                contentType: "application/json",
+                url: "/api/getAllScore",
+                success: function (response) {
+                    var html = '';
+                    var test = '';
+                    var checkname = [];
+                    var round = 0;
+                    var index = 0;
+                    var medal = '';
+                    //console.log(response.user);
+                    response.user.forEach(element => {
+                        if (round == 0) {
                             checkname.push({
-                                nickname:element.data.nickname,
-                                score:0,
-                                avatar:element.data.avatar,
-                                uid:element.id
+                                nickname: element.data.nickname,
+                                score: 0,
+                                avatar: element.data.avatar,
+                                uid: element.id
                             });
-                            index++;
+                            round++;
+                        } else {
+                            if (checkname[index].nickname != element.nickname) {
+                                checkname.push({
+                                    nickname: element.data.nickname,
+                                    score: 0,
+                                    avatar: element.data.avatar,
+                                    uid: element.id
+                                });
+                                index++;
+                            }
                         }
-                    }
-            });
-            var index = 0;
-            //console.log(checkname);
-            //console.log(response);
-            checkname.forEach(element =>{
-                response.score.forEach(value => {
-                    if(element.uid == value.uid){
-                        element.score += parseInt(value.score);
-                    }else{
-                        element.score += 0;
-                    }
-                })
-            })
-            checkname.sort(compareValues('score', 'desc'))
-            var rank = 1;
-            var urank = [];
-            checkname.forEach(value =>{
-                if(rank < 4){
-                    if(rank == 1){
-                        medal = '<div style="width:200px; height:200px;"><img src="/assets/svg/reward/first.svg" class="medal-leaderboard"></div>';
-                    }else if(rank == 2){
-                        medal = '<div style="width:200px; height:200px;"><img src="/assets/svg/reward/silver.svg" class="medal-leaderboard"></div>'
-                    }else if(rank == 3){
-                        medal = '<div style="width:200px; height:200px;"><img src="/assets/svg/reward/medal.svg" class="medal-leaderboard"></div>'
-                    }
-                    
-                    urank.push({
-                        rank:medal,
-                        name:value.nickname,
-                        avatar:value.avatar,
-                        score:value.score
+                    });
+                    var index = 0;
+                    //console.log(checkname);
+                    //console.log(response);
+                    checkname.forEach(element => {
+                        response.score.forEach(value => {
+                            if (element.uid == value.uid) {
+                                element.score += parseInt(value.score);
+                            } else {
+                                element.score += 0;
+                            }
+                        })
                     })
-                }
-                rank++;
-            })
-            console.log(urank);
-            var i = 1;
-           /* urank.forEach(element => {
-                if(i == 1){
-                    $('#gold').html(element.rank);
-                }else if(i == 2){
-                    $('#silver').html(element.rank);
-                }else if(i == 3){
-                    $('#gold-red').html(element.rank);
-                }
-                i++;
-            })*/
-            
-            
-        },
-        error: function (e) {
-            console.log(e);
-        }
-    });
-}
-</script>
+                    checkname.sort(compareValues('score', 'desc'))
+                    var rank = 1;
+                    var urank = [];
+                    var avatarrank = '';
+                    var name = '';
+                    var score = '';
+                    var myrank = 0;
+                    var myname = '';
+                    var myavatar = '';
+                    var myscore = 0;
+                    var ranking = 0;
+                    html += '<div class="panel panel-default sticky">'
+                    html += '<div class="panel-body" style="background-color: #ce5672;">'
+                    html += '<div class="dia-row" style="margin-bottom: 0;display: grid; align-items: center;">'
+                    html += '<div style="font-size: 20px; font-weight: bold; margin-left:30px; text-align:center; width:10%">'
+                    html += '<span>Rank</span>'
+                    html += '</div>'
+                    html += '<div style="width:10%">'
+                    html += '</div>'
+                    html += '<div style="font-size: 20px; font-weight: bold; width: 40%;">'
+                    html += '<span>Name</span>'
+                    html += '</div>'
+                    html += '<div style="font-size: 20px; font-weight: bold; width: 20%;">'
+                    html += '<span>Score</span>'
+                    html += '</div>'
+                    html += '</div>'
+                    html += '</div>'
+                    html += '</div>'
+                    html += '</div>'
+                    checkname.forEach(value => {
+                        if (rank < 4) {
+                            if (rank == 1) {
+                                medal = '<center><img src="/assets/svg/reward/crown.svg" class="rank-medal"></center>'
+                                avatarrank = '<center><img src="/assets/svg/avatar/' + value.avatar + '" class="medal-leaderboard"></center>'
+                            } else if (rank == 2) {
+                                medal = '<center><img src="/assets/svg/reward/silver.svg" class="rank-medal"></center>'
+                                avatarrank = '<center><img src="/assets/svg/avatar/' + value.avatar + '" class="medal-leaderboard"></center>'
+                            } else if (rank == 3) {
+                                medal = '<center><img src="/assets/svg/reward/medal.svg" class="rank-medal"></center>'
+                                avatarrank = '<center><img src="/assets/svg/avatar/' + value.avatar + '" class="medal-leaderboard"></center>'
+                            }
+                            urank.push({
+                                rank: medal,
+                                name: value.nickname,
+                                avatar: avatarrank,
+                                score: value.score
+                            })
 
+                            if (value.uid == uid) {
+                                myrank = medal;
+                                myname = value.nickname;
+                                myavatar = avatarrank;
+                                myscore = value.score;
+                                ranking = rank;
+                            }
+                        } else {
+                            html += '<div class="panel panel-default board">'
+                            html += '<div class="panel-body" style="background-color: #ffe670;">'
+                            html += '<div class="dia-row" style="margin-bottom: 0;display: grid; align-items: center;">'
+                            html += '<div style="font-size: 20px; font-weight: bold; margin-left:30px; text-align:center; width:10%">'
+                            html += '<span>' + rank + '</span>'
+                            html += '</div>'
+                            html += '<div style="width: 20%;">'
+                            html += '<center><img src="/assets/svg/avatar/' + value.avatar + '" alt="Avatar" class="avatar-leaderboard"></center>'
+                            html += '</div>'
+                            html += '<div style="font-size: 20px; font-weight: bold; width: 40%;">'
+                            html += '<span>' + value.nickname + '</span>'
+                            html += '</div>'
+                            html += '<div style="font-size: 20px; font-weight: bold; width: 30%;">'
+                            html += '<span>' + numberWithCommas(value.score) + '</span>'
+                            html += '</div>'
+                            html += '</div>'
+                            html += '</div>'
+                            html += '</div>'
+                            html += '</div>'
+                            avatarrank = '<center><img src="/assets/svg/avatar/' + value.avatar + '" class="medal-leaderboard"></center>'
+
+                            if (value.uid == uid) {
+                                myrank = rank;
+                                myname = value.nickname;
+                                myavatar = avatarrank;
+                                myscore = value.score;
+                                ranking = rank;
+                            }
+                        }
+                        rank++;
+                    })
+                    console.log(urank);
+                    var i = 1;
+                    $('#list-leaderboard').html(html);
+                    urank.forEach(element => {
+                        if (i == 1) {
+                            $('#gold').html(element.rank);
+                            $('#gold-avatar').html(element.avatar)
+                            $('#gold-name').html(element.name)
+                            $('#gold-score').html(numberWithCommas(element.score))
+                        } else if (i == 2) {
+                            $('#silver').html(element.rank);
+                            $('#silver-avatar').html(element.avatar)
+                            $('#silver-name').html(element.name)
+                            $('#silver-score').html(numberWithCommas(element.score))
+                        } else if (i == 3) {
+                            $('#gold-red').html(element.rank);
+                            $('#gold-red-avatar').html(element.avatar)
+                            $('#gold-red-name').html(element.name)
+                            $('#gold-red-score').html(numberWithCommas(element.score))
+                        }
+                        i++;
+                    })
+
+                    if(ranking == 1){
+                       $('div.gold').addClass('border-white-board');
+                       $('div.silver').removeClass('border-white-board');
+                       $('div.gold-red').removeClass('border-white-board');  
+                    }else if(ranking == 2){
+                       $('div.silver').addClass('border-white-board');
+                       $('div.gold').removeClass('border-white-board');
+                       $('div.gold-red').removeClass('border-white-board');   
+                    }else if(ranking == 3){
+                       $('div.gold-red').addClass('border-white-board');
+                       $('div.silver').removeClass('border-white-board');
+                       $('div.gold').removeClass('border-white-board');   
+                    }
+                   
+
+                    if(ranking == 1){
+                        $('#colormy').addClass('gold');
+                        $('#colormy').removeClass('silver');
+                        $('#colormy').removeClass('gold-red');
+                        $('#colormy').removeClass('no-medal');
+                    }else if(ranking == 2){
+                        $('#colormy').addClass('silver');
+                        $('#colormy').removeClass('gold');
+                        $('#colormy').removeClass('gold-red');
+                        $('#colormy').removeClass('no-medal');
+                    }else if(ranking == 3){
+                        $('#colormy').addClass('gold-red');
+                        $('#colormy').removeClass('silver');
+                        $('#colormy').removeClass('gold');
+                        $('#colormy').removeClass('no-medal');
+                    }else{
+                        $('#colormy').addClass('no-medal');
+                        $('#colormy').removeClass('silver');
+                        $('#colormy').removeClass('gold-red');
+                        $('#colormy').removeClass('gold');
+                    }
+
+                    
+                        $("#my-rank").html(myrank);
+                        $("#my-avatar").html(myavatar);
+                        $("#my-name").html(myname);
+                        $("#my-score").html(numberWithCommas(myscore));
+
+                },
+                error: function (e) {
+                    console.log(e);
+                },
+                complete: function () {
+                    unblockUI();
+                }
+            });
+        }
+    </script>

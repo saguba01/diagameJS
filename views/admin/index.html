@@ -5,10 +5,12 @@
         padding-left: 5px;
         border-radius: 10px;
     }
-    .card-user-all:hover{
+
+    .card-user-all:hover {
         background-color: #9cd4c8;
     }
-    .card-question-all:hover{
+
+    .card-question-all:hover {
         background-color: #ffdba1;
     }
 </style>
@@ -62,18 +64,17 @@
                         <span class="dia-8">{{dashboard.report.line.play_questions.title}}</span>
                         <div class="dia-4" style="display: inline-block; float:right;">
                             <select style="display: inline-block;" class="typeQuestions"
-                                onchange="play_question(this.value)">
+                                onchange="score_summary(this.value)">
                                 {{list-option-question dashboard.type}}
                             </select>
                         </div>
                     </div>
                     <div class="panel-body">
-                        <div id="play_question"
+                        <div id="score_summary"
                             style="min-width: 310px; height: 400px; max-width: 100%; margin: 0 auto"></div>
                     </div>
                 </div>
             </div>
-
             <div class="dia-row">
                 <div class="panel panel-default dia-12">
                     <div class="panel-heading" style="display: inline-block;width: 100%;">
@@ -91,20 +92,19 @@
                     </div>
                 </div>
             </div>
-
             <div class="dia-row">
                 <div class="panel panel-default dia-12">
                     <div class="panel-heading" style="display: inline-block;width: 100%;">
                         <span class="dia-8">{{dashboard.report.line.score_summary.title}}</span>
                         <div class="dia-4" style="display: inline-block; float:right;">
                             <select style="display: inline-block;" class="typeQuestions"
-                                onchange="score_summary(this.value)">
+                                onchange="play_question(this.value)">
                                 {{list-option-question dashboard.type}}
                             </select>
                         </div>
                     </div>
                     <div class="panel-body">
-                        <div id="score_summary"
+                        <div id="play_question"
                             style="min-width: 310px; height: 400px; max-width: 100%; margin: 0 auto"></div>
                     </div>
                 </div>
@@ -112,12 +112,7 @@
 
         </div>
     </div>
-
-
-
 </div>
-
-
 <div class="dia-row">
     <div class="panel panel-default dia-6">
         <div class="panel-heading">{{dashboard.report.pie.compare_questions.title}}</div>
@@ -129,62 +124,71 @@
         <div class="panel-heading">{{dashboard.report.line.use_system_back7day.title}}</div>
         <div class="panel-body">
             <div id="back7days" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
-
         </div>
     </div>
 </div>
 <script type="text/javascript">
-    var listUser = JSON.parse("{{cardData.listUser}}".replace(/&quot;/g, '\"'))
-    var listQuestion = JSON.parse("{{cardData.listQuestion}}".replace(/&quot;/g, '\"'))
-
-  
+    var listUser = JSON.parse("{{cardData.listUser}}".replace(/&quot;/g, '\"')) // Object of listUser
+    var listQuestion = JSON.parse("{{cardData.listQuestion}}".replace(/&quot;/g, '\"')) // Object of listQuestion
+    var fontSize_chart = '20px'
+    var fontSize_x = '20px'
+    var fontSize_y = '20px'
+    var fontSize_plot = '18px'
 
     $(document).ready(() => {
-        $(".card-user-all").click(()=>{
-            showAllUser("{{dashboard.card.total_user.table}}",listUser,'{{errorMsg.data.not_found}}')
+        console.log("{{dashboard.card.total_user.table}}")
+        $(".card-user-all").click(() => {
+            showAllUser("{{dashboard.card.total_user.table}}", listUser, '{{errorMsg.data.not_found}}')
         })
-        $(".card-question-all").click(()=>{
-            showListQuestion("{{dashboard.card.total_question.table}}",listQuestion)
+        $(".card-question-all").click(() => {
+            showListQuestion("{{dashboard.card.total_question.table}}", listQuestion)
         })
 
-        
+
         $('#tableListUser').DataTable({
             language: {
-            search: "",
-            searchPlaceholder: "{{general.table.search_placeholder}}",
-            sLengthMenu : "{{general.table.length_menu.display}} _MENU_ {{general.table.length_menu.records}}",
-            info : "{{general.table.info.showing}} _START_ {{general.table.info.to}} _END_ {{general.table.info.of}} _TOTAL_ {{general.table.info.entries}}",
-            oPaginate : {
-                sFirst: "{{general.table.paginate.first}}", // This is the link to the first page
-                sPrevious: "{{general.table.paginate.previous}}", // This is the link to the previous page
-                sNext: "{{general.table.paginate.next}}", // This is the link to the next page
-                sLast: "{{general.table.paginate.last}}" // This is the link to the last page
-            }
+                search: "",
+                searchPlaceholder: "{{general.table.search_placeholder}}",
+                sLengthMenu: "{{general.table.length_menu.display}} _MENU_ {{general.table.length_menu.records}}",
+                info: "{{general.table.info.showing}} _START_ {{general.table.info.to}} _END_ {{general.table.info.of}} _TOTAL_ {{general.table.info.entries}}",
+                oPaginate: {
+                    sFirst: "{{general.table.paginate.first}}", // This is the link to the first page
+                    sPrevious: "{{general.table.paginate.previous}}", // This is the link to the previous page
+                    sNext: "{{general.table.paginate.next}}", // This is the link to the next page
+                    sLast: "{{general.table.paginate.last}}" // This is the link to the last page
+                }
             }
         });
 
         $('#tableListQuestion').DataTable({
             language: {
-            search: "",
-            searchPlaceholder: "{{general.table.search_placeholder}}",
-            sLengthMenu : "{{general.table.length_menu.display}} _MENU_ {{general.table.length_menu.records}}",
-            info : "{{general.table.info.showing}} _START_ {{general.table.info.to}} _END_ {{general.table.info.of}} _TOTAL_ {{general.table.info.entries}}",
-            oPaginate : {
-                sFirst: "{{general.table.paginate.first}}", // This is the link to the first page
-                sPrevious: "{{general.table.paginate.previous}}", // This is the link to the previous page
-                sNext: "{{general.table.paginate.next}}", // This is the link to the next page
-                sLast: "{{general.table.paginate.last}}" // This is the link to the last page
-            }
+                search: "",
+                searchPlaceholder: "{{general.table.search_placeholder}}",
+                sLengthMenu: "{{general.table.length_menu.display}} _MENU_ {{general.table.length_menu.records}}",
+                info: "{{general.table.info.showing}} _START_ {{general.table.info.to}} _END_ {{general.table.info.of}} _TOTAL_ {{general.table.info.entries}}",
+                oPaginate: {
+                    sFirst: "{{general.table.paginate.first}}", // This is the link to the first page
+                    sPrevious: "{{general.table.paginate.previous}}", // This is the link to the previous page
+                    sNext: "{{general.table.paginate.next}}", // This is the link to the next page
+                    sLast: "{{general.table.paginate.last}}" // This is the link to the last page
+                }
             }
         });
 
-        genanrateChart()
+        compareQuestions()
         back7days()
         play_question()
         score_summary()
         playtime_summary()
     })
 
+    /*
+    *Description: Select all search 
+    *@version 1.0
+    *@author Supachai Boonying
+    *@since 10 March 2020
+    *@required javascript, materialize-css.
+    */
     function selectAllCompare(value) {
         const ele = $(".chart-compares-body").find("select")
         play_question(value)
@@ -194,7 +198,15 @@
             $(ele.get(i)).val(value)
         }
     }
-    function genanrateChart() {
+
+    /*
+    *Description: genarate chart for compare questions
+    *@version 1.0
+    *@author Supachai Boonying
+    *@since 10 March 2020
+    *@required javascript, materialize-css.
+    */
+    function compareQuestions() {
         $.ajax({
             type: "GET",
             contentType: "application/json",
@@ -223,14 +235,31 @@
                     tooltip: {
                         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
                     },
+                    xAxis : {
+                        labels : {
+                            style : {
+                                fontSize : fontSize_x
+                            }
+                        }
+                    },
+                    yAxis : {
+                        labels : {
+                            style : {
+                                fontSize : fontSize_y
+                            }
+                        }
+                    },
                     plotOptions: {
                         pie: {
                             allowPointSelect: true,
                             cursor: 'pointer',
                             dataLabels: {
                                 enabled: true,
-                                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-                            }
+                                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                style : {
+                                    fontSize : fontSize_plot,
+                                }
+                            },
                         }
                     },
                     credits: {
@@ -251,8 +280,13 @@
 
     }
 
-
-
+    /*
+    *Description:  genarate chart of user play question
+    *@version 1.0
+    *@author Supachai Boonying
+    *@since 10 March 2020
+    *@required javascript, materialize-css.
+    */
     function play_question(byType = "flowchart") {
         $.ajax({
             type: "GET",
@@ -310,11 +344,21 @@
                         categories: listXAxis,
                         title: {
                             text: '{{dashboard.report.line.play_questions.xUnit}}'
+                        },
+                        labels : {
+                            style : {
+                                fontSize : fontSize_x
+                            }
                         }
                     },
                     yAxis: {
                         title: {
                             text: '{{dashboard.report.line.play_questions.yUnit}}'
+                        },
+                        labels : {
+                            style : {
+                                fontSize : fontSize_y
+                            }
                         }
                     },
                     legend: {
@@ -324,7 +368,10 @@
                     plotOptions: {
                         line: {
                             dataLabels: {
-                                enabled: true
+                                enabled: true,
+                                style : {
+                                    fontSize : fontSize_plot,
+                                }
                             },
                             enableMouseTracking: false
                         }
@@ -354,6 +401,13 @@
 
     }
 
+    /*
+    *Description:  genarate chart of user play time summary
+    *@version 1.0
+    *@author Supachai Boonying
+    *@since 10 March 2020
+    *@required javascript, materialize-css.
+    */
     function playtime_summary(byType = "flowchart") {
         $.ajax({
             type: "GET",
@@ -427,23 +481,36 @@
                         categories: listXAxis,
                         title: {
                             text: '{{dashboard.report.line.playtime_summary.xUnit}}'
+                        },
+                        labels : {
+                            style : {
+                                fontSize : fontSize_x
+                            }
                         }
                     },
                     yAxis: {
                         title: {
                             text: '{{dashboard.report.line.playtime_summary.yUnit}}'
+                        },
+                        labels : {
+                            style : {
+                                fontSize : fontSize_y
+                            }
                         }
                     },
                     legend: {
                         layout: 'vertical',
-                        align: 'right',
-                        verticalAlign: 'middle'
+                        align: 'center',
+                        verticalAlign: 'bottom'
                     },
 
                     plotOptions: {
                         line: {
                             dataLabels: {
-                                enabled: true
+                                enabled: true,
+                                style : {
+                                    fontSize : fontSize_plot
+                                }
                             },
                             enableMouseTracking: false
                         }
@@ -479,6 +546,13 @@
 
     }
 
+    /*
+    *Description:  genarate chart of score summary
+    *@version 1.0
+    *@author Supachai Boonying
+    *@since 10 March 2020
+    *@required javascript, materialize-css.
+    */
     function score_summary(byType = "flowchart") {
         $.ajax({
             type: "GET",
@@ -551,23 +625,36 @@
                         categories: listXAxis,
                         title: {
                             text: '{{dashboard.report.line.score_summary.xUnit}}'
+                        },
+                        labels : {
+                            style : {
+                                fontSize : fontSize_x
+                            }
                         }
                     },
                     yAxis: {
                         title: {
                             text: '{{dashboard.report.line.score_summary.yUnit}}'
+                        },
+                        labels : {
+                            style : {
+                                fontSize : fontSize_y
+                            }
                         }
                     },
                     legend: {
                         layout: 'vertical',
-                        align: 'right',
-                        verticalAlign: 'middle'
+                        align: 'center',
+                        verticalAlign: 'bottom'
                     },
 
                     plotOptions: {
                         line: {
                             dataLabels: {
-                                enabled: true
+                                enabled: true,
+                                style : {
+                                    fontSize : fontSize_plot
+                                }
                             },
                             enableMouseTracking: false
                         }
@@ -605,6 +692,13 @@
 
     }
 
+    /*
+    *Description: genarate chart of user play game 7 day
+    *@version 1.0
+    *@author Supachai Boonying
+    *@since 10 March 2020
+    *@required javascript, materialize-css.
+    */
     function back7days() {
         let listDay = []
         let listXAxis = []
@@ -669,11 +763,21 @@
                         categories: listXAxis,
                         title: {
                             text: '{{dashboard.report.line.use_system_back7day.xUnit}}'
+                        },
+                        labels : {
+                            style : {
+                                fontSize : fontSize_x
+                            }
                         }
                     },
                     yAxis: {
                         title: {
                             text: '{{dashboard.report.line.use_system_back7day.yUnit}}'
+                        },
+                        labels : {
+                            style : {
+                                fontSize : fontSize_y
+                            }
                         }
                     },
                     legend: {
@@ -685,7 +789,10 @@
                     plotOptions: {
                         line: {
                             dataLabels: {
-                                enabled: true
+                                enabled: true,
+                                style : {
+                                    fontSize : fontSize_plot
+                                }
                             },
                             enableMouseTracking: false
                         }
@@ -712,5 +819,4 @@
         })
 
     }
-
 </script>

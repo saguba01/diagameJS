@@ -827,10 +827,6 @@ a>.btn-top{
     align-items: center;
 }
 
-.btn-add:hover{
-    background-color: #D5F5E3;
-}
-
 button.btn-tran{
     background-color: Transparent;
     background-repeat:no-repeat;
@@ -872,7 +868,8 @@ button>.btn-save-dis:hover{
 }
 
 button>.btn-close{
-    font-size:22px;display: flex;
+    font-size:22px; 
+    display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 3px 3px 0px #00000069;
@@ -886,10 +883,37 @@ button>.btn-close{
     background-repeat: no-repeat;
     background-position: center;
 }
-button>.btn-close:hover{
-    background-color: #F5B7B1;
-}
 
 button.btn-rigth{
     float: right;
 }
+
+.btn{
+    height: 50px;
+    font-family: 'Mali', cursive;
+    font-size: 20px;
+    border-radius: 12px;
+    box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.16);
+    border: solid 5px #000000;
+    min-height: 55px;
+}
+
+.btn-save{
+    background-color: #77c33d;
+}
+
+.btn-confirm {
+    background-color: #eda045;
+}
+
+.btn-cancel {
+    background-color: #e75151;
+}
+.btn-delete {
+    background-color: #e75151;
+}
+
+.btn-add{
+    background-color: #3a5892;
+}
+

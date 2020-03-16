@@ -176,9 +176,9 @@
   </div>
   <div class="modal-footer">
     <button onclick="playSoundEx('click');applySetting()"
-      class="canClick button-close-modal">{{ button.apply }}</button>
+      class="canClick btn btn-add">{{ button.apply }}</button>
     <button onclick="playSoundEx('click');closeModal('#modal-setting');"
-      class="canClick button-close-setting">{{button.close}}</button>
+      class="canClick btn btn-cancel">{{button.close}}</button>
   </div>
 </div>
 
@@ -239,25 +239,13 @@
     <br>
     <div style="text-align: center; font-size: 30px; font-weight:bold; ">Leaderboard</div>
     <br>
-    <div style="overflow-y: auto; height:500px;">
-    <table style="position: relative;" class="table-leaderboard">
-      <thead style="background-color: #f55e5e;">
-        <tr>
-          <th class="sticky" style="text-align:center; width:20%">Rank</th>
-          <th class="sticky" style="text-align:center; width:25%">Name</th>
-          <th class="sticky" style="text-align:center; width:20%">Score</th>
-        </tr>
-      </thead>
-      <tbody id="data-leaderboard" style="font-size:16px;">
-      </tbody>
-    </table>
+    <div style="overflow-y: auto; height:500px;" id="scoreboard">
+   
   </div>
 </div>
-<div class="modal-footer" style="background-color: #ecfa9c; padding:15px 15px 15px 15px;">
-  <table style="position: relative;" class="table-leaderboard">
-    <tbody id="data-mine" style="font-size:16px; ">
-    </tbody>
-  </table>
+<div class="modal-footer" style="background-color: #87e9d7; padding:15px 15px 15px 15px;">
+  <div id="myboard">
+    </div>
 </div>
 </div>
 
@@ -269,7 +257,7 @@
     <div class="tutorial-content"></div>
   </div>
   <div class="modal-footer">
-    <button onclick="closeModal('#modal-pass-tutorial')" style="float: right;"
+    <button onclick="location.href = '/home'" style="float: right;"
       class="canClick button-achievement">{{general.button.done}}</button>
   </div>
 </div>
@@ -342,10 +330,6 @@
       </table>
     </div>
   </div>
-  <div class="modal-footer">
-    <button onclick="closeModal('#modal-list-user');playSoundEx('click');" style="float: right;"
-      class="canClick button-navigator">{{general.button.close}}</button>
-  </div>
 </div>
 
 <div id="modal-list-question" class="modal">
@@ -365,10 +349,6 @@
         </tbody>
       </table>
     </div>
-  </div>
-  <div class="modal-footer">
-    <button onclick="closeModal('#modal-list-question');playSoundEx('click');" style="float: right;"
-      class="canClick button-navigator">{{general.button.close}}</button>
   </div>
 </div>
 

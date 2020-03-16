@@ -4,6 +4,7 @@ var authen = require('../utils/authen');
 var configString = require('../app').configString;
 var firestore = require('../configs/firebase-config').firestore;
 var setting = require('../public/javascripts/setting');
+var user_info = require('../public/javascripts/userInfo');
 /*
  *Description: open diagram question.
  *@version 2.0
@@ -13,8 +14,11 @@ var setting = require('../public/javascripts/setting');
  */
 router.get('/add', authen, async function (req, res, next) {
     let lang = req.cookies.lang;
+    const uid = req.session.user.uid;
     const general = await setting.getSetting(lang)
+    const user = await user_info.userInfo(uid)
     let lesson = configString[lang].lesson.diagram;
+    const userInfo = user.data;
     var data = {
         layout: 'default',
         navBar: true,
@@ -32,7 +36,8 @@ router.get('/add', authen, async function (req, res, next) {
         general: configString[lang].general,
         achievementList: configString[lang].achievement,
         errorMsg: configString[lang].error,
-        nextPage: '/lesson/variable/cereal'
+        nextPage: '/lesson/variable/cereal',
+        name:userInfo.nickname
     };
     res.render('manageDiagram/addDiagram', data);
 
@@ -47,11 +52,14 @@ router.get('/add', authen, async function (req, res, next) {
  */
 router.get('/edit/:id', authen, async function (req, res, next) {
     let lang = req.cookies.lang;
+    const uid = req.session.user.uid;
     const general = await setting.getSetting(lang)
+    const user = await user_info.userInfo(uid)
     let lesson = configString[lang].lesson.variable;
     let refQuestion = firestore.collection("Diagram");
     var arrAnswer = [];
     let keyId = 0;
+    const userInfo = user.data;
     refQuestion.doc(req.params.id).collection("answer").get().then(function (Doc) {
         keyId = Doc.size;
         for (let index = 1; index <= keyId; index++) {
@@ -94,7 +102,8 @@ router.get('/edit/:id', authen, async function (req, res, next) {
                 general: configString[lang].general,
                 achievementList: configString[lang].achievement,
                 errorMsg: configString[lang].error,
-                nextPage: '/lesson/variable/cereal'
+                nextPage: '/lesson/variable/cereal',
+                name:userInfo.nickname
             };
             res.render('manageDiagram/editDiagram', data);
         });

@@ -11,6 +11,13 @@ $( window ).resize(function() {
     screenResize()
 });
 
+/*
+*Description: Check screen size
+*@version 1.0
+*@author Supachai Boonying
+*@since 10 March 2020
+*@required javascript
+*/
 function screenResize(){
     const width = $( window ).width()
     let ele = $("<a></a>")
@@ -58,6 +65,14 @@ function screenResize(){
     }
 }
 
+
+/*
+*Description: hide slidebar
+*@version 1.0
+*@author Supachai Boonying
+*@since 10 March 2020
+*@required javascript
+*/
 function submenuToggle(ele){
     const item = $(ele.parentNode)
     const submenu = item.find( ".slidebar-item-sub" )
