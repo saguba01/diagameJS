@@ -61,7 +61,7 @@
             <div class="dia-row">
                 <div class="panel panel-default dia-12">
                     <div class="panel-heading" style="display: inline-block;width: 100%;">
-                        <span class="dia-8">{{dashboard.report.line.play_questions.title}}</span>
+                        <span class="dia-8">{{dashboard.report.line.score_summary.title}}</span>
                         <div class="dia-4" style="display: inline-block; float:right;">
                             <select style="display: inline-block;" class="typeQuestions"
                                 onchange="score_summary(this.value)">
@@ -95,7 +95,7 @@
             <div class="dia-row">
                 <div class="panel panel-default dia-12">
                     <div class="panel-heading" style="display: inline-block;width: 100%;">
-                        <span class="dia-8">{{dashboard.report.line.score_summary.title}}</span>
+                        <span class="dia-8">{{dashboard.report.line.play_questions.title}}</span>
                         <div class="dia-4" style="display: inline-block; float:right;">
                             <select style="display: inline-block;" class="typeQuestions"
                                 onchange="play_question(this.value)">
@@ -295,7 +295,7 @@
             success: function (response) {
                 let type = byType
                 let chart
-
+               
                 response.forEach((value) => {
                     if (value.type == type) {
                         chart = value
@@ -319,14 +319,17 @@
                             listRound[index] += parseInt(value.data.round)
                         } else {
                             index++
-                            oldId == value.id
+                            oldId = value.id
                             listRound.push(value.data.round)
                             listXAxis.push((lang == "en" || typeof lang == "undefined" ? value.ref.NameEN : value.ref.NameTH))
                         }
 
                     }
                 })
-
+                console.log({
+                    listXAxis : listXAxis,
+                    listRound : listRound
+                })
                 Highcharts.chart('play_question', {
                     chart: {
                         plotBackgroundColor: null,
@@ -431,7 +434,7 @@
                 let index = 0
                 let lang = Cookies.get('lang')
                 let round
-                chart.data.forEach((value) => {
+                chart.data.forEach((value,i) => {
                     if (listXAxis.length == 0) {
                         round = 1
                         oldId = value.id
@@ -453,7 +456,7 @@
                             listTime[index] = parseFloat(parseFloat(listTime[index] / round).toFixed(3))
                             round = 1
                             index++
-                            oldId == value.id
+                            oldId = value.id
                             listTime.push(parseInt(value.data.time))
                             maxTime.push(parseInt(value.data.time))
                             minTime.push(parseInt(value.data.time))
@@ -462,7 +465,7 @@
 
                     }
                 })
-
+                listTime[index] = parseFloat(parseFloat(listTime[index] / round).toFixed(3))
                 Highcharts.chart('playtime_summary', {
                     chart: {
                         plotBackgroundColor: null,
@@ -596,10 +599,12 @@
                                 minScore[index] = parseInt(value.data.score)
                             }
                         } else {
+                            console.log(`listScore : ${listScore[index]}`)
+                            console.log(`round : ${round}`)
                             listScore[index] = parseFloat(parseFloat(listScore[index] / round).toFixed(3))
                             round = 1
                             index++
-                            oldId == value.id
+                            oldId = value.id
                             listScore.push(parseInt(value.data.score))
                             maxScore.push(parseInt(value.data.score))
                             minScore.push(parseInt(value.data.score))
@@ -607,6 +612,7 @@
                         }
                     }
                 })
+                listScore[index] = parseFloat(parseFloat(listScore[index] / round).toFixed(3))
                 Highcharts.chart('score_summary', {
                     chart: {
                         plotBackgroundColor: null,

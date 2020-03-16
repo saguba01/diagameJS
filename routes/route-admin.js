@@ -52,7 +52,7 @@ router.get('/', authen, async (req, res, next) => {
             general: stringConfig.general,
             setting: stringConfig.general.setting,
             button: stringConfig.general.button,
-            slidebar: general.slidebar,
+            slidebar: stringConfig.general.slidebar,
             dashboard: stringConfig.general.dashboard,
             months: JSON.stringify(stringConfig.general.months),
             // test : JSON.stringify(general.dashboard),
@@ -436,7 +436,7 @@ router.get('/listUserAll', async (req, res, next) => {
  * modify date: 13/03/2020
  */
 router.get('/updateAllUser', async (req, res, next) => {
-  const user = await user_info.updateUser()
+  const user = await user_info.updateByUser()
   res.status(200).send('OK')
 })
 

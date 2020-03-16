@@ -173,7 +173,7 @@ async function getLogic(lang) {
 async function getOperator(lang) {
   var question = [];
   let refquestion = firestore.collection('Logic');
-  refquestion.get().then((doc) => {
+  await refquestion.get().then((doc) => {
     doc.forEach(element => {
       if (element.data().Type == "operator") {
         if (lang == 'en') {
