@@ -18,13 +18,13 @@
     padding: 10px;
     font-size: 24px;
     font-weight: bold;
-    background-color: #32afa9;
-    
+    background-color: #0f4c81;
     border-bottom: 5px solid black;
+    color: white;
 }
 
 .panel-body{
-    background-color: #e7f0c3;
+    background-color: #ecfbfc;
     padding: 10px;
     font-size: 20px;
 }
@@ -34,6 +34,15 @@
     padding: 10px;
     border-top: 5px solid black;
     font-size: 20px;
+}
+
+.panel-sub-heading{
+    padding: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    background-color:  #3b8bd0;
+    border-bottom: 5px solid black;
+    color: white;
 }
 
 .dia-12{

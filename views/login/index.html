@@ -143,9 +143,9 @@
 </div>
 
 <div id="modal-signin" class="modal">
-    <div class="modal-content" style="background-color: white;">
-        <div class="row col s12" style="border-bottom: 5px solid #000000;">
-            <ul class="tabs">
+    <div class="modal-content">
+        <div class="row col s12" style="border-bottom: 5px solid #000000; ">
+            <ul class="tabs" style="overflow-x: hidden;">
                 <li class="tab col s6">
                     <div target="tab-signin" class="tab-title canClick active" onclick="selectTab(this)"
                         style="border-right: 5px solid #000000;">{{ general.button.signin }}
@@ -158,7 +158,7 @@
                 </li>
             </ul>
         </div>
-        <div id="tab-signin" class="tab-content active row col s12">
+        <div id="tab-signin" class="tab-content active row col s12" style="margin-bottom: 0px;">
             <div class="form-diagame">
                 <form id="form-signin">
                     <div class="input-field col s12">
@@ -174,12 +174,12 @@
                         <div class="helper-password error-text noselect"></div>
                     </div>
                 </form>
-                <div class="col s12 right-align" style="padding-right: 0px;padding-top: 12px;">
-                    <a class="text-button noselect button-forgot">{{ general.button.forgot }}</a>
+                <div class="col s12 right-align" style="padding-right: 0px;padding-top: 12px;margin-bottom: 10px;">
+                    <a class="text-button noselect button-forgot" style="color: #0f4c81;">{{ general.button.forgot }}</a>
                 </div>
             </div>
         </div>
-        <div id="tab-signup" class="tab-content row col s12" style="display:none">
+        <div id="tab-signup" class="tab-content row col s12" style="display:none;margin-bottom: 0px;">
             <div class="form-diagame" style="margin-top:12px;">
                 <form id="form-signup">
                     <div class="input-field col s12">
