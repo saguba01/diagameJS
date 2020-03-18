@@ -3,7 +3,8 @@
     <div class="panel-heading">{{general.management.flowchart.title}}</div>
     <div class="panel-body">
       <div class="dia-row" style="margin-bottom: 10px;">
-        <div class="canClick btn btn-add" onclick="location.href='/manage/diagram/add'" style="width: auto;">+ {{button.add_flowchart}}</div>
+        <div class="canClick btn btn-add" onclick="location.href='/manage/diagram/add'" style="width: auto;">+
+          {{button.add_flowchart}}</div>
       </div>
       <div class="dia-row">
         <table id="tableFlowchartManagement" class="table table-striped" cellspacing="0" width="100%">
@@ -38,13 +39,13 @@
   });
 
   $(function () {
-  /*
- *Description: Add row for table flowchart
- *@version 1.0
- *@author Supachai Boonying
- *@since 10 March 2020
- *@required javascript, materialize-css.
- */
+    /*
+   *Description: Add row for table flowchart
+   *@version 1.0
+   *@author Supachai Boonying
+   *@since 10 March 2020
+   *@required javascript, materialize-css.
+   */
     const flowchartResponces = JSON.parse("{{allFlowchart}}".replace(/&quot;/g, '\"')) // Object of allFlowchart
     const table = $('#tableFlowchartManagement').DataTable()
     table.clear().draw()
@@ -61,7 +62,7 @@
               <button class="canClick btn-edit" onclick="location.href='/manage/diagram/edit/${item.id}'">
                   <div class="btn-edit-pencil" ></div>
               </button>
-              <button class="canClick" onclick="alert('comming soon !!!');console.log('Delete ID => ${item.id}')">
+              <button class="canClick" onclick="deleteConfirm(${item.id});console.log('Delete ID => ${item.id}')">
                   <div class="btn-delete"></div>
               </button>
             </div>`
@@ -70,4 +71,25 @@
     table.draw()
   })
 
+  /*
+ *Description: Confirm Delete
+ *@version 1.0
+ *@author Thongthorn Karapakdee
+ *@since 5 Feb 2020
+ *@required javascript, materialize-css.
+*/
+  function deleteConfirm(id) {
+    document.getElementById("deleteId").value = id;
+    $('#modal-confirm-delete').modal({
+      'dismissible': false
+    });
+    $('#modal-confirm-delete').modal('open');
+  }
+  var refQuestion = firestore.collection("Diagram");
+  function deleteQuestion(str) {
+    let id = document.getElementById("deleteId").value;
+    refQuestion.doc(id.toString()).delete().then(function () {
+        
+    });
+}
 </script>

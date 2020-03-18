@@ -1,3 +1,14 @@
+<!-- include summernote css/js -->
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<!-- include summernote css/js -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.js"></script>
+<link rel="stylesheet" href="/stylesheets/manage-diagram.css">
 <div class="dia-row">
     <div class="panel panel-default dia-12">
         <div class="panel-heading">{{addForm.form.panel.edit.head}}</div>
@@ -20,13 +31,14 @@
                         <div class="content-input dia-row">
                             <div class="dia-6" id="hint1">
                                 <p class="input-name">{{addForm.form.HintEn.text}}</p>
-                                <textarea id="hintInputEng" style="height: 220px;width: 92%;"
-                                    class="inputC">{{HintEN}}</textarea>
+                                
+                                    <div id="HintEN">{{HintEN}}</div>
+                                <p id="validate_hintEN" style="text-align: left;" class="textValidate"></p>
                             </div>
                             <div class="dia-6" id="hint2">
                                 <p class="input-name">{{addForm.form.HintTh.text}}</p>
-                                <textarea id="hintInputTh" style="height: 220px;width: 92%;"
-                                    class="inputC">{{HintTH}}</textarea>
+                                <div id="HintTH">{{HintTH}}</div>
+                                <p id="validate_hintTH" style="text-align: left;" class="textValidate"></p>
                             </div>
 
                         </div>
@@ -69,7 +81,7 @@
 
 
                         <div style="padding: 0px 20px 20px 20px;text-align: left;" id="statement" class="dia-12">
-                            <button class="add-button blue-button" onclick="addAnswer()">
+                            <button class="button btn-add" style="width: auto;display:inline-block;" id="addAnswer" onclick="addAnswer()">
                                 <i class="fa fa-plus"></i> {{addForm.form.answer.text}}</button>
                             {{displayTableEdit answer addForm}}
                         </div>
@@ -78,7 +90,7 @@
             </div>
         </div>
         <div class="panel-footer" style="text-align: right;">
-            <button id="saveButton" class="add-button green-button">{{general.button.save}}</button>
+            <button id="saveButton" class="button btn-save">{{general.button.save}}</button>
         </div>
     </div>
 </div>
@@ -92,6 +104,8 @@
     var countTable = "{{countAnswer}}";
     var countID = [];
     $(document).ready(function () {
+        $('#HintEN').summernote({ height: 200 });
+        $('#HintTH').summernote({ height: 200 });
         //console.log(/^([a-z0-9])$/.test($("#questionInputEng").val())); // false
         //set star level
         //console.log("count", countTable);
@@ -195,7 +209,8 @@
             "<option value='Process'>Process</option>" +
             "<option value='Decision' disabled>Decision</option>" +
             "</select>";
-        cell5.innerHTML = "<div style='overflow:inline;text-align:center;'><button style='padding:5px;' class='book-button facebook-button' onclick='addProcess(this)'><i class='fa fa-plus'></i></button><button class='book-button google-button' onclick='removeProcess(this)'><i class='fa fa-close'></button></div>";
+            cell5.innerHTML = "<div style='overflow:inline;text-align:center;' class='table-action'><button id='addRow' style='padding:5px;' class='book-button btn-add' onclick='addProcess(this)'><i class='fa fa-plus'></i>" +
+            "</button><button id='deleteRow' class='book-button btn-delete' onclick='removeProcess(this)' style='margin-left:5px;'><i class='fa fa-minus'></button></div>";
 
         $('#' + tableID + ' td.order').text(function (i) {
             return i + 1;
@@ -222,8 +237,8 @@
 
     function addAnswer() {
         myTable = document.getElementsByTagName("table")[0];
-        myHeadClone = "<div><hr style='border:0px;'><button class='add-button google-button' onclick='removeAnswer(answerTable_" + ++countTable + ",this)'>" +
-            "<i class='fa fa-close'></i> Answer</button></div>";
+        myHeadClone = "<div><hr style='border:0px;'><button id='deleteAnswer' class='button btn-delete' onclick='removeAnswer(answerTable_" + ++countTable + ",this)'>" +
+            "<i class='fa fa-minus'></i> Answer</button></div>";
         myTableClone = myTable.cloneNode(true);
         myTableClone.id = "answerTable_" + countTable;
         countID.push("answerTable_" + countTable)
