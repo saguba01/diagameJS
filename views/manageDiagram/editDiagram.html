@@ -104,8 +104,8 @@
     var countTable = "{{countAnswer}}";
     var countID = [];
     $(document).ready(function () {
-        $('#HintEN').summernote({ height: 200 });
-        $('#HintTH').summernote({ height: 200 });
+        $('#HintEN').summernote({ height: 200 ,tooltip: false});
+        $('#HintTH').summernote({ height: 200 ,tooltip: false});
         //console.log(/^([a-z0-9])$/.test($("#questionInputEng").val())); // false
         //set star level
         //console.log("count", countTable);
@@ -238,7 +238,7 @@
     function addAnswer() {
         myTable = document.getElementsByTagName("table")[0];
         myHeadClone = "<div><hr style='border:0px;'><button id='deleteAnswer' class='button btn-delete' onclick='removeAnswer(answerTable_" + ++countTable + ",this)'>" +
-            "<i class='fa fa-minus'></i> Answer</button></div>";
+            "<i class='fa fa-minus'></i> {{addForm.form.answer.text}}</button></div>";
         myTableClone = myTable.cloneNode(true);
         myTableClone.id = "answerTable_" + countTable;
         countID.push("answerTable_" + countTable)
@@ -272,9 +272,9 @@
             var dataAnswer = [];
             let data;
             let diagramNameEn = $("#questionInputEng").val();
-            let diagramHintEn = $("#hintInputEng").val();
+            let diagramHintEn = $('#HintEN').summernote('code');
             let diagramNameTh = $("#questionInputTh").val();
-            let diagramHintTh = $("#hintInputTh").val();
+            let diagramHintTh = $('#HintTH').summernote('code');
             let diagramLevel = document.getElementById("ratingStar").value;
             for (let index = 0; index < countTable; index++) {
                 var dataDiagram = [];
@@ -378,7 +378,7 @@
         console.log("Hint", diagramHintEn, diagramHintTh);
         console.log("Star", diagramLevel);
 
-        showLoading();
+        //showLoading();
         refQuestion.doc('{{diagramId}}').set({
             NameEN: diagramNameEn,
             NameTH: diagramNameTh,
@@ -391,11 +391,10 @@
                     answerStep: dataAnswer[index - 1]
                 })
             }
-            closeLoading();
-            showSaveStatus("Edit Success!!");
+            //closeLoading();
+            showSaveStatus();
         }).catch(err => {
-            closeLoading();
-            showSaveStatus("Error : " + err);
+            
         });
 
     }
