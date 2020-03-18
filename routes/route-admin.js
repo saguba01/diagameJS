@@ -196,7 +196,7 @@ router.get('/logic', authen, async (req, res, next) => {
  */
 router.get('/score', authen, async (req, res, next) => {
   let lang = req.cookies.lang;
-  const general = await genaral.getGanaral(lang)
+  // const general = await genaral.getGanaral(lang)
   const scoreData = await score.getScore()
   const uid = req.session.user.uid;
   const user = await user_info.userInfo(uid)
@@ -212,11 +212,11 @@ router.get('/score', authen, async (req, res, next) => {
         element: configString[lang].element.general,
         intro: configString[lang].intro,
         lesson: configString[lang].lesson,
-        general: general,
-        setting: general.setting,
-        button: general.button,
+        general: stringConfig.general,
+        setting: stringConfig.general.setting,
+        button: stringConfig.general.button,
         score: scoreData.data,
-        slidebar: general.slidebar,
+        slidebar: stringConfig.general.slidebar,
         achievementList: configString[lang].achievement,
         errorMsg: configString[lang].error,
         name:userInfo.nickname
