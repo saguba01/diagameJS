@@ -38,7 +38,7 @@ table{
     font-size: 18px;
 }
 
-#dtMaterialDesignExample_paginate>span>.current{
+#tableFlowchartManagement_paginate>span>.current{
     border: 5px solid black;
     background: darkorange;
 }
@@ -149,4 +149,3 @@ button>.btn-delete:hover{
     outline:none;
     margin: auto;
 }
-
