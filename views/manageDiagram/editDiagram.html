@@ -31,8 +31,8 @@
                         <div class="content-input dia-row">
                             <div class="dia-6" id="hint1">
                                 <p class="input-name">{{addForm.form.HintEn.text}}</p>
-                                
-                                    <div id="HintEN">{{HintEN}}</div>
+
+                                <div id="HintEN">{{HintEN}}</div>
                                 <p id="validate_hintEN" style="text-align: left;" class="textValidate"></p>
                             </div>
                             <div class="dia-6" id="hint2">
@@ -81,7 +81,8 @@
 
 
                         <div style="padding: 0px 20px 20px 20px;text-align: left;" id="statement" class="dia-12">
-                            <button class="button btn-add" style="width: auto;display:inline-block;" id="addAnswer" onclick="addAnswer()">
+                            <button class="button btn-add" style="width: auto;display:inline-block;" id="addAnswer"
+                                onclick="addAnswer()">
                                 <i class="fa fa-plus"></i> {{addForm.form.answer.text}}</button>
                             {{displayTableEdit answer addForm}}
                         </div>
@@ -104,8 +105,8 @@
     var countTable = "{{countAnswer}}";
     var countID = [];
     $(document).ready(function () {
-        $('#HintEN').summernote({ height: 200 ,tooltip: false});
-        $('#HintTH').summernote({ height: 200 ,tooltip: false});
+        $('#HintEN').summernote({ height: 200, tooltip: false });
+        $('#HintTH').summernote({ height: 200, tooltip: false });
         //console.log(/^([a-z0-9])$/.test($("#questionInputEng").val())); // false
         //set star level
         //console.log("count", countTable);
@@ -209,7 +210,7 @@
             "<option value='Process'>Process</option>" +
             "<option value='Decision' disabled>Decision</option>" +
             "</select>";
-            cell5.innerHTML = "<div style='overflow:inline;text-align:center;' class='table-action'><button id='addRow' style='padding:5px;' class='book-button btn-add' onclick='addProcess(this)'><i class='fa fa-plus'></i>" +
+        cell5.innerHTML = "<div style='overflow:inline;text-align:center;' class='table-action'><button id='addRow' style='padding:5px;' class='book-button btn-add' onclick='addProcess(this)'><i class='fa fa-plus'></i>" +
             "</button><button id='deleteRow' class='book-button btn-delete' onclick='removeProcess(this)' style='margin-left:5px;'><i class='fa fa-minus'></button></div>";
 
         $('#' + tableID + ' td.order').text(function (i) {
@@ -392,9 +393,11 @@
                 })
             }
             //closeLoading();
-            showSaveStatus();
+            jQuery.noConflict();
+            $("#modal-addQuestion-diagram").modal('show');
+            console.log("SAVESSS");
         }).catch(err => {
-            
+
         });
 
     }
