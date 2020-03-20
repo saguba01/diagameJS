@@ -326,10 +326,7 @@
 
                     }
                 })
-                console.log({
-                    listXAxis : listXAxis,
-                    listRound : listRound
-                })
+    
                 Highcharts.chart('play_question', {
                     chart: {
                         plotBackgroundColor: null,
@@ -599,8 +596,6 @@
                                 minScore[index] = parseInt(value.data.score)
                             }
                         } else {
-                            console.log(`listScore : ${listScore[index]}`)
-                            console.log(`round : ${round}`)
                             listScore[index] = parseFloat(parseFloat(listScore[index] / round).toFixed(3))
                             round = 1
                             index++
