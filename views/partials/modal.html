@@ -231,14 +231,14 @@
 <div id="modal-confirm-delete" class="modal">
   <div class="navigator-content">
     <br>
-    {{ general.deleteConfirm }}
+    {{general.deleteConfirm}}
     <input type="text" id="deleteId" value="" hidden>
     <br>
     <br>
   </div>
   <div class="modal-footer">
     <button onclick="playSoundEx('click');deleteQuestion('{{general.deleteResult}}');"
-      class="canClick button-close-modal">{{ button.confirm }}</button>
+      class="canClick button-close-modal">{{button.confirm}}</button>
     <button onclick="playSoundEx('click');closeModal('#modal-confirm-delete');"
       class="canClick button-close-setting">{{button.close}}</button>
   </div>
