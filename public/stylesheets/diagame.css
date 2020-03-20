@@ -22,10 +22,7 @@ body {
     background-image: url('../assets/svg/wood-background.svg');
 }
 
-textarea{
-    font-family: "Mali", cursive;
-    font-size:20px;
-}
+
 
 /* width */
 ::-webkit-scrollbar {
