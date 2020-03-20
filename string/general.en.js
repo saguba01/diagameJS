@@ -15,7 +15,7 @@ module.exports = {
         next: 'Next',
         done: 'Done',
         home: 'Home',
-        confirm: 'Confirm',
+        confirm: 'Confirm', 
         save: 'Save',
         preview: 'Preview',
         apply: 'Apply',
