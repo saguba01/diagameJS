@@ -22,7 +22,6 @@ router.get('/', authen, async (req, res, next) => {
   let lang = req.cookies.lang;
   const uid = req.session.user.uid;
   const stringConfig = configString[lang]
-  const general = await genaral.getGanaral(lang)
   const user = await user_info.userInfo(uid)
   try {
     switch (user.status) {
@@ -97,7 +96,6 @@ router.get('/', authen, async (req, res, next) => {
  */
 router.get('/flowchart', authen, async (req, res, next) => {
   let lang = req.cookies.lang;
-  const general = await genaral.getGanaral(lang)
   const allFlowchart = await questionFlowchart.getAllFlowchart(lang)
   const uid = req.session.user.uid;
   const user = await user_info.userInfo(uid)
@@ -150,7 +148,6 @@ router.get('/logic', authen, async (req, res, next) => {
   const uid = req.session.user.uid;
   const user = await user_info.userInfo(uid)
   const allLogic = await questionLogic.getAllLogic(lang)
-  const general = await genaral.getGanaral(lang)
   const stringConfig = configString[lang]
   try {
     if (user.status == "success" && user.data.role == "admin") {
