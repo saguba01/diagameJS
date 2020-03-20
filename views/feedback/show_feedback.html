@@ -336,6 +336,13 @@
 </script>
 
 <script>
+ /*
+*Description: Change Feedback
+*@version 1.0
+*@author Jirapat Lapudomsakda
+*@since 1 March 2020
+*@required javascript, materialize-css.
+*/
     function newFeedback() {
         var year = $('#sort-comment').val();
         var html = '';
@@ -405,7 +412,6 @@
                 var color = ['bg-blue', 'bg-light-green', 'bg-yellow', 'bg-orange', 'bg-red'];
                 var percent = [percent5, percent4, percent3, percent2, percent1]
                 var level = [level5, level4, level3, level2, level1]
-                console.log(percent);
                 var progressbar = ''
                 var index = 0;
                 for (var i = 5; i > 0; i--) {
