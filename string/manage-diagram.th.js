@@ -22,11 +22,11 @@ module.exports = {
         },
         HintEn: {
             text: 'คำใบ้ : EN',
-            required: 'Enter hint : EN'
+            required: 'ป้อนคำใบ้ : EN'
         },
         HintTh: {
             text: 'คำใบ้ : TH',
-            required: 'Enter hint : TH'
+            required: 'ป้อนคำใบ้ : TH'
         },
         answer: {
             text: 'คำตอบ',

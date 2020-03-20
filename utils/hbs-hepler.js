@@ -224,7 +224,7 @@ handlebars.registerHelper('displayRecipe', function (label, object) {
  *@since 3 April 2019
  *@required javascript, handlebars.
  */
-handlebars.registerHelper('displayRecipeNew', function (lang, HintTH, HintEN) {
+handlebars.registerHelper('displayRecipeNew', function (lang, HintEN, HintTH) {
   var html = '';
   //var oldLang = Cookies.get('lang')
   if (lang == 'th') {
@@ -285,8 +285,8 @@ handlebars.registerHelper('displayTableEdit', function (obj, addForm) {
         "<td style='text-align: center;width: 13%;font-size: 20px;font-weight: bold;'></td>" +
         "</strong>";
     } else {
-      html += "<div><hr style='border:0px;'><button class='add-button red-button' onclick='removeAnswer(answerTable_" + index + ",this)'>" +
-        "<i class='fa fa-minus'></i> " + addForm.form.answer.text + "</button></div>" +
+      html += "<div><hr style='border:0px;'><button id='deleteAnswer' class='button btn-delete' onclick='removeAnswer(answerTable_" + index + ",this)'>" +
+        "<i class='fa fa-minus'></i>" + addForm.form.answer.text + "</button></div>" +
         "<table id='answerTable_" + index + "'>" +
         "<thead><tr><strong>" +
         "<td style='width: 2%;font-size: 20px;font-weight: bold;'>" + addForm.form.table.step + "</td>" +
@@ -349,8 +349,8 @@ handlebars.registerHelper('displayTableEdit', function (obj, addForm) {
         }
         html += "</select></td>" +
           "<td><div style='text-align: center;'>" +
-          "<button class='book-button blue-button' onclick='addProcess(this)'><i class='fa fa-plus'></i></button></button>" +
-          "<button class='book-button red-button' onclick='removeProcess(this)' style='margin-left:5px;'><i class='fa fa-minus'></button>" +
+          "<div style='overflow:inline;text-align:center;' class='table-action'><button id='addRow' style='padding:5px;' class='book-button btn-add' onclick='addProcess(this)'><i class='fa fa-plus'></i>" +
+            "</button><button id='deleteRow' class='book-button btn-delete' onclick='removeProcess(this)' style='margin-left:5px;'><i class='fa fa-minus'></button></div>" +
           "</div></td>" +
           "</tr>";
       }

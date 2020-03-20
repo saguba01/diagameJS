@@ -22,11 +22,11 @@
         <div class="card-body">
             <div class="card-body-icon card-icon-user">
             </div>
-            <div class="card-body-title">
+            <div class="card-body-title" style="margin-top: 10px;">
                 {{cardData.total_user}}
             </div>
         </div>
-        <div class="card-footer">
+        <div class="card-footer" style="width: 100%; float: right;">
             <span class="text-danger">{{ dashboard.card.total_user.unit}}</span>
         </div>
     </div>
@@ -37,11 +37,11 @@
         </div>
         <div class="card-body">
             <div class="card-body-icon card-icon-question"></div>
-            <div class="card-body-title">
+            <div class="card-body-title" style="margin-top: 10px;">
                 {{cardData.total_question}}
             </div>
         </div>
-        <div class="card-footer">
+        <div class="card-footer" style="width: 100%; float: right;">
             <span class="text-danger">{{ dashboard.card.total_question.unit}}</span>
         </div>
     </div>
@@ -60,7 +60,7 @@
         <div class="panel-body chart-compares-body">
             <div class="dia-row">
                 <div class="panel panel-default dia-12">
-                    <div class="panel-heading" style="display: inline-block;width: 100%;">
+                    <div class="panel-sub-heading" style="display: inline-block;width: 100%;">
                         <span class="dia-8">{{dashboard.report.line.score_summary.title}}</span>
                         <div class="dia-4" style="display: inline-block; float:right;">
                             <select style="display: inline-block;" class="typeQuestions"
@@ -77,7 +77,7 @@
             </div>
             <div class="dia-row">
                 <div class="panel panel-default dia-12">
-                    <div class="panel-heading" style="display: inline-block;width: 100%;">
+                    <div class="panel-sub-heading" style="display: inline-block;width: 100%;">
                         <span class="dia-8">{{dashboard.report.line.playtime_summary.title}}</span>
                         <div class="dia-4" style="display: inline-block; float:right ;">
                             <select style="display: inline-block;" class="typeQuestions"
@@ -94,7 +94,7 @@
             </div>
             <div class="dia-row">
                 <div class="panel panel-default dia-12">
-                    <div class="panel-heading" style="display: inline-block;width: 100%;">
+                    <div class="panel-sub-heading" style="display: inline-block;width: 100%;">
                         <span class="dia-8">{{dashboard.report.line.play_questions.title}}</span>
                         <div class="dia-4" style="display: inline-block; float:right;">
                             <select style="display: inline-block;" class="typeQuestions"

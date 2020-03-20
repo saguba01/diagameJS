@@ -1,11 +1,12 @@
-textarea,input, select {
-        font-size: 18px;
-        resize: vertical;
-        font-family: "Mali", cursive;
-        text-indent: 3px;
+textarea,input, select{
+        font-size: 18px!important;
+        resize: vertical!important;
+        font-family: "Mali", cursive!important;
+        text-indent: 3px!important;
         border: solid 4px #000000 !important;
         background-color: #FFFFFF !important;
         border-radius: 10px!important;
+        height: 45px!important;
     }    
 
     .panelQuestion {
@@ -25,14 +26,15 @@ textarea,input, select {
         border: solid 5px #000000;
     }
 
-    .add-button {
-        width: 150px;
-        height: 50px;
+    .button {
+        width: 200px!important;
+        height: 55px!important;
         font-family: 'Mali', cursive;
         font-size: 20px;
         border-radius: 12px;
         box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.16);
         border: solid 5px #000000;
+        color: white;
     }
 
 
@@ -66,7 +68,86 @@ textarea,input, select {
         font-size: 20px;
         font-weight: bold;
     }
+    .panel {
+        margin: 10px !important;
+        border: 5px solid black !important;
+        box-shadow: 7px 7px 0 0px #00000059 !important;
+        height: min-content !important;
+    }
+
+    .panel-heading {
+        padding: 10px !important;
+        font-size: 24px !important;
+        font-weight: bold !important;
+        background-color: #0f4c81 !important;
+        border-bottom: 5px solid black !important;
+        color: white !important;
+    }
+
+    .panel-body {
+        background-color: #ecfbfc !important;
+        padding: 10px !important;
+        font-size: 20px !important;
+    }
+
+    .panel-footer {
+        background-color: #a4d4ae !important;
+        padding: 10px !important;
+        border-top: 5px solid black !important;
+        font-size: 20px !important;
+    }
+
+    .panel-sub-heading {
+        padding: 10px !important;
+        font-size: 24px !important;
+        font-weight: bold !important;
+        background-color: #3b8bd0 !important;
+        border-bottom: 5px solid black !important;
+        color: white !important;
+    }
+
+    #addRow,#deleteRow{
+        height: 55px!important;
+        width: 55px;
+        text-align: center;
+        font-family: 'Mali', cursive!important;
+        font-size: 20px!important;
+        border-radius: 12px!important;
+        box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.16)!important;
+        border: solid 5px #000000!important;
+        min-height: 55px!important;
+    }
+
+    #addAnswer,#deleteAnswer{
+        height: 55px!important;
+        width: 100px;
+        text-align: center;
+        font-family: 'Mali', cursive!important;
+        font-size: 20px!important;
+        border-radius: 12px!important;
+        box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.16)!important;
+        border: solid 5px #000000!important;
+        min-height: 55px!important;
+    }
 
     
+.btn-save{
+    background-color: #77c33d!important;
+}
 
-    
+.btn-confirm {
+    background-color: #eda045!important;
+}
+
+.btn-cancel {
+    background-color: #e75151!important;
+}
+.btn-delete {
+    background-color: #e75151!important;
+    color: white;
+}
+
+.btn-add{
+    color: white;
+    background-color: #3a5892!important;
+}
