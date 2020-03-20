@@ -652,7 +652,7 @@ handlebars.registerHelper('logicQuestion', function (question) {
  *@since 19 April 2019
  *@required javascript, handlebars.
  */
-handlebars.registerHelper('listquestion', function (question, scoreh) {
+handlebars.registerHelper('listquestion', function (question, scoreh,general) {
   var html = '';
   var index = 0;
   var type = '';
@@ -691,14 +691,14 @@ handlebars.registerHelper('listquestion', function (question, scoreh) {
       }
       html += '</div>';
       html += '<br>';
-      html += 'Level:';
+      html += general.home.level+': ';
       for (var i = 0; i < qs.Level; i++) {
         html += '<i class="fa fa-star fa-fw" style="color:#FECF36;"></i>'
       }
       html += '</li>'
       html += '</div>';
       html += '<div class="list-lesson-score" id="score">';
-      html += 'Score:'
+      html += general.home.score+': '
       html += score;
       html += '</div>';
       html += '</div>';

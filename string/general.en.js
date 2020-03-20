@@ -338,5 +338,9 @@ module.exports = {
             empty : 'Plaese enter all informations.',
             level_order : 'Please enter points correctly at each level. (Leading ascending)'
         }
+    },
+    home:{
+        level:'Level',
+        score:'Score'
     }
 };
