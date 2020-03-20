@@ -7,6 +7,14 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+/*
+*Description: Service Api GetallScore For Leaderboard
+*@version 1.0
+*@author Jirapat Lapudomsakda
+*@since 1 March 2020
+*@required javascript, materialize-css.
+*/
+
 router.get('/getAllScore', async (req,res,next) =>{
     const allscore = await leaderboard.getLeaderboard();
     const alluserinfo = await leaderboard.getUserInfo();

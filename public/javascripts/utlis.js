@@ -1260,6 +1260,14 @@ function passTutorial() {
     });
 }
 
+/*
+*Description: Data Leaderboard
+*@version 1.0
+*@author Jirapat Lapudomsakda
+*@since 1 March 2020
+*@required javascript, materialize-css.
+*/
+
 function ScoreBoard(uid){
     $.ajax({
         type: "GET",
@@ -1272,6 +1280,7 @@ function ScoreBoard(uid){
             var round = 0;
             var index = 0;
             var medal = '';
+            var color = '';
             //console.log(response.user);
             response.user.forEach(element => {
                     if(round == 0){
@@ -1309,34 +1318,16 @@ function ScoreBoard(uid){
             checkname.sort(compareValues('score', 'desc'))
             var rank = 1;
             var urank = {rank:0,avatar:'',nickname:'',score:0,medal:''}
-            html += '<div class="panel panel-default sticky">'
-            html += '<div class="panel-body" style="background-color: #ce5672;">'
-            html += '<div class="dia-row" style="margin-bottom: 0;display: grid; align-items: center;">'
-            html += '<div style="font-size: 20px; font-weight: bold; margin-left:30px; text-align:center; width:10%">'
-            html += '<span>Rank</span>'
-            html += '</div>'
-            html += '<div style="width:10%">'
-            html += '</div>'
-            html += '<div style="font-size: 20px; font-weight: bold; width: 40%;">'
-            html += '<span>Name</span>'
-            html += '</div>'
-            html += '<div style="font-size: 20px; font-weight: bold; width: 20%;">'
-            html += '<span>Score</span>'
-            html += '</div>'
-            html += '</div>'
-            html += '</div>'
-            html += '</div>'
-            html += '</div>'
             checkname.forEach(element =>{
                 if(rank <= 10){
-                        var check = '';
+                        var check = '#ffe670';
                         if(uid == element.uid){
-                            check = 'border-white-board'
+                            check = '#ce5672'
                         }
                         //Get My ranking
 
-                        html += '<div class="panel panel-default board '+check+'">'
-                        html += '<div class="panel-body" style="background-color: #ffe670;">'
+                        html += '<div class="panel panel-default board">'
+                        html += '<div class="panel-body" style="background-color: '+check+';">'
                         html += '<div class="dia-row" style="margin-bottom: 0;display: grid; align-items: center;">'
                         html += '<div style="font-size: 18px; font-weight: bold; margin-left:30px; text-align:center; width:10%">'
                         if(rank == 1){
@@ -1350,7 +1341,7 @@ function ScoreBoard(uid){
                         }
                         html += '</div>'
                         html += '<div style="width: 20%;">'
-                        html += '<center><img src="/assets/svg/avatar/' + element.avatar + '" alt="Avatar" class="avatar-leaderboard"></center>'
+                        html += '<center><img src="/assets/svg/avatar/' + element.avatar + '" alt="Avatar" class="avatar-leaderboard" onerror="imgError(this);"></center>'
                         html += '</div>'
                         html += '<div style="font-size: 18px; font-weight: bold; width: 40%;">'
                         html += '<span>' + element.nickname + '</span>'
@@ -1376,15 +1367,15 @@ function ScoreBoard(uid){
             })
 
             if(urank.rank > 10){
-                test += '<div style="text-align:center; font-size:30px; font-weight:bold;">My rank</div>'
+                $('#myrankleaderboard').css('display','flex');
                 test += '<div class="panel panel-default board">'
-                test += '<div class="panel-body" style="background-color: #ffb6b9;">'
+                test += '<div class="panel-body" style="background-color: #ce5672;">'
                 test += '<div class="dia-row" style="margin-bottom: 0;display: grid; align-items: center;">'
                 test += '<div style="font-size: 18px; font-weight: bold; margin-left:30px; text-align:center; width:10%">'
                 test += '<span>' + urank.rank + '</span>'
                 test += '</div>'
                 test += '<div style="width: 20%;">'
-                test += '<center><img src="/assets/svg/avatar/' + urank.avatar + '" alt="Avatar" class="avatar-leaderboard"></center>'
+                test += '<center><img src="/assets/svg/avatar/' + urank.avatar + '" alt="Avatar" class="avatar-leaderboard" onerror="imgError(this);" ></center>'
                 test += '</div>'
                 test += '<div style="font-size: 18px; font-weight: bold; width: 40%;">'
                 test += '<span>' + urank.nickname + '</span>'
@@ -1409,6 +1400,14 @@ function ScoreBoard(uid){
     });
 }
 
+/*
+*Description: Compare Object Vaules
+*@version 1.0
+*@author Jirapat Lapudomsakda
+*@since 1 March 2020
+*@required javascript, materialize-css.
+*/
+
 function compareValues(key, order = 'asc') {
     return function innerSort(a, b) {
         if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
@@ -1432,6 +1431,14 @@ function compareValues(key, order = 'asc') {
         );
     };
 }
+
+/*
+*Description: Change Month
+*@version 1.0
+*@author Jirapat Lapudomsakda
+*@since 1 March 2020
+*@required javascript, materialize-css.
+*/
 
 function ChangeMonth(month, lang) {
     var allmonthEn = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -1518,9 +1525,6 @@ function showTutorialLogic(content) {
     $('#modal-tutorial-logic').modal('open');
 }
 
-function setZoom(percent){
-    document.body.style.zoom = percent;
-}
 /*
  *Description: Show alert modal.
  *@version 1.0
@@ -1637,7 +1641,28 @@ function showListQuestion(header,obj) {
     }
     
 }
+/*
+*Description: Number with Commas
+*@version 1.0
+*@author Jirapat Lapudomsakda
+*@since 1 March 2020
+*@required javascript, materialize-css.
+*/
 
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+/*
+*Description: Change Images Error
+*@version 1.0
+*@author Jirapat Lapudomsakda
+*@since 1 March 2020
+*@required javascript, materialize-css.
+*/
+
+function imgError(image) {
+    image.onerror = "";
+    image.src = "/assets/svg/noimages.svg";
+    return true;
 }

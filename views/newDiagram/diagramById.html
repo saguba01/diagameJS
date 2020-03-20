@@ -140,7 +140,7 @@
     var level = '{{level}}';
     console.log("level", level);
     $(function () {
-        timer('{{level}}', (obj) => {
+        timer(level, (obj) => {
             if (typeof obj.score != "undefined") {
                 $("#scorePlay").val(obj.score);
                 console.log("score:" + $("#scorePlay").val());
@@ -217,7 +217,7 @@
                     check += 1;
                 }
             }
-
+            play()
             if (check == tempFlowchart.length && tempFlowchart.length == length) {
                 flowchartBeenEqual = true;
                 statusQuestion = true;
@@ -265,7 +265,22 @@
 
     }
 
-
+    function play() {
+        var start = $('#target').find('[type="element"][event="start"]');
+        console.log("Start", start);
+        var element = start;
+        if (element.attr('type') == 'element') {
+            element.removeClass("play_jelly");
+            timer = new Timer(function () {
+                element.addClass("play_jelly");
+            }, 1000);
+        } else {
+            element = element.next();
+            if (element.length != 0) {
+                play();
+            }
+        }
+    }
 
 
 </script>

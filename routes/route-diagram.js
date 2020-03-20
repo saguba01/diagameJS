@@ -42,7 +42,7 @@ router.get('/:id', authen, async function (req, res, next) {
           question: doc3.data().answerStep,
           questionHintEN: doc.data().HintEN,
           questionNameEN: doc.data().NameEN,
-          questionHintTH: doc.data().HintTh,
+          questionHintTH: doc.data().HintTH,
           questionNameTH: doc.data().NameTH,
           level: doc.data().Level,
           answerStep: arrAnswer,

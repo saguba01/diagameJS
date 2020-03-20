@@ -161,18 +161,6 @@
                 <div class="list-question" id="listoperator">
                     {{ listquestion questionDiagram score}}
                 </div>
-                <!--<div target="/lesson/{{ lesson.io.url }}/{{ lesson.io.subLesson.juice.url }}"
-                    class="postit postit-top-left bg-nude canClick">{{ lesson.io.subLesson.juice.text }}</div>
-                <div target="/lesson/{{ lesson.io.url }}/{{ lesson.io.subLesson.toast.url }}"
-                class="postit postit-top-right bg-yellow canClick {{locked passed lesson.io.url lesson.io.subLesson.juice.url }}">{{ lesson.io.subLesson.toast.text }}</div>
-                <div class="paragraph" style="width:200px;height: 250px;margin-top: 50px;margin-left: 240px;">
-                    {{lines 12}}
-                </div>
-                <div target="/lesson/{{ lesson.io.url }}/{{ lesson.io.subLesson.bacon.url }}"
-                    class="postit postit-bottom-right bg-red canClick {{locked passed lesson.io.url lesson.io.subLesson.toast.url }}">{{ lesson.io.subLesson.bacon.text }}</div>
-                <div class="paragraph" style="width:180px;height: 250px;margin-left: 54.5px;">
-                    {{lines 11}}
-                </div>-->
             </div>
         </div>
 
@@ -183,17 +171,6 @@
                 <div class="list-question" id="listoperator">
                     {{ listquestion questionOperator score}}
                 </div>
-                <!--<div target="/lesson/{{ lesson.operator.url }}/{{ lesson.operator.subLesson.easy.url }}"
-                    class="postit postit-top-left bg-light-green canClick">{{ lesson.operator.subLesson.easy.text }}</div>
-                <div class="paragraph" style="width:220px;height: 250px;margin-top: 50px;margin-left: 240px;">
-                    {{lines 11}}
-                </div>
-                <div target="/lesson/{{ lesson.operator.url }}/{{ lesson.operator.subLesson.nomal.url }}"
-                    class="postit postit-bottom-left bg-blue canClick {{locked passed lesson.operator.url lesson.operator.subLesson.easy.url }}" style="margin-left: 85px;">
-                    {{ lesson.operator.subLesson.nomal.text }}</div>
-                <div class="paragraph" style="width:220px;height: 250px;margin-left: 240px;">
-                    {{lines 9}}
-                </div>-->
             </div>
         </div>
 
@@ -204,16 +181,6 @@
                 <div class="list-question" id="listlogic">
                 {{ listquestion questionLogic score}}
                 </div>
-                <!--<div target="/lesson/{{ lesson.logic.url }}/{{ lesson.logic.subLesson.easy.url }}"
-                    class="postit postit-top-right bg-red canClick">{{ lesson.logic.subLesson.easy.text }}</div>
-                <div class="paragraph" style="width:250px;height: 250px;margin-top: 50px;">
-                    {{lines 11}}
-                </div>
-                <div target="/lesson/{{ lesson.logic.url }}/{{ lesson.logic.subLesson.nomal.url }}"
-                    class="postit postit-bottom-left bg-nude canClick  {{locked passed lesson.logic.url lesson.logic.subLesson.easy.url }}">{{ lesson.logic.subLesson.nomal.text }}</div>
-                <div class="paragraph" style="width:220px;height: 250px;margin-left: 240px;">
-                    {{lines 12}}
-                </div>-->
             </div>
         </div>
         
@@ -303,8 +270,8 @@
                         <button class="button-language" onclick="javascript:setLanguage('th')">th</button>
                         <button class="button-language" onclick="javascript:setLanguage('en')">en</button>
                     </div>
-                    <button class="button-signout noselect" onclick="javascript:signOut()"
-                        guide="profile">{{ general.button.signout }}</button>
+                    <button class="button-signout noselect" onclick="window.location.replace('/leaderboard')"
+                        guide="profile">{{ general.leaderboard.text }}</button>
                 </div>
                 <div class="paragraph" style="width:180px;height: 250px;margin-left: 280px;margin-top: -70px;">
                     {{lines 6}}
