@@ -317,7 +317,7 @@ module.exports = {
         },
         welcome: {
             button:{
-                learning: 'เริ่มต้มให้คำแนะนำ'
+                learning: 'เริ่มต้นให้คำแนะนำ'
             },
             header: 'ยินดีต้อนรับเข้าสู่ DIAGAME',
             logo: 'menu-coaching',

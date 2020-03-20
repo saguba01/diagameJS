@@ -59,7 +59,7 @@ module.exports = {
     await refScroeHistory.get().then(async (snapshot) => {
       await snapshot.forEach(async (doc) => {
         let result = doc.data()
-        if (result.type == "logic") {
+        if (result.type == "logic" || result.type == "operator") {
           const refLogic = firestore.collection('Logic').doc(result.questionId)
           await refLogic.get().then(async subDoc => {
             try {
@@ -88,7 +88,7 @@ module.exports = {
             console.warn("err")
             console.warn(err)
           });
-        } else if ("diagram") {
+        } else if ( result.type == "diagram") {
           const refLogic = firestore.collection('Diagram').doc(result.questionId)
           await refLogic.get().then(async doc => {
             if (doc.exists) {
