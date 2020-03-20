@@ -35,7 +35,7 @@
         }
 
         .no-medal{
-            background-color: #ffe670;
+            background-color: #ce5672;
             border: black 4px solid;
         }
 
@@ -80,7 +80,7 @@
     <div style="width:15%;" id="mycard">
         <div id="colormy" class="card" style="width:100%; height:auto;">
             <div class="card-body" style="height:100%;">
-                <div class="rank">My Ranking</div>
+                <div class="rank">{{ general.leaderboard.myranking }}</div>
                 <div id="my-rank" class="rank"></div>
                 <div id="my-avatar"></div>
                 <div id="my-name" class="name"></div>
@@ -191,34 +191,35 @@
                     var myscore = 0;
                     var ranking = 0;
                     html += '<div class="panel panel-default sticky">'
-                    html += '<div class="panel-body" style="background-color: #ce5672;">'
+                    html += '<div class="panel-body" style="background-color: #b9cced;">'
                     html += '<div class="dia-row" style="margin-bottom: 0;display: grid; align-items: center;">'
                     html += '<div style="font-size: 20px; font-weight: bold; margin-left:30px; text-align:center; width:10%">'
-                    html += '<span>Rank</span>'
+                    html += '<span>{{ general.leaderboard.rank }}</span>'
                     html += '</div>'
                     html += '<div style="width:10%">'
                     html += '</div>'
                     html += '<div style="font-size: 20px; font-weight: bold; width: 40%;">'
-                    html += '<span>Name</span>'
+                    html += '<span>{{ general.leaderboard.name }}</span>'
                     html += '</div>'
                     html += '<div style="font-size: 20px; font-weight: bold; width: 20%;">'
-                    html += '<span>Score</span>'
+                    html += '<span>{{ general.leaderboard.score }}</span>'
                     html += '</div>'
                     html += '</div>'
                     html += '</div>'
                     html += '</div>'
                     html += '</div>'
                     checkname.forEach(value => {
+                        var check = '#ffe670';
                         if (rank < 4) {
                             if (rank == 1) {
                                 medal = '<center><img src="/assets/svg/reward/crown.svg" class="rank-medal"></center>'
-                                avatarrank = '<center><img src="/assets/svg/avatar/' + value.avatar + '" class="medal-leaderboard"></center>'
+                                avatarrank = '<center><img src="/assets/svg/avatar/' + value.avatar + '" class="medal-leaderboard" onerror="imgError(this);"></center>'
                             } else if (rank == 2) {
                                 medal = '<center><img src="/assets/svg/reward/silver.svg" class="rank-medal"></center>'
-                                avatarrank = '<center><img src="/assets/svg/avatar/' + value.avatar + '" class="medal-leaderboard"></center>'
+                                avatarrank = '<center><img src="/assets/svg/avatar/' + value.avatar + '" class="medal-leaderboard" onerror="imgError(this);"></center>'
                             } else if (rank == 3) {
                                 medal = '<center><img src="/assets/svg/reward/medal.svg" class="rank-medal"></center>'
-                                avatarrank = '<center><img src="/assets/svg/avatar/' + value.avatar + '" class="medal-leaderboard"></center>'
+                                avatarrank = '<center><img src="/assets/svg/avatar/' + value.avatar + '" class="medal-leaderboard" onerror="imgError(this);"></center>'
                             }
                             urank.push({
                                 rank: medal,
@@ -235,14 +236,23 @@
                                 ranking = rank;
                             }
                         } else {
+                            if (value.uid == uid) {
+                                myrank = rank;
+                                myname = value.nickname;
+                                myavatar = avatarrank;
+                                myscore = value.score;
+                                ranking = rank;
+                                check = '#ce5672'
+                            }
+
                             html += '<div class="panel panel-default board">'
-                            html += '<div class="panel-body" style="background-color: #ffe670;">'
+                            html += '<div class="panel-body" style="background-color: '+check+'">'
                             html += '<div class="dia-row" style="margin-bottom: 0;display: grid; align-items: center;">'
                             html += '<div style="font-size: 20px; font-weight: bold; margin-left:30px; text-align:center; width:10%">'
                             html += '<span>' + rank + '</span>'
                             html += '</div>'
                             html += '<div style="width: 20%;">'
-                            html += '<center><img src="/assets/svg/avatar/' + value.avatar + '" alt="Avatar" class="avatar-leaderboard"></center>'
+                            html += '<center><img src="/assets/svg/avatar/' + value.avatar + '" alt="Avatar" class="avatar-leaderboard" onerror="imgError(this);"></center>'
                             html += '</div>'
                             html += '<div style="font-size: 20px; font-weight: bold; width: 40%;">'
                             html += '<span>' + value.nickname + '</span>'
@@ -254,15 +264,7 @@
                             html += '</div>'
                             html += '</div>'
                             html += '</div>'
-                            avatarrank = '<center><img src="/assets/svg/avatar/' + value.avatar + '" class="medal-leaderboard"></center>'
-
-                            if (value.uid == uid) {
-                                myrank = rank;
-                                myname = value.nickname;
-                                myavatar = avatarrank;
-                                myscore = value.score;
-                                ranking = rank;
-                            }
+                            avatarrank = '<center><img src="/assets/svg/avatar/' + value.avatar + '" class="medal-leaderboard" onerror="imgError(this);"></center>'
                         }
                         rank++;
                     })

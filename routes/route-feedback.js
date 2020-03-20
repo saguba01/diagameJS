@@ -28,8 +28,8 @@ router.get('/', authen, async (req, res, next) => {
             lesson: {
               text: configString[lang].general.feedback.title,
             },
-            setting: general.setting,
-            button: general.button,
+            setting: configString[lang].general.setting,
+            button: configString[lang].general.button,
             general: configString[lang].general,
             achievementList: configString[lang].achievement,
             errorMsg: configString[lang].error,
