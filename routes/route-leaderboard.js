@@ -4,6 +4,13 @@ var authen = require('../utils/authen');
 var configString = require('../app').configString;
 var setting = require('../public/javascripts/setting');
 
+/*
+*Description: Open page leaderboard
+*@version 1.0
+*@author Jirapat Lapudomsakda
+*@since 1 March 2020
+*@required javascript, materialize-css.
+*/
 
 router.get('/', authen, async (req, res, next) => {
   let lang = req.cookies.lang;

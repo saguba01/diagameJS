@@ -1260,6 +1260,14 @@ function passTutorial() {
     });
 }
 
+/*
+*Description: Data Leaderboard
+*@version 1.0
+*@author Jirapat Lapudomsakda
+*@since 1 March 2020
+*@required javascript, materialize-css.
+*/
+
 function ScoreBoard(uid){
     $.ajax({
         type: "GET",
@@ -1392,6 +1400,14 @@ function ScoreBoard(uid){
     });
 }
 
+/*
+*Description: Compare Object Vaules
+*@version 1.0
+*@author Jirapat Lapudomsakda
+*@since 1 March 2020
+*@required javascript, materialize-css.
+*/
+
 function compareValues(key, order = 'asc') {
     return function innerSort(a, b) {
         if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
@@ -1415,6 +1431,14 @@ function compareValues(key, order = 'asc') {
         );
     };
 }
+
+/*
+*Description: Change Month
+*@version 1.0
+*@author Jirapat Lapudomsakda
+*@since 1 March 2020
+*@required javascript, materialize-css.
+*/
 
 function ChangeMonth(month, lang) {
     var allmonthEn = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -1501,9 +1525,6 @@ function showTutorialLogic(content) {
     $('#modal-tutorial-logic').modal('open');
 }
 
-function setZoom(percent){
-    document.body.style.zoom = percent;
-}
 /*
  *Description: Show alert modal.
  *@version 1.0
@@ -1620,10 +1641,25 @@ function showListQuestion(header,obj) {
     }
     
 }
+/*
+*Description: Number with Commas
+*@version 1.0
+*@author Jirapat Lapudomsakda
+*@since 1 March 2020
+*@required javascript, materialize-css.
+*/
 
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+/*
+*Description: Change Images Error
+*@version 1.0
+*@author Jirapat Lapudomsakda
+*@since 1 March 2020
+*@required javascript, materialize-css.
+*/
 
 function imgError(image) {
     image.onerror = "";
