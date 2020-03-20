@@ -197,9 +197,22 @@
         var element = start;
         var timestamp = Date.now();
         var flowchartBeenEqual = false;
-        console.log("tempFlowchart: ", tempFlowchart);
+        //console.log("tempFlowchart: ", tempFlowchart);
         var currentFlowchart = [];
         index = 0;
+        $('#display').empty();
+        if(element.length != 0){
+            if(start.next().next().attr('event') != 'end'){
+                play();
+            }else{
+                notice(2000, 'warning', errorMsg.game.nobetween);
+                callback();
+            }
+        }else{
+            notice(2000, 'warning', errorMsg.game.nostart);
+            callback();
+        }
+        
         tempFlowchart.forEach(element => {
             if (element.toLowerCase() == 'start') {
                 tempFlowchart[index] = "1";
@@ -209,7 +222,7 @@
             index++;
         });
 
-        console.log("tempFlowchart: ", tempFlowchart);
+        //console.log("tempFlowchart: ", tempFlowchart);
         for (let index = 0; index < result.length; index++) {
             var check = 0;
             for (let i = 0; i < tempFlowchart.length; i++) {
@@ -262,6 +275,7 @@
             showScoreReultFail('{{general.fail}}')
         }
         console.log("flowchartBeenEqual: ", flowchartBeenEqual);
+        
 
     }
 
