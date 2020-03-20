@@ -86,8 +86,8 @@
     // end display none
 
     //add input 
-    scoreMax.parent().append(newElements().input.attr({value : oldData.score.maxScore , group : "score" }).css({"font-size":"2.5vw","text-align" : "left"}))
-    scoreMin.parent().append(newElements().input.attr({value : oldData.score.minScore , group : "score"}).css({"font-size":"2.5vw","text-align" : "left"}))
+    scoreMax.parent().append(newElements().input.attr({value : oldData.score.maxScore , group : "score" }).css({"font-size":"2vw","text-align" : "left"}))
+    scoreMin.parent().append(newElements().input.attr({value : oldData.score.minScore , group : "score"}).css({"font-size":"2vw","text-align" : "left"}))
 
     listCard.forEach((value,index)=>{
       value.eleRight.after(newElements().input.attr({value : oldData.card[index].rateScore, group : `rate-score`,index : index}).css({"font-size":"48px","text-align" : "center"}))
