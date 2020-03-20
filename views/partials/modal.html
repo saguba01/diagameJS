@@ -176,9 +176,16 @@
     </div>
   </div>
   <div class="modal-footer">
+<<<<<<< HEAD
     <button onclick="playSoundEx('click');applySetting()" class="canClick btn btn-add">{{ button.apply }}</button>
     <button onclick="playSoundEx('click');closeModal('#modal-setting');"
+=======
+    <button onclick="playSoundEx('click');closeModal('#modal-setting');" style="width: 20%; max-width: auto;float: left;"
+>>>>>>> a137aa8aebbf474c791aaea4ebf5b1240f384930
       class="canClick btn btn-cancel">{{button.close}}</button>
+    <button onclick="playSoundEx('click');applySetting()" style="width: 20%; max-width: auto; float: right;"
+      class="canClick btn btn-add">{{ button.apply }}</button>
+    
   </div>
 </div>
 
@@ -277,7 +284,7 @@
   </div>
   <div class="modal-footer">
     <button onclick="location.href = '/home'" style="float: right;"
-      class="canClick button-achievement">{{general.button.done}}</button>
+      class="canClick btn btn-save">{{general.button.done}}</button>
   </div>
 </div>
 
