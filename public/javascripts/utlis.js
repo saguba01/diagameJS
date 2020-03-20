@@ -1192,7 +1192,7 @@ function showLeaderboard(uid) {
     ScoreBoard(uid);
 }
 
-function showPasstutorial(photo, title, content, nextFlag = false) {
+function showPasstutorial(photo, title, content, nextFlag = false,status) {
     $('#modal-pass-tutorial').modal({
         'dismissible': false,
         'onOpenStart': function () {
@@ -1226,6 +1226,15 @@ function showPasstutorial(photo, title, content, nextFlag = false) {
                 typeSpeed: 10,
                 showCursor: false
             });
+            console.log(`status : ${typeof status} ${status}`)
+            if(status){
+                
+                $('#modal-pass-tutorial>.modal-footer>.btn-save').css({'display':''})
+                $('#modal-pass-tutorial>.modal-footer>.btn-cancel').css({'display':'none'})
+            }else{
+                $('#modal-pass-tutorial>.modal-footer> .btn-save').css({'display':'none'})
+                $('#modal-pass-tutorial>.modal-footer>.btn-cancel').css({'display':''})
+            }
         },
         'onCloseStart': function () { },
         'onCloseEnd': function () {

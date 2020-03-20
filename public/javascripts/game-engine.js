@@ -385,7 +385,6 @@ function timer(level, callback) {
             }
             
             function frame() {
-
                 if (width == 0 || statusQuestion) {
                     clearInterval(countDown);
                 } else {

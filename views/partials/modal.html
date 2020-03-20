@@ -277,8 +277,10 @@
     <div class="tutorial-content"></div>
   </div>
   <div class="modal-footer">
-    <button onclick="location.href = '/home'" style="float: right;"
-      class="canClick button-achievement">{{general.button.done}}</button>
+    <button onclick="location.href = '/home'" style="float: right; width: 160px;"
+      class="canClick btn btn-save">{{general.button.done}}</button>
+    <button onclick="playSoundEx('click');closeModal('#modal-pass-tutorial');" style="float: left;  width: 160px;"
+      class="canClick btn btn-cancel">{{button.close}}</button>
   </div>
 </div>
 

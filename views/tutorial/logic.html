@@ -265,16 +265,7 @@
         .onchange((targetElement)=>{
             playSoundEx('click');
         })
-        // clicking 'Done'
-        .oncomplete(function(){
-            playSoundEx('click');
-            timer(1,(obj)=>{
-                console.log(obj)
-            })
-        })
-
-        // clicking 'Skip'
-        .onexit(function(){
+        .onbeforeexit(function() {
             playSoundEx('click');
             timer(1,(obj)=>{
                 console.log(obj)

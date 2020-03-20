@@ -307,7 +307,7 @@
                 keyName = 'orangeOutsideGlass';
             }
 
-            ahievement ? showPasstutorial(ahievement.photo, ahievement.name, ahievement.description, nextFlag) : '';
+            ahievement ? showPasstutorial(ahievement.photo, ahievement.name, ahievement.description, nextFlag,statusQuestion) : '';
             keyName ? unlockAchievement(keyName, timestamp) : '';
         }
     }
@@ -415,18 +415,8 @@
             .onchange((targetElement) => {
                 playSoundEx('click');
             })
-            // clicking 'Done'
-            .oncomplete(function () {
-                playSoundEx('click');
-                timer(1, (obj) => {
-                    console.log(obj)
-                })
-                targetAreaShow()
-            })
-
-            // clicking 'Skip'
-            .onexit(function () {
-                playSoundEx('click');
+           
+            .onbeforeexit(function() {
                 timer(1, (obj) => {
                     console.log(obj)
                 })
