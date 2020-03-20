@@ -77,9 +77,19 @@ module.exports = {
     feedback:{
         title: 'Feedback',
         text: 'Type Your Comment Here...',
-        alert: 'Please Choose Stars For Levels Feedback'
+        alert: 'Please Choose Stars For Levels Feedback',
+        total:'Total',
+        review:'Reviews'
+    },
+    leaderboard:{
+      text: 'Leaderboard',
+      rank: 'Rank',
+      name: 'Name',
+      score: 'Score',
+      myranking: 'My Ranking' 
     },
     comment:'Comment',
+    
     dashboard: {
         card: {
             total_question: {

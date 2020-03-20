@@ -77,7 +77,16 @@ module.exports = {
     feedback:{
         title: 'ข้อเสนอแนะ',
         text: 'พิมพ์ข้อเสนอแนะลงตรงนี้...',
-        alert: 'กรุณาเลือกดาวเพื่อให้คะแนน Feedback'
+        alert: 'กรุณาเลือกดาวเพื่อให้คะแนน Feedback',
+        total: 'ทั้งหมด',
+        review: 'ความคิดเห็น'
+    },
+    leaderboard:{
+        text: 'กระดานคะแนนผู้นำ',
+        rank: 'ลำดับ',
+        name: 'ชื่อ',
+        score: 'คะแนน',
+        myranking: 'ลำดับของฉัน'
     },
     comment: 'ความคิดเห็น',
     dashboard: {

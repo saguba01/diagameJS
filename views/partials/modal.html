@@ -107,8 +107,8 @@
 <div id="modal-feedback" class="modal">
   <div class="modal-content" style="background-color: #fadb42;">
     <div class="button-close-custom canClick right" onclick="closeModal('#modal-feedback');playSoundEx('click');"></div>
-    <div class="" style="text-align:center; font-size:50px; font-weight: bold;">{{ general.feedback.title }}</div>
-    <div class=""><textarea style="border:5px solid black; height:100px; background-color: white;"
+    <div style="text-align:center; font-size:50px; font-weight: bold;">{{ general.feedback.title }}</div>
+    <div ><textarea class="commentfeedback" style="border:5px solid black; background-color: white;"
         placeholder="{{ general.feedback.text }}" id="comment-feedback"></textarea></div>
     <!-- Rating Stars Box -->
     <section class='rating-widget'>
@@ -132,12 +132,13 @@
         </ul>
       </div>
       <input type="hidden" id="ratingStar">
-    </div>
-    <div class="modal-footer" style="border-top: 5px solid black;">
-      <button onclick="playSoundEx('click');saveFeedback('{{ name }}');" class="canClick button-apply-feedback">{{ button.submit }}</button>
-    </div>
   </div>
-  
+  <div class="modal-footer" style="border-top: 5px solid black; text-align:center;">
+    <button onclick="playSoundEx('click');saveFeedback('{{ name }}');"
+      class="canClick btn btn-save">{{ button.save }}</button>
+  </div>
+</div>
+
 
 
 <div id="modal-setting" class="modal">
@@ -187,11 +188,9 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button onclick="playSoundEx('click');closeModal('#modal-setting');" style="width: 20%; max-width: auto;float: left;"
+    <button onclick="playSoundEx('click');applySetting()" class="canClick btn btn-add">{{ button.apply }}</button>
+    <button onclick="playSoundEx('click');closeModal('#modal-setting');"
       class="canClick btn btn-cancel">{{button.close}}</button>
-    <button onclick="playSoundEx('click');applySetting()" style="width: 20%; max-width: auto; float: right;"
-      class="canClick btn btn-add">{{ button.apply }}</button>
-    
   </div>
 </div>
 
@@ -250,15 +249,35 @@
     <div class="button-close-custom canClick right" onclick="closeModal('#modal-leaderboard');playSoundEx('click');">
     </div>
     <br>
-    <div style="text-align: center; font-size: 30px; font-weight:bold; ">Leaderboard</div>
+    <div style="text-align: center; font-size: 30px; font-weight:bold; ">{{ general.leaderboard.text }}</div>
     <br>
-    <div style="overflow-y: auto; height:500px;" id="scoreboard">
-   
-  </div>
-</div>
-<div class="modal-footer" style="background-color: #a8e6cf; padding:15px 30px 15px 15px; border-top: 0px; text-align:left;">
-  <div id="myboard">
+    <div style="overflow-y: auto; height:500px;">
+      <div class="panel panel-default sticky">
+        <div class="panel-body" style="background-color: #b9cced;">
+          <div class="dia-row" style="margin-bottom: 0;display: grid; align-items: center;">
+            <div style="font-size: 20px; font-weight: bold; margin-left:30px; text-align:center; width:10%">
+              <span>{{ general.leaderboard.rank }}</span>
+            </div>
+            <div style="width:10%">
+            </div>
+            <div style="font-size: 20px; font-weight: bold; width: 40%;">
+              <span>{{ general.leaderboard.name }}</span>
+            </div>
+            <div style="font-size: 20px; font-weight: bold; width: 20%;">
+              <span>{{ general.leaderboard.score }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="scoreboard">
+      </div>
     </div>
+
+  </div>
+<div class="modal-footer" style="background-color: #a8e6cf; padding:15px 30px 15px 15px; border-top: 0px; text-align:left;">
+  <div style="justify-content: center; font-size:30px; font-weight:bold; display:none;" id="myrankleaderboard">{{ general.leaderboard.myranking }}</div>
+  <div id="myboard">
+  </div>
 </div>
 </div>
 
@@ -271,7 +290,7 @@
   </div>
   <div class="modal-footer">
     <button onclick="location.href = '/home'" style="float: right;"
-      class="canClick btn btn-save">{{general.button.done}}</button>
+      class="canClick button-achievement">{{general.button.done}}</button>
   </div>
 </div>
 
@@ -325,10 +344,10 @@
   </div>
 </div>
 
-<div id="modal-list-user" class="modal" >
+<div id="modal-list-user" class="modal">
   <div class="button-close-custom canClick right" onclick="closeModal('#modal-list-user');playSoundEx('click');"></div>
   <div class="modal-content">
-    <div class="list-header">  </div>
+    <div class="list-header"> </div>
     <div class="list-body">
       <table id="tableListUser" class="table table-striped" cellspacing="0" width="100%">
         <thead>
@@ -346,9 +365,10 @@
 </div>
 
 <div id="modal-list-question" class="modal">
-  <div class="button-close-custom canClick right" onclick="closeModal('#modal-list-question');playSoundEx('click');"></div>
+  <div class="button-close-custom canClick right" onclick="closeModal('#modal-list-question');playSoundEx('click');">
+  </div>
   <div class="modal-content">
-    <div class="list-header">  </div>
+    <div class="list-header"> </div>
     <div class="list-body">
       <table id="tableListQuestion" class="table table-striped" cellspacing="0" width="100%">
         <thead>
@@ -364,4 +384,3 @@
     </div>
   </div>
 </div>
-

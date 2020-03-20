@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var authen = require('../utils/authen');
 var configString = require('../app').configString;
-var firestore = require('../configs/firebase-config').firestore;
 var setting = require('../public/javascripts/setting');
 
 
@@ -17,11 +16,9 @@ router.get('/', authen, async (req, res, next) => {
     element: configString[lang].element.general,
     intro: configString[lang].intro,
     //required
-    lesson: {
-      text: "Leaderboard"
-    },
-    setting:general.setting,
-    button:general.button,
+    lesson: configString[lang].general.leaderboard,
+    setting:configString[lang].general.setting,
+    button:configString[lang].general.button,
     general: configString[lang].general,
     errorMsg: configString[lang].error,
     uid:uid,

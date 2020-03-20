@@ -389,7 +389,7 @@
                         html += '<div class="bg-light-green comment-box">';
                         html += '<b>' + element.Name + '</b>' + ' : ' + element.Comment;
                         html += '<br>';
-                        html += cutdate[0]+' '+ChangeMonth(cutdate[1],Cookies.get('lang'))+' | '+newdate[1]+' ';
+                        html += cutdate[0]+' '+ChangeMonth(cutdate[1],Cookies.get('lang'))+' | '+cuttime[0]+':'+cuttime[1]+' ';
                         for (var i = 0; i < element.Level; i++) {
                             html += '<i class="fa fa-star fa-fw feedback" style="color:#FECF36; font-size:12px;"></i>'
                         }
@@ -443,7 +443,7 @@
                 $('#list-progressbars').html(progressbar);
                 $('#ratingdiagame').text(rating);
                 $('#starsrating').html(ratingstar);
-                $('#totalreview').text('Total : '+total+" Reviews");
+                $('#totalreview').text('{{ general.feedback.total }} : '+total+" {{ general.feedback.review }}");
                 
             },
             complete : function(){

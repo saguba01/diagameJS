@@ -7,7 +7,11 @@ textarea,input, select{
         background-color: #FFFFFF !important;
         border-radius: 10px!important;
         height: 45px!important;
-    }    
+    }   
+    
+.commentfeedback{
+    height:100px !important;
+}
 
     .panelQuestion {
         overflow: auto;
@@ -85,7 +89,7 @@ textarea,input, select{
     }
 
     .panel-body {
-        background-color: #ecfbfc !important;
+        background-color: #ecfbfc;
         padding: 10px !important;
         font-size: 20px !important;
     }
