@@ -253,7 +253,7 @@
         <div class="panelleft">
             <div class="innerpage">
                 <p class="lesson-title noselect">{{ general.profile.text }}</p>
-                <div class="postit postit-top-right bg-red" style="margin-top: -20px;"></div>
+                <div class="postit postit-top-right bg-red" style="margin-top: -20px;"><center><img  id="home-avatar" width="170px" height="190px"></center></div>
                 <div class="paragraph" style="width:250px;height: 220px;margin-top: 50px;">
                     {{lines 11}}
                 </div>
@@ -313,8 +313,9 @@
 <script type="text/javascript">
     const lang = Cookies.get('lang')
     console.log(lang);
+    const avatar = '{{ avatar }}';
+    console.log(avatar);
     $(document).ready(function () {
-        
         
         var url = new URL(window.location.href);
         var page = url.searchParams.get("page");
@@ -347,6 +348,7 @@
             window.location.replace($(this).attr('target'));
         });
 
+        $('#home-avatar').attr("src","/assets/svg/avatar/"+avatar);
         // $('.qs.canClick').click(function (){
         //     window.location.replace($(this).attr('target'));
         // })

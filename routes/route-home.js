@@ -48,7 +48,8 @@ router.get('/', authen, async (req, res, next) => {
               ListMenu: JSON.stringify(await getMenu()),
               setting:configString[lang].general.setting,
               button:configString[lang].general.button,
-              name:userInfo.nickname
+              name:userInfo.nickname,
+              avatar:userInfo.avatar
             };
             res.render('home/index', data);
           }else{
