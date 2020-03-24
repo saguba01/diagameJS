@@ -1,10 +1,12 @@
 <!-- include summernote css/js -->
+
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
 <!-- include summernote css/js -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.js"></script>
@@ -32,12 +34,12 @@
                             <div class="dia-6" id="hint1">
                                 <p class="input-name">{{addForm.form.HintEn.text}}</p>
 
-                                <div id="HintEN">{{HintEN}}</div>
+                                <div id="HintEN"></div>
                                 <p id="validate_hintEN" style="text-align: left;" class="textValidate"></p>
                             </div>
                             <div class="dia-6" id="hint2">
                                 <p class="input-name">{{addForm.form.HintTh.text}}</p>
-                                <div id="HintTH">{{HintTH}}</div>
+                                <div id="HintTH"></div>
                                 <p id="validate_hintTH" style="text-align: left;" class="textValidate"></p>
                             </div>
 
@@ -102,23 +104,41 @@
 <script>
     var refQuestion = firestore.collection("Diagram");
     var keyId = 0;
-    var countTable = "{{countAnswer}}";
-    var countID = [];
+    var countTable = "{{countAnswer}}"; // count answer
+    var nameID = []; // ID table answer
+
     $(document).ready(function () {
+
+        var hintEN = "{{HintEN}}";
+        var hintTH = "{{HintTH}}";
+
+        hintEN = htmlDecode(hintEN)
+        hintTH = htmlDecode(hintTH);
         $('#HintEN').summernote({ height: 200, tooltip: false });
         $('#HintTH').summernote({ height: 200, tooltip: false });
-        //console.log(/^([a-z0-9])$/.test($("#questionInputEng").val())); // false
-        //set star level
-        //console.log("count", countTable);
+        $("#HintEN").summernote("editor.pasteHTML", hintEN);
+        $('#HintTH').summernote("editor.pasteHTML", hintTH);
+        $("br").remove();
+
+        //clear empty tag p in hint summetnote
+        $('p').each(function () {
+            if ($(this).text() === '') {
+                $(this).remove();
+            }
+        });
+
         for (let l = 1; l <= "{{level}}"; l++) {
             $("#level" + l).addClass('selected');
         }
 
         for (let index = 1; index <= countTable; index++) {
-            countID.push("answerTable_" + index)
+            nameID.push("answerTable_" + index)
         }
-        console.log("count", countID);
 
+        //console.log("count", nameID);
+
+
+        // run index table after sortable
         $('#answerTable_1').on('click', '.btn-remove-tr', function (e) {
 
             e.preventDefault();
@@ -133,6 +153,7 @@
             return false;
         });
 
+        // sortable table
         $('tbody').sortable({
             items: ">*:not(.sort-disabled)",
             stop: function (event, ui) {
@@ -183,10 +204,18 @@
 
     });
 
+    // de code HTML to string
+    function htmlDecode(input) {
+        var e = document.createElement('div');
+        e.innerHTML = input;
+        return e.childNodes[0].nodeValue;
+    }
 
-    /* 
-    Add process in flowchart in row table 
-    
+    /*
+    *Description: add row process in table
+    *@version 2.0
+    *@author Thongthorn Karapakdee
+    *@since 6 December 2019
     */
     function addProcess(rows) {
         rowAdd = $(rows).closest('table tr').length + 1;
@@ -218,7 +247,13 @@
         });
 
     }
-    // Remove Process in flowchart
+
+    /*
+    *Description: remove row process in table
+    *@version 2.0
+    *@author Thongthorn Karapakdee
+    *@since 6 December 2019
+    */
     function removeProcess(rows) {
         console.log("Delete", rows);
         tableID = $(rows).closest('table').attr('id')
@@ -234,16 +269,20 @@
         }
     }
 
-    //clone table
-
+    /*
+    *Description: clone answer table
+    *@version 2.0
+    *@author Thongthorn Karapakdee
+    *@since 6 December 2019
+    */
     function addAnswer() {
         myTable = document.getElementsByTagName("table")[0];
         myHeadClone = "<div><hr style='border:0px;'><button id='deleteAnswer' class='button btn-delete' onclick='removeAnswer(answerTable_" + ++countTable + ",this)'>" +
             "<i class='fa fa-minus'></i> {{addForm.form.answer.text}}</button></div>";
         myTableClone = myTable.cloneNode(true);
         myTableClone.id = "answerTable_" + countTable;
-        countID.push("answerTable_" + countTable)
-        console.log("ID", countTable, countID)
+        nameID.push("answerTable_" + countTable)
+        console.log("ID", countTable, nameID)
         $("#statement").append(myHeadClone);
         $("#statement").append(myTableClone);
         $('tbody').sortable({
@@ -256,14 +295,24 @@
         });
     }
 
-    //delete clone table
-
+    /*
+    *Description: remove answer table
+    *@version 2.0
+    *@author Thongthorn Karapakdee
+    *@since 6 December 2019
+    */
     function removeAnswer(table_ID, thisID) {
         console.log(table_ID);
         thisID.remove()
         table_ID.remove()
     }
 
+    /*
+    *Description: save question
+    *@version 2.0
+    *@author Thongthorn Karapakdee
+    *@since 20 December 2019
+    */
     $('#saveButton').click(function () {
         if (validateQuestion()) {
             console.log("Count", countTable);
@@ -282,14 +331,14 @@
                 var dataProcessEn = [];
                 var dataProcessTh = [];
                 var dataType = [];
-                console.log("ID", countID[index]);
-                $('table[id="' + countID[index] + '"] input[id="processEn"]').each(function (i, elem) {
+                console.log("ID", nameID[index]);
+                $('table[id="' + nameID[index] + '"] input[id="processEn"]').each(function (i, elem) {
                     dataProcessEn.push($(elem).val());
                 });
-                $('table[id="' + countID[index] + '"] input[id="processTh"]').each(function (i, elem) {
+                $('table[id="' + nameID[index] + '"] input[id="processTh"]').each(function (i, elem) {
                     dataProcessTh.push($(elem).val());
                 });
-                $('table[id="' + countID[index] + '"] select[id="type"]').each(function (i, elem) {
+                $('table[id="' + nameID[index] + '"] select[id="type"]').each(function (i, elem) {
                     dataType.push($(elem).val());
                 });
                 for (let i = 0; i < dataProcessEn.length; i++) {
@@ -306,13 +355,16 @@
     });
 
     /*
-    validate question
+    *Description: validate
+    *@version 2.0
+    *@author Thongthorn Karapakdee
+    *@since 28 January 2020
     */
     function validateQuestion() {
-        var eng = /^([a-zA-Z0-9 ])+$/; // validate input a-z A-Z 0-9
+        var eng = /^([ก-ฮ])+$/; // validate input a-z A-Z 0-9
         //var thai = /^([ก-๙ 0-9])+$/;
         var check = true;
-        if (!(eng.test($("#questionInputEng").val())) || $("#questionInputEng").val() == "") {
+        if ($("#questionInputEng").val() == "") {
             $("#questionInputEng").addClass("redBorder");
             check = false;
         } else {
@@ -337,7 +389,7 @@
             $("#hintInputTh").removeClass("redBorder");
         }
         for (let index = 0; index < countTable; index++) {
-            $('table[id="' + countID[index] + '"] input[id="processEn"]').each(function (i, elem) {
+            $('table[id="' + nameID[index] + '"] input[id="processEn"]').each(function (i, elem) {
 
                 if ($(elem).val() == "") {
                     $(elem).addClass("redBorder");
@@ -346,7 +398,7 @@
                     $(elem).removeClass("redBorder");
                 }
             });
-            $('table[id="' + countID[index] + '"] input[id="processTh"]').each(function (i, elem) {
+            $('table[id="' + nameID[index] + '"] input[id="processTh"]').each(function (i, elem) {
                 if ($(elem).val() == "") {
                     $(elem).addClass("redBorder");
                     check = false;
@@ -354,7 +406,7 @@
                     $(elem).removeClass("redBorder");
                 }
             });
-            $('table[id="' + countID[index] + '"] select[id="type"]').each(function (i, elem) {
+            $('table[id="' + nameID[index] + '"] select[id="type"]').each(function (i, elem) {
                 if ($(elem).val() == 0) {
                     $(elem).addClass("redBorder");
                     check = false;
@@ -371,7 +423,12 @@
     }
 
 
-    //save data to firebase 
+    /*
+    *Description: save question to firebase
+    *@version 2.0
+    *@author Thongthorn Karapakdee
+    *@since 20 December 2019
+    */ 
     function saveQuestion(dataAnswer, diagramNameEn, diagramNameTh, diagramHintEn, diagramHintTh, diagramLevel) {
         console.log("save...");
         console.log("Diagram", dataAnswer);
@@ -380,7 +437,7 @@
         console.log("Star", diagramLevel);
 
         //showLoading();
-        refQuestion.doc('{{diagramId}}').set({
+        refQuestion.doc("{{diagramId}}").set({
             NameEN: diagramNameEn,
             NameTH: diagramNameTh,
             HintEN: diagramHintEn,
@@ -388,17 +445,15 @@
             Level: diagramLevel
         }).then(function () {
             for (let index = 1; index <= dataAnswer.length; index++) {
-                refQuestion.doc(keyId.toString()).collection("answer").doc(index.toString()).set({
+                refQuestion.doc("{{diagramId}}").collection("answer").doc(index.toString()).set({
                     answerStep: dataAnswer[index - 1]
                 })
             }
-            //closeLoading();
             jQuery.noConflict();
-            $("#modal-addQuestion-diagram").modal('show');
+            $("#modal-editQuestion-diagram").modal('show');
             console.log("SAVESSS");
         }).catch(err => {
 
         });
-
     }
 </script>
