@@ -286,7 +286,7 @@ handlebars.registerHelper('displayTableEdit', function (obj, addForm) {
         "</strong>";
     } else {
       html += "<div><hr style='border:0px;'><button id='deleteAnswer' class='button btn-delete' onclick='removeAnswer(answerTable_" + index + ",this)'>" +
-        "<i class='fa fa-minus'></i>" + addForm.form.answer.text + "</button></div>" +
+        "<i class='fa fa-minus'></i> " + addForm.form.answer.text + "</button></div>" +
         "<table id='answerTable_" + index + "'>" +
         "<thead><tr><strong>" +
         "<td style='width: 2%;font-size: 20px;font-weight: bold;'>" + addForm.form.table.step + "</td>" +
@@ -302,7 +302,7 @@ handlebars.registerHelper('displayTableEdit', function (obj, addForm) {
         html += "<tr class='sort-disabled'>" +
           "<td class='order'>" + index2 + "</td>" +
           "<td><input type='text' style='width: 95%;' value='Start' id='processEn' disabled></td>" +
-          "<td><input type='text' style='width: 95%;' value='Start' id='processTh' disabled></td>" +
+          "<td><input type='text' style='width: 95%;' value='เริ่มต้น' id='processTh' disabled></td>" +
           "<td><select style='display: inline;' disabled id='type'>" +
           "<option value='Basic' selected>Basic</option>" +
           "<option value='Input' >Input</option>" +
@@ -313,6 +313,21 @@ handlebars.registerHelper('displayTableEdit', function (obj, addForm) {
           "<td><div style='text-align: center;'>" +
           "<button class='book-button blue-button' onclick='addProcess(this)'><i class='fa fa-plus'></i></button>" +
           "</div></td>" +
+          "</tr>";
+      } else if (index2 == obj[index - 1].length) {
+        html += "<tr class='sort-disabled'>" +
+          "<td class='order'>" + index2 + "</td>" +
+          "<td><input type='text' style='width: 95%;' value='End' id='processEn' disabled></td>" +
+          "<td><input type='text' style='width: 95%;' value='สิ้นสุด' id='processTh' disabled></td>" +
+          "<td><select style='display: inline;' disabled id='type'>" +
+          "<option value='Basic' selected>Basic</option>" +
+          "<option value='Input' >Input</option>" +
+          "<option value='Output' >Output</option>" +
+          "<option value='Process' >Process</option>" +
+          "<option value='Decision' >Decision</option>" +
+          "</select></td>" +
+          "<td>" +
+          "</td>" +
           "</tr>";
       } else {
         html += "<tr>" +
@@ -350,7 +365,7 @@ handlebars.registerHelper('displayTableEdit', function (obj, addForm) {
         html += "</select></td>" +
           "<td><div style='text-align: center;'>" +
           "<div style='overflow:inline;text-align:center;' class='table-action'><button id='addRow' style='padding:5px;' class='book-button btn-add' onclick='addProcess(this)'><i class='fa fa-plus'></i>" +
-            "</button><button id='deleteRow' class='book-button btn-delete' onclick='removeProcess(this)' style='margin-left:5px;'><i class='fa fa-minus'></button></div>" +
+          "</button><button id='deleteRow' class='book-button btn-delete' onclick='removeProcess(this)' style='margin-left:5px;'><i class='fa fa-minus'></button></div>" +
           "</div></td>" +
           "</tr>";
       }
@@ -652,7 +667,7 @@ handlebars.registerHelper('logicQuestion', function (question) {
  *@since 19 April 2019
  *@required javascript, handlebars.
  */
-handlebars.registerHelper('listquestion', function (question, scoreh,general) {
+handlebars.registerHelper('listquestion', function (question, scoreh, general) {
   var html = '';
   var index = 0;
   var type = '';
@@ -691,14 +706,14 @@ handlebars.registerHelper('listquestion', function (question, scoreh,general) {
       }
       html += '</div>';
       html += '<br>';
-      html += general.home.level+': ';
+      html += general.home.level + ': ';
       for (var i = 0; i < qs.Level; i++) {
         html += '<i class="fa fa-star fa-fw" style="color:#FECF36;"></i>'
       }
       html += '</li>'
       html += '</div>';
       html += '<div class="list-lesson-score" id="score">';
-      html += general.home.score+': '
+      html += general.home.score + ': '
       html += score;
       html += '</div>';
       html += '</div>';

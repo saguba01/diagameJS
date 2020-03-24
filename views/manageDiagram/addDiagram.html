@@ -10,7 +10,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-    
+
     <!-- include summernote css/js -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.js"></script>
@@ -147,6 +147,25 @@
 
                                             </td>
                                         </tr>
+                                        <tr class="sort-disabled">
+                                            <td class="order">2</td>
+                                            <td><input type="text" style="width: 95%;" value="End" id="processEn"
+                                                    disabled>
+                                            </td>
+                                            <td><input type="text" style="width: 95%;" value="สิ้นสุด" id="processTh"
+                                                    disabled>
+                                            </td>
+                                            <td>
+                                                <select style="display: inline;" disabled id="type">
+                                                    <option value="Basic" selected>Basic</option>
+                                                    <option value="Input">Input</option>
+                                                    <option value="Output">Output</option>
+                                                    <option value="Process">Process</option>
+                                                    <option value="Decision">Decision</option>
+                                                </select>
+                                            </td>
+                                            <td> </td>
+                                        </tr>
                                     </tbody>
                                 </table>
 
@@ -233,9 +252,11 @@
     });
 
 
-    /* 
-    Add process in flowchart in row table 
-    
+    /*
+    *Description: add row process in table
+    *@version 2.0
+    *@author Thongthorn Karapakdee
+    *@since 6 December 2019
     */
     function addProcess(rows) {
         rowAdd = $(rows).closest('table tr').length + 1;
@@ -267,7 +288,13 @@
         });
 
     }
-    // Remove Process in flowchart
+    
+    /*
+    *Description: remove row process in table
+    *@version 2.0
+    *@author Thongthorn Karapakdee
+    *@since 6 December 2019
+    */
     function removeProcess(rows) {
         console.log("Delete", rows);
         tableID = $(rows).closest('table').attr('id')
@@ -283,8 +310,12 @@
         }
     }
 
-    //clone table
-
+    /*
+    *Description: clone answer table
+    *@version 2.0
+    *@author Thongthorn Karapakdee
+    *@since 6 December 2019
+    */
     function addAnswer() {
         myTable = document.getElementsByTagName("table")[0];
         myHeadClone = "<div><hr style='border:0px;'><button id='deleteAnswer' class='button btn-delete' onclick='removeAnswer(answerTable_" + ++countTable + ",this)'>" +
@@ -305,14 +336,24 @@
         });
     }
 
-    //delete clone table
-
+    /*
+    *Description: remove answer table
+    *@version 2.0
+    *@author Thongthorn Karapakdee
+    *@since 6 December 2019
+    */
     function removeAnswer(table_ID, thisID) {
         console.log(table_ID);
         thisID.remove()
         table_ID.remove()
     }
 
+    /*
+    *Description: save question
+    *@version 2.0
+    *@author Thongthorn Karapakdee
+    *@since 20 December 2019
+    */
     $('#saveButton').click(function () {
 
         if (validateQuestion()) {
@@ -358,7 +399,10 @@
     });
 
     /*
-    validate question
+    *Description: validate
+    *@version 2.0
+    *@author Thongthorn Karapakdee
+    *@since 28 January 2020
     */
     function validateQuestion() {
         var eng = /^([ก-ฮ])+$/; // validate input a-z A-Z 0-9
@@ -419,7 +463,12 @@
     var refQuestion = firestore.collection("Diagram");
     var keyId = 0;
     //save data to firebase
-
+    /*
+    *Description: save question to firebase
+    *@version 2.0
+    *@author Thongthorn Karapakdee
+    *@since 20 December 2019
+    */
     function saveQuestion(dataAnswer, diagramNameEn, diagramNameTh, diagramHintEn, diagramHintTh, diagramLevel) {
         console.log("save...");
         console.log("Diagram", dataAnswer);
@@ -442,17 +491,15 @@
                     refQuestion.doc(keyId.toString()).collection("answer").doc(index.toString()).set({
                         answerStep: dataAnswer[index - 1]
                     })
-
-
                 }
-
+                jQuery.noConflict();
+                $("#modal-addQuestion-diagram").modal('show');
+                console.log("SAVESSS");
             }).catch(err => {
 
             });
 
         });
-        jQuery.noConflict();
-        $("#modal-addQuestion-diagram").modal('show');
-        console.log("SAVESSS");
+
     }
 </script>
