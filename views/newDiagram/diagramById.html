@@ -1,3 +1,10 @@
+<style>
+    /* width */
+    #target::-webkit-scrollbar {
+        width: 0px;
+    }
+</style>
+
 <body>
     <!--Panel Tool-->
     <div style="width:100%;height: auto;">
@@ -49,7 +56,7 @@
             <!-- Target -->
             <div class="targetPanel-bg">
                 <div id="target" class="center-align connectedSource noselect targetPanel ui-widget-content"
-                    style="overflow: auto;">
+                    style="overflow: auto;padding-bottom: 10%;">
 
                 </div>
 
@@ -135,10 +142,12 @@
 </body>
 
 <script>
+    
     let refScore = firestore.collection("ScoreHistory");
     var statusQuestion = false;
     var level = '{{level}}';
     console.log("level", level);
+
     $(function () {
         timer(level, (obj) => {
             if (typeof obj.score != "undefined") {
@@ -201,18 +210,18 @@
         var currentFlowchart = [];
         index = 0;
         $('#display').empty();
-        if(element.length != 0){
-            if(start.next().next().attr('event') != 'end'){
+        if (element.length != 0) {
+            if (start.next().next().attr('event') != 'end') {
                 play();
-            }else{
+            } else {
                 notice(2000, 'warning', errorMsg.game.nobetween);
                 callback();
             }
-        }else{
+        } else {
             notice(2000, 'warning', errorMsg.game.nostart);
             callback();
         }
-        
+
         tempFlowchart.forEach(element => {
             if (element.toLowerCase() == 'start') {
                 tempFlowchart[index] = "1";
@@ -275,7 +284,7 @@
             showScoreReultFail('{{general.fail}}')
         }
         console.log("flowchartBeenEqual: ", flowchartBeenEqual);
-        
+
 
     }
 

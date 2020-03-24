@@ -339,7 +339,7 @@ module.exports = {
         }
     },
     home:{
-        level:'ระดับ',
+        level:'เลเวล',
         score:'คะแนน'
     }
     

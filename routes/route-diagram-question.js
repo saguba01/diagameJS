@@ -6,7 +6,7 @@ var firestore = require('../configs/firebase-config').firestore;
 var setting = require('../public/javascripts/setting');
 var user_info = require('../public/javascripts/userInfo');
 /*
- *Description: open diagram question.
+ *Description: add diagram question.
  *@version 2.0
  *@author Thongthorn Karapakdee
  *@since 6 December 2019
@@ -44,7 +44,7 @@ router.get('/add', authen, async function (req, res, next) {
 });
 
 /*
- *Description: open diagram question.
+ *Description: edit diagram question.
  *@version 2.0
  *@author Thongthorn Karapakdee
  *@since 6 December 2019
