@@ -282,7 +282,8 @@ module.exports = {
             step_logic: 'Is a logic problem.',
             step_logout: 'This is sign out of system',
             step_profile: 'Go to the player profile screen.',
-            step_setting: 'Is the language and audio setting.'
+            step_setting: 'Is the language and audio setting.',
+            step_last : 'click go to question logic'
         },
         flowchartStep:{
             step1: 'This part will play the game in the form of a flowchart.',
