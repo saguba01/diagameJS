@@ -74,15 +74,24 @@
             },
             receive: function (event, ui) {
                 let listboxAnswer = $('.boxAnswer')
-                for(let i = 0; i<listboxAnswer.length ; i++){
-                    let boxAnswer = listboxAnswer[i]
-                    let Answer = $(boxAnswer).find("div.operatorButton")
-                    for(let j = 0 ; j < Answer.length;j++){
-                        if(j != 0){
-                            $(Answer.get(i)).remove()
+                if(listboxAnswer.length == 1){
+                    let listEle = $('.boxAnswer>div').get()
+                    listEle.forEach((div,key)=>{
+                        if(key != 0){
+                            $(div).remove()
                         }
+                    })
+                }else{
+                    for(let i = 0; i<listboxAnswer.length ; i++){
+                        let boxAnswer = listboxAnswer[i]
+                        let Answer = $(boxAnswer).find("div.operatorButton")
+                        for(let j = 0 ; j < Answer.length;j++){
+                            if(j != 0){
+                                $(Answer.get(i)).remove()
+                            }
+                        }
+                        
                     }
-                    
                 }
                 $(this).parent().find('.operatorButton').addClass('operatorButtoninBox');
             },
