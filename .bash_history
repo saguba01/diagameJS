@@ -66,3 +66,26 @@ npm rebuild
 pwd
 git pull
 npm rebuild
+git pull
+git stash save --keep-index --include-untracked
+git pull
+npm rebuild
+git pull
+git commit -m "m"
+git push
+npm rebuild
+git pull
+npm rebuild
+pm2 start app.js 
+ps aux | grep pm2
+pm2 status
+pm2 start app.js 
+pm2 status
+pm2 show app
+ls
+pm2 show app
+/home/nginx/diagame/.pm2/logs/app-error.log
+pm2 monit
+pm2 show app
+pm2 status
+pm2 stop app
