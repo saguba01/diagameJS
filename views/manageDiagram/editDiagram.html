@@ -364,7 +364,7 @@
         var eng = /^([ก-ฮ])+$/; // validate input a-z A-Z 0-9
         //var thai = /^([ก-๙ 0-9])+$/;
         var check = true;
-        if (!(eng.test($("#questionInputEng").val())) || $("#questionInputEng").val() == "") {
+        if ($("#questionInputEng").val() == "") {
             $("#questionInputEng").addClass("redBorder");
             check = false;
         } else {
