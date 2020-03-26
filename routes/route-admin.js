@@ -28,6 +28,8 @@ router.get('/', authen, async (req, res, next) => {
       case 'success':
         if (user.data.role == "admin") {
           const allUser = await dashboard.getNumOfUser()
+          const allFlowchart = await questionFlowchart.getAllFlowchart(lang)
+          const allLogic = await questionLogic.getAllLogic(lang)
           const userInfo = user.data
           var data = {
             layout: 'default',
