@@ -128,22 +128,36 @@
     </div>
 </div>
 <script type="text/javascript">
-    var listUser = JSON.parse("{{cardData.listUser}}".replace(/&quot;/g, '\"')) // Object of listUser
-    var listQuestion = JSON.parse("{{cardData.listQuestion}}".replace(/&quot;/g, '\"')) // Object of listQuestion
+    try{
+        var listUser = JSON.parse("{{cardData.listUser}}".replace(/&quot;/g, '\"')) // Object of listUser
+    }catch(e){
+        console.warn(e)
+    }
+   
     var fontSize_chart = '20px'
     var fontSize_x = '20px'
     var fontSize_y = '20px'
     var fontSize_plot = '18px'
 
     $(document).ready(() => {
-        console.log("{{dashboard.card.total_user.table}}")
+        // event click card all user  
         $(".card-user-all").click(() => {
             showAllUser("{{dashboard.card.total_user.table}}", listUser, '{{errorMsg.data.not_found}}')
         })
-        $(".card-question-all").click(() => {
-            showListQuestion("{{dashboard.card.total_question.table}}", listQuestion)
-        })
 
+        // event click card all question 
+        $(".card-question-all").click(() => {
+            blockUI();
+            $.ajax({
+                type: "GET",
+                contentType: "application/json",
+                url: "/admin/getAllQuestion",
+                success: function (response) {
+                    unblockUI();
+                    showListQuestion("{{dashboard.card.total_question.table}}", response)
+                }
+            })
+        })
 
         $('#tableListUser').DataTable({
             language: {

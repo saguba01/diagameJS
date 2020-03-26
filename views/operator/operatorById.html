@@ -73,11 +73,14 @@
                 playSoundEx('drop');
             },
             receive: function (event, ui) {
-                // border: 0px solid;
-                // console.log();
+                let listEle = $($(event.target).find("div.operatorButton"))
+                for(let i = 0; i<listEle.length ; i++){
+                    let boxAnswer = listEle.get(i)
+                    if(i>0){
+                        $(boxAnswer).remove()
+                    }                    
+                }
                 $(this).parent().find('.operatorButton').addClass('operatorButtoninBox');
-                // $(this).parent().find('.operatorButton').width('50px');
-                // $(this).parent().find('.operatorButton').height('50px');
             },
             out: function (event, ui) {
                 if (ui.helper != null && $('.boxAnswer>div').length > 0) {

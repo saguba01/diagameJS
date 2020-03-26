@@ -821,9 +821,6 @@ function showSetting(flag_thai = '', flag_eng = '') {
             const eleSoundMusic = $('.btn-main-music')
             const eleSoundMaster = $('.btn-main-sound')
 
-            soundMaster = localStorage.getItem("soundMaster")
-            soundMusic = localStorage.getItem("soundMusic")
-
             th.attr('id', 'setting-lang-thai')
                 .html(
                     $('<span></span>').css({ 'margin-left': '27px' })

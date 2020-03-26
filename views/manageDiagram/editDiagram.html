@@ -127,16 +127,17 @@
             }
         });
 
+        //set value to star level
         for (let l = 1; l <= "{{level}}"; l++) {
             $("#level" + l).addClass('selected');
         }
 
+        //set ID name table
         for (let index = 1; index <= countTable; index++) {
             nameID.push("answerTable_" + index)
         }
 
         //console.log("count", nameID);
-
 
         // run index table after sortable
         $('#answerTable_1').on('click', '.btn-remove-tr', function (e) {
@@ -314,6 +315,7 @@
     *@since 20 December 2019
     */
     $('#saveButton').click(function () {
+        console.log("GGGGGGGG",validateQuestion());
         if (validateQuestion()) {
             console.log("Count", countTable);
             var dataProcessEn = [];
@@ -361,16 +363,16 @@
     *@since 28 January 2020
     */
     function validateQuestion() {
-        var eng = /^([ก-ฮ])+$/; // validate input a-z A-Z 0-9
+        var eng = /^([ก-๙])+$/; // validate input a-z A-Z 0-9
         //var thai = /^([ก-๙ 0-9])+$/;
         var check = true;
-        if (!(eng.test($("#questionInputEng").val())) || $("#questionInputEng").val() == "") {
+        if (eng.test($("#questionInputEng").val()) || $("#questionInputEng").val() == "") {
             $("#questionInputEng").addClass("redBorder");
             check = false;
         } else {
             $("#questionInputEng").removeClass("redBorder");
         }
-        if (!(eng.test($("#hintInputEng").val())) || $("#hintInputEng").val() == "") {
+        if ((eng.test($("#hintInputEng").val())) || $("#hintInputEng").val() == "") {
             $("#hintInputEng").addClass("redBorder");
             check = false;
         } else {
@@ -387,6 +389,13 @@
             check = false;
         } else {
             $("#hintInputTh").removeClass("redBorder");
+        }
+        if (document.getElementById("ratingStar").value == "0") {
+            $(".fa-star").addClass("starRed");
+            //$("#validate_nameTH").text("{{addForm.form.questionNameTH.required}}");
+            check = false;
+        } else {
+            $(".fa-star").removeClass("starRed");
         }
         for (let index = 0; index < countTable; index++) {
             $('table[id="' + nameID[index] + '"] input[id="processEn"]').each(function (i, elem) {
