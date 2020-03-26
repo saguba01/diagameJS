@@ -16,6 +16,8 @@ var playsoundMaster = null
 
 $(document).ready(() => {
     playSoundEx('fun', true);
+    console.log(`soundMusic : ${soundMusic}`)
+    console.log(`soundMaster : ${soundMaster}`)
     $('#changeLangThai').click(() => {
         playSoundEx('click');
         setLanguage('th')
@@ -820,9 +822,6 @@ function showSetting(flag_thai = '', flag_eng = '') {
             const eng = $('<div></div>')
             const eleSoundMusic = $('.btn-main-music')
             const eleSoundMaster = $('.btn-main-sound')
-
-            soundMaster = localStorage.getItem("soundMaster")
-            soundMusic = localStorage.getItem("soundMusic")
 
             th.attr('id', 'setting-lang-thai')
                 .html(

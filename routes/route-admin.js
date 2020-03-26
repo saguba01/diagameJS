@@ -28,17 +28,6 @@ router.get('/', authen, async (req, res, next) => {
       case 'success':
         if (user.data.role == "admin") {
           const allUser = await dashboard.getNumOfUser()
-          const allFlowchart = await questionFlowchart.getAllFlowchart(lang)
-          const allLogic = await questionLogic.getAllLogic(lang)
-          let allQuestion = []
-
-          allFlowchart.forEach((value)=>{
-            allQuestion.push(value)
-          })
-
-          allLogic.forEach((value)=>{
-            allQuestion.push(value)
-          })
           const userInfo = user.data
           var data = {
             layout: 'default',
@@ -54,12 +43,10 @@ router.get('/', authen, async (req, res, next) => {
             slidebar: stringConfig.general.slidebar,
             dashboard: stringConfig.general.dashboard,
             months: JSON.stringify(stringConfig.general.months),
-            // test : JSON.stringify(general.dashboard),
             cardData: {
               total_user: allUser.length,
               total_question: parseInt(allFlowchart.length) + parseInt(allLogic.length),
               listUser : JSON.stringify(allUser),
-              listQuestion : JSON.stringify(allQuestion)
             },
             achievementList: configString[lang].achievement,
             errorMsg: configString[lang].error,
@@ -436,6 +423,32 @@ router.get('/updateAllUser', async (req, res, next) => {
   const user = await user_info.updateByUser()
   res.status(200).send('OK')
 })
+
+
+/* 
+ * name: getAllQuestion
+ * description: get all question in database
+ * author: Supachai Boonying
+ * create date: 26/03/2020
+ * modify date: 26/03/2020
+ */
+router.get('/getAllQuestion', async (req, res, next) => {
+  let lang = req.cookies.lang;
+  const allFlowchart = await questionFlowchart.getAllFlowchart(lang)
+  const allLogic = await questionLogic.getAllLogic(lang)
+  let allQuestion = []
+
+  allFlowchart.forEach((value)=>{
+    allQuestion.push(value)
+  })
+
+  allLogic.forEach((value)=>{
+    allQuestion.push(value)
+  })
+  res.status(200).send(allQuestion)
+})
+
+
 
 /* 
  * name: checkUser
