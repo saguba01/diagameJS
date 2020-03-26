@@ -16,8 +16,6 @@ var playsoundMaster = null
 
 $(document).ready(() => {
     playSoundEx('fun', true);
-    console.log(`soundMusic : ${soundMusic}`)
-    console.log(`soundMaster : ${soundMaster}`)
     $('#changeLangThai').click(() => {
         playSoundEx('click');
         setLanguage('th')
