@@ -92,7 +92,7 @@
                             $(div).remove()
                         }
                     })
-                }else{
+                }else if(listboxAnswer.length > 1){
                     for(let i = 0; i<listboxAnswer.length ; i++){
                         let boxAnswer = listboxAnswer[i]
                         let Answer = $(boxAnswer).find("div.operatorButton")
