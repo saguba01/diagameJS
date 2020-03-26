@@ -73,25 +73,12 @@
                 playSoundEx('drop');
             },
             receive: function (event, ui) {
-                let listboxAnswer = $('.boxAnswer')
-                if(listboxAnswer.length == 1){
-                    let listEle = $('.boxAnswer>div').get()
-                    listEle.forEach((div,key)=>{
-                        if(key != 0){
-                            $(div).remove()
-                        }
-                    })
-                }else if(listboxAnswer.length > 1){
-                    for(let i = 0; i<listboxAnswer.length ; i++){
-                        let boxAnswer = listboxAnswer[i]
-                        let Answer = $(boxAnswer).find("div.operatorButton")
-                        for(let j = 0 ; j < Answer.length;j++){
-                            if(j != 0){
-                                $(Answer.get(i)).remove()
-                            }
-                        }
-                        
-                    }
+                let listEle = $($(event.target).find("div.operatorButton"))
+                for(let i = 0; i<listEle.length ; i++){
+                    let boxAnswer = listEle.get(i)
+                    if(i>0){
+                        $(boxAnswer).remove()
+                    }                    
                 }
                 $(this).parent().find('.operatorButton').addClass('operatorButtoninBox');
             },
