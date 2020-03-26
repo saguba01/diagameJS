@@ -370,7 +370,7 @@
         } else {
             $("#questionInputEng").removeClass("redBorder");
         }
-        if (!(eng.test($("#hintInputEng").val())) || $("#hintInputEng").val() == "") {
+        if ((eng.test($("#hintInputEng").val())) || $("#hintInputEng").val() == "") {
             $("#hintInputEng").addClass("redBorder");
             check = false;
         } else {
