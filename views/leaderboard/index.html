@@ -177,7 +177,7 @@
                     var index = 0;
                     //console.log(checkname);
                     //console.log(response);
-                    checkname.forEach(element => {
+                    checkname.forEach(element => { // Define Data Name
                         response.score.forEach(value => {
                             if (element.uid == value.uid) {
                                 element.score += parseInt(value.score);
@@ -185,7 +185,7 @@
                                 element.score += 0;
                             }
                         })
-                    })
+                    }) 
                     checkname.sort(compareValues('score', 'desc'))
                     var rank = 1;
                     var urank = [];
@@ -275,7 +275,6 @@
                         }
                         rank++;
                     })
-                    console.log(urank);
                     var i = 1;
                     $('#list-leaderboard').html(html);
                     urank.forEach(element => {
@@ -297,7 +296,8 @@
                         }
                         i++;
                     })
-
+                    
+                    // Check Ranking
                     if(ranking == 1){
                        $('div.gold').addClass('border-white-board');
                        $('div.silver').removeClass('border-white-board');
@@ -334,8 +334,9 @@
                         $('#colormy').removeClass('gold-red');
                         $('#colormy').removeClass('gold');
                     }
+                    //End Check Ranking
 
-                    
+                        //My ranking
                         $("#my-rank").html(myrank);
                         $("#my-avatar").html(myavatar);
                         $("#my-name").html(myname);

@@ -1457,11 +1457,11 @@ function ChangeMonth(month, lang) {
         for (var i = 0; i < 12; i++) {
             if (i < 10) {
                 if (month == ('0' + (i + 1))) {
-                    newMonth = allmonthEn[i];
+                    newMonth = allmonthEn[i+1];
                 }
             } else {
                 if (month == i + 1) {
-                    newMonth = allmonthEn[i];
+                    newMonth = allmonthEn[i+1];
                 }
             }
         }
@@ -1469,11 +1469,11 @@ function ChangeMonth(month, lang) {
         for (var i = 0; i < 12; i++) {
             if (i < 10) {
                 if (month == ('0' + (i + 1))) {
-                    newMonth = allmonthTh[i];
+                    newMonth = allmonthTh[i+1];
                 }
             } else {
                 if (month == i + 1) {
-                    newMonth = allmonthTh[i];
+                    newMonth = allmonthTh[i+1];
                 }
             }
         }
