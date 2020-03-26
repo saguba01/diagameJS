@@ -1,0 +1,28 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node', '/bin/npm', 'audit', 'fix' ]
+2 info using npm@6.14.2
+3 info using node@v10.16.0
+4 verbose npm-session 425fa2bc067ed423
+5 verbose type system
+6 verbose stack FetchError: request to https://registry.npmjs.org/-/npm/v1/security/audits failed, reason: write EPROTO 139961210582912:error:140943FC:SSL routines:ssl3_read_bytes:sslv3 alert bad record mac:../deps/openssl/openssl/ssl/record/rec_layer_s3.c:1536:SSL alert number 20
+6 verbose stack
+6 verbose stack     at ClientRequest.req.on.err (/usr/lib/node_modules/npm/node_modules/node-fetch-npm/src/index.js:68:14)
+6 verbose stack     at ClientRequest.emit (events.js:198:13)
+6 verbose stack     at TLSSocket.socketErrorListener (_http_client.js:392:9)
+6 verbose stack     at TLSSocket.emit (events.js:198:13)
+6 verbose stack     at errorOrDestroy (internal/streams/destroy.js:107:12)
+6 verbose stack     at onwriteError (_stream_writable.js:436:5)
+6 verbose stack     at onwrite (_stream_writable.js:461:5)
+6 verbose stack     at _destroy (internal/streams/destroy.js:49:7)
+6 verbose stack     at TLSSocket.Socket._destroy (net.js:613:3)
+6 verbose stack     at TLSSocket.destroy (internal/streams/destroy.js:37:8)
+6 verbose stack     at WriteWrap.afterWrite [as oncomplete] (net.js:790:10)
+7 verbose cwd /home/nginx/diagame-v2
+8 verbose Linux 3.10.0-957.21.3.el7.x86_64
+9 verbose argv "/usr/bin/node" "/bin/npm" "audit" "fix"
+10 verbose node v10.16.0
+11 verbose npm  v6.14.2
+12 error code EPROTO
+13 error errno EPROTO
+14 error request to https://registry.npmjs.org/-/npm/v1/security/audits failed, reason: write EPROTO 139961210582912:error:140943FC:SSL routines:ssl3_read_bytes:sslv3 alert bad record mac:../deps/openssl/openssl/ssl/record/rec_layer_s3.c:1536:SSL alert number 20
+15 verbose exit [ 1, true ]

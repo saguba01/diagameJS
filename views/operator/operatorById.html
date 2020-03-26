@@ -73,11 +73,18 @@
                 playSoundEx('drop');
             },
             receive: function (event, ui) {
-                // border: 0px solid;
-                // console.log();
+                let listboxAnswer = $('.boxAnswer')
+                for(let i = 0; i<listboxAnswer.length ; i++){
+                    let boxAnswer = listboxAnswer[i]
+                    let Answer = $(boxAnswer).find("div.operatorButton")
+                    for(let j = 0 ; j < Answer.length;j++){
+                        if(j != 0){
+                            $(Answer.get(i)).remove()
+                        }
+                    }
+                    
+                }
                 $(this).parent().find('.operatorButton').addClass('operatorButtoninBox');
-                // $(this).parent().find('.operatorButton').width('50px');
-                // $(this).parent().find('.operatorButton').height('50px');
             },
             out: function (event, ui) {
                 if (ui.helper != null && $('.boxAnswer>div').length > 0) {
