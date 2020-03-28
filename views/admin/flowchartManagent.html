@@ -85,11 +85,19 @@
     });
     $('#modal-confirm-delete').modal('open');
   }
+
   var refQuestion = firestore.collection("Diagram");
+
   function deleteQuestion(str) {
     let id = document.getElementById("deleteId").value;
     refQuestion.doc(id.toString()).delete().then(function () {
-        
+      $('#modal-addQuestion').modal({
+        'dismissible': false,
+        'onOpenEnd': function () {
+          $('.addQuestion-content').text(str);
+        }
+      });
+      $('#modal-addQuestion').modal('open');
     });
-}
+  }
 </script>

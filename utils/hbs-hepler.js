@@ -246,10 +246,11 @@ handlebars.registerHelper('displayRecipeNew', function (lang, HintEN, HintTH) {
  */
 handlebars.registerHelper('allAnswer', function (obj) {
   var html = '';
-  console.log("LOG", obj);
+  //console.log("LOG", obj);
   for (let index = 0; index < obj.length; index++) {
     for (let index2 = 0; index2 < obj[index].length; index2++) {
       for (let index3 = 0; index3 < obj[0].length; index3++) {
+        //console.log("Round", index3);
         if ((obj[index][index2].processTh === obj[0][index3].processTh)) {
           //console.log("OBJ1",obj[index][index2].processTh,obj[index][index2].sequence);
           //console.log("OBJ2",obj[0][index3].processTh,obj[0][index3].sequence);
@@ -266,7 +267,7 @@ handlebars.registerHelper('allAnswer', function (obj) {
 });
 
 /*
- *Description: change array answer to string.
+ *Description: convert answe to table for edit question.
  *@version 1.0
  *@author Thongthorn Karapakdee
  *@since 29 Feb 2020

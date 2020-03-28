@@ -31,6 +31,11 @@ i.fa.fa-star.fa-fw{
     -webkit-text-stroke-width: 3px;
 }
 
+.starRed{
+    -webkit-text-stroke: red !important;
+    -webkit-text-stroke-width: 3px!important;
+}
+
 i.fa.fa-star.fa-fw.feedback{
     -webkit-text-stroke: black;
     -webkit-text-stroke-width: 1px;
