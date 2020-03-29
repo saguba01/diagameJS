@@ -235,13 +235,15 @@
         for (let index = 0; index < result.length; index++) {
             var check = 0;
             for (let i = 0; i < tempFlowchart.length; i++) {
+                console.log("RE L : ",result[index].length)
+                console.log("TE L : ",tempFlowchart.length)
                 if (tempFlowchart[i] == result[index][i]) {
                     check += 1;
                 }
             }
             //play()
             //console.log("Check : ", check);
-
+            console.log("Check : ",tempFlowchart.length, check)
             if (check == tempFlowchart.length) {
                 flowchartBeenEqual = true;
                 statusQuestion = true;
@@ -275,13 +277,15 @@
                         date: twoDigit(dd) + "/" + twoDigit(mm) + "/" + yyyy + "T" + twoDigit(HH) + ":" + twoDigit(MM) + ":" + twoDigit(SS)
                     }).then(function () {
                         console.log("Save Score");
+                    
                     }).catch(err => {
                         console.log("Error : " + err);
                     });
                 });
+                break;
             }
         }
-        if (check != tempFlowchart.length && tempFlowchart.length != length) {
+        if (check != tempFlowchart.length) {
             flowchartBeenEqual = false;
             showScoreReultFail('{{general.fail}}')
         }
