@@ -175,7 +175,7 @@
 
     $(document).ready(function () {
 
-        var lang = Cookies.get('lang');
+        // var lang = Cookies.get('lang');
         // console.log(JSON.parse($('#ListMenu').val()))
         $(".panelindex").hide();
         // $(".indexone").css("opacity","1");
@@ -185,8 +185,8 @@
         $('.postit.canClick:not(.postit-disable)').click(function () {
             window.location.replace($(this).attr('target'));
         });
-        
-        select_feedback(lang);
+
+        select_feedback();
         newFeedback();
 
         // introLesson();
@@ -467,30 +467,43 @@
    *@since 1 March 2020
    *@required javascript, materialize-css.
    */
-    function select_feedback(lang) {
+
+    function select_feedback() {
+        var lang = Cookies.get('lang');
+        console.log(typeof lang);
         var html = "";
         var today = new Date();
         var yyyy = today.getFullYear() + 543;
         for (i = 0; i < 4; i++) {
+
             if (lang == 'th') {
                 if (i == 0) {
                     html += '<option value="' + ((yyyy - i) - 543) + '" selected>' + (yyyy - i) + '</option>';
                 } else {
                     html += '<option value="' + ((yyyy - i) - 543) + '">' + (yyyy - i) + '</option>';
                 }
-                }else if(lang == 'en'){
-                    if (i == 0) {
+            } else if (lang == 'en') {
+                if (i == 0) {
                     html += '<option value="' + ((yyyy - i) - 543) + '" selected>' + ((yyyy - i) - 543) + '</option>';
                 } else {
                     html += '<option value="' + ((yyyy - i) - 543) + '">' + ((yyyy - i) - 543) + '</option>';
                 }
+            }else if(typeof lang === 'undefined'){
+                if (i == 0) {
+                    html += '<option value="' + ((yyyy - i) - 543) + '" selected>' + ((yyyy - i) - 543) + '</option>';
+                } else {
+                    html += '<option value="' + ((yyyy - i) - 543) + '">' + ((yyyy - i) - 543) + '</option>';
                 }
             }
-            if(lang == 'th'){
-                $('#year').text('พ.ศ.') // Text for Id Year Thai
-            }else if(lang == 'en'){
-                $('#year').text('A.D.') // Text for Id Year Eng
-            }
-            $('#sort-comment').append(html); // Select Year
         }
+        if (lang == 'th') {
+            $('#year').text('พ.ศ.') // Text for Id Year Thai
+        } else if (lang == 'en') {
+            $('#year').text('A.D.') // Text for Id Year Eng
+        }else if(typeof lang === 'undefined'){
+            $('#year').text('A.D.')
+        }
+        $('#sort-comment').append(html); // Select Year
+       // console.log(html);
+    }
 </script>
