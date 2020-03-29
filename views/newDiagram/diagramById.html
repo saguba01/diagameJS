@@ -279,9 +279,10 @@
                         console.log("Error : " + err);
                     });
                 });
+				break;
             }
         }
-        if (check != tempFlowchart.length && tempFlowchart.length != length) {
+        if (check != tempFlowchart.length) {
             flowchartBeenEqual = false;
             showScoreReultFail('{{general.fail}}')
         }

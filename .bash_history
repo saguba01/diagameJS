@@ -89,3 +89,25 @@ pm2 monit
 pm2 show app
 pm2 status
 pm2 stop app
+git pull
+git commit -m "m"
+git push
+gut pull
+git pull
+git commit -m "m"
+git pull
+git commit -m "m"
+git add .
+git commit -m "m"
+git push
+git log
+git pull
+git commit -m "m"
+git push
+npm rebuild
+git pull
+pwd
+git pull
+git commit -m "pull"
+git pull
+npm rebuild
