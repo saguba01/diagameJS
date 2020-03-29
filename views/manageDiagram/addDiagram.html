@@ -288,7 +288,7 @@
         });
 
     }
-    
+
     /*
     *Description: remove row process in table
     *@version 2.0
@@ -392,7 +392,7 @@
                 dataAnswer.push(dataDiagram)
 
             }
-
+            console.log("Add answer : ", dataAnswer);
             saveQuestion(dataAnswer, diagramNameEn, diagramNameTh, diagramHintEn, diagramHintTh, diagramLevel)
         }
 
@@ -405,8 +405,8 @@
     *@since 28 January 2020
     */
     function validateQuestion() {
-        var eng = /^([ก-ฮ])+$/; // validate input a-z A-Z 0-9
-        //var thai = /^([ก-๙ 0-9])+$/;
+        var eng = /^([ก-ฮ])+$/; // validate input eng no enter thai lang
+        
         var check = true;
         if ((eng.test($("#questionInputEng").val())) || $("#questionInputEng").val() == "") {
             $("#questionInputEng").addClass("redBorder");
@@ -425,7 +425,13 @@
             $("#questionInputTh").removeClass("redBorder");
             $("#validate_nameTH").text("");
         }
-
+        if (document.getElementById("ratingStar").value == "0") {
+            $(".fa-star").addClass("starRed");
+            //$("#validate_nameTH").text("{{addForm.form.questionNameTH.required}}");
+            check = false;
+        } else {
+            $(".fa-star").removeClass("starRed");
+        }
         for (let index = 0; index < countTable; index++) {
             $('table[id="' + countID[index] + '"] input[id="processEn"]').each(function (i, elem) {
 

@@ -142,7 +142,7 @@
 </body>
 
 <script>
-    
+
     let refScore = firestore.collection("ScoreHistory");
     var statusQuestion = false;
     var level = '{{level}}';
@@ -199,8 +199,8 @@
         let allFlow = $('#allFlow').val()
         var result = allFlow.split('-').map(s => s.split(','));
         result.pop()
-        console.log("length", length);
-        console.log("length2", "{{length}}");
+        //console.log("length", length);
+        //console.log("length2", "{{length}}");
         console.log("allFlow", result);
         let start = $('#target').find('[type="element"][event="start"]');
         var element = start;
@@ -226,7 +226,7 @@
             if (element.toLowerCase() == 'start') {
                 tempFlowchart[index] = "1";
             } else if (element.toLowerCase() == 'end') {
-                tempFlowchart[index] = tempFlowchart.length.toString();
+                tempFlowchart[index] = length.toString();
             }
             index++;
         });
@@ -239,8 +239,10 @@
                     check += 1;
                 }
             }
-            play()
-            if (check == tempFlowchart.length && tempFlowchart.length == length) {
+            //play()
+            //console.log("Check : ", check);
+
+            if (check == tempFlowchart.length) {
                 flowchartBeenEqual = true;
                 statusQuestion = true;
                 console.log("scoretime", parseInt($("#score").html()) - 1);
