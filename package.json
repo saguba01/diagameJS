@@ -24,7 +24,7 @@
     "firebase": "^4.8.0",
     "firebase-admin": "^7.0.0",
     "firebase-app": "0.0.1",
-    "handlebars": "^4.7.3",
+    "handlebars": "^4.7.7",
     "highcharts": "^8.0.0",
     "hint.css": "^2.6.0",
     "html": "^1.0.0",
